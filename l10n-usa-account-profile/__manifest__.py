@@ -13,8 +13,6 @@
     "installable": True,
     "depends": [
         "l10n_us",
-        "account_reversal",
         "account_due_list",
     ],
 }
-
