@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="assets_common" name="ursa_us_check_layout pdf assets" inherit_id="l10n_us_check_printing.assets_common">
+            <xpath expr="." position="inside">
+                <link href="/ursa_us_check_layout/static/src/less/report_check_commons.less" rel="stylesheet"/>
+                <link href="/ursa_us_check_layout/static/src/less/report_check_bottom.less" rel="stylesheet"/>
+                <link href="/ursa_us_check_layout/static/src/less/report_check_middle.less" rel="stylesheet"/>
+                <link href="/ursa_us_check_layout/static/src/less/report_check_top.less" rel="stylesheet"/>
+            </xpath>
+        </template>
+
+        <template id="ckus_check" name="ursa_ckus_check" inherit_id="l10n_us_check_printing.ckus_check">
+            <xpath expr="//div[@class='ckus_payee_name']" position="replace">
+                <div class="ckus_payee_name">
+                    <t t-esc="page['partner_name']"/><br/>
+                    <t t-if="page['partner_name_addr']"><t t-esc="page['partner_name_addr']"/><br/></t>
+                    <t t-if="page['partner_name_addr2']"><t t-esc="page['partner_name_addr2']"/><br/></t>
+                    <t t-if="page['partner_city']"><t t-esc="page['partner_city']"/></t>
+                    <t t-if="page['partner_state']"><t t-esc="page['partner_state']"/></t>
+                    <t t-if="page['partner_zip']"><t t-esc="page['partner_zip']"/></t>
+                </div>
+            </xpath>
+        </template>
+
+    </data>
+</odoo>
