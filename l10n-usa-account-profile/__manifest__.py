@@ -3,7 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 {
     "name": "US Accounting",
-    "summary": "Additional features to manage your accounting in Odoo",
+    "summary": "Additional features to manage US accounting in Odoo",
     "version": "10.0.1.0.0",
     "category": "Accounting",
     "website": "http://www.ursainfosystems.com",
