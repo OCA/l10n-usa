@@ -11,22 +11,24 @@ class ResPartner(models.Model):
 
     @api.multi
     def _display_address(self, without_company=False):
-        '''
-        The purpose of this function is to build and return an address formatted accordingly to the
-        standards of the country where it belongs.
+        '''Build a formatted address based on the country.
 
-        :param address: browse record of the res.partner to format
-        :returns: the address formatted in a display that fit its country habits (or the default ones
-            if not country is specified)
-        :rtype: string
+        The purpose of this function is to build and return an address
+        formatted according to the standards of the country where it belongs.
+
+        Args:
+            address (res.partner): browse record of the res.partner to format
+
+        Returns:
+            string: the address formatted in a display that fit its country habits
+            (or the default one if no country is specified)
+
         '''
         # get the information that will be injected into the display format
         # get the address format
-        if self.street2 == False:
-            address_format = "%(street)s\n%(city)s, %(state_code)s %(zip)s\n%(country_name)s"
-        else:
-            address_format = self.country_id.address_format or \
-              "%(street)s\n%(street2)s\n%(city)s, %(state_code)s %(zip)s\n%(country_name)s"
+        address_format = self.country_id.address_format
+        if not self.street2:
+            address_format = address_format.replace('%(street2)\n', '')
         args = {
             'state_code': self.state_id.code or '',
             'state_name': self.state_id.name or '',
