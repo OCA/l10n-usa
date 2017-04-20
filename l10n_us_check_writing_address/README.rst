@@ -41,7 +41,7 @@ To use this module, you need to:
 Known issues / Roadmap
 ======================
 
-* ...
+* Add a dependency on account_check_printing_report_base to simplify this module.
 
 Bug Tracker
 ===========
