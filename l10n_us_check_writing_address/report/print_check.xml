@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
 
-        <template id="assets_common" name="ursa_us_check_layout pdf assets" inherit_id="l10n_us_check_printing.assets_common">
+        <template id="assets_common" name="l10n_us_check_writing_address pdf assets" inherit_id="l10n_us_check_printing.assets_common">
             <xpath expr="." position="inside">
-                <link href="/ursa_us_check_layout/static/src/less/report_check_commons.less" rel="stylesheet"/>
-                <link href="/ursa_us_check_layout/static/src/less/report_check_bottom.less" rel="stylesheet"/>
-                <link href="/ursa_us_check_layout/static/src/less/report_check_middle.less" rel="stylesheet"/>
-                <link href="/ursa_us_check_layout/static/src/less/report_check_top.less" rel="stylesheet"/>
+                <link href="/l10n_us_check_writing_address/static/src/less/report_check_commons.less" rel="stylesheet"/>
+                <link href="/l10n_us_check_writing_address/static/src/less/report_check_bottom.less" rel="stylesheet"/>
+                <link href="/l10n_us_check_writing_address/static/src/less/report_check_middle.less" rel="stylesheet"/>
+                <link href="/l10n_us_check_writing_address/static/src/less/report_check_top.less" rel="stylesheet"/>
             </xpath>
         </template>
 
-        <template id="ckus_check" name="ursa_ckus_check" inherit_id="l10n_us_check_printing.ckus_check">
+        <template id="ckus_check" name="l10n_us_check" inherit_id="l10n_us_check_printing.ckus_check">
             <xpath expr="//div[@class='ckus_payee_name']" position="replace">
                 <div class="ckus_payee_name">
                     <t t-esc="page['partner_name']"/><br/>
@@ -24,5 +23,4 @@
             </xpath>
         </template>
 
-    </data>
 </odoo>

@@ -3,7 +3,6 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 
-from odoo.osv import osv
 from odoo.report import report_sxw
 from odoo import api, fields, models, _
 
@@ -13,8 +12,8 @@ INV_LINES_PER_STUB = 9
 
 class ReportPrintCheck(report_sxw.rml_parse):
 
-    def __init__(self, cr, uid, name, context):
-        super(report_print_check, self).__init__(cr, uid, name, context)
+    def __init__(self):
+        super(ReportPrintCheck, self).__init__(cr, uid, name, context)
         self.localcontext.update({
             'pages': self.get_pages,
         })
@@ -23,12 +22,19 @@ class ReportPrintCheck(report_sxw.rml_parse):
         return amount_str and (amount_str+' ').ljust(200, LINE_FILLER) or ''
 
     def get_pages(self, payment):
-        """ Returns the data structure used by the template : a list of dicts containing what to print on pages.
+        """ Returns the data structure used by the template.
+
+        Returns:
+            (list): List of dicts containing what to print on pages.
+
         """
         stub_pages = self.make_stub_pages(payment)
         multi_stub = payment.company_id.us_check_multi_stub
         pages = []
-        for i in range(0, stub_pages != None and len(stub_pages) or 1):
+        if stub_pages is None:
+            return pages
+
+        for i in range(0, len(stub_pages) or 1):
             pages.append({
                 'sequence_number': payment.check_number\
                     if (payment.journal_id.check_manual_sequencing and payment.check_number != 0)\
@@ -51,11 +57,16 @@ class ReportPrintCheck(report_sxw.rml_parse):
         return pages
 
     def make_stub_pages(self, payment):
-        """ The stub is the summary of paid invoices. It may spill on several pages, in which case only the check on
-            first page is valid. This function returns a list of stub lines per page.
+        """ The stub is the summary of paid invoices.
+
+        It may spill on several pages, in which case only the check on first
+        page is valid.
+
+        Returns:
+            (list): List of stub lines per page.
         """
-        if len(payment.invoice_ids) == 0:
-            return None
+        if not payment.invoice_ids:
+            return
 
         multi_stub = payment.company_id.us_check_multi_stub
 
@@ -92,8 +103,8 @@ class ReportPrintCheck(report_sxw.rml_parse):
         return stub_pages
 
     def make_stub_line(self, payment, invoice):
-        """ Return the dict used to display an invoice/refund in the stub
-        """
+        """ Return the dict used to display an invoice/refund in the stub """
+
         # Find the account.partial.reconcile which are common to the invoice and the payment
         if invoice.type in ['in_invoice', 'out_refund']:
             invoice_sign = 1
@@ -117,19 +128,19 @@ class ReportPrintCheck(report_sxw.rml_parse):
         }
 
 
-class PrintCheckTop(osv.AbstractModel):
+class PrintCheckTop(models.AbstractModel):
     _inherit = 'report.l10n_us_check_printing.print_check_top'
     _template = 'l10n_us_check_printing.print_check_top'
     _wrapped_report_class = report_print_check
 
 
-class PrintCheckMiddle(osv.AbstractModel):
+class PrintCheckMiddle(models.AbstractModel):
     _inherit = 'report.l10n_us_check_printing.print_check_middle'
     _template = 'l10n_us_check_printing.print_check_middle'
     _wrapped_report_class = report_print_check
 
 
-class PrintCheckBottom(osv.AbstractModel):
+class PrintCheckBottom(models.AbstractModel):
     _inherit = 'report.l10n_us_check_printing.print_check_bottom'
     _template = 'l10n_us_check_printing.print_check_bottom'
     _wrapped_report_class = report_print_check
