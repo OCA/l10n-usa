@@ -14,6 +14,5 @@
     "depends": [
         "l10n_us",
         "account_due_list",
-        "account_payment_order",
     ],
 }
