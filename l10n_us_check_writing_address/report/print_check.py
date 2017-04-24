@@ -88,7 +88,7 @@ class ReportPrintCheck(report_sxw.rml_parse):
         if not multi_stub:
             # If we need to crop the stub, leave place for an ellipsis line
             num_stub_lines = len(stub_lines) > INV_LINES_PER_STUB and\
-                             INV_LINES_PER_STUB-1 or INV_LINES_PER_STUB
+                INV_LINES_PER_STUB-1 or INV_LINES_PER_STUB
             stub_pages = [stub_lines[:num_stub_lines]]
         else:
             stub_pages = []
