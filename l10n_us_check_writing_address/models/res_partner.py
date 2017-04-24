@@ -3,7 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 
-from odoo import api, fields, models, _
+from odoo import api, models
 
 
 class ResPartner(models.Model):
@@ -20,8 +20,8 @@ class ResPartner(models.Model):
             address (res.partner): browse record of the res.partner to format
 
         Returns:
-            string: the address formatted in a display that fit its country habits
-            (or the default one if no country is specified)
+            string: the address formatted in a display that fit its country
+            habits (or the default one if no country is specified)
 
         '''
         # get the information that will be injected into the display format
@@ -40,6 +40,6 @@ class ResPartner(models.Model):
             args[field] = getattr(self, field) or ''
         if without_company:
             args['company_name'] = ''
-        elif address.parent_id:
+        elif self.parent_id:
             address_format = '%(company_name)s\n' + address_format
         return address_format % args
