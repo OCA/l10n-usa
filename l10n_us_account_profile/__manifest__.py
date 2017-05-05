@@ -4,7 +4,7 @@
 {
     "name": "US Accounting",
     "summary": "Additional features to manage US accounting in Odoo",
-    "version": "10.0.0.0.1",
+    "version": "10.0.0.0.2",
     "category": "Accounting",
     "website": "http://www.ursainfosystems.com",
     "author": "Ursa Information Systems, Odoo Community Association (OCA)",
@@ -12,7 +12,14 @@
     "application": True,
     "installable": True,
     "depends": [
-        "l10n_us",
         "account_due_list",
+        "account_payment_batch_process",
+        "account_payment_credit_card",
+        "account_reversal",
+        "l10n_us",
+        "l10n_us_check_writing_address",
+        "l10n_us_form_1099",
+        "partner_aging",
+        "partner_daytopay",
     ],
 }
