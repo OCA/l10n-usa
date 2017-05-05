@@ -4,7 +4,7 @@
 {
     "name": "US Accounting",
     "summary": "Additional features to manage US accounting in Odoo",
-    "version": "10.0.1.0.0",
+    "version": "10.0.0.0.1",
     "category": "Accounting",
     "website": "http://www.ursainfosystems.com",
     "author": "Ursa Information Systems, Odoo Community Association (OCA)",
