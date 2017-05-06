@@ -6,6 +6,13 @@
 # USA Localisation Modules
 
 [//]: # (addons)
+
+Available addons
+----------------
+addon | version | summary
+--- | --- | ---
+[l10n_us_account_profile](l10n_us_account_profile/) | 10.0.0.0.1 | Additional features to manage US accounting in Odoo
+
 [//]: # (end addons)
 
 Translation Status
