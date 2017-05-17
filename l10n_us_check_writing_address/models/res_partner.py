@@ -28,7 +28,8 @@ class ResPartner(models.Model):
         # get the address format
         address_format = self.country_id.address_format
         if not address_format:
-            address_format = "%(street)s\n%(street2)s\n%(city)s %(state_code)s %(zip)s\n%(country_name)s"
+            address_format = "%(street)s\n%(street2)s\n%(city)s" \
+                             " %(state_code)s %(zip)s\n%(country_name)s"
         if not self.street2:
             address_format = address_format.replace('%(street2)\n', '')
         args = {
