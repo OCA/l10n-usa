@@ -1,6 +1,6 @@
-.. image:: https://img.shields.io/badge/licence-LGPL--3-blue.svg
-   :target: http://www.gnu.org/licenses/lgpl-3.0-standalone.html
-   :alt: License: LGPL-3
+.. image:: https://img.shields.io/badge/licence-AGPL--3-blue.svg
+   :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
+   :alt: License: AGPL-3
 
 ===================================
 US Check Writing with Payee Address
@@ -63,6 +63,7 @@ Contributors
 ------------
 
 * Bhavesh Odedra <bodedra@ursainfosystems.com>
+* Sandip Mangukiya <smangukiya@ursainfosystems.com>
 
 Funders
 -------
