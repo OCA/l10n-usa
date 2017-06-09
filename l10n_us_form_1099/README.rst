@@ -3,7 +3,7 @@
    :alt: License: AGPL-3
 
 ==============
-{module_title}
+l10n_us_form_1099
 ==============
 
 This module extends the functionality of res partner to support indicating 1099s.
