@@ -23,7 +23,8 @@
     'name': 'l10n_us_form_1099',
     'version': '10.0.1.0.0',
     'author': 'Ursa Information Systems, Odoo Community Association (OCA)',
-    'summary': 'Add a 1099 field to res.partner. This field should auto-check supplier when set',
+	"license": "AGPL-3",
+    'summary': 'Add 1099 field to res.partner that will auto-check supplier',
     'category': 'Customers',
     'maintainer': 'Ursa Information Systems',
     'website': 'http://www.ursainfosystems.com',
@@ -31,7 +32,7 @@
     'data': [
         'views/res_partner.xml',
     ],
-    'qweb': [        
+    'qweb': [
     ],
     'installable': True,
 }
