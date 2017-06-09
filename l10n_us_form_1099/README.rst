@@ -39,8 +39,6 @@ To use this module, you need to:
 Known issues / Roadmap
 ======================
 
-* ...
-
 Bug Tracker
 ===========
 
@@ -68,6 +66,7 @@ Funders
 The development of this module has been financially supported by:
 
 * Ursa Information Systems
+
 Maintainer
 ----------
 

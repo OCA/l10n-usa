@@ -10,8 +10,8 @@ class ResPartner(models.Model):
 
     is1099 = fields.Boolean('Is a 1099')
     supplier = fields.Boolean(string='Is a Vendor',
-                 help="Check this box if this contact is a vendor. "
-                 "If it's not checked, purchase people will not see it when encoding a purchase order.")
+                                 help="Check this box if this contact is a vendor."
+                                 "If not checked, will be visible when encoding purchase order.")
 
     @api.onchange('is1099')
     def _on_change_is1099(self):
