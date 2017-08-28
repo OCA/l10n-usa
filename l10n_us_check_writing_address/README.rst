@@ -38,11 +38,6 @@ To use this module, you need to:
    :alt: Try me on Runbot
    :target: https://runbot.odoo-community.org/runbot/203/10.0
 
-Known issues / Roadmap
-======================
-
-* See https://github.com/OCA/l10n-usa/issues/10
-
 Bug Tracker
 ===========
 
