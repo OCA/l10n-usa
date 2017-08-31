@@ -5,6 +5,11 @@
 
 from odoo import api, models
 
+DEFAULT_ADDRESS_FORMAT="%(street)s\n" \
+                       "%(street2)s\n" \
+                       "%(city)s %(state_code)s %(zip)s\n" \
+                       "%(country_name)s"
+
 
 class ResPartner(models.Model):
     _inherit = "res.partner"
@@ -28,8 +33,7 @@ class ResPartner(models.Model):
         # get the address format
         address_format = self.country_id.address_format
         if not address_format:
-            address_format = "%(street)s\n%(street2)s\n%(city)s" \
-                             " %(state_code)s %(zip)s\n%(country_name)s"
+            address_format = DEFAULT_ADDRESS_FORMAT
         if not self.street2:
             address_format = address_format.replace('%(street2)\n', '')
         args = {
