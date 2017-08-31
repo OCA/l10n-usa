@@ -1,29 +1,27 @@
 .. image:: https://img.shields.io/badge/licence-AGPL--3-blue.svg
-   :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
-   :alt: License: AGPL-3
+    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
+    :alt: License: AGPL-3
 
 ===================================
 US Check Writing with Payee Address
 ===================================
 
-This module allows to print your payments on pre-printed check paper. This module adds the address to the Payee section of a check.
+This module allows to print your payments on pre-printed check paper.
+This module adds the address to the Payee section of a check.
 
 Supported formats
 -----------------
 
-* Check on top : Quicken / QuickBooks standard
+* Check on top: Quicken / QuickBooks standard
 * Check in the middle: Peachtree standard
 * Check at the bottom: ADP standard
-
-Installation
-============
-
-* No specific installation required. 
 
 Configuration
 =============
 
-You can configure the output (layout, stubs informations, etc.) in company settings, and manage the checks numbering (if you use pre-printed checks without numbers) in the journal setting.
+You can configure the output (layout, stubs informations, etc.) in company
+settings, and manage the checks numbering (if you use pre-printed checks
+without numbers) in the journal settings.
 
 Usage
 =====
@@ -31,12 +29,13 @@ Usage
 To use this module, you need to:
 
 #. Go to Accounting > Purchases > Payments
-#. Create a new payment with a payment method (journal) configured to print check
+#. Create a new payment with a payment method (journal) configured to print
+   check
 #. Check the check option, register the payment and print the check
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
-   :alt: Try me on Runbot
-   :target: https://runbot.odoo-community.org/runbot/203/10.0
+    :alt: Try me on Runbot
+    :target: https://runbot.odoo-community.org/runbot/203/10.0
 
 Bug Tracker
 ===========
@@ -71,8 +70,8 @@ Maintainer
 ----------
 
 .. image:: https://odoo-community.org/logo.png
-   :alt: Odoo Community Association
-   :target: https://odoo-community.org
+    :alt: Odoo Community Association
+    :target: https://odoo-community.org
 
 This module is maintained by the OCA.
 
