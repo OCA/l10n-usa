@@ -15,6 +15,7 @@
     'application': False,
     'installable': True,
     'depends': [
+        'l10n_us_uom_profile',
         'product',
     ],
     'data': [
