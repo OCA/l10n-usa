@@ -17,4 +17,7 @@
     'depends': [
         'delivery',
     ],
+    'data': [
+        'views/stock_quant_package_view.xml',
+    ],
 }
