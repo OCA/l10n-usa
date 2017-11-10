@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="product_variant_easy_edit_view" model="ir.ui.view">
+        <field name="name">product.product.view.form.easy.weight.oz</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_variant_easy_edit_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//group[@name='weight']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//group[@name='weight']" position="after">
+                    <group name="weight_oz"
+                           string="Weights"
+                           attrs="{'invisible':[('type', 'not in', ['product', 'consu'])]}">
+                        <label for="volume_in"/>
+                        <div class="o_row">
+                            <field name="volume_in"/>
+                            <span>in³</span>
+                        </div>
+                        <label for="weight_oz"/>
+                        <div class="o_row">
+                            <field name="weight_oz"/>
+                            <span>oz</span>
+                        </div>
+                    </group>
+                </xpath>
+
+            </field>
+    </record>
+
+</odoo>
