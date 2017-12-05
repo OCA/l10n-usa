@@ -1,5 +1,4 @@
-# -*- coding: utf-8 -*-
-# Copyright 2017 Ursa Information Systems <http://www.ursainfosystems.com>
+# Copyright 2017 Open Source Integrators <https://opensourceintegrators.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import api, fields, models
@@ -8,21 +7,16 @@ from odoo import api, fields, models
 class ResPartner(models.Model):
     _inherit = "res.partner"
 
-    is1099 = fields.Boolean('Is a 1099')
-    supplier = fields.Boolean(string='Is a Vendor',
-                              help="Check this box if\
-                              contact is a vendor."
-                              "If not checked, purchase people will\
-                              not see it when encoding purchase order.")
+    is_1099 = fields.Boolean('Is a 1099')
 
-    @api.onchange('is1099')
-    def _on_change_is1099(self):
+    @api.onchange('is_1099')
+    def _on_change_is_1099(self):
 
-        if self.is1099 and not self.supplier:
+        if self.is_1099 and not self.supplier:
             self.supplier = True
 
     @api.onchange('supplier')
     def _on_change_supplier(self):
 
-        if self.is1099 and not self.supplier:
-            self.is1099 = False
+        if self.is_1099 and not self.supplier:
+            self.is_1099 = False
