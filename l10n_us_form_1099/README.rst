@@ -1,4 +1,4 @@
-.. image:: https://img.shields.io/badge/licence-AGPL--3-blue.svg
+.. image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
@@ -6,18 +6,33 @@
 US Form 1099
 ============
 
-This module extends the functionality of res partner to support indicating 1099s.
+When companies hire others as contractors, the contractor in question may
+work for themselves, another company or be the whole other company. This
+is a huge range, but it can be simplified down to "do I report their
+payment to the IRS as a 1099?".
+
+This module extends the functionality of a partner and allow you to specify 1099 suppliers.
+
+You will still need to manage payment and IRS reporting separately.
 
 Usage
 =====
 
 To use this module, you need to:
 
-#. Go to a partner and check the "Is a 1099?" box
+#. Go to Contacts
+#. Create or select a partner
+#. Go to the Sales & Purchases tab
+#. Check the "Is a 1099" box
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
-   :target: https://runbot.odoo-community.org/runbot/203/10.0
+   :target: https://runbot.odoo-community.org/runbot/203/11.0
+
+Known issues / Roadmap
+======================
+
+* Add unit tests
 
 Bug Tracker
 ===========
@@ -39,13 +54,14 @@ Contributors
 ------------
 
 * Jenny Wu <jwu@ursainfosystems.com>
+* Maxime Chambreuil <mchambreuil@opensourceintegrators.com>
 
 Funders
 -------
 
 The development of this module has been financially supported by:
 
-* Ursa Information Systems <http://www.ursainfosystems.com>
+* Open Source Integrators <https://www.opensourceintegrators.com>
 
 Maintainer
 ----------
