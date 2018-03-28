@@ -9,6 +9,15 @@ USA - Product
 This module allows you to record product weight in ounces
 and volume in inches cubed.
 
+Notice that this module does not actually change the units
+that these metrics are stored in, so it is possible for slight
+rounding errors to occur. Example:
+
+* oz that user inputs: 12345
+  * oz that Odoo saves: 12345.20
+* oz that user input: 54321
+  * oz that Odoo saves: 54321.91
+
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
    :target: https://runbot.odoo-community.org/runbot/203/10.0
