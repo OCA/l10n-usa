@@ -4,10 +4,10 @@
 
 from odoo import api, models
 
-DEFAULT_ADDRESS_FORMAT="%(street)s\n" \
-                       "%(street2)s\n" \
-                       "%(city)s %(state_code)s %(zip)s\n" \
-                       "%(country_name)s"
+DEFAULT_ADDRESS_FORMAT = "%(street)s\n" \
+                         "%(street2)s\n" \
+                         "%(city)s %(state_code)s %(zip)s\n" \
+                         "%(country_name)s"
 
 
 class ResPartner(models.Model):
