@@ -3,7 +3,7 @@
 {
     'name': 'US Check Printing with Payee Address',
     'summary': 'Print US Checks',
-    'version': '11.0.0.1',
+    'version': '11.0.1.0.0',
     'license': 'AGPL-3',
     'author': 'Ursa Information Systems, Odoo Community Association (OCA)',
     'category': 'Localization/Checks Printing',
@@ -14,5 +14,7 @@
     ],
     'data': [
     ],
+    'development_sattus': 'Beta',
+    'maintainers': ['max3903'],
     'installable': True,
 }

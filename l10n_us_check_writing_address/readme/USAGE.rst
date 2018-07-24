@@ -1,3 +1,4 @@
+
 To use this module, you need to:
 
 #. Go to Accounting > Purchases > Payments
