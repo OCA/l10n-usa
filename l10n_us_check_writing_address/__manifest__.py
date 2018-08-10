@@ -17,7 +17,7 @@
         'report/report_check_base_top.xml',
         'report/report_check_base_middle.xml',
         'report/report_check_base_bottom.xml',
-        'report/account_check_writing_report.xml'
+        'data/account_payment_check_report_data.xml',
     ],
     'installable': True,
 }
