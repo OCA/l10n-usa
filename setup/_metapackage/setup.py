@@ -9,6 +9,7 @@ setuptools.setup(
     version=version,
     install_requires=[
         'odoo10-addon-l10n_us_account_profile',
+        'odoo10-addon-l10n_us_check_writing_address',
         'odoo10-addon-l10n_us_form_1099',
         'odoo10-addon-l10n_us_product',
         'odoo10-addon-l10n_us_product_stock',
