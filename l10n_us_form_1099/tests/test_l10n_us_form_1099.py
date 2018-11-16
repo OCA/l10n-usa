@@ -13,7 +13,7 @@ class TestL10nUsForm1099(TransactionCase):
         partner = self.env.ref('base.res_partner_2')
         partner.is_1099 = True
         partner._on_change_is_1099()
-        self.assertEquals(partner.supplier, True)
+        self.assertTrue(partner.supplier)
 
     def test_on_change_supplier(self):
         """
@@ -22,4 +22,4 @@ class TestL10nUsForm1099(TransactionCase):
         partner = self.env.ref('base.res_partner_2')
         partner.supplier = False
         partner._on_change_supplier()
-        self.assertEquals(partner.is_1099, False)
+        self.assertFalse(partner.is_1099)
