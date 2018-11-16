@@ -6,11 +6,9 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
-            <data>
-                <xpath expr="/form/sheet/notebook/page[@name='sales_purchases']/group/group[2]/field[@name='supplier']" position="after">
-                    <field name="is_1099"/>
-                </xpath>
-            </data>
+            <xpath expr="//group[2]/field[@name='supplier']" position="after">
+                <field name="is_1099"/>
+            </xpath>
         </field>
     </record>
 
