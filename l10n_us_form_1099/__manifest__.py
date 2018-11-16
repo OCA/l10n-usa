@@ -3,14 +3,16 @@
 
 {
     "name": "US Form 1099",
-    "version": "11.0.1.0.0",
+    "version": "12.0.1.0.0",
     "author": "Open Source Integrators, Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "summary": "Add 1099 field to res.partner that will auto-check supplier",
     "category": "Customers",
     "maintainer": "Open Source Integrators",
-    "website": "https://www.opensourceintegrators.com",
-    "depends": ["contacts"],
+    "website": "https://github.com/OCA/l10n-usa",
+    "depends": [
+        "contacts"
+    ],
     "data": [
         "views/res_partner.xml",
     ],
