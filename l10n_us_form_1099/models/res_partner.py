@@ -7,16 +7,14 @@ from odoo import api, fields, models
 class ResPartner(models.Model):
     _inherit = "res.partner"
 
-    is_1099 = fields.Boolean('Is a 1099')
+    is_1099 = fields.Boolean('Is a 1099?')
 
     @api.onchange('is_1099')
     def _on_change_is_1099(self):
-
         if self.is_1099 and not self.supplier:
             self.supplier = True
 
     @api.onchange('supplier')
     def _on_change_supplier(self):
-
         if self.is_1099 and not self.supplier:
             self.is_1099 = False
