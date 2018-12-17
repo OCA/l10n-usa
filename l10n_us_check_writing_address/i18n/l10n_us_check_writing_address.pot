@@ -61,3 +61,18 @@ msgstr ""
 msgid "Payment"
 msgstr ""
 
+#. module: l10n_us_check_writing_address
+#: model:ir.actions.report.xml,name:l10n_us_check_writing_address.action_report_check_base_bottom
+msgid "Payment Check Bottom"
+msgstr ""
+
+#. module: l10n_us_check_writing_address
+#: model:ir.actions.report.xml,name:l10n_us_check_writing_address.action_report_check_base_middle
+msgid "Payment Check Middle"
+msgstr ""
+
+#. module: l10n_us_check_writing_address
+#: model:ir.actions.report.xml,name:l10n_us_check_writing_address.action_report_check_base_top
+msgid "Payment Check Top"
+msgstr ""
+
