@@ -14,6 +14,7 @@
         'account_check_printing_report_base',
     ],
     'data': [
+        'report/account_check_writing_report.xml',
         'report/report_check_base_top.xml',
         'report/report_check_base_middle.xml',
         'report/report_check_base_bottom.xml',
