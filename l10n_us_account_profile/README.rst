@@ -54,13 +54,14 @@ Contributors
 ------------
 
 * Maxime Chambreuil <mchambreuil@ursainfosystems.com>
+* Serpent Consulting Services Pvt. Ltd. <support@serpentcs.com>
 
 Funders
 -------
 
 The development of this module has been financially supported by:
 
-* Ursa Information Systems <http://www.ursainfosystems.com>
+* Open Source Integrators <https://www.opensourceintegrators.com>
 
 Maintainer
 ----------
