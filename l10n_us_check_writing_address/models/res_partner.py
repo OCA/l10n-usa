@@ -1,5 +1,5 @@
-# -*- coding: utf-8 -*-
-# Copyright 2017 Ursa Information Systems <http://www.ursainfosystems.com>
+# Copyright 2019 Open Source Integrators
+# <https://www.opensourceintegrators.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 
