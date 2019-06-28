@@ -48,6 +48,7 @@ Author
 Contributors
 ------------
 
+* Diogo Duarte <dduarte@odoogap.com>
 
 Maintainer
 ----------

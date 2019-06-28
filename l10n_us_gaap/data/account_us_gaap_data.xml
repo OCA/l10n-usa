@@ -1,22 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
         <!-- Chart template of l10n_us -->
-            <!-- Account template definition -->
+        <!-- Account template definition -->
         <!-- Cash And Investments -->
-        <record id="account_template_1111" model="account.account.template">
-            <field name="name">Cash</field>
-            <field name="code">1111</field>
-            <field name="user_type_id" ref="account.data_account_type_liquidity"/>
-            <field name="chart_template_id" ref="l10n_us_gaap_chart_template"/>
-            <field name="group_id" ref="l10n_us_gaap.account_group_1_1_1"/>
-        </record>
-        <record id="account_template_1112" model="account.account.template">
-            <field name="name">Bank</field>
-            <field name="code">1112</field>
-            <field name="user_type_id" ref="account.data_account_type_liquidity"/>
-            <field name="chart_template_id" ref="l10n_us_gaap_chart_template"/>
-            <field name="group_id" ref="l10n_us_gaap.account_group_1_1_1"/>
-        </record>
         <record id="account_template_112" model="account.account.template">
             <field name="name">Investments And Securities</field>
             <field name="code">112</field>
@@ -787,11 +773,6 @@
         </record>
         <!-- Account Chart Template -->
         <record id="l10n_us_gaap_chart_template" model="account.chart.template">
-            <field name="name">US GAAP Chart of Accounts</field>
-            <field name="bank_account_code_prefix">1112</field>
-            <field name="cash_account_code_prefix">1111</field>
-            <field name="code_digits">6</field>
-            <field name="transfer_account_id" ref="trans"/>
             <field name="property_account_receivable_id" ref="account_template_121"/>
             <field name="property_account_payable_id" ref="account_template_211"/>
             <field name="property_account_expense_categ_id" ref="account_template_5122"/>
