@@ -1,6 +1,6 @@
 {
     'name': 'United States Sample GAAP Chart of Accounts',
-    'version': '11.0.1.0.0',
+    'version': '12.0.1.0.0',
     'category': 'Localization',
     'author': 'Eficent,'
               'Odoo Community Association (OCA)',
@@ -10,7 +10,7 @@
         'data/account_chart_template_data.xml',
         'data/account_group.xml',
         'data/account_us_gaap_data.xml',
-        'data/account_chart_template_data.yml',
+        'data/account_chart_template_data_load.xml',
         'data/res_company_data.xml',
     ],
     'installable': True,
