@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_company_legal_id_number" model="ir.ui.view">
+        <field name="name">Company Legal ID Number</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <field name="vat" position="before">
+                <field name="legal_id_number" placeholder="EIN / SSN / BN"/>
+                <field name="mandate_url"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>
