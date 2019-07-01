@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="vendor_payment_orders"
+              name="Payment Orders"
+              parent="account.menu_finance_payables"
+              action="account_payment_order.account_payment_order_outbound_action"
+              sequence="20"/>
+
+</odoo>
