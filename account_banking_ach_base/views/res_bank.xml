@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_res_bank_form_routing" model="ir.ui.view">
+        <field name="name">Bank Routing Transit Number</field>
+        <field name="model">res.bank</field>
+        <field name="inherit_id" ref="base.view_res_bank_form"/>
+        <field name="arch" type="xml">
+            <field name="bic" position="after">
+                <field name="routing_number"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>
