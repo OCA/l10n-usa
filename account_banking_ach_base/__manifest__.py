@@ -4,10 +4,10 @@
 {
     'name': 'Localizations for North American Banking & Financials',
     'summary': 'Add fields required for North American Banking & Financials',
-    'version': '11.0.1.0.0',
+    'version': '12.0.1.0.0',
     'license': 'AGPL-3',
-    'author': 'Thinkwell Designs',
-    'website': 'https://github.com/thinkwelltwd/countinghouse',
+    'author': 'Thinkwell Designs, Odoo Community Association (OCA)',
+    'website': 'https://github.com/OCA/l10n-usa',
     'category': 'Banking addons',
     'depends': [
         'account_payment_order',
@@ -20,5 +20,10 @@
         'views/res_company.xml',
         'views/res_partner.xml',
     ],
+    "external_dependencies": {
+        "python": ['stdnum',
+                   'ach',
+                   ],
+    },
     'installable': True,
 }
