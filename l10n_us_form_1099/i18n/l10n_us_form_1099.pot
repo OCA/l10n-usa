@@ -20,6 +20,7 @@ msgstr ""
 
 #. module: l10n_us_form_1099
 #: model:ir.model.fields,field_description:l10n_us_form_1099.field_res_partner__is_1099
+#: model:ir.model.fields,field_description:l10n_us_form_1099.field_res_users__is_1099
 msgid "Is a 1099?"
 msgstr ""
 
