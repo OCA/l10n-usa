@@ -1,9 +1,11 @@
+# Copyright 2018 Thinkwell Designs <dave@thinkwelldesigns.com>
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+
 from odoo import api, models, _
 
 
 class AccountPaymentOrder(models.Model):
     _inherit = 'account.payment.order'
-
 
     @api.multi
     def generate_payment_file(self):
@@ -12,10 +14,8 @@ class AccountPaymentOrder(models.Model):
         generate_ach_file in countinghouse_ach_base
         """
         self.ensure_one()
-
         if self.payment_method_id.code == 'ACH-In':
             return self.generate_ach_file()
-
         return super(AccountPaymentOrder, self).generate_payment_file()
 
     @api.multi
@@ -29,11 +29,9 @@ class AccountPaymentOrder(models.Model):
         # is generated BEFORE, which will allow the split
         # of the account move per sequence_type
         res = super(AccountPaymentOrder, self).generated2uploaded()
-        Mandate = self.env['account.banking.mandate']
+        mandate = self.env['account.banking.mandate']
         for order in self:
-            to_expire_mandates = Mandate.browse([])
-            first_mandates = Mandate.browse([])
-            all_mandates = Mandate.browse([])
+            to_expire_mandates = first_mandates = all_mandates = mandate
             for bank_line in order.bank_line_ids:
                 if bank_line.mandate_id in all_mandates:
                     continue
@@ -50,7 +48,7 @@ class AccountPaymentOrder(models.Model):
             to_expire_mandates.write({'state': 'expired'})
             first_mandates.write({'recurrent_sequence_type': 'recurring'})
             for first_mandate in first_mandates:
-                first_mandate.message_post(_(
+                first_mandate.message_post(body=_(
                     "Automatically switched from <b>First</b> to "
                     "<b>Recurring</b> when the debit order "
                     "<a href=# data-oe-model=account.payment.order "
