@@ -1,6 +1,10 @@
-from odoo import models, fields, api, exceptions, _
+# Copyright 2018 Thinkwell Designs <dave@thinkwelldesigns.com>
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+
 from datetime import datetime
+from odoo import api, exceptions, fields, models, _
 from dateutil.relativedelta import relativedelta
+from odoo.tools import DEFAULT_SERVER_DATE_FORMAT
 import logging
 
 NUMBER_OF_UNUSED_MONTHS_BEFORE_EXPIRY = 36
@@ -11,53 +15,41 @@ logger = logging.getLogger(__name__)
 class AccountBankingMandate(models.Model):
     """ACH Direct Debit Mandate"""
     _inherit = 'account.banking.mandate'
-    _rec_name = 'display_name'
 
-    format = fields.Selection(
-        selection_add=[('ach', 'ACH')],
-        default='ach'
-    )
-    type = fields.Selection([
-        ('recurrent', 'Recurrent'),
-        ('oneoff', 'One-Off'),
-    ],
-        string='Type of Mandate',
-        track_visibility='onchange'
-    )
-    recurrent_sequence_type = fields.Selection([
-         ('first', 'First'),
-         ('recurring', 'Recurring'),
-         ('final', 'Final')
-    ],
+    format = fields.Selection(selection_add=[('ach', 'ACH')], default='ach')
+    type = fields.Selection([('recurrent', 'Recurrent'),
+                             ('oneoff', 'One-Off')],
+                            string='Type of Mandate',
+                            track_visibility='onchange')
+    recurrent_sequence_type = fields.Selection(
+        [('first', 'First'), ('recurring', 'Recurring'), ('final', 'Final')],
         string='Sequence Type for Next Debit',
         track_visibility='onchange',
-        help="This field is only used for Recurrent mandates, not for One-Off mandates.",
-        default="first"
-    )
+        help="""This field is only used for Recurrent mandates, not for
+        One-Off mandates.""",
+        default="first")
     scheme = fields.Selection([
-        ('CORE', 'Basic (CORE)'),
-        ('B2B', 'Enterprise (B2B)'),
-    ],
+        ('CORE', 'Basic (CORE)'), ('B2B', 'Enterprise (B2B)')],
         string='Scheme',
         default="CORE",
-        track_visibility='onchange',
-    )
+        track_visibility='onchange')
     unique_mandate_reference = fields.Char(size=35)  # cf ISO 20022
-    display_name = fields.Char(compute='compute_display_name', store=True)
+    display_name = fields.Char(compute='_compute_display_name',
+                               store=True)
 
     @api.multi
     @api.constrains('type', 'recurrent_sequence_type')
     def _check_recurring_type(self):
         for mandate in self:
-            if mandate.type == 'recurrent' and not mandate.recurrent_sequence_type:
+            if mandate.type == 'recurrent' and not \
+                    mandate.recurrent_sequence_type:
                 raise exceptions.Warning(
                     _("The recurrent mandate '%s' must have a sequence type.")
-                    % mandate.unique_mandate_reference
-                )
+                    % mandate.unique_mandate_reference)
 
     @api.multi
     @api.depends('unique_mandate_reference', 'recurrent_sequence_type')
-    def compute_display_name(self):
+    def _compute_display_name(self):
         for mandate in self:
             if mandate.format == 'ach':
                 name = '%s (%s)' % (
@@ -82,16 +74,17 @@ class AccountBankingMandate(models.Model):
                     'title': _('Mandate update'),
                     'message': _("As you changed the bank account attached "
                                  "to this mandate, the 'Sequence Type' has "
-                                 "been set back to 'First'."),
-                }
+                                 "been set back to 'First'.")}
             return res
 
     @api.model
     def _achdd_mandate_set_state_to_expired(self):
-        logger.info('Searching for ACH Mandates that must be set to Expired')
+        logger.info(
+            _('Searching for ACH Mandates that must be set to Expired'))
         expire_limit_date = datetime.today() + \
             relativedelta(months=-NUMBER_OF_UNUSED_MONTHS_BEFORE_EXPIRY)
-        expire_limit_date_str = expire_limit_date.strftime('%Y-%m-%d')
+        expire_limit_date_str = expire_limit_date.strftime(
+            DEFAULT_SERVER_DATE_FORMAT)
         expired_mandates = self.search([
             '|',
             ('last_debit_date', '=', False),
@@ -102,8 +95,8 @@ class AccountBankingMandate(models.Model):
         if expired_mandates:
             expired_mandates.write({'state': 'expired'})
             logger.info(
-                'The following ACH Mandate IDs have been set to expired: %s'
-                % expired_mandates.ids)
+                _('The following ACH Mandate IDs have been set to '
+                  'expired: %s' % expired_mandates.ids))
         else:
-            logger.info('0 ACH Mandates had to be set to Expired')
+            logger.info(_('0 ACH Mandates had to be set to Expired'))
         return True
