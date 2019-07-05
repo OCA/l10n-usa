@@ -1,0 +1,197 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* account_banking_ach_base
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_banking_ach_base
+#: code:addons/account_banking_ach_base/models/account_payment_order.py:60
+#, python-format
+msgid "%s account number has no Bank assigned"
+msgstr ""
+
+#. module: account_banking_ach_base
+#: code:addons/account_banking_ach_base/models/account_payment_order.py:48
+#, python-format
+msgid "%s does not have a Routing Number assigned!"
+msgstr ""
+
+#. module: account_banking_ach_base
+#: code:addons/account_banking_ach_base/models/account_payment_order.py:43
+#, python-format
+msgid "%s does not have an EIN / SSN / BN assigned!"
+msgstr ""
+
+#. module: account_banking_ach_base
+#: code:addons/account_banking_ach_base/models/account_payment_order.py:65
+#, python-format
+msgid "%s has no routing number specified"
+msgstr ""
+
+#. module: account_banking_ach_base
+#: code:addons/account_banking_ach_base/models/res_bank.py:27
+#, python-format
+msgid "%s is not a valid Canadian routing number!"
+msgstr ""
+
+#. module: account_banking_ach_base
+#: code:addons/account_banking_ach_base/models/base.py:38
+#, python-format
+msgid "%s is not a valid EIN / SSN / Canadian Business Number"
+msgstr ""
+
+#. module: account_banking_ach_base
+#: code:addons/account_banking_ach_base/models/res_bank.py:21
+#, python-format
+msgid "%s is not a valid US routing number!"
+msgstr ""
+
+#. module: account_banking_ach_base
+#: model:ir.model,name:account_banking_ach_base.model_account_banking_mandate
+msgid "A generic banking mandate"
+msgstr ""
+
+#. module: account_banking_ach_base
+#: model:ir.model,name:account_banking_ach_base.model_res_bank
+msgid "Bank"
+msgstr ""
+
+#. module: account_banking_ach_base
+#: model:ir.model,name:account_banking_ach_base.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: account_banking_ach_base
+#: model:ir.model,name:account_banking_ach_base.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: account_banking_ach_base
+#: model:ir.model,name:account_banking_ach_base.model_countinghouse_legal_id_number
+msgid "Countinghouse Legal Id Number"
+msgstr ""
+
+#. module: account_banking_ach_base
+#: model:ir.model.fields,field_description:account_banking_ach_base.field_account_banking_mandate__delay_days
+msgid "Delay Days"
+msgstr ""
+
+#. module: account_banking_ach_base
+#: code:addons/account_banking_ach_base/models/account_banking_mandate.py:17
+#, python-format
+msgid "Delay days must be specified, and\n"
+"                greater than 0."
+msgstr ""
+
+#. module: account_banking_ach_base
+#: model:ir.model.fields,field_description:account_banking_ach_base.field_countinghouse_legal_id_number__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: account_banking_ach_base
+#: model_terms:ir.ui.view,arch_db:account_banking_ach_base.view_company_legal_id_number
+#: model_terms:ir.ui.view,arch_db:account_banking_ach_base.view_partner_legal_id_number
+msgid "EIN / SSN / BN"
+msgstr ""
+
+#. module: account_banking_ach_base
+#: model:ir.model.fields,help:account_banking_ach_base.field_countinghouse_legal_id_number__legal_id_number
+#: model:ir.model.fields,help:account_banking_ach_base.field_res_company__legal_id_number
+#: model:ir.model.fields,help:account_banking_ach_base.field_res_partner__legal_id_number
+#: model:ir.model.fields,help:account_banking_ach_base.field_res_users__legal_id_number
+msgid "For US entities, enter valid EIN or Social Security Number.\n"
+"        Canadian entities, enter Canadian Business Number.\n"
+"        "
+msgstr ""
+
+#. module: account_banking_ach_base
+#: model:ir.model.fields,help:account_banking_ach_base.field_res_company__mandate_url
+msgid "Full URL to download ACH Mandate /\n"
+"                              Authorization form. Useful to include in email\n"
+"                              templates for customer to access and\n"
+"                              complete the Mandate form."
+msgstr ""
+
+#. module: account_banking_ach_base
+#: model:ir.model.fields,field_description:account_banking_ach_base.field_countinghouse_legal_id_number__id
+msgid "ID"
+msgstr ""
+
+#. module: account_banking_ach_base
+#: model:ir.model,name:account_banking_ach_base.model_account_invoice
+msgid "Invoice"
+msgstr ""
+
+#. module: account_banking_ach_base
+#: model:ir.model.fields,field_description:account_banking_ach_base.field_countinghouse_legal_id_number____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: account_banking_ach_base
+#: model:ir.model.fields,field_description:account_banking_ach_base.field_countinghouse_legal_id_number__legal_id_number
+#: model:ir.model.fields,field_description:account_banking_ach_base.field_res_company__legal_id_number
+#: model:ir.model.fields,field_description:account_banking_ach_base.field_res_partner__legal_id_number
+#: model:ir.model.fields,field_description:account_banking_ach_base.field_res_users__legal_id_number
+msgid "Legal ID"
+msgstr ""
+
+#. module: account_banking_ach_base
+#: model:ir.model.fields,field_description:account_banking_ach_base.field_res_company__mandate_url
+msgid "Mandate URL"
+msgstr ""
+
+#. module: account_banking_ach_base
+#: code:addons/account_banking_ach_base/models/account_payment_order.py:72
+#, python-format
+msgid "Missing ACH Direct Debit mandate on the bank payment line with partner '%s' (reference '%s')."
+msgstr ""
+
+#. module: account_banking_ach_base
+#: model:ir.model.fields,help:account_banking_ach_base.field_account_banking_mandate__delay_days
+msgid "Number of days to wait after invoice\n"
+"                                date before including an invoice in Payment\n"
+"                                Order for processing."
+msgstr ""
+
+#. module: account_banking_ach_base
+#: model:ir.model,name:account_banking_ach_base.model_account_payment_order
+msgid "Payment Order"
+msgstr ""
+
+#. module: account_banking_ach_base
+#: model_terms:ir.ui.view,arch_db:account_banking_ach_base.view_account_invoice_filter_valid_mandate_id
+msgid "Ready for Payment Order"
+msgstr ""
+
+#. module: account_banking_ach_base
+#: model:ir.model.fields,field_description:account_banking_ach_base.field_res_bank__routing_number
+msgid "Routing Number"
+msgstr ""
+
+#. module: account_banking_ach_base
+#: code:addons/account_banking_ach_base/models/account_payment_order.py:78
+#, python-format
+msgid "The ACH Direct Debit mandate with reference '%s' for partner '%s' has expired."
+msgstr ""
+
+#. module: account_banking_ach_base
+#: code:addons/account_banking_ach_base/models/account_payment_order.py:85
+#, python-format
+msgid "The mandate with reference '%s' for partner '%s' has type set to 'One-Off' and it has a last debit date set to '%s', so we can't use it."
+msgstr ""
+
+#. module: account_banking_ach_base
+#: code:addons/account_banking_ach_base/models/account_invoice.py:22
+#, python-format
+msgid "To satisfy payment mandate, cannot add invoice %s to Debit Order until %s!"
+msgstr ""
+

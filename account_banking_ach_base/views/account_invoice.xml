@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_account_invoice_filter_valid_mandate_id"
+            model="ir.ui.view">
+        <field name="name">account.invoice.valid.mandate</field>
+        <field name="model">account.invoice</field>
+        <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+        <field name="arch" type="xml">
+            <filter name="unpaid" position="after">
+                <filter name="payment_orders"
+                        string="Ready for Payment Order"
+                        domain="[('bank_account_required', '=', True), ('state','=','open')]"/>
+            </filter>
+        </field>
+    </record>
+
+</odoo>

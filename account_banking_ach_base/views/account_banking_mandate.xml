@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_mandate_form_days_delay" model="ir.ui.view">
+        <field name="name">account.invoice.days.delay</field>
+        <field name="model">account.banking.mandate</field>
+        <field name="inherit_id"
+               ref="account_banking_mandate.view_mandate_form"/>
+        <field name="arch" type="xml">
+            <field name="signature_date" position="after">
+                <field name="delay_days"/>
+            </field>
+            <field name="partner_id" position="attributes">
+                <attribute name="force_save">1</attribute>
+            </field>
+        </field>
+    </record>
+
+</odoo>
