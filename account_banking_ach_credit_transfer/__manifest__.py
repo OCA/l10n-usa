@@ -4,13 +4,13 @@
 {
     'name': 'Account Banking ACH Credit Transfer',
     'summary': 'Create ACH files for Credit Transfers',
-    'version': '11.0.1.0.0',
+    'version': '12.0.1.0.0',
     'license': 'AGPL-3',
-    'author': 'Thinkwell Designs',
-    'website': 'https://github.com/thinkwelltwd/countinghouse',
+    'author': 'Thinkwell Designs, Odoo Community Association (OCA)',
+    'website': 'https://github.com/OCA/l10n-usa',
     'category': 'Banking addons',
     'depends': [
-        'countinghouse_ach_base',
+        'account_banking_ach_base',
     ],
     'data': [
         'data/account_payment_method.xml',
