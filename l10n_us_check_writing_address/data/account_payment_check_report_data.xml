@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="account_payment_check_report_base_top"
+            model="account.payment.check.report">
+        <field name="name">Top</field>
+        <field name="report">l10n_us_check_writing_address.report_check_base_top</field>
+    </record>
+    <record id="account_payment_check_report_base_middle"
+            model="account.payment.check.report">
+        <field name="name">Middle</field>
+        <field name="report">l10n_us_check_writing_address.report_check_base_middle</field>
+    </record>
+    <record id="account_payment_check_report_base_bottom"
+            model="account.payment.check.report">
+        <field name="name">Bottom</field>
+        <field name="report">l10n_us_check_writing_address.report_check_base_bottom</field>
+    </record>
+</odoo>

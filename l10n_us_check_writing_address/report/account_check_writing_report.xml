@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Top -->
+    <report id="action_report_check_base_top"
+            string="Payment Check Top"
+            model="account.payment"
+            name="l10n_us_check_writing_address.report_check_base_top"
+            file="l10n_us_check_writing_address.report_check_base_top"
+            report_type="qweb-pdf"
+            paperformat="account_check_printing_report_base.paperformat_check"/>
+
+    <!-- Middle -->
+    <report id="action_report_check_base_middle"
+            string="Payment Check Middle"
+            model="account.payment"
+            name="l10n_us_check_writing_address.report_check_base_middle"
+            file="l10n_us_check_writing_address.report_check_base_middle"
+            report_type="qweb-pdf"
+            paperformat="account_check_printing_report_base.paperformat_check"/>
+
+    <!-- Bottom -->
+    <report id="action_report_check_base_bottom"
+            string="Payment Check Bottom"
+            model="account.payment"
+            name="l10n_us_check_writing_address.report_check_base_bottom"
+            file="l10n_us_check_writing_address.report_check_base_bottom"
+            report_type="qweb-pdf"
+            paperformat="account_check_printing_report_base.paperformat_check"/>
+</odoo>
