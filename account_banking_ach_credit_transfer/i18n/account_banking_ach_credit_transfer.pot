@@ -1,0 +1,31 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* account_banking_ach_credit_transfer
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_banking_ach_credit_transfer
+#: model:account.payment.method,name:account_banking_ach_credit_transfer.ach_credit_transfer
+#: model:account.payment.mode,name:account_banking_ach_credit_transfer.payment_mode_outbound_ach_ct1
+msgid "ACH"
+msgstr ""
+
+#. module: account_banking_ach_credit_transfer
+#: model:ir.model,name:account_banking_ach_credit_transfer.model_account_payment_order
+msgid "Payment Order"
+msgstr ""
+
+#. module: account_banking_ach_credit_transfer
+#: model:ir.ui.menu,name:account_banking_ach_credit_transfer.vendor_payment_orders
+msgid "Payment Orders"
+msgstr ""
+
