@@ -9,6 +9,7 @@ setuptools.setup(
     version=version,
     install_requires=[
         'odoo12-addon-account_banking_ach_base',
+        'odoo12-addon-account_banking_ach_credit_transfer',
         'odoo12-addon-l10n_us_form_1099',
     ],
     classifiers=[
