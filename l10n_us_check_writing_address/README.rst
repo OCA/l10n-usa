@@ -25,15 +25,11 @@ US Check Printing with Payee Address
 
 |badge1| |badge2| |badge3| |badge4| |badge5| 
 
-===================================
-US Check Writing with Payee Address
-===================================
-
 This module allows to print your payments on pre-printed check paper.
 This module adds the address to the Payee section of a check.
 
 Supported formats
------------------
+~~~~~~~~~~~~~~~~~
 
 * Check on top: Quicken / QuickBooks standard
 * Check in the middle: Peachtree standard
@@ -53,7 +49,6 @@ without numbers) in the journal settings.
 
 Usage
 =====
-
 
 To use this module, you need to:
 
@@ -92,19 +87,19 @@ Other credits
 ~~~~~~~~~~~~~
 
 Images
-------
+~~~~~~
 
 * Odoo Community Association: `Icon <https://github.com/OCA/maintainer-tools/blob/master/template/module/static/description/icon.svg>`_.
 
 Funders
--------
+~~~~~~~
 
 The development of this module has been financially supported by:
 
 * Open Source Integrators <https://www.opensourceintegrators.com>
 
 Maintainers
------------
+~~~~~~~~~~~
 
 This module is maintained by the OCA.
 
