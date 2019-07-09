@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_mandate_form" model="ir.ui.view">
+        <field name="name">ach.mandate.form</field>
+        <field name="model">account.banking.mandate</field>
+        <field name="inherit_id"
+               ref="account_banking_mandate.view_mandate_form"/>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="scheme" attrs="{'invisible': [('format', '!=', 'ach')],
+                                             'required': [('format', '=', 'ach')]}"/>
+                <field name="type" attrs="{'invisible': [('format', '!=', 'ach')],
+                                           'required': [('format', '=', 'ach')]}"/>
+                <field name="recurrent_sequence_type"
+                       attrs="{'invisible': ['|', ('type', '=', 'oneoff'), ('format', '!=', 'ach')],
+                               'required': [('type', '=', 'recurrent')]}"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_mandate_tree" model="ir.ui.view">
+        <field name="name">ach.mandate.tree</field>
+        <field name="model">account.banking.mandate</field>
+        <field name="inherit_id"
+               ref="account_banking_mandate.view_mandate_tree"/>
+        <field name="arch" type="xml">
+            <field name="unique_mandate_reference" position="after">
+                <field name="scheme"/>
+                <field name="type" string="Type"/>
+                <field name="recurrent_sequence_type" string="Sequence Type"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="view_mandate_search" model="ir.ui.view">
+        <field name="name">ach.mandate.search</field>
+        <field name="model">account.banking.mandate</field>
+        <field name="inherit_id"
+               ref="account_banking_mandate.view_mandate_search"/>
+        <field name="arch" type="xml">
+            <filter name="expired" position="after">
+                <filter name="oneoff" string="One-Off"
+                        domain="[('type', '=', 'oneoff')]"/>
+                <filter name="recurrent" string="Recurrent"
+                        domain="[('type', '=', 'recurrent')]"/>
+            </filter>
+            <filter name="signature_date_groupby" position="before">
+                <filter name="type_groupby" string="Type"
+                        context="{'group_by': 'type'}"/>
+                <filter name="scheme_groupby" string="Scheme"
+                        context="{'group_by': 'scheme'}"/>
+                <filter name="recurrent_sequence_type_groupby"
+                        string="Sequence Type"
+                        context="{'group_by': 'recurrent_sequence_type'}"/>
+            </filter>
+        </field>
+    </record>
+
+</odoo>
