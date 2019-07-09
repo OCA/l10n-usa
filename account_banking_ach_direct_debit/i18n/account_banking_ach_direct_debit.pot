@@ -1,0 +1,181 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* account_banking_ach_direct_debit
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: account_banking_ach_direct_debit
+#: code:addons/account_banking_ach_direct_debit/models/account_banking_mandate.py:101
+#, python-format
+msgid "0 ACH Mandates had to be set to Expired"
+msgstr ""
+
+#. module: account_banking_ach_direct_debit
+#: model:ir.model,name:account_banking_ach_direct_debit.model_account_banking_mandate
+msgid "A generic banking mandate"
+msgstr ""
+
+#. module: account_banking_ach_direct_debit
+#: selection:account.banking.mandate,format:0
+#: model:account.payment.method,name:account_banking_ach_direct_debit.ach_direct_debit
+msgid "ACH"
+msgstr ""
+
+#. module: account_banking_ach_direct_debit
+#: model:account.payment.mode,name:account_banking_ach_direct_debit.payment_mode_inbound_ach_dd1
+msgid "ACH Direct Debit of customers"
+msgstr ""
+
+#. module: account_banking_ach_direct_debit
+#: code:addons/account_banking_ach_direct_debit/models/account_banking_mandate.py:75
+#, python-format
+msgid "As you changed the bank account attached to this mandate, the 'Sequence Type' has been set back to 'First'."
+msgstr ""
+
+#. module: account_banking_ach_direct_debit
+#: code:addons/account_banking_ach_direct_debit/models/account_payment_order.py:51
+#, python-format
+msgid "Automatically switched from <b>First</b> to <b>Recurring</b> when the debit order <a href=# data-oe-model=account.payment.order data-oe-id=%d>%s</a> has been marked as uploaded."
+msgstr ""
+
+#. module: account_banking_ach_direct_debit
+#: selection:account.banking.mandate,scheme:0
+msgid "Basic (CORE)"
+msgstr ""
+
+#. module: account_banking_ach_direct_debit
+#: selection:account.banking.mandate,format:0
+msgid "Basic Mandate"
+msgstr ""
+
+#. module: account_banking_ach_direct_debit
+#: model:ir.model.fields,field_description:account_banking_ach_direct_debit.field_account_banking_mandate__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: account_banking_ach_direct_debit
+#: selection:account.banking.mandate,scheme:0
+msgid "Enterprise (B2B)"
+msgstr ""
+
+#. module: account_banking_ach_direct_debit
+#: selection:account.banking.mandate,recurrent_sequence_type:0
+msgid "Final"
+msgstr ""
+
+#. module: account_banking_ach_direct_debit
+#: selection:account.banking.mandate,recurrent_sequence_type:0
+msgid "First"
+msgstr ""
+
+#. module: account_banking_ach_direct_debit
+#: model:ir.model.fields,field_description:account_banking_ach_direct_debit.field_account_banking_mandate__format
+msgid "Mandate Format"
+msgstr ""
+
+#. module: account_banking_ach_direct_debit
+#: code:addons/account_banking_ach_direct_debit/models/account_banking_mandate.py:74
+#, python-format
+msgid "Mandate update"
+msgstr ""
+
+#. module: account_banking_ach_direct_debit
+#: selection:account.banking.mandate,type:0
+#: model_terms:ir.ui.view,arch_db:account_banking_ach_direct_debit.view_mandate_search
+msgid "One-Off"
+msgstr ""
+
+#. module: account_banking_ach_direct_debit
+#: model:ir.model,name:account_banking_ach_direct_debit.model_account_payment_order
+msgid "Payment Order"
+msgstr ""
+
+#. module: account_banking_ach_direct_debit
+#: model:ir.ui.menu,name:account_banking_ach_direct_debit.customer_payment_orders
+msgid "Payment Orders"
+msgstr ""
+
+#. module: account_banking_ach_direct_debit
+#: selection:account.banking.mandate,type:0
+#: model_terms:ir.ui.view,arch_db:account_banking_ach_direct_debit.view_mandate_search
+msgid "Recurrent"
+msgstr ""
+
+#. module: account_banking_ach_direct_debit
+#: selection:account.banking.mandate,recurrent_sequence_type:0
+msgid "Recurring"
+msgstr ""
+
+#. module: account_banking_ach_direct_debit
+#: model:ir.model.fields,field_description:account_banking_ach_direct_debit.field_account_banking_mandate__scheme
+#: model_terms:ir.ui.view,arch_db:account_banking_ach_direct_debit.view_mandate_search
+msgid "Scheme"
+msgstr ""
+
+#. module: account_banking_ach_direct_debit
+#: code:addons/account_banking_ach_direct_debit/models/account_banking_mandate.py:83
+#, python-format
+msgid "Searching for ACH Mandates that must be set to Expired"
+msgstr ""
+
+#. module: account_banking_ach_direct_debit
+#: model_terms:ir.ui.view,arch_db:account_banking_ach_direct_debit.view_mandate_search
+#: model_terms:ir.ui.view,arch_db:account_banking_ach_direct_debit.view_mandate_tree
+msgid "Sequence Type"
+msgstr ""
+
+#. module: account_banking_ach_direct_debit
+#: model:ir.model.fields,field_description:account_banking_ach_direct_debit.field_account_banking_mandate__recurrent_sequence_type
+msgid "Sequence Type for Next Debit"
+msgstr ""
+
+#. module: account_banking_ach_direct_debit
+#: model:ir.actions.server,name:account_banking_ach_direct_debit.ach_mandate_expire_cron_ir_actions_server
+#: model:ir.cron,cron_name:account_banking_ach_direct_debit.ach_mandate_expire_cron
+#: model:ir.cron,name:account_banking_ach_direct_debit.ach_mandate_expire_cron
+msgid "Set ACH Direct Debit Mandates to Expired"
+msgstr ""
+
+#. module: account_banking_ach_direct_debit
+#: code:addons/account_banking_ach_direct_debit/models/account_banking_mandate.py:98
+#, python-format
+msgid "The following ACH Mandate IDs have been set to expired: %s"
+msgstr ""
+
+#. module: account_banking_ach_direct_debit
+#: code:addons/account_banking_ach_direct_debit/models/account_banking_mandate.py:47
+#, python-format
+msgid "The recurrent mandate '%s' must have a sequence type."
+msgstr ""
+
+#. module: account_banking_ach_direct_debit
+#: model:ir.model.fields,help:account_banking_ach_direct_debit.field_account_banking_mandate__recurrent_sequence_type
+msgid "This field is only used for Recurrent mandates, not for\n"
+"        One-Off mandates."
+msgstr ""
+
+#. module: account_banking_ach_direct_debit
+#: model_terms:ir.ui.view,arch_db:account_banking_ach_direct_debit.view_mandate_search
+#: model_terms:ir.ui.view,arch_db:account_banking_ach_direct_debit.view_mandate_tree
+msgid "Type"
+msgstr ""
+
+#. module: account_banking_ach_direct_debit
+#: model:ir.model.fields,field_description:account_banking_ach_direct_debit.field_account_banking_mandate__type
+msgid "Type of Mandate"
+msgstr ""
+
+#. module: account_banking_ach_direct_debit
+#: model:ir.model.fields,field_description:account_banking_ach_direct_debit.field_account_banking_mandate__unique_mandate_reference
+msgid "Unique Mandate Reference"
+msgstr ""
+
