@@ -8,6 +8,7 @@
         <field name="arch" type="xml">
             <xpath expr="//group[2]/field[@name='supplier']" position="after">
                 <field name="is_1099"/>
+                <field name="type_1099" attrs="{'required': [('is_1099', '=', True)]}"/>
             </xpath>
         </field>
     </record>
