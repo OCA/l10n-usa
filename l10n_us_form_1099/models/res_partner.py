@@ -8,6 +8,7 @@ class ResPartner(models.Model):
     _inherit = "res.partner"
 
     is_1099 = fields.Boolean('Is a 1099?')
+    type_1099_id = fields.Many2one('type.1099', string='1099 Type')
 
     @api.onchange('is_1099')
     def _on_change_is_1099(self):

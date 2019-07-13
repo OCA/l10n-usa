@@ -11,9 +11,16 @@ work for themselves, another company or be the whole other company. This
 is a huge range, but it can be simplified down to "do I report their
 payment to the IRS as a 1099?".
 
-This module extends the functionality of a partner and allow you to specify 1099 suppliers.
+This module extends the functionality of a partner and allow you to specify
+1099 suppliers and 1099 types.
 
 You will still need to manage payment and IRS reporting separately.
+
+Configuration
+=============
+
+#. Go to Contacts > Configuration > 1099 Type
+#. Create 1099 Type like 1099-A, 1099-B, 1099-xxx.
 
 Usage
 =====
@@ -56,6 +63,7 @@ Contributors
 * Jenny Wu <jwu@ursainfosystems.com>
 * Maxime Chambreuil <mchambreuil@opensourceintegrators.com>
 * Serpent Consulting Services Pvt. Ltd. <support@serpentcs.com>
+* Bhavesh Odedra <bodedra@opensourceintegrators.com>
 
 Funders
 -------

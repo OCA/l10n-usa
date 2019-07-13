@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_type_user_1099,access_type_1099,model_type_1099,base.group_user,1,1,1,1
+access_type_system_1099,access_type_1099,model_type_1099,base.group_system,1,1,1,1
+access_account_payment_1099_report_user,account_payment_1099_report,model_account_payment_1099_report,account.group_account_user,1,0,0,0
+access_account_payment_1099_report_manager,account_payment_1099_report,model_account_payment_1099_report,account.group_account_manager,1,1,1,1
