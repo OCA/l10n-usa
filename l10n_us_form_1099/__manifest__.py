@@ -21,7 +21,7 @@
         "data/type_1099_data.xml",
         "views/type_1099_view.xml",
         "views/res_partner.xml",
-        "reports/account_payment_1099_report.xml",
+        "reports/account_payment_1099_report_views.xml",
     ],
     "installable": True,
 }
