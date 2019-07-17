@@ -14,6 +14,9 @@
         "contacts"
     ],
     "data": [
+        "security/ir.model.access.csv",
+        "data/type_1099_data.xml",
+        "views/type_1099_view.xml",
         "views/res_partner.xml",
     ],
     "installable": True,
