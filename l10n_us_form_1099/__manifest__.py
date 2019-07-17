@@ -6,9 +6,7 @@
     "version": "12.0.1.0.0",
     "author": "Open Source Integrators, Odoo Community Association (OCA)",
     "license": "AGPL-3",
-    "summary": """Add 1099 field to res.partner that will auto-check supplier
-                  and aid in reporting payments to these 1099 partners for US
-                  tax purposes""",
+    "summary": "Manage 1099 Types and Suppliers",
     "category": "Customers",
     "maintainer": "Open Source Integrators",
     "website": "https://github.com/OCA/l10n-usa",
