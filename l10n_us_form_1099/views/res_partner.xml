@@ -8,6 +8,7 @@
         <field name="arch" type="xml">
             <xpath expr="//group[2]/field[@name='supplier']" position="after">
                 <field name="is_1099"/>
+                <field name="type_1099_id" widget="selection" attrs="{'invisible': [('is_1099', '=', False)]}"/>
             </xpath>
         </field>
     </record>
