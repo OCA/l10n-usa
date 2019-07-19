@@ -1,0 +1,47 @@
+<odoo>
+    <!-- Copyright (C) 2019 Open Source Integrators
+         License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+    <record id="view_box_1099_misc_form" model="ir.ui.view">
+        <field name="name">view.box.1099.misc.form</field>
+        <field name="model">box.1099.misc</field>
+        <field name="arch" type="xml">
+            <form string="1099-MISC Box">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_box_1099_misc_tree" model="ir.ui.view">
+        <field name="name">box.1099.misc.tree</field>
+        <field name="model">box.1099.misc</field>
+        <field name="arch" type="xml">
+            <tree string="1099-MISC Boxes">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_box_1099_misc_view">
+        <field name="name">1099-MISC Boxes</field>
+        <field name="res_model">box.1099.misc</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" eval="view_box_1099_misc_tree"/>
+    </record>
+
+    <menuitem
+            id="box_1099_misc_menu_config"
+            name="1099-MISC Boxes"
+            parent="contacts.res_partner_menu_config"
+            sequence="15"
+            action="action_box_1099_misc_view"/>
+
+</odoo>
