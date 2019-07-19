@@ -1,0 +1,79 @@
+<odoo>
+
+    <record id="box_1099_misc_1" model="box.1099.misc">
+        <field name="name">Box 1 Rents</field>
+    </record>
+
+    <record id="box_1099_misc_2" model="box.1099.misc">
+        <field name="name">Box 2 Royalties</field>
+    </record>
+
+    <record id="box_1099_misc_3" model="box.1099.misc">
+        <field name="name">Box 3 Other Income</field>
+    </record>
+
+    <record id="box_1099_misc_4" model="box.1099.misc">
+        <field name="name">Box 4 Fed Income Tax withheld</field>
+    </record>
+
+    <record id="box_1099_misc_5" model="box.1099.misc">
+        <field name="name">Box 5 Fishing Boat Proceeds</field>
+    </record>
+
+    <record id="box_1099_misc_6" model="box.1099.misc">
+        <field name="name">Box 6 Medical &amp; Health Care</field>
+    </record>
+
+    <record id="box_1099_misc_7" model="box.1099.misc">
+        <field name="name">Box 7 Nonemployee Compensation</field>
+    </record>
+
+    <record id="box_1099_misc_8" model="box.1099.misc">
+        <field name="name">Box 8 Substitute Payments</field>
+    </record>
+
+    <record id="box_1099_misc_9" model="box.1099.misc">
+        <field name="name">Box 9 Payer made direct sales of $5,000...</field>
+    </record>
+
+    <record id="box_1099_misc_10" model="box.1099.misc">
+        <field name="name">Box 10 Crop Insurance Proceeds</field>
+    </record>
+
+    <record id="box_1099_misc_13" model="box.1099.misc">
+        <field name="name">Box 13 Excess Golden Parachute</field>
+    </record>
+
+    <record id="box_1099_misc_14" model="box.1099.misc">
+        <field name="name">Box 14 Gross Amount Paid to an Attorney</field>
+    </record>
+
+    <record id="box_1099_misc_15a" model="box.1099.misc">
+        <field name="name">Box 15a Section 409A deferrals</field>
+    </record>
+
+    <record id="box_1099_misc_15b" model="box.1099.misc">
+        <field name="name">Box 15b Section 409A Income</field>
+    </record>
+
+    <record id="box_1099_misc_16a" model="box.1099.misc">
+        <field name="name">Box 16a State Tax withheld</field>
+    </record>
+
+    <record id="box_1099_misc_16b" model="box.1099.misc">
+        <field name="name">Box 16b Local Tax Withheld</field>
+    </record>
+
+    <record id="box_1099_misc_17" model="box.1099.misc">
+        <field name="name">Box 17 State No.</field>
+    </record>
+
+    <record id="box_1099_misc_18a" model="box.1099.misc">
+        <field name="name">Box 18a State Income</field>
+    </record>
+
+    <record id="box_1099_misc_18b" model="box.1099.misc">
+        <field name="name">Box 18b Local Income</field>
+    </record>
+
+</odoo>
