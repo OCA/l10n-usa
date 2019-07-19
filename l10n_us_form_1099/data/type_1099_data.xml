@@ -1,4 +1,3 @@
-<?xml version="1.0"?>
 <odoo>
 
     <record id="1099_type_a" model="type.1099">

@@ -1,4 +1,5 @@
-# Copyright 2019 Open Source Integrators <https://opensourceintegrators.com>
+# Copyright (C) 2019 Brian McMaster
+# Copyright (C) 2019 Open Source Integrators
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from odoo import api, fields, models, tools
@@ -13,6 +14,8 @@ class AccountPayment1099Report(models.Model):
     amount = fields.Float('Payment Amount', readonly=True)
     vendor_id = fields.Many2one('res.partner', 'Vendor', readonly=True)
     type_1099 = fields.Many2one('type.1099', '1099 Type', readonly=True)
+    box_1099_misc = fields.Many2one('box.1099.misc', '1099-MISC Box',
+                                    readonly=True)
 
     def _select(self):
         return """
@@ -21,7 +24,8 @@ class AccountPayment1099Report(models.Model):
                 pmt.payment_date AS date,
                 pmt.amount AS amount,
                 v.id AS vendor_id,
-                v.type_1099_id AS type_1099
+                v.type_1099_id AS type_1099,
+                v.box_1099_misc_id AS box_1099_misc
         """
 
     def _from(self):
