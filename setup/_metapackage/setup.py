@@ -11,6 +11,7 @@ setuptools.setup(
         'odoo12-addon-account_banking_ach_base',
         'odoo12-addon-account_banking_ach_credit_transfer',
         'odoo12-addon-account_banking_ach_direct_debit',
+        'odoo12-addon-l10n_us_account_profile',
         'odoo12-addon-l10n_us_form_1099',
     ],
     classifiers=[
