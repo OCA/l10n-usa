@@ -34,20 +34,41 @@ msgstr ""
 
 #. module: l10n_us_form_1099
 #: model:ir.ui.menu,name:l10n_us_form_1099.menu_action_account_payment_report_1099
-msgid "1099 Reports"
+msgid "1099 Report"
 msgstr ""
 
 #. module: l10n_us_form_1099
-#: model:ir.actions.act_window,name:l10n_us_form_1099.action_type_1099_view
 #: model:ir.model,name:l10n_us_form_1099.model_type_1099
 #: model:ir.model.fields,field_description:l10n_us_form_1099.field_account_payment_1099_report__type_1099
 #: model:ir.model.fields,field_description:l10n_us_form_1099.field_res_partner__type_1099_id
 #: model:ir.model.fields,field_description:l10n_us_form_1099.field_res_users__type_1099_id
-#: model:ir.ui.menu,name:l10n_us_form_1099.type_1099_menu_config
 #: model_terms:ir.ui.view,arch_db:l10n_us_form_1099.view_account_payment_1099_report_search
 #: model_terms:ir.ui.view,arch_db:l10n_us_form_1099.view_type_1099_form
-#: model_terms:ir.ui.view,arch_db:l10n_us_form_1099.view_type_1099_tree
 msgid "1099 Type"
+msgstr ""
+
+#. module: l10n_us_form_1099
+#: model:ir.actions.act_window,name:l10n_us_form_1099.action_type_1099_view
+#: model:ir.ui.menu,name:l10n_us_form_1099.type_1099_menu_config
+#: model_terms:ir.ui.view,arch_db:l10n_us_form_1099.view_type_1099_tree
+msgid "1099 Types"
+msgstr ""
+
+#. module: l10n_us_form_1099
+#: model:ir.model,name:l10n_us_form_1099.model_box_1099_misc
+#: model:ir.model.fields,field_description:l10n_us_form_1099.field_account_payment_1099_report__box_1099_misc
+#: model:ir.model.fields,field_description:l10n_us_form_1099.field_res_partner__box_1099_misc_id
+#: model:ir.model.fields,field_description:l10n_us_form_1099.field_res_users__box_1099_misc_id
+#: model_terms:ir.ui.view,arch_db:l10n_us_form_1099.view_account_payment_1099_report_search
+#: model_terms:ir.ui.view,arch_db:l10n_us_form_1099.view_box_1099_misc_form
+msgid "1099-MISC Box"
+msgstr ""
+
+#. module: l10n_us_form_1099
+#: model:ir.actions.act_window,name:l10n_us_form_1099.action_box_1099_misc_view
+#: model:ir.ui.menu,name:l10n_us_form_1099.box_1099_misc_menu_config
+#: model_terms:ir.ui.view,arch_db:l10n_us_form_1099.view_box_1099_misc_tree
+msgid "1099-MISC Boxes"
 msgstr ""
 
 #. module: l10n_us_form_1099
@@ -56,11 +77,13 @@ msgid "Contact"
 msgstr ""
 
 #. module: l10n_us_form_1099
+#: model:ir.model.fields,field_description:l10n_us_form_1099.field_box_1099_misc__create_uid
 #: model:ir.model.fields,field_description:l10n_us_form_1099.field_type_1099__create_uid
 msgid "Created by"
 msgstr ""
 
 #. module: l10n_us_form_1099
+#: model:ir.model.fields,field_description:l10n_us_form_1099.field_box_1099_misc__create_date
 #: model:ir.model.fields,field_description:l10n_us_form_1099.field_type_1099__create_date
 msgid "Created on"
 msgstr ""
@@ -72,6 +95,7 @@ msgstr ""
 
 #. module: l10n_us_form_1099
 #: model:ir.model.fields,field_description:l10n_us_form_1099.field_account_payment_1099_report__display_name
+#: model:ir.model.fields,field_description:l10n_us_form_1099.field_box_1099_misc__display_name
 #: model:ir.model.fields,field_description:l10n_us_form_1099.field_type_1099__display_name
 msgid "Display Name"
 msgstr ""
@@ -90,6 +114,7 @@ msgstr ""
 
 #. module: l10n_us_form_1099
 #: model:ir.model.fields,field_description:l10n_us_form_1099.field_account_payment_1099_report__id
+#: model:ir.model.fields,field_description:l10n_us_form_1099.field_box_1099_misc__id
 #: model:ir.model.fields,field_description:l10n_us_form_1099.field_type_1099__id
 msgid "ID"
 msgstr ""
@@ -103,21 +128,25 @@ msgstr "Is een 1099"
 
 #. module: l10n_us_form_1099
 #: model:ir.model.fields,field_description:l10n_us_form_1099.field_account_payment_1099_report____last_update
+#: model:ir.model.fields,field_description:l10n_us_form_1099.field_box_1099_misc____last_update
 #: model:ir.model.fields,field_description:l10n_us_form_1099.field_type_1099____last_update
 msgid "Last Modified on"
 msgstr ""
 
 #. module: l10n_us_form_1099
+#: model:ir.model.fields,field_description:l10n_us_form_1099.field_box_1099_misc__write_uid
 #: model:ir.model.fields,field_description:l10n_us_form_1099.field_type_1099__write_uid
 msgid "Last Updated by"
 msgstr ""
 
 #. module: l10n_us_form_1099
+#: model:ir.model.fields,field_description:l10n_us_form_1099.field_box_1099_misc__write_date
 #: model:ir.model.fields,field_description:l10n_us_form_1099.field_type_1099__write_date
 msgid "Last Updated on"
 msgstr ""
 
 #. module: l10n_us_form_1099
+#: model:ir.model.fields,field_description:l10n_us_form_1099.field_box_1099_misc__name
 #: model:ir.model.fields,field_description:l10n_us_form_1099.field_type_1099__name
 msgid "Name"
 msgstr ""
@@ -134,6 +163,7 @@ msgstr ""
 
 #. module: l10n_us_form_1099
 #: model:ir.model.fields,field_description:l10n_us_form_1099.field_account_payment_1099_report__vendor_id
+#: model_terms:ir.ui.view,arch_db:l10n_us_form_1099.view_account_payment_1099_report_search
 msgid "Vendor"
 msgstr ""
 
