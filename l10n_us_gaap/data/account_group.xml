@@ -1,0 +1,706 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Assets -->
+        <record id="account_group_1" model="account.group">
+            <field name="name">Assets</field>
+            <field name="code_prefix">1</field>
+        </record>
+        <record id="account_group_1_1" model="account.group">
+            <field name="name">Cash And Investments</field>
+            <field name="code_prefix">1.1</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_1"/>
+        </record>
+        <record id="account_group_1_1_1" model="account.group">
+            <field name="name">Cash And Cash Equivalents</field>
+            <field name="code_prefix">1.1.1</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_1_1"/>
+        </record>
+        <record id="account_group_1_1_2" model="account.group">
+            <field name="name">Investments and Securities</field>
+            <field name="code_prefix">1.1.2</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_1_1"/>
+        </record>
+         <record id="account_group_1_1_3" model="account.group">
+            <field name="name">Derivative Instruments And Hedges</field>
+            <field name="code_prefix">1.1.3</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_1_1"/>
+        </record>
+         <record id="account_group_1_1_4" model="account.group">
+            <field name="name">Capital Leases, Lessor</field>
+            <field name="code_prefix">1.1.4</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_1_1"/>
+        </record>
+         <record id="account_group_1_1_5" model="account.group">
+            <field name="name">Restricted Assets</field>
+            <field name="code_prefix">1.1.5</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_1_1"/>
+        </record>
+         <record id="account_group_1_1_6" model="account.group">
+            <field name="name">Intercompany Investments</field>
+            <field name="code_prefix">1.1.6</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_1_1"/>
+        </record>
+        <record id="account_group_1_2" model="account.group">
+            <field name="name">Receivables</field>
+            <field name="code_prefix">1.2</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_1"/>
+        </record>
+        <record id="account_group_1_2_1" model="account.group">
+            <field name="name">Accounts, Notes And Loans</field>
+            <field name="code_prefix">1.2.1</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_1_2"/>
+        </record>
+        <record id="account_group_1_2_2" model="account.group">
+            <field name="name">Notes And Loans Receivable</field>
+            <field name="code_prefix">1.2.2</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_1_2"/>
+        </record>
+        <record id="account_group_1_2_3" model="account.group">
+            <field name="name">Receivables With Imputed Interest</field>
+            <field name="code_prefix">1.2.3</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_1_2"/>
+        </record>
+        <record id="account_group_1_2_4" model="account.group">
+            <field name="name">Contracts Or Programs</field>
+            <field name="code_prefix">1.2.4</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_1_2"/>
+        </record>
+        <record id="account_group_1_2_5" model="account.group">
+            <field name="name">Other Receivables</field>
+            <field name="code_prefix">1.2.5</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_1_2"/>
+        </record>
+        <record id="account_group_1_3" model="account.group">
+            <field name="name">Inventory</field>
+            <field name="code_prefix">1.3</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_1"/>
+        </record>
+        <record id="account_group_1_3_1" model="account.group">
+            <field name="name">Merchandise, Material And Supplies</field>
+            <field name="code_prefix">1.3.1</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_1_3"/>
+        </record>
+        <record id="account_group_1_3_2" model="account.group">
+            <field name="name">Work In Process</field>
+            <field name="code_prefix">1.3.2</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_1_3"/>
+        </record>
+        <record id="account_group_1_3_3" model="account.group">
+            <field name="name">Finished Goods</field>
+            <field name="code_prefix">1.3.3</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_1_3"/>
+        </record>
+        <record id="account_group_1_3_4" model="account.group">
+            <field name="name">Capitalized Contract Cost</field>
+            <field name="code_prefix">1.3.4</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_1_3"/>
+        </record>
+        <record id="account_group_1_3_5" model="account.group">
+            <field name="name">Other Inventory</field>
+            <field name="code_prefix">1.3.5</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_1_3"/>
+        </record>
+        <record id="account_group_1_3_6" model="account.group">
+            <field name="name">Inventory For Long-Term Contracts Or Programs</field>
+            <field name="code_prefix">1.3.6</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_1_3"/>
+        </record>
+        <record id="account_group_1_3_7" model="account.group">
+            <field name="name">Allowances And Adjustments</field>
+            <field name="code_prefix">1.3.7</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_1_3"/>
+        </record>
+        <record id="account_group_1_4" model="account.group">
+            <field name="name">Accrued, Deferred And Other Assets</field>
+            <field name="code_prefix">1.4</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_1"/>
+        </record>
+        <record id="account_group_1_4_1" model="account.group">
+            <field name="name">Prepaid Expense</field>
+            <field name="code_prefix">1.4.1</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_1_4"/>
+        </record>
+        <record id="account_group_1_4_2" model="account.group">
+            <field name="name">Returnable Deposits</field>
+            <field name="code_prefix">1.4.2</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_1_4"/>
+        </record>
+        <record id="account_group_1_4_3" model="account.group">
+            <field name="name">Accrued Revenue</field>
+            <field name="code_prefix">1.4.3</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_1_4"/>
+        </record>
+        <record id="account_group_1_4_4" model="account.group">
+            <field name="name">Deferred Costs</field>
+            <field name="code_prefix">1.4.4</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_1_4"/>
+        </record>
+        <record id="account_group_1_4_5" model="account.group">
+            <field name="name">Other Accrued And Deferred Assets</field>
+            <field name="code_prefix">1.4.5</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_1_4"/>
+        </record>
+        <record id="account_group_1_4_6" model="account.group">
+            <field name="name">Investments And Other Assets</field>
+            <field name="code_prefix">1.4.6</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_1_4"/>
+        </record>
+        <record id="account_group_1_5" model="account.group">
+            <field name="name">Property, Plant And Equipment</field>
+            <field name="code_prefix">1.5</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_1"/>
+        </record>
+        <record id="account_group_1_5_1" model="account.group">
+            <field name="name">Land, Buildings And Improvements</field>
+            <field name="code_prefix">1.5.1</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_1_5"/>
+        </record>
+        <record id="account_group_1_5_2" model="account.group">
+            <field name="name">Machinery And Equipment</field>
+            <field name="code_prefix">1.5.2</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_1_5"/>
+        </record>
+        <record id="account_group_1_5_3" model="account.group">
+            <field name="name">Other Property, Plant And Equipment</field>
+            <field name="code_prefix">1.5.3</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_1_5"/>
+        </record>
+        <record id="account_group_1_5_4" model="account.group">
+            <field name="name">Assets Under Construction</field>
+            <field name="code_prefix">1.5.4</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_1_5"/>
+        </record>
+        <record id="account_group_1_6" model="account.group">
+            <field name="name">Intangible Assets</field>
+            <field name="code_prefix">1.6</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_1"/>
+        </record>
+        <record id="account_group_1_6_1" model="account.group">
+            <field name="name">Intangible Assets Excluding Goodwill</field>
+            <field name="code_prefix">1.6.1</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_1_6"/>
+        </record>
+        <record id="account_group_1_6_2" model="account.group">
+            <field name="name">Goodwill</field>
+            <field name="code_prefix">1.6.2</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_1_6"/>
+        </record>
+        <record id="account_group_1_6_3" model="account.group">
+            <field name="name">Acquisitions In Progress</field>
+            <field name="code_prefix">1.6.3</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_1_6"/>
+        </record>
+        <!-- Liabilities -->
+        <record id="account_group_2" model="account.group">
+            <field name="name">Liabilities</field>
+            <field name="code_prefix">2</field>
+        </record>
+        <record id="account_group_2_1" model="account.group">
+            <field name="name">Accounts Payable And Accrued Liabilities</field>
+            <field name="code_prefix">2.1</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_2"/>
+        </record>
+        <record id="account_group_2_1_1" model="account.group">
+            <field name="name">Accounts Payable</field>
+            <field name="code_prefix">2.1.1</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_2_1"/>
+        </record>
+        <record id="account_group_2_1_2" model="account.group">
+            <field name="name">Accrued Liabilities</field>
+            <field name="code_prefix">2.1.2</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_2_1"/>
+        </record>
+        <record id="account_group_2_1_3" model="account.group">
+            <field name="name">Employee-Related Liabilities</field>
+            <field name="code_prefix">2.1.3</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_2_1"/>
+        </record>
+        <record id="account_group_2_1_4" model="account.group">
+            <field name="name">Taxes Payable</field>
+            <field name="code_prefix">2.1.4</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_2_1"/>
+        </record>
+        <record id="account_group_2_1_5" model="account.group">
+            <field name="name">Interest And Dividends Payable</field>
+            <field name="code_prefix">2.1.5</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_2_1"/>
+        </record>
+        <record id="account_group_2_2" model="account.group">
+            <field name="name">Debt And Capital Lease Obligations</field>
+            <field name="code_prefix">2.2</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_2"/>
+        </record>
+        <record id="account_group_2_2_1" model="account.group">
+            <field name="name">Debts</field>
+            <field name="code_prefix">2.2.1</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_2_2"/>
+        </record>
+        <record id="account_group_2_2_2" model="account.group">
+            <field name="name">Notes And Loans Payable</field>
+            <field name="code_prefix">2.2.2</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_2_2"/>
+        </record>
+        <record id="account_group_2_2_3" model="account.group">
+            <field name="name">Special Assessment Bond</field>
+            <field name="code_prefix">2.2.3</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_2_2"/>
+        </record>
+        <record id="account_group_2_2_4" model="account.group">
+            <field name="name">Long-Term Federal Home Loan Bank Advances</field>
+            <field name="code_prefix">2.2.4</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_2_2"/>
+        </record>
+        <record id="account_group_2_2_5" model="account.group">
+            <field name="name">Capital Lease Obligations</field>
+            <field name="code_prefix">2.2.5</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_2_2"/>
+        </record>
+        <record id="account_group_2_3" model="account.group">
+            <field name="name">Deferred Revenue And Credits</field>
+            <field name="code_prefix">2.3</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_2"/>
+        </record>
+        <record id="account_group_2_4" model="account.group">
+            <field name="name">Contracts Or Programs</field>
+            <field name="code_prefix">2.4</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_2"/>
+        </record>
+        <record id="account_group_2_4_1" model="account.group">
+            <field name="name">Billings In Excess Of Cost</field>
+            <field name="code_prefix">2.4.1</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_2_4"/>
+        </record>
+        <record id="account_group_2_5" model="account.group">
+            <field name="name">Derivative Instruments And Hedges</field>
+            <field name="code_prefix">2.5</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_2"/>
+        </record>
+        <record id="account_group_2_5_1" model="account.group">
+            <field name="name">Derivative Liability</field>
+            <field name="code_prefix">2.5.1</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_2_5"/>
+        </record>
+        <record id="account_group_2_5_2" model="account.group">
+            <field name="name">Hedging Liabilities</field>
+            <field name="code_prefix">2.5.2</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_2_5"/>
+        </record>
+        <record id="account_group_2_5_3" model="account.group">
+            <field name="name">Energy Marketing Contract Liabilities</field>
+            <field name="code_prefix">2.5.3</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_2_5"/>
+        </record>
+        <record id="account_group_2_6" model="account.group">
+            <field name="name">Liabilities Other Than Debt</field>
+            <field name="code_prefix">2.6</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_2"/>
+        </record>
+        <record id="account_group_2_7" model="account.group">
+            <field name="name">Related Party Liabilities</field>
+            <field name="code_prefix">2.7</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_2"/>
+        </record>
+        <record id="account_group_2_7_1" model="account.group">
+            <field name="name">Related Party Accounts Payable</field>
+            <field name="code_prefix">2.7.1</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_2_7"/>
+        </record>
+        <record id="account_group_2_7_2" model="account.group">
+            <field name="name">Related Party Notes Payable</field>
+            <field name="code_prefix">2.7.2</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_2_7"/>
+        </record>
+        <record id="account_group_2_7_3" model="account.group">
+            <field name="name">Due To Employees</field>
+            <field name="code_prefix">2.7.3</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_2_7"/>
+        </record>
+        <record id="account_group_2_7_4" model="account.group">
+            <field name="name">Due To Officers Or Stockholders</field>
+            <field name="code_prefix">2.7.4</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_2_7"/>
+        </record>
+        <record id="account_group_2_7_5" model="account.group">
+            <field name="name">Due To Affiliate</field>
+            <field name="code_prefix">2.7.5</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_2_7"/>
+        </record>
+         <record id="account_group_2_7_6" model="account.group">
+            <field name="name">Due To Other Related Parties</field>
+            <field name="code_prefix">2.7.6</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_2_7"/>
+        </record>
+        <record id="account_group_2_8" model="account.group">
+            <field name="name">Other Liabilities</field>
+            <field name="code_prefix">2.8</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_2"/>
+        </record>
+        <!-- Equity -->
+        <record id="account_group_3" model="account.group">
+            <field name="name">Equity</field>
+            <field name="code_prefix">3</field>
+        </record>
+        <record id="account_group_3_1" model="account.group">
+            <field name="name">Paid-In Capital</field>
+            <field name="code_prefix">3.1</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_3"/>
+        </record>
+        <record id="account_group_3_1_1" model="account.group">
+            <field name="name">Common Stock</field>
+            <field name="code_prefix">3.1.1</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_3_1"/>
+        </record>
+        <record id="account_group_3_1_2" model="account.group">
+            <field name="name">Preferred Stock</field>
+            <field name="code_prefix">3.1.2</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_3_1"/>
+        </record>
+        <record id="account_group_3_1_3" model="account.group">
+            <field name="name">Additional Paid-In Capital</field>
+            <field name="code_prefix">3.1.3</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_3_1"/>
+        </record>
+        <record id="account_group_3_1_4" model="account.group">
+            <field name="name">Legal Equity (Statutory Capital)</field>
+            <field name="code_prefix">3.1.4</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_3_1"/>
+        </record>
+        <record id="account_group_3_2" model="account.group">
+            <field name="name">Retained Earnings</field>
+            <field name="code_prefix">3.2</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_3"/>
+        </record>
+        <record id="account_group_3_2_1" model="account.group">
+            <field name="name">Appropriated</field>
+            <field name="code_prefix">3.2.1</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_3_2"/>
+        </record>
+        <record id="account_group_3_2_2" model="account.group">
+            <field name="name">Unappropriated</field>
+            <field name="code_prefix">3.2.2</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_3_2"/>
+        </record>
+        <record id="account_group_3_2_3" model="account.group">
+            <field name="name">Retained Earnings Deficit</field>
+            <field name="code_prefix">3.2.3</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_3_2"/>
+        </record>
+        <record id="account_group_3_2_4" model="account.group">
+            <field name="name">Suspense Account</field>
+            <field name="code_prefix">3.2.4</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_3_2"/>
+        </record>
+        <record id="account_group_3_3" model="account.group">
+            <field name="name">Accumulated Other Comprehensive Income</field>
+            <field name="code_prefix">3.3</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_3"/>
+        </record>
+        <record id="account_group_3_3_1" model="account.group">
+            <field name="name">Foreign Currency Translation Gain (Loss)</field>
+            <field name="code_prefix">3.3.1</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_3_3"/>
+        </record>
+        <record id="account_group_3_3_2" model="account.group">
+            <field name="name">Available For Sale Securities Gain (Loss)</field>
+            <field name="code_prefix">3.3.2</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_3_3"/>
+        </record>
+        <record id="account_group_3_3_3" model="account.group">
+            <field name="name">Impairment Debt Securities</field>
+            <field name="code_prefix">3.3.3</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_3_3"/>
+        </record>
+        <record id="account_group_3_3_4" model="account.group">
+            <field name="name">Cash Flow Hedges Gain (Loss)</field>
+            <field name="code_prefix">3.3.4</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_3_3"/>
+        </record>
+        <record id="account_group_3_3_5" model="account.group">
+            <field name="name">Defined Benefit Plan Income (Loss)</field>
+            <field name="code_prefix">3.3.5</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_3"/>
+        </record>
+        <record id="account_group_3_4" model="account.group">
+            <field name="name">Other Equity</field>
+            <field name="code_prefix">3.4</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_3"/>
+        </record>
+        <record id="account_group_3_4_1" model="account.group">
+            <field name="name">Unearned Sop Shares</field>
+            <field name="code_prefix">3.4.1</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_3_4"/>
+        </record>
+        <record id="account_group_3_4_2" model="account.group">
+            <field name="name">Receivable From Officers, Directors For Issuance Of Capital Stock</field>
+            <field name="code_prefix">3.4.2</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_3_4"/>
+        </record>
+        <record id="account_group_3_4_3" model="account.group">
+            <field name="name">Receivable From Shareholders Or Affiliates For Issuance Of Capital Stock</field>
+            <field name="code_prefix">3.4.3</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_3_4"/>
+        </record>
+        <record id="account_group_3_4_4" model="account.group">
+            <field name="name">Stockholders' Equity Note, Subscriptions Receivable</field>
+            <field name="code_prefix">3.4.4</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_3_4"/>
+        </record>
+        <record id="account_group_3_4_5" model="account.group">
+            <field name="name">Warrants, Rights Outstanding</field>
+            <field name="code_prefix">3.4.5</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_3_4"/>
+        </record>
+        <record id="account_group_3_4_6" model="account.group">
+            <field name="name">Other Additional Capital</field>
+            <field name="code_prefix">3.4.6</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_3_4"/>
+        </record>
+        <record id="account_group_3_4_7" model="account.group">
+            <field name="name">Treasury Stock</field>
+            <field name="code_prefix">3.4.7</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_3_4"/>
+        </record>
+        <record id="account_group_3_4_8" model="account.group">
+            <field name="name">Additional Items</field>
+            <field name="code_prefix">3.4.8</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_3_4"/>
+        </record>
+        <record id="account_group_3_5" model="account.group">
+            <field name="name">Equity Attributable To Non-Controlling Interest</field>
+            <field name="code_prefix">3.5</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_3"/>
+        </record>
+        <!-- Revenue -->
+        <record id="account_group_4" model="account.group">
+            <field name="name">Revenue</field>
+            <field name="code_prefix">4</field>
+        </record>
+        <record id="account_group_4_1" model="account.group">
+            <field name="name">Goods</field>
+            <field name="code_prefix">4.1</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_4"/>
+        </record>
+        <record id="account_group_4_1_1" model="account.group">
+            <field name="name">Products And Merchandise</field>
+            <field name="code_prefix">4.1.1</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_4_1"/>
+        </record>
+        <record id="account_group_4_1_1_1" model="account.group">
+            <field name="name">Products</field>
+            <field name="code_prefix">4.1.1.1</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_4_1_1"/>
+        </record>
+        <record id="account_group_4_1_1_2" model="account.group">
+            <field name="name">Merchandise</field>
+            <field name="code_prefix">4.1.1.2</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_4_1_1"/>
+        </record>
+        <record id="account_group_4_1_2" model="account.group">
+            <field name="name">Allowances, Discounts</field>
+            <field name="code_prefix">4.1.2</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_4_1"/>
+        </record>
+        <record id="account_group_4_1_2_1" model="account.group">
+            <field name="name">Returns, Allowances</field>
+            <field name="code_prefix">4.1.2.1</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_4_1_2"/>
+        </record>
+        <record id="account_group_4_1_2_2" model="account.group">
+            <field name="name">Sales Discounts (Consideration Paid To Customers)</field>
+            <field name="code_prefix">4.1.2.2</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_4_1_2"/>
+        </record>
+        <record id="account_group_4_2" model="account.group">
+            <field name="name">Services</field>
+            <field name="code_prefix">4.2</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_4"/>
+        </record>
+        <record id="account_group_4_2_1" model="account.group">
+            <field name="name">General Services</field>
+            <field name="code_prefix">4.2.1</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_4_2"/>
+        </record>
+        <record id="account_group_4_2_2" model="account.group">
+            <field name="name">Allowances, Discounts</field>
+            <field name="code_prefix">4.2.2</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_4_2"/>
+        </record>
+        <record id="account_group_4_2_2_1" model="account.group">
+            <field name="name">Sales Allowances</field>
+            <field name="code_prefix">4.2.2.1</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_4_2_2"/>
+        </record>
+        <record id="account_group_4_2_2_2" model="account.group">
+            <field name="name">Sales Discounts</field>
+            <field name="code_prefix">4.2.2.2</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_4_2_2"/>
+        </record>
+        <record id="account_group_4_2_3" model="account.group">
+            <field name="name">Itemized Services</field>
+            <field name="code_prefix">4.2.3</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_4_2"/>
+        </record>
+        <record id="account_group_4_2_3_1" model="account.group">
+            <field name="name">Other Sales Revenues</field>
+            <field name="code_prefix">4.2.3.1</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_4_2_3"/>
+        </record>
+        <record id="account_group_4_3" model="account.group">
+            <field name="name">Other Operating Income</field>
+            <field name="code_prefix">4.3</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_4"/>
+        </record>
+        <record id="account_group_4_3_1" model="account.group">
+            <field name="name">Other Recurring Income</field>
+            <field name="code_prefix">4.3.1</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_4_3"/>
+        </record>
+        <!-- Expenses -->
+        <record id="account_group_5" model="account.group">
+            <field name="name">Expenses</field>
+            <field name="code_prefix">5</field>
+        </record>
+        <record id="account_group_5_1" model="account.group">
+            <field name="name">Expenses Classified By Function</field>
+            <field name="code_prefix">5.1</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_5"/>
+        </record>
+        <record id="account_group_5_1_1" model="account.group">
+            <field name="name">Cost Of Revenue</field>
+            <field name="code_prefix">5.1.1</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_5_1"/>
+        </record>
+        <record id="account_group_5_1_1_1" model="account.group">
+            <field name="name">Cost Of Goods Sold</field>
+            <field name="code_prefix">5.1.1.1</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_5_1_1"/>
+        </record>
+        <record id="account_group_5_1_1_2" model="account.group">
+            <field name="name">Cost Of Services Rendered</field>
+            <field name="code_prefix">5.1.1.2</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_5_1_1"/>
+        </record>
+        <record id="account_group_5_1_1_3" model="account.group">
+            <field name="name">Other Costs Of Sales</field>
+            <field name="code_prefix">5.1.1.3</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_5_1_1"/>
+        </record>
+        <record id="account_group_5_1_2" model="account.group">
+            <field name="name">Selling, General, Administrative</field>
+            <field name="code_prefix">5.1.2</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_5_1"/>
+        </record>
+        <record id="account_group_5_1_2_1" model="account.group">
+            <field name="name">Selling And Marketing</field>
+            <field name="code_prefix">5.1.2.1</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_5_1_2"/>
+        </record>
+        <record id="account_group_5_1_2_2" model="account.group">
+            <field name="name">General, Administrative Expenses</field>
+            <field name="code_prefix">5.1.2.2</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_5_1_2"/>
+        </record>
+        <record id="account_group_5_1_2_3" model="account.group">
+            <field name="name">Other Operating Expenses</field>
+            <field name="code_prefix">5.1.2.3</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_5_1_2"/>
+        </record>
+        <record id="account_group_5_1_3" model="account.group">
+            <field name="name">Doubtful Accounts</field>
+            <field name="code_prefix">5.1.3</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_5_1"/>
+        </record>
+        <!-- Other Revenue, Expenses, Gains And Losses -->
+        <record id="account_group_6" model="account.group">
+            <field name="name">Other Revenue, Expenses, Gains And Losses</field>
+            <field name="code_prefix">6</field>
+        </record>
+        <record id="account_group_6_1" model="account.group">
+            <field name="name">Gains And Losses</field>
+            <field name="code_prefix">6.1</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_6"/>
+        </record>
+        <record id="account_group_6_1_1" model="account.group">
+            <field name="name">Foreign Currency</field>
+            <field name="code_prefix">6.1.1</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_6_1"/>
+        </record>
+        <record id="account_group_6_1_2" model="account.group">
+            <field name="name">Other Non-Operating Income Or Loss</field>
+            <field name="code_prefix">6.1.2</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_6_1"/>
+        </record>
+        <record id="account_group_6_1_3" model="account.group">
+            <field name="name">Restructuring Charge</field>
+            <field name="code_prefix">6.1.3</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_6_1"/>
+        </record>
+        <record id="account_group_6_1_4" model="account.group">
+            <field name="name">Inventory Write-Downs (Not Recognized In Cost Of Sales)</field>
+            <field name="code_prefix">6.1.4</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_6_1"/>
+        </record>
+        <record id="account_group_6_1_5" model="account.group">
+            <field name="name">Impairment Charge</field>
+            <field name="code_prefix">6.1.5</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_6_1"/>
+        </record>
+        <record id="account_group_6_1_6" model="account.group">
+            <field name="name">Extinguishment Of Debt</field>
+            <field name="code_prefix">6.1.6</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_6_1"/>
+        </record>
+        <record id="account_group_6_1_7" model="account.group">
+            <field name="name">Business Combination, Acquisition Related Costs</field>
+            <field name="code_prefix">6.1.7</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_6_1"/>
+        </record>
+        <record id="account_group_6_1_8" model="account.group">
+            <field name="name">Gain (Loss) Related To Litigation Settlement</field>
+            <field name="code_prefix">6.1.8</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_6_1"/>
+        </record>
+        <record id="account_group_6_1_9" model="account.group">
+            <field name="name">Asset Retirement Obligation</field>
+            <field name="code_prefix">6.1.9</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_6_1"/>
+        </record>
+        <record id="account_group_6_1_10" model="account.group">
+            <field name="name">Unusual And/Or Infrequent Items</field>
+            <field name="code_prefix">6.1.10</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_6_1"/>
+        </record>
+        <record id="account_group_6_1_11" model="account.group">
+            <field name="name">Additional Itemized Gains And Losses</field>
+            <field name="code_prefix">6.1.11</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_6_1"/>
+        </record>
+        <record id="account_group_6_2" model="account.group">
+            <field name="name">Non-Operating Revenues, Expenses</field>
+            <field name="code_prefix">6.2</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_6"/>
+        </record>
+        <record id="account_group_6_2_1" model="account.group">
+            <field name="name">Non-Operating Revenues</field>
+            <field name="code_prefix">6.2.1</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_6_2"/>
+        </record>
+        <record id="account_group_6_2_2" model="account.group">
+            <field name="name">Non-Operating Expenses</field>
+            <field name="code_prefix">6.2.2</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_6_2"/>
+        </record>
+        <record id="account_group_6_3" model="account.group">
+            <field name="name">Non-Monetary Transactions</field>
+            <field name="code_prefix">6.3</field>
+            <field name="parent_id" ref="l10n_us_gaap.account_group_6"/>
+        </record>
+        <!-- Income Tax (Benefit) -->
+        <record id="account_group_7" model="account.group">
+            <field name="name">Income Tax (Benefit)</field>
+            <field name="code_prefix">7</field>
+        </record>
+
+    </data>
+</odoo>
