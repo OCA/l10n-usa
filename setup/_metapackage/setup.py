@@ -13,6 +13,7 @@ setuptools.setup(
         'odoo12-addon-account_banking_ach_direct_debit',
         'odoo12-addon-l10n_us_account_profile',
         'odoo12-addon-l10n_us_form_1099',
+        'odoo12-addon-l10n_us_gaap',
     ],
     classifiers=[
         'Programming Language :: Python',
