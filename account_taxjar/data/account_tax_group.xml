@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Account Tax Group -->
+    <record id="tax_group_taxjar_state" model="account.tax.group">
+        <field name="name">State Taxes</field>
+    </record>
+    <record id="tax_group_taxjar_county" model="account.tax.group">
+        <field name="name">County Taxes</field>
+    </record>
+    <record id="tax_group_taxjar_city" model="account.tax.group">
+        <field name="name">City Taxes</field>
+    </record>
+    <record id="tax_group_taxjar_district" model="account.tax.group">
+        <field name="name">District Taxes</field>
+    </record>
+</odoo>

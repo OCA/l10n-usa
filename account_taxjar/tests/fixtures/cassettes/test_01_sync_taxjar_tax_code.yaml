@@ -1,0 +1,67 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      User-Agent: [TaxJarPython/1.6.0]
+    method: GET
+    uri: https://api.sandbox.taxjar.com/v2/categories
+  response:
+    body: {string: '{"categories":[{"name":"Digital Goods","product_tax_code":"31000","description":"Digital
+        products transferred electronically, meaning obtained by the purchaser by
+        means other than tangible storage media."},{"name":"Clothing","product_tax_code":"20010","description":"
+        All human wearing apparel suitable for general use"},{"name":"Non-Prescription","product_tax_code":"51010","description":"Drugs
+        for human use without a prescription"},{"name":"Prescription","product_tax_code":"51020","description":"Drugs
+        for human use with a prescription"},{"name":"Food \u0026 Groceries","product_tax_code":"40030","description":"Food
+        for humans consumption, unprepared"},{"name":"Other Exempt","product_tax_code":"99999","description":"Item
+        is exempt"},{"name":"Software as a Service","product_tax_code":"30070","description":"Pre-written
+        software, delivered electronically, but access remotely."},{"name":"Magazines
+        \u0026 Subscriptions","product_tax_code":"81300","description":"Periodicals,
+        printed, sold by subscription"},{"name":"Books","product_tax_code":"81100","description":"Books,
+        printed"},{"name":"Magazine","product_tax_code":"81310","description":"Periodicals,
+        printed, sold individually"},{"name":"Textbook","product_tax_code":"81110","description":"Textbooks,
+        printed"},{"name":"Religious books","product_tax_code":"81120","description":"Religious
+        books and manuals, printed"},{"name":"Supplements","product_tax_code":"40020","description":"Non-food
+        dietary supplements"},{"name":"Candy","product_tax_code":"40010","description":"Candy"},{"name":"Soft
+        Drinks","product_tax_code":"40050","description":"Soft drinks. Soda and similar
+        drinks. Does not include water, juice, or milk."},{"name":"Bottled Water","product_tax_code":"40060","description":"Bottled
+        water for human consumption."},{"name":"Prepared Foods","product_tax_code":"41000","description":"Ready
+        to eat foods intended to be consumed on site by humans. Foods not considered
+        to be Food \u0026 Grocery (not food for home consumption or food which requires
+        further preparation to consume)."},{"name":"Printing Services","product_tax_code":"19009","description":"Services
+        provided to apply graphics and/or text to paper or other substrates which
+        do not involve an exchange of tangible personal property."},{"name":"Advertising
+        Services","product_tax_code":"19001","description":"Services rendered for
+        advertising which do not include the exchange of tangible personal property."},{"name":"Installation
+        Services","product_tax_code":"10040","description":"Installation services
+        separately stated from sales of tangible personal property."},{"name":"Parking
+        Services","product_tax_code":"19002","description":"Service of providing usage
+        of a parking space."},{"name":"Admission Services","product_tax_code":"19003","description":"Admission
+        charges associated with entry to an event."},{"name":"Training Services","product_tax_code":"19004","description":"Services
+        provided to educate users on the proper use of a product."},{"name":"Dry Cleaning
+        Services","product_tax_code":"19006","description":"Services provided in the
+        cleaning of clothing and/or fabrics."},{"name":"Repair Services","product_tax_code":"19007","description":"Services
+        provided to restore tangible personal property to working order or optimal
+        functionality."},{"name":"Hairdressing Services","product_tax_code":"19008","description":"Services
+        provided to cut and style human hair."},{"name":"General Services","product_tax_code":"19000","description":"Miscellaneous
+        services which are not subject to a service-specific tax levy. This category
+        will only treat services as taxable if the jurisdiction taxes services generally."},{"name":"Professional
+        Services","product_tax_code":"19005","description":"Professional services
+        which are not subject to a service-specific tax levy. "},{"name":"Clothing
+        - Swimwear","product_tax_code":"20041","description":"Bathing suits and swim
+        suits"}]}'}
+    headers:
+      Cache-Control: ['max-age=0, private, must-revalidate']
+      Connection: [keep-alive]
+      Content-Length: ['3914']
+      Content-Type: [application/json]
+      Date: ['Tue, 18 Dec 2018 16:55:33 GMT']
+      ETag: [W/"a4a6d127842f5892a58d752105d88ff0"]
+      Server: [nginx/1.10.3 (Ubuntu)]
+      Vary: [Origin]
+      X-Request-Id: [e7f0f154-65fc-4182-bc4c-433f48b90f15]
+      X-Runtime: ['0.013710']
+    status: {code: 200, message: OK}
+version: 1

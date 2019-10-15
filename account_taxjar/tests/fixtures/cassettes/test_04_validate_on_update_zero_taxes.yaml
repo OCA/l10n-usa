@@ -1,0 +1,34 @@
+interactions:
+- request:
+    body: '{"shipping": 0.0, "from_city": "Loveland", "from_country": "US", "from_zip":
+      "80538", "to_state": "CO", "from_state": "CO", "to_country": "US", "to_zip":
+      "81211", "nexus_addresses": [{"zip": "81211", "state": "CO", "id": "Colorado",
+      "street": "720-726 S Gunnison Ave", "city": "Buena Vista", "country": "US"}],
+      "to_city": "Buena Vista", "from_street": "626 W 66th St", "to_street": "720-726
+      S Gunnison Ave", "line_items": [{"id": 19, "unit_price": 50.0, "product_tax_code":
+      19000, "discount": 0.0, "quantity": 1.0}]}'
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      Content-Length: ['517']
+      Content-Type: [application/json]
+      User-Agent: [TaxJarPython/1.6.0]
+    method: POST
+    uri: https://api.sandbox.taxjar.com/v2/taxes
+  response:
+    body: {string: '{"tax":{"order_total_amount":50.0,"shipping":0.0,"taxable_amount":50.0,"amount_to_collect":0.0,"rate":0.0,"has_nexus":true,"freight_taxable":true,"tax_source":"modified-origin","jurisdictions":{"country":"US","state":"CO","county":"CHAFFEE","city":"BUENA
+        VISTA"},"breakdown":{"taxable_amount":50.0,"tax_collectable":0.0,"combined_tax_rate":0.0,"state_taxable_amount":50.0,"state_tax_rate":0.0,"state_tax_collectable":0.0,"county_taxable_amount":50.0,"county_tax_rate":0.0,"county_tax_collectable":0.0,"city_taxable_amount":50.0,"city_tax_rate":0.0,"city_tax_collectable":0.0,"special_district_taxable_amount":0.0,"special_tax_rate":0.0,"special_district_tax_collectable":0.0,"shipping":{"taxable_amount":0.0,"tax_collectable":0.0,"combined_tax_rate":0.0,"state_taxable_amount":0.0,"state_sales_tax_rate":0.0,"state_amount":0.0,"county_taxable_amount":0.0,"county_tax_rate":0.0,"county_amount":0.0,"city_taxable_amount":0.0,"city_tax_rate":0.0,"city_amount":0.0,"special_taxable_amount":0.0,"special_tax_rate":0.0,"special_district_amount":0.0},"line_items":[{"id":"OLD_ACCOUNT_LINE_ID","taxable_amount":50.0,"tax_collectable":0.0,"combined_tax_rate":0.0,"state_taxable_amount":50.0,"state_sales_tax_rate":0.0,"state_amount":0.0,"county_taxable_amount":50.0,"county_tax_rate":0.0,"county_amount":0.0,"city_taxable_amount":50.0,"city_tax_rate":0.0,"city_amount":0.0,"special_district_taxable_amount":0.0,"special_tax_rate":0.0,"special_district_amount":0.0}]}}}'}
+    headers:
+      Cache-Control: ['max-age=0, private, must-revalidate']
+      Connection: [keep-alive]
+      Content-Length: ['1481']
+      Content-Type: [application/json]
+      Date: ['Tue, 18 Dec 2018 16:17:01 GMT']
+      ETag: [W/"9202512bae3a80f3665ec51618f4b59b"]
+      Server: [nginx/1.10.3 (Ubuntu)]
+      Vary: [Origin]
+      X-Request-Id: [ff17ed5a-5308-44ed-82a4-592a6fe406e7]
+      X-Runtime: ['0.094895']
+    status: {code: 200, message: OK}
+version: 1

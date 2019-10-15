@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Copyright 2019 Eficent Business and IT Consulting Services S.L.
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+    <record id="view_account_position_form" model="ir.ui.view">
+            <field name="name">account.fiscal.position.inherit.form</field>
+            <field name="model">account.fiscal.position</field>
+            <field name="inherit_id" ref="account.view_account_position_form"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="taxjar_nexus_sourcing_id"/>
+                </field>
+            </field>
+    </record>
+</odoo>

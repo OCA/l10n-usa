@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_taxjar_api_key,taxjar.api,model_taxjar_api_key,base.group_user,1,0,0,0
+access_taxjar_api_key_manager,taxjar.api.manager,model_taxjar_api_key,base.group_system,1,1,1,1
+access_taxjar_category_user,taxjar.category.user,model_taxjar_category,base.group_user,1,0,0,0
+access_taxjar_category_manager,taxjar.category.manager,model_taxjar_category,base.group_system,1,1,1,1
+access_taxjar_nexus_sourcing_user,access_taxjar_nexus_sourcing_user,model_taxjar_nexus_sourcing,base.group_user,1,0,0,0
+access_taxjar_nexus_sourcing_manager,access_taxjar_nexus_sourcing_manager,model_taxjar_nexus_sourcing,base.group_system,1,1,1,1

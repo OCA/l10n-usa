@@ -1,0 +1,30 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      User-Agent: [TaxJarPython/1.6.0]
+    method: GET
+    uri: https://api.sandbox.taxjar.com/v2/nexus/regions
+  response:
+    body: {string: '{"regions":[{"country_code":"US","country":"United States","region_code":"IL","region":"Illinois"},{"country_code":"US","country":"United
+        States","region_code":"WI","region":"Wisconsin"},{"country_code":"US","country":"United
+        States","region_code":"WA","region":"Washington"},{"country_code":"US","country":"United
+        States","region_code":"PA","region":"Pennsylvania"},{"country_code":"US","country":"United
+        States","region_code":"NC","region":"North Carolina"},{"country_code":"US","country":"United
+        States","region_code":"CO","region":"Colorado"}]}'}
+    headers:
+      Cache-Control: ['max-age=0, private, must-revalidate']
+      Connection: [keep-alive]
+      Content-Length: ['548']
+      Content-Type: [application/json]
+      Date: ['Tue, 18 Dec 2018 16:55:33 GMT']
+      ETag: [W/"d32d764d785714fbef4544a278fa06f9"]
+      Server: [nginx/1.10.3 (Ubuntu)]
+      Vary: [Origin]
+      X-Request-Id: [cad833dc-ec37-4b16-9e36-96d3db9722be]
+      X-Runtime: ['0.010283']
+    status: {code: 200, message: OK}
+version: 1

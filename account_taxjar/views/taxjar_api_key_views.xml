@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<odoo>
+    <!-- Copyright 2019 Eficent Business and IT Consulting Services S.L.
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+    <record model="ir.ui.view" id="view_base_account_taxjar_tree">
+        <field name="name">taxjar.api.key.tree</field>
+        <field name="model">taxjar.api.key</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="taxjar_api_url"/>
+                <field name="taxjar_api_token"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_base_account_taxjar_form">
+        <field name="name">taxjar.api.key.form</field>
+        <field name="model">taxjar.api.key</field>
+        <field name="arch" type="xml">
+            <form string="Account Taxjar API Configuration">
+                <header>
+                    <button name="sync_taxjar_tax_code" type="object" class="oe_highlight" string="Import/update TaxJar Categories"/>
+                    <button name="sync_taxjar_nexus_sourcing" type="object" class="oe_highlight" string="Import/update TaxJar Nexus"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="taxjar_api_url"/>
+                            <field name="taxjar_api_token"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_taxjar">
+        <field name="name">Taxjar Configuration</field>
+        <field name="res_model">taxjar.api.key</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_base_account_taxjar_tree"/>
+    </record>
+
+    <menuitem id="menu_taxjar" name="TaxJar" parent="base.menu_custom" sequence="6"/>
+    <menuitem id="menu_taxjar_configuration" name="TaxJar Configuration" parent="menu_taxjar"  action="action_taxjar" sequence="1"/>
+</odoo>
