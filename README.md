@@ -18,6 +18,7 @@ addon | version | summary
 [l10n_us_form_1099](l10n_us_form_1099/) | 12.0.1.2.0 | Manage 1099 Types and Suppliers
 [l10n_us_gaap](l10n_us_gaap/) | 12.0.1.0.0 | United States Sample GAAP Chart of Accounts
 [l10n_us_gaap_mis_report](l10n_us_gaap_mis_report/) | 12.0.1.0.0 | MIS Builder Templates for US Chart of Accounts
+[connector_alndata](connector_alndata/) | 12.0.1.0.0 | ALN Data Connector
 
 [//]: # (end addons)
 
