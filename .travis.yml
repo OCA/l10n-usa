@@ -1,8 +1,9 @@
 language: python
-python:
-- '3.5'
 sudo: false
 cache: pip
+
+python:
+- '3.5'
 
 addons:
   postgresql: "9.6"
@@ -14,19 +15,20 @@ addons:
       - python-serial
 env:
   global:
-    - VERSION="12.0" TESTS="0" LINT_CHECK="0" TRANSIFEX="0"
-    - TRANSIFEX_USER='transbot@odoo-community.org'
-    - secure: weh4Fxzz928ACs7CG/0GJBcUpdw7smzEtZpg8VYz2XvENMKzD7kQRz6sO7REme5dEVN12eCb3MALEiZQFlbnhHcAGr+396OMrePUFm9Zi1qX92007/FTDGDkSN/l3UGYAwy7HgzAcmkKiEtKnenB+THzDvvF4+qC/ql0ujkt7Rcd9O17uZesyd5J0vf7HZEJIANRMSCcjdWa9hAm6oyGWrl+up8dyuTyzqNzb+LtrOI9R+s4OUZR+CJLYeJ4BP5A5g4waZ1NEopOi5KTxtqNgn0biWOUaZ4vGeqYqoZ9EJuV6btYyokOvGpiu6s8Ud1UPcvs9+tcLtd39QQjw4EpAWZRXwuopTcggFBUQnMiXuFb0lKQesgyCrkpyaKFoNM92VDo7G/550kST/iomWdXmwn+lITnVZFccUl44OvAt3YOweUfZJ5GAJeWcB9GU516zBnuUtrzW7lz4PdosK07+mkQEnCzVsXBtOrXFWkD2i9X0CzoXt+F+mLD9e+1R5W/KgewWHbYtS9uA6Tm9wL8d4nIA2bV8EYLMdvi/1UbeYyZRC2Kc/rj/+rXTHs85G9mXf1pvFM52jjB+0aQbFLlsZ5aW6Jp1aOI+u4RMTLE3TSD1/TUWY6m0VHAIbervyOnU4Q/HyPbwqzu1132nCZOyg06UOQIjDh4HMV5N0lFZ/s=
+  - VERSION="12.0" TESTS="0" LINT_CHECK="0" MAKEPOT="0"
+
   matrix:
-    - LINT_CHECK="1"
-    - TRANSIFEX="1"
-    - TESTS="1" ODOO_REPO="OCA/OCB"
-    - TESTS="1" ODOO_REPO="odoo/odoo"
+  - LINT_CHECK="1"
+  - TESTS="1" ODOO_REPO="odoo/odoo" MAKEPOT="1"
+  - TESTS="1" ODOO_REPO="OCA/OCB"
+
 install:
   - git clone --depth=1 https://github.com/OCA/maintainer-quality-tools.git ${HOME}/maintainer-quality-tools
   - export PATH=${HOME}/maintainer-quality-tools/travis:${PATH}
   - travis_install_nightly
+
 script:
   - travis_run_tests
+
 after_success:
   - travis_after_tests_success
