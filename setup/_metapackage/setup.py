@@ -14,6 +14,7 @@ setuptools.setup(
         'odoo12-addon-l10n_us_account_profile',
         'odoo12-addon-l10n_us_form_1099',
         'odoo12-addon-l10n_us_gaap',
+        'odoo12-addon-l10n_us_gaap_mis_report',
     ],
     classifiers=[
         'Programming Language :: Python',
