@@ -32,7 +32,6 @@
         <field name="name">1099-MISC Boxes</field>
         <field name="res_model">box.1099.misc</field>
         <field name="type">ir.actions.act_window</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="view_id" eval="view_box_1099_misc_tree"/>
     </record>
