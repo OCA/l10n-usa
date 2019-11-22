@@ -52,7 +52,6 @@
     <record id="action_account_payment_report_1099" model="ir.actions.act_window">
         <field name="name">1099 Payment Analysis</field>
         <field name="res_model">account.payment.1099.report</field>
-        <field name="view_type">form</field>
         <field name="view_mode">pivot,graph</field>
         <field name="search_view_id" ref="view_account_payment_1099_report_search"/>
         <field name="help">From this report, you can have an overview of the amount paid to your 1099 vendors.</field>
