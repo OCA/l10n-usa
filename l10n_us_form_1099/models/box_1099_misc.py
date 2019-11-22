@@ -5,7 +5,7 @@ from odoo import fields, models
 
 
 class Box1099Misc(models.Model):
-    _name = 'box.1099.misc'
-    _description = '1099-MISC Box'
+    _name = "box.1099.misc"
+    _description = "1099-MISC Box"
 
     name = fields.Char()

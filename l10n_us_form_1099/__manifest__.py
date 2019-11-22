@@ -4,19 +4,16 @@
 
 {
     "name": "US Form 1099",
-    "version": "12.0.1.2.0",
+    "version": "13.0.1.0.0",
     "author": "Open Source Integrators, "
-              "Brian McMaster, "
-              "Odoo Community Association (OCA)",
+    "Brian McMaster, "
+    "Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "summary": "Manage 1099 Types and Suppliers",
     "category": "Customers",
     "maintainer": "Open Source Integrators",
     "website": "https://github.com/OCA/l10n-usa",
-    "depends": [
-        "contacts",
-        "account",
-    ],
+    "depends": ["contacts", "account"],
     "data": [
         "data/type_1099_data.xml",
         "data/box_1099_misc_data.xml",
