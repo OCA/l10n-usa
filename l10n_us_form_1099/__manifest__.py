@@ -4,7 +4,7 @@
 
 {
     "name": "US Form 1099",
-    "version": "12.0.1.2.0",
+    "version": "13.0.1.2.0",
     "author": "Open Source Integrators, "
     "Brian McMaster, "
     "Odoo Community Association (OCA)",

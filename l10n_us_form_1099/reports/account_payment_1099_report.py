@@ -2,7 +2,7 @@
 # Copyright (C) 2019 Open Source Integrators
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import api, fields, models, tools
+from odoo import fields, models, tools
 
 
 class AccountPayment1099Report(models.Model):
@@ -43,9 +43,9 @@ class AccountPayment1099Report(models.Model):
                 v.is_1099 = TRUE
         """
 
-    @api.model_cr
     def init(self):
         tools.drop_view_if_exists(self._cr, self._table)
+        # pylint: disable=sql-injection
         self._cr.execute(
             """
             CREATE OR REPLACE VIEW %s AS (
@@ -54,6 +54,6 @@ class AccountPayment1099Report(models.Model):
                 %s
                 %s
             )
-        """,
-            (self._table, self._select(), self._from(), self._join(), self._where()),
+        """
+            % (self._table, self._select(), self._from(), self._join(), self._where())
         )

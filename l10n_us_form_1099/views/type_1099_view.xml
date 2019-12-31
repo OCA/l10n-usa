@@ -34,7 +34,6 @@
         <field name="name">1099 Types</field>
         <field name="res_model">type.1099</field>
         <field name="type">ir.actions.act_window</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="view_id" eval="view_type_1099_tree"/>
     </record>
