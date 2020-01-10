@@ -15,3 +15,6 @@ class FsmLocation(models.Model):
     owner_id = fields.Many2one('res.partner', string='Related Owner',
                                required=False, ondelete='restrict',
                                auto_join=True)
+    customer_id = fields.Many2one(
+        'res.partner', string='Billed Customer', required=False,
+        ondelete='restrict', auto_join=True, track_visibility='onchange')
