@@ -65,6 +65,7 @@ class Lead(models.Model):
                 response.raise_for_status()
             except Exception as e:
                 _logger.error('%s', e)
+                break
             content = response.content.decode('utf8')
             if content:
                 content = json.loads(content).get('value')
@@ -115,7 +116,12 @@ class Lead(models.Model):
 
         This method is used to search market or submarket base on name.
         """
-        return obj.search([('name', '=', market)], limit=1)
+        ctx = self.env.context
+        domain = [('name', '=', market)]
+
+        if ctx.get('search_archived'):
+            domain += ['|', ('active', '=', True), ('active', '=', False)]
+        return obj.search(domain, limit=1)
 
     @api.model
     def _prepare_industry_values(self, industry=None, origin='market'):
@@ -143,10 +149,13 @@ class Lead(models.Model):
         updated_market_ids = []
         markets = self.aln_auth_login('Markets')
         for market in markets:
-            available_market = self.get_market(industry_obj,
-                                               market.get('MarketId'))
+            available_market = self.with_context(
+                search_archived=True).get_market(
+                    industry_obj, market.get('MarketId'))
             market_vals = self._prepare_industry_values(market)
             if available_market:
+                if not available_market.active:
+                    market_vals.update({'active': True})
                 available_market.write(market_vals)
                 updated_market_ids.append(available_market.id)
             else:
@@ -166,8 +175,9 @@ class Lead(models.Model):
         submarket_ids = []
         updated_submarket_ids = []
         for submarket in self.aln_auth_login('Submarkets'):
-            available_submarket = self.get_market(
-                industry_obj, submarket.get('SubMarketDescription'))
+            available_submarket = self.with_context(
+                search_archived=True).get_market(
+                    industry_obj, submarket.get('SubMarketDescription'))
             market_id = self.get_market(industry_obj,
                                         submarket.get('Market'))
             submarket_vals = self._prepare_industry_values(
@@ -179,6 +189,8 @@ class Lead(models.Model):
                 submarket = industry_obj.create(submarket_vals)
                 submarket_ids.append(submarket.id)
             else:
+                if not available_submarket.active:
+                    submarket_vals.update({'active': True})
                 available_submarket.write(submarket_vals)
                 updated_submarket_ids.append(available_submarket.id)
         _logger.info(
@@ -281,7 +293,7 @@ class Lead(models.Model):
             if construction_key != '0':
                 params.update(
                     {'$filter': "LastDateNewConstructionChanged lt datetime'" +
-                     construction_key + "'",
+                                construction_key + "'",
                      '$orderby': "LastDateNewConstructionChanged"})
                 old_construction = self.aln_auth_login(
                     'NewConstructions', params)
@@ -291,7 +303,7 @@ class Lead(models.Model):
                     'crm.lead', constructions, 'new_construction')
                 params.update(
                     {'$filter': "LastDateNewConstructionChanged gt datetime'" +
-                     construction_key + "'",
+                                construction_key + "'",
                      '$orderby': "LastDateNewConstructionChanged"})
             datas = self.aln_auth_login('NewConstructions', params)
         else:
@@ -456,8 +468,11 @@ class Lead(models.Model):
                     'description': description,
                 })
 
+            domain += ['|', ('active', '=', True), ('active', '=', False)]
             lead = obj.search(domain)
             if lead:
+                if not lead.active:
+                    lead_vals.update({'active': True})
                 lead.write(lead_vals)
                 if origin == 'contact':
                     updated_contact_ids.append(lead.id)
@@ -651,12 +666,24 @@ class Lead(models.Model):
                         })
             fsm_location = fsm_obj.search(
                 [('name', '=', prop.get('AptName')),
-                 ('ref', '=', apart.get('ApartmentId'))],
+                 ('ref', '=', apart.get('ApartmentId')),
+                 # Checked the fetched record exists in the system or not.
+                 # sometime record is exist but it's archived.
+                 # so it will not get in the search method.
+                 # so it will go to create a new record but there is a
+                 # SQL unique constraint on the 'ref' field.
+                 # so it will raise the constraint error.
+                 # To fix this issue added this domain.
+                 '|',
+                 ('active', '=', True),
+                 ('active', '=', False)],
                 limit=1)
             if not fsm_location:
                 fsm = fsm_obj.create(apartment_vals)
                 create_apart_ids.append(fsm.id)
             else:
+                if not fsm_location.active:
+                    apartment_vals.update({'active': True})
                 fsm_location.write(apartment_vals)
                 update_apart_ids.append(fsm_location.id)
         row_version = rowversion_list and max(rowversion_list) or 0
