@@ -630,6 +630,9 @@ class Lead(models.Model):
                     {
                         'commercial_partner_id': management_company and
                         management_company.id})
+            customer_id = self.env.ref(
+                'connector_alndata.undefined_customer')
+            apartment_vals.update({'customer_id': customer_id.id})
             if prop.get('OwnerId'):
                 owner = partner_obj.search(
                     [('ref', '=', prop.get('OwnerId')),
@@ -637,7 +640,8 @@ class Lead(models.Model):
                     limit=1)
                 apartment_vals.update(
                     {
-                        'owner_id': owner and owner.id})
+                        'owner_id': owner and owner.id,
+                        'customer_id': (owner and owner.id) or customer_id.id})
             if apart.get('Addresses', False):
                 address = apart['Addresses'][0]
                 state = self.get_state(state_obj,
