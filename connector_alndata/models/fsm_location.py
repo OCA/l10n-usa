@@ -12,9 +12,3 @@ class FsmLocation(models.Model):
     num_of_unit = fields.Integer('Number of Units')
     year_built = fields.Char('Build Year')
     year_remodeled = fields.Char('YearRemodeled')
-    owner_id = fields.Many2one('res.partner', string='Related Owner',
-                               required=False, ondelete='restrict',
-                               auto_join=True)
-    customer_id = fields.Many2one(
-        'res.partner', string='Billed Customer', required=True,
-        ondelete='restrict', auto_join=True, track_visibility='onchange')
