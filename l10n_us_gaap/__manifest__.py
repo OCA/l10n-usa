@@ -1,10 +1,10 @@
 {
     "name": "United States Sample GAAP Chart of Accounts",
-    "version": "12.0.1.0.0",
+    "version": "13.0.1.0.0",
     "development_status": "Mature",
     "category": "Localization",
-    "author": "Eficent," "Odoo Community Association (OCA)",
-    "maintainers": ["jbeficent"],
+    "author": "ForgeFlow, Odoo Community Association (OCA)",
+    "maintainers": ["JordiBForgeFlow"],
     "website": "https://github.com/OCA/l10n-usa/",
     "depends": ["account"],
     "data": [

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- pylint:disable=duplicate-xml-record-id -->
 <odoo>
         <!-- Chart template of l10n_us -->
         <!-- Account template definition -->
@@ -414,16 +415,16 @@
             <field name="chart_template_id" ref="l10n_us_gaap_chart_template"/>
             <field name="group_id" ref="l10n_us_gaap.account_group_3_2_1"/>
         </record>
-        <record id="account_template_3221" model="account.account.template">
+        <record id="account_template_32201" model="account.account.template">
             <field name="name">Current Year Earnings</field>
-            <field name="code">3221</field>
+            <field name="code">32201</field>
             <field name="user_type_id" ref="account.data_unaffected_earnings"/>
             <field name="chart_template_id" ref="l10n_us_gaap_chart_template"/>
             <field name="group_id" ref="l10n_us_gaap.account_group_3_2_2"/>
         </record>
-        <record id="account_template_3222" model="account.account.template">
+        <record id="account_template_32202" model="account.account.template">
             <field name="name">Retained Earnings - Unappropriated</field>
-            <field name="code">3222</field>
+            <field name="code">32202</field>
             <field name="user_type_id" ref="account.data_account_type_equity"/>
             <field name="chart_template_id" ref="l10n_us_gaap_chart_template"/>
             <field name="group_id" ref="l10n_us_gaap.account_group_3_2_2"/>
@@ -540,30 +541,30 @@
             <field name="chart_template_id" ref="l10n_us_gaap_chart_template"/>
             <field name="group_id" ref="l10n_us_gaap.account_group_3_5"/>
         </record>
-        <record id="account_template_4111" model="account.account.template">
+        <record id="account_template_41101" model="account.account.template">
             <field name="name">Product Sales</field>
-            <field name="code">4111</field>
+            <field name="code">41101</field>
             <field name="user_type_id" ref="account.data_account_type_revenue"/>
             <field name="chart_template_id" ref="l10n_us_gaap_chart_template"/>
             <field name="group_id" ref="l10n_us_gaap.account_group_4_1_1_1"/>
         </record>
-        <record id="account_template_4112" model="account.account.template">
+        <record id="account_template_41102" model="account.account.template">
             <field name="name">Merchandise Sales</field>
-            <field name="code">4112</field>
+            <field name="code">41102</field>
             <field name="user_type_id" ref="account.data_account_type_revenue"/>
             <field name="chart_template_id" ref="l10n_us_gaap_chart_template"/>
             <field name="group_id" ref="l10n_us_gaap.account_group_4_1_1_2"/>
         </record>
-        <record id="account_template_4121" model="account.account.template">
+        <record id="account_template_41201" model="account.account.template">
             <field name="name">Returns, Allowances</field>
-            <field name="code">4121</field>
+            <field name="code">41201</field>
             <field name="user_type_id" ref="account.data_account_type_revenue"/>
             <field name="chart_template_id" ref="l10n_us_gaap_chart_template"/>
             <field name="group_id" ref="l10n_us_gaap.account_group_4_1_2_1"/>
         </record>
-        <record id="account_template_4122" model="account.account.template">
+        <record id="account_template_41202" model="account.account.template">
             <field name="name">Sales Discounts (Consideration Paid To Customers)</field>
-            <field name="code">4122</field>
+            <field name="code">41202</field>
             <field name="user_type_id" ref="account.data_account_type_revenue"/>
             <field name="chart_template_id" ref="l10n_us_gaap_chart_template"/>
             <field name="group_id" ref="l10n_us_gaap.account_group_4_1_2_2"/>
@@ -575,16 +576,16 @@
             <field name="chart_template_id" ref="l10n_us_gaap_chart_template"/>
             <field name="group_id" ref="l10n_us_gaap.account_group_4_2_1"/>
         </record>
-        <record id="account_template_4221" model="account.account.template">
+        <record id="account_template_42201" model="account.account.template">
             <field name="name">Sales Allowances</field>
-            <field name="code">4221</field>
+            <field name="code">42201</field>
             <field name="user_type_id" ref="account.data_account_type_revenue"/>
             <field name="chart_template_id" ref="l10n_us_gaap_chart_template"/>
             <field name="group_id" ref="l10n_us_gaap.account_group_4_2_2_1"/>
         </record>
-        <record id="account_template_4222" model="account.account.template">
+        <record id="account_template_42202" model="account.account.template">
             <field name="name">Sales Discounts</field>
-            <field name="code">4222</field>
+            <field name="code">42202</field>
             <field name="user_type_id" ref="account.data_account_type_revenue"/>
             <field name="chart_template_id" ref="l10n_us_gaap_chart_template"/>
             <field name="group_id" ref="l10n_us_gaap.account_group_4_2_2_2"/>
@@ -603,7 +604,7 @@
             <field name="chart_template_id" ref="l10n_us_gaap_chart_template"/>
             <field name="group_id" ref="l10n_us_gaap.account_group_4_3_1"/>
         </record>
-        <record id="account_template_5111" model="account.account.template">
+        <record id="account_template_51101" model="account.account.template">
             <field name="name">Cost Of Goods Sold</field>
             <field name="code">5111</field>
             <field name="user_type_id" ref="account.data_account_type_expenses"/>
@@ -612,35 +613,35 @@
         </record>
         <record id="account_template_5112" model="account.account.template">
             <field name="name">Cost Of Services Rendered</field>
-            <field name="code">5112</field>
+            <field name="code">51102</field>
             <field name="user_type_id" ref="account.data_account_type_expenses"/>
             <field name="chart_template_id" ref="l10n_us_gaap_chart_template"/>
             <field name="group_id" ref="l10n_us_gaap.account_group_5_1_1_2"/>
         </record>
-        <record id="account_template_5113" model="account.account.template">
+        <record id="account_template_51103" model="account.account.template">
             <field name="name">Other Costs Of Sales</field>
-            <field name="code">5113</field>
+            <field name="code">51103</field>
             <field name="user_type_id" ref="account.data_account_type_expenses"/>
             <field name="chart_template_id" ref="l10n_us_gaap_chart_template"/>
             <field name="group_id" ref="l10n_us_gaap.account_group_5_1_1_3"/>
         </record>
-        <record id="account_template_5121" model="account.account.template">
+        <record id="account_template_51201" model="account.account.template">
             <field name="name">Selling And Marketing</field>
-            <field name="code">5121</field>
+            <field name="code">51201</field>
             <field name="user_type_id" ref="account.data_account_type_expenses"/>
             <field name="chart_template_id" ref="l10n_us_gaap_chart_template"/>
             <field name="group_id" ref="l10n_us_gaap.account_group_5_1_2_1"/>
         </record>
-        <record id="account_template_5122" model="account.account.template">
+        <record id="account_template_51202" model="account.account.template">
             <field name="name">General, Administrative Expenses</field>
-            <field name="code">5122</field>
+            <field name="code">51202</field>
             <field name="user_type_id" ref="account.data_account_type_expenses"/>
             <field name="chart_template_id" ref="l10n_us_gaap_chart_template"/>
             <field name="group_id" ref="l10n_us_gaap.account_group_5_1_2_2"/>
         </record>
-        <record id="account_template_5123" model="account.account.template">
+        <record id="account_template_51203" model="account.account.template">
             <field name="name">Other Operating Expenses</field>
-            <field name="code">5123</field>
+            <field name="code">51203</field>
             <field name="user_type_id" ref="account.data_account_type_expenses"/>
             <field name="chart_template_id" ref="l10n_us_gaap_chart_template"/>
             <field name="group_id" ref="l10n_us_gaap.account_group_5_1_2_3"/>
@@ -652,30 +653,30 @@
             <field name="chart_template_id" ref="l10n_us_gaap_chart_template"/>
             <field name="group_id" ref="l10n_us_gaap.account_group_5_1_3"/>
         </record>
-        <record id="account_template_6111" model="account.account.template">
+        <record id="account_template_61101" model="account.account.template">
             <field name="name">Foreign Currency Gain</field>
-            <field name="code">6111</field>
+            <field name="code">61101</field>
             <field name="user_type_id" ref="account.data_account_type_other_income"/>
             <field name="chart_template_id" ref="l10n_us_gaap_chart_template"/>
             <field name="group_id" ref="l10n_us_gaap.account_group_6_1_1"/>
         </record>
-        <record id="account_template_6112" model="account.account.template">
+        <record id="account_template_61102" model="account.account.template">
             <field name="name">Foreign Currency Loss</field>
-            <field name="code">6112</field>
+            <field name="code">61102</field>
             <field name="user_type_id" ref="account.data_account_type_expenses"/>
             <field name="chart_template_id" ref="l10n_us_gaap_chart_template"/>
             <field name="group_id" ref="l10n_us_gaap.account_group_6_1_1"/>
         </record>
-        <record id="account_template_6121" model="account.account.template">
+        <record id="account_template_61201" model="account.account.template">
             <field name="name">Other Non-Operating Income</field>
-            <field name="code">6121</field>
+            <field name="code">61201</field>
             <field name="user_type_id" ref="account.data_account_type_other_income"/>
             <field name="chart_template_id" ref="l10n_us_gaap_chart_template"/>
             <field name="group_id" ref="l10n_us_gaap.account_group_6_1_2"/>
         </record>
-        <record id="account_template_6122" model="account.account.template">
+        <record id="account_template_61202" model="account.account.template">
             <field name="name">Other Non-Operating Loss</field>
-            <field name="code">6122</field>
+            <field name="code">61202</field>
             <field name="user_type_id" ref="account.data_account_type_expenses"/>
             <field name="chart_template_id" ref="l10n_us_gaap_chart_template"/>
             <field name="group_id" ref="l10n_us_gaap.account_group_6_1_2"/>
@@ -775,9 +776,9 @@
         <record id="l10n_us_gaap_chart_template" model="account.chart.template">
             <field name="property_account_receivable_id" ref="account_template_121"/>
             <field name="property_account_payable_id" ref="account_template_211"/>
-            <field name="property_account_expense_categ_id" ref="account_template_5122"/>
+            <field name="property_account_expense_categ_id" ref="account_template_51202"/>
             <field name="property_account_income_categ_id" ref="account_template_421"/>
-            <field name="expense_currency_exchange_account_id" ref="account_template_6112"/>
-            <field name="income_currency_exchange_account_id" ref="account_template_6111"/>
+            <field name="expense_currency_exchange_account_id" ref="account_template_61102"/>
+            <field name="income_currency_exchange_account_id" ref="account_template_61101"/>
         </record>
 </odoo>
