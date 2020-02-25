@@ -4,6 +4,20 @@
         <!-- Chart template of l10n_us -->
         <!-- Account template definition -->
         <!-- Cash And Investments -->
+        <record id="account_template_2121" model="account.account.template">
+            <field name="name">Stock Interim (Received)</field>
+            <field name="code">2121</field>
+            <field name="user_type_id" ref="account.data_account_type_current_assets"/>
+            <field name="chart_template_id" ref="l10n_us_gaap_chart_template"/>
+            <field name="group_id" ref="l10n_us_gaap.account_group_2_1_2"/>
+        </record>
+        <record id="account_template_1331" model="account.account.template">
+            <field name="name">Stock Interim (Delivered)</field>
+            <field name="code">1331</field>
+            <field name="user_type_id" ref="account.data_account_type_current_assets"/>
+            <field name="chart_template_id" ref="l10n_us_gaap_chart_template"/>
+            <field name="group_id" ref="l10n_us_gaap.account_group_1_3_3"/>
+        </record>
         <record id="account_template_112" model="account.account.template">
             <field name="name">Investments And Securities</field>
             <field name="code">112</field>
@@ -642,6 +656,13 @@
         <record id="account_template_51203" model="account.account.template">
             <field name="name">Other Operating Expenses</field>
             <field name="code">51203</field>
+            <field name="user_type_id" ref="account.data_account_type_expenses"/>
+            <field name="chart_template_id" ref="l10n_us_gaap_chart_template"/>
+            <field name="group_id" ref="l10n_us_gaap.account_group_5_1_2_3"/>
+        </record>
+        <record id="account_template_51204" model="account.account.template">
+            <field name="name">Price Differences</field>
+            <field name="code">51204</field>
             <field name="user_type_id" ref="account.data_account_type_expenses"/>
             <field name="chart_template_id" ref="l10n_us_gaap_chart_template"/>
             <field name="group_id" ref="l10n_us_gaap.account_group_5_1_2_3"/>
