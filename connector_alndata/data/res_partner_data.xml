@@ -1,0 +1,25 @@
+<odoo>
+    <!-- Undefine Receivable Account -->
+    <record id="undefine_receivable_account" model="account.account">
+        <field name="name">Undefine Receivable Account</field>
+        <field name="code">100101</field>
+        <field name="user_type_id" ref="account.data_account_type_receivable"/>
+        <field name="reconcile">True</field>
+    </record>
+
+    <!-- Undefine Payable Account -->
+    <record id="undefine_payable_account" model="account.account">
+        <field name="name">Undefine Payable Account</field>
+        <field name="code">100102</field>
+        <field name="user_type_id" ref="account.data_account_type_payable"/>
+        <field name="reconcile">True</field>
+    </record>
+
+    <!-- Undefine Customer to set in customer_id field -->
+    <record id="undefined_customer" model="res.partner">
+        <field name="name">Undefine</field>
+        <field name="property_account_receivable_id" ref="undefine_receivable_account"/>
+        <field name="property_account_payable_id" ref="undefine_payable_account"/>
+    </record>
+
+</odoo>

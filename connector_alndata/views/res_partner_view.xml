@@ -1,0 +1,37 @@
+<odoo>
+
+    <!-- Inherited Partner form view-->
+    <record id="res_partner_view_form_extened" model="ir.ui.view">
+        <field name="name">Partner</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='vat']" position="after">
+                <field name="num_unit"/>
+            </xpath>
+            <!-- Reason : Artisent doesnt need this attrs which makes the field disappear-->
+            <xpath expr="//field[@name='industry_id']" position="attributes">
+                <attribute name="attrs">{}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='barcode']" position="after">
+                <field name="aln_id"/>
+                <field name="owner_id"/>
+                <field name="title"/>
+                <field name="sub_market_id" domain="[('parent_id', '!=', False)]"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Inherited Partner tree view-->
+    <record id="res_partner_view_tree_extened" model="ir.ui.view">
+        <field name="name">Partner</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='email']" position="after">
+                <field name="num_unit"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
