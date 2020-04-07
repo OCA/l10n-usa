@@ -8,6 +8,7 @@
             <field name="bank_account_code_prefix">1111</field>
             <field name="cash_account_code_prefix">1112</field>
             <field name="transfer_account_code_prefix">1119</field>
+            <field name="use_anglo_saxon" eval="True" />
             <field name="currency_id" ref="base.USD"/>
         </record>
 </odoo>
