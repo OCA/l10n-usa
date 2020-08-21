@@ -1,0 +1,12 @@
+<odoo>
+    <record id="view_product_product_onpay_inherit" model="ir.ui.view">
+        <field name="name">product.product.onpay</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="hr_expense.product_product_expense_form_view"/>
+        <field name="arch" type="xml">
+            <field name="property_account_expense_id" position="before">
+                <field attrs="{'invisible':[('can_be_expensed','!=',True)],'required':[('can_be_expensed','=',True)]}" groups="connector_onpay.group_onpay_allow_export" name="product_onpay_id"/>
+            </field>
+        </field>
+    </record>
+</odoo>

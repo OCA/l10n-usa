@@ -1,0 +1,5 @@
+<odoo>
+    <record id="group_onpay_allow_export" model="res.groups">
+        <field name="name">Allow to export data for OnPay</field>
+    </record>
+</odoo>

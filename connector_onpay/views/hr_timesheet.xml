@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="hr_timesheet_onpay_form_inherit" model="ir.ui.view">
+		<field name="name">hr.timesheet.onpay.inherit</field>
+		<field name="model">account.analytic.line</field>
+		<field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_tree"/>
+		<field name="arch" type="xml">
+			<field name="time_type_id" position="attributes">
+				<attribute name="required">1</attribute>
+			</field>
+		</field>
+	</record>
+</odoo>
+ 

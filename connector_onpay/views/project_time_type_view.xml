@@ -1,0 +1,12 @@
+<odoo>
+    <record id="view_project_time_type_form_onpay" model="ir.ui.view">
+        <field name="name">project.time.type.form.onpay</field>
+        <field name="model">project.time.type</field>
+        <field name="inherit_id" ref="hr_timesheet_time_type.view_project_time_type_form"/>
+        <field name="arch" type="xml">
+            <field name="code" position="after">
+                <field name="onpay_pay_type_id"/>
+            </field>
+        </field>
+    </record>
+</odoo>
