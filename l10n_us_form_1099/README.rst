@@ -11,13 +11,13 @@ US Form 1099
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge2| image:: https://img.shields.io/badge/github-OCA%2Fl10n--usa-lightgray.png?logo=github
-    :target: https://github.com/OCA/l10n-usa/tree/13.0/l10n_us_form_1099
+    :target: https://github.com/OCA/l10n-usa/tree/14.0/l10n_us_form_1099
     :alt: OCA/l10n-usa
 .. |badge3| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/l10n-usa-13-0/l10n-usa-13-0-l10n_us_form_1099
+    :target: https://translation.odoo-community.org/projects/l10n-usa-14.0/l10n-usa-14.0-l10n_us_form_1099
     :alt: Translate me on Weblate
 .. |badge4| image:: https://img.shields.io/badge/runbot-Try%20me-875A7B.png
-    :target: https://runbot.odoo-community.org/runbot/203/13.0
+    :target: https://runbot.odoo-community.org/runbot/203/14.0
     :alt: Try me on Runbot
 
 |badge1| |badge2| |badge3| |badge4| 
@@ -89,6 +89,7 @@ Contributors
 * Serpent Consulting Services Pvt. Ltd. <support@serpentcs.com>
 * Bhavesh Odedra <bodedra@opensourceintegrators.com>
 * Brian McMaster <brian@mcmpest.com>
+* Jevin Dement <jdement@opensourceintegrators.com>
 
 Other credits
 ~~~~~~~~~~~~~
@@ -119,6 +120,6 @@ Current `maintainer <https://odoo-community.org/page/maintainer-role>`__:
 
 |maintainer-max3903| 
 
-This module is part of the `OCA/l10n-usa <https://github.com/OCA/l10n-usa/tree/13.0/l10n_us_form_1099>`_ project on GitHub.
+This module is part of the `OCA/l10n-usa <https://github.com/OCA/l10n-usa/tree/14.0/l10n_us_form_1099>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
