@@ -2,6 +2,8 @@
 # Copyright (C) 2019 Open Source Integrators
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+from psycopg2.extensions import AsIs
+
 from odoo import fields, models, tools
 
 
@@ -20,7 +22,7 @@ class AccountPayment1099Report(models.Model):
         return """
             SELECT
                 pmt.id AS id,
-                pmt.payment_date AS date,
+                am.date AS date,
                 pmt.amount AS amount,
                 v.id AS vendor_id,
                 v.type_1099_id AS type_1099,
@@ -35,6 +37,7 @@ class AccountPayment1099Report(models.Model):
     def _join(self):
         return """
             JOIN res_partner AS v ON pmt.partner_id = v.id
+            JOIN account_move AS am ON pmt.move_id = am.id
         """
 
     def _where(self):
@@ -53,6 +56,12 @@ class AccountPayment1099Report(models.Model):
                 %s
                 %s
             )
-        """
-            % (self._table, self._select(), self._from(), self._join(), self._where())
+        """,
+            (
+                AsIs(self._table),
+                AsIs(self._select()),
+                AsIs(self._from()),
+                AsIs(self._join()),
+                AsIs(self._where()),
+            ),
         )

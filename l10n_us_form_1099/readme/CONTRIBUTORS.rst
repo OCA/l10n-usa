@@ -3,3 +3,4 @@
 * Serpent Consulting Services Pvt. Ltd. <support@serpentcs.com>
 * Bhavesh Odedra <bodedra@opensourceintegrators.com>
 * Brian McMaster <brian@mcmpest.com>
+* Jevin Dement <jdement@opensourceintegrators.com>
