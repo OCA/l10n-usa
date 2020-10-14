@@ -2,6 +2,8 @@
 # Copyright (C) 2019 Open Source Integrators
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+from psycopg2.extensions import AsIs
+
 from odoo import fields, models, tools
 
 
@@ -53,6 +55,12 @@ class AccountPayment1099Report(models.Model):
                 %s
                 %s
             )
-        """
-            % (self._table, self._select(), self._from(), self._join(), self._where())
+        """,
+            (
+                AsIs(self._table),
+                AsIs(self._select()),
+                AsIs(self._from()),
+                AsIs(self._join()),
+                AsIs(self._where()),
+            ),
         )
