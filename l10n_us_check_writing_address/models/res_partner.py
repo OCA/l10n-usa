@@ -3,7 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 
-from odoo import api, models
+from odoo import models
 
 DEFAULT_ADDRESS_FORMAT = (
     "%(street)s\n"
@@ -16,7 +16,6 @@ DEFAULT_ADDRESS_FORMAT = (
 class ResPartner(models.Model):
     _inherit = "res.partner"
 
-    @api.multi
     def _display_address(self, without_company=False):
         """Build a formatted address based on the country.
 
