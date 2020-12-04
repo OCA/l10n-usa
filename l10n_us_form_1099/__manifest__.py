@@ -24,6 +24,6 @@
         "reports/account_payment_1099_report_views.xml",
     ],
     "installable": True,
-    "development_status": "Stable",
+    "development_status": "Production/Stable",
     "maintainers": ["max3903"],
 }
