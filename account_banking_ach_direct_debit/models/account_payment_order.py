@@ -1,13 +1,12 @@
 # Copyright 2018 Thinkwell Designs <dave@thinkwelldesigns.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import _, api, models
+from odoo import _, models
 
 
 class AccountPaymentOrder(models.Model):
     _inherit = "account.payment.order"
 
-    @api.multi
     def generate_payment_file(self):
         """
         Creates the ACH Direct Debit file by calling
@@ -18,7 +17,6 @@ class AccountPaymentOrder(models.Model):
             return self.generate_ach_file()
         return super(AccountPaymentOrder, self).generate_payment_file()
 
-    @api.multi
     def generated2uploaded(self):
         """Write 'last debit date' on mandates
         Set mandates from first to recurring
