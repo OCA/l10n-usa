@@ -2,7 +2,7 @@ from odoo import api, models
 
 
 class AccountPaymentOrder(models.Model):
-    _inherit = 'account.payment.order'
+    _inherit = "account.payment.order"
 
     @api.multi
     def generate_payment_file(self):
@@ -11,6 +11,6 @@ class AccountPaymentOrder(models.Model):
         generate_ach_file in countinghouse_ach_base
         """
         self.ensure_one()
-        if self.payment_method_id.code == 'ACH-Out':
+        if self.payment_method_id.code == "ACH-Out":
             return self.generate_ach_file()
         return super(AccountPaymentOrder, self).generate_payment_file()
