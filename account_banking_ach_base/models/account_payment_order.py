@@ -2,7 +2,7 @@ from string import ascii_uppercase
 
 from ach.builder import AchFile
 
-from odoo import _, api, fields, models
+from odoo import _, fields, models
 from odoo.exceptions import UserError
 
 CREDIT_AUTOMATED_RETURN = "21"
@@ -126,10 +126,11 @@ class AccountPaymentOrder(models.Model):
             else CREDIT_AUTOMATED_DEPOSIT
         )
 
-    @api.multi
     def generate_ach_file(self):
         self.ensure_one()
+
         inbound_payment = self.payment_type == "inbound"
+
         file_mod = self.get_file_id_mod()
         ach_file = AchFile(file_id_mod=file_mod, settings=self.ach_settings())
         filename = "{today}_{bank}_{file_mod}.txt".format(
@@ -143,6 +144,7 @@ class AccountPaymentOrder(models.Model):
                 self.validate_mandates(line)
             self.validate_banking(line)
             amount = line.amount_currency
+
             entries.append(
                 {
                     "type": self.get_transaction_type(amount=amount),
@@ -154,7 +156,8 @@ class AccountPaymentOrder(models.Model):
                 }
             )
         outbound_payment = self.payment_type == "outbound"
+
         ach_file.add_batch(
             "PPD", entries, credits=outbound_payment, debits=inbound_payment
         )
-        return ach_file.render_to_string(), filename
+        return ach_file.render_to_string().encode("utf-8"), filename
