@@ -10,7 +10,7 @@
     "website": "https://github.com/OCA/l10n-usa",
     "category": "Banking addons",
     "depends": ["account_banking_ach_base"],
-    "data": ["data/account_payment_method.xml", "views/account_payment_order.xml"],
+    "data": ["data/account_payment_method.xml"],
     "demo": ["demo/ach_credit_transfer_demo.xml"],
     "post_init_hook": "update_bank_journals",
     "installable": True,
