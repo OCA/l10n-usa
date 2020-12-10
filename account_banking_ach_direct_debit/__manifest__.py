@@ -9,7 +9,10 @@
     "author": "Thinkwell Designs, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/l10n-usa",
     "category": "Banking addons",
-    "depends": ["account_banking_mandate_sale", "account_banking_ach_base"],
+    "depends": [
+        # 'account_banking_mandate_sale',
+        "account_banking_ach_base",
+    ],
     "data": [
         "data/mandate_expire_cron.xml",
         "data/account_payment_method.xml",
