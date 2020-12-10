@@ -30,7 +30,10 @@ class AccountBankingMandate(models.Model):
         Set the payment modes on the Partner if they don't already exist.
         """
         payment_modes = {}
-        if self.partner_id.customer and not self.partner_id.customer_payment_mode_id:
+        if (
+            self.partner_id.customer_rank
+            and not self.partner_id.customer_payment_mode_id
+        ):
             customer_mode = self.env["account.payment.mode"].search(
                 [
                     ("payment_type", "=", "inbound"),
@@ -40,7 +43,10 @@ class AccountBankingMandate(models.Model):
             )
             if customer_mode:
                 payment_modes["customer_payment_mode_id"] = customer_mode.id
-        if self.partner_id.supplier and not self.partner_id.supplier_payment_mode_id:
+        if (
+            self.partner_id.supplier_rank
+            and not self.partner_id.supplier_payment_mode_id
+        ):
             supplier_mode = self.env["account.payment.mode"].search(
                 [
                     ("payment_type", "=", "outbound"),
