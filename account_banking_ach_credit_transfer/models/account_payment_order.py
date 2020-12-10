@@ -1,10 +1,9 @@
-from odoo import api, models
+from odoo import models
 
 
 class AccountPaymentOrder(models.Model):
     _inherit = "account.payment.order"
 
-    @api.multi
     def generate_payment_file(self):
         """
         Creates the ACH Credit Transfer file by calling
