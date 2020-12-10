@@ -12,7 +12,7 @@
     "depends": ["account_payment_order", "account_banking_mandate"],
     "data": [
         "views/account_banking_mandate.xml",
-        "views/account_invoice.xml",
+        "views/account_move.xml",
         "views/res_bank.xml",
         "views/res_company.xml",
         "views/res_partner.xml",
