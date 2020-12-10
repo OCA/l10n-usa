@@ -21,7 +21,7 @@ class AccountBankingMandate(models.Model):
 
     format = fields.Selection(selection_add=[("ach", "ACH")], default="ach")
     type = fields.Selection(
-        [("recurrent", "Recurrent"), ("oneoff", "One-Off")],
+        selection_add=[("recurrent", "Recurrent"), ("oneoff", "One-Off")],
         string="Type of Mandate",
         track_visibility="onchange",
     )
@@ -42,7 +42,6 @@ class AccountBankingMandate(models.Model):
     unique_mandate_reference = fields.Char(size=35)  # cf ISO 20022
     display_name = fields.Char(compute="_compute_display_name", store=True)
 
-    @api.multi
     @api.constrains("type", "recurrent_sequence_type")
     def _check_recurring_type(self):
         for mandate in self:
@@ -52,7 +51,6 @@ class AccountBankingMandate(models.Model):
                     % mandate.unique_mandate_reference
                 )
 
-    @api.multi
     @api.depends("unique_mandate_reference", "recurrent_sequence_type")
     def _compute_display_name(self):
         for mandate in self:
@@ -64,7 +62,6 @@ class AccountBankingMandate(models.Model):
                 name = mandate.unique_mandate_reference
             mandate.display_name = name
 
-    @api.multi
     @api.onchange("partner_bank_id")
     def mandate_partner_bank_change(self):
         for mandate in self:
