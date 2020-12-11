@@ -1,0 +1,43 @@
+<odoo>
+    <!-- Copyright (C) 2019 Brian McMaster
+         Copyright (C) 2019 Open Source Integrators
+         License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+    <record id="view_type_1099_form" model="ir.ui.view">
+        <field name="name">view.type.1099.form</field>
+        <field name="model">type.1099</field>
+        <field name="arch" type="xml">
+            <form string="1099 Type">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="view_type_1099_tree" model="ir.ui.view">
+        <field name="name">type.1099.tree</field>
+        <field name="model">type.1099</field>
+        <field name="arch" type="xml">
+            <tree string="1099 Types">
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_type_1099_view">
+        <field name="name">1099 Types</field>
+        <field name="res_model">type.1099</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" eval="view_type_1099_tree" />
+    </record>
+    <menuitem
+        id="type_1099_menu_config"
+        name="1099 Types"
+        parent="contacts.res_partner_menu_config"
+        sequence="10"
+        action="action_type_1099_view"
+    />
+</odoo>
