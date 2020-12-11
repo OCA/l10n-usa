@@ -15,7 +15,11 @@ TODO: add repo description.
 
 [//]: # (addons)
 
-This part will be replaced when running the oca-gen-addons-table script from OCA/maintainer-tools.
+Available addons
+----------------
+addon | version | summary
+--- | --- | ---
+[l10n_us_form_1099](l10n_us_form_1099/) | 14.0.1.0.0 | Manage 1099 Types and Suppliers
 
 [//]: # (end addons)
 
