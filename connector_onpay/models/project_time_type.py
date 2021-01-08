@@ -11,13 +11,3 @@ class ProjectTimeType(models.Model):
         "onpay.pay.type",
         string="OnPay Pay Type",
     )
-
-
-class AnalyticLine(models.Model):
-    _inherit = "account.analytic.line"
-
-    line_onpay_id = fields.Many2one(
-        related="time_type_id.onpay_pay_type_id",
-        string="OnPay Pay Type",
-        store=True
-    )

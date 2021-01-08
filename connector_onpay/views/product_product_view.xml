@@ -5,7 +5,11 @@
         <field name="inherit_id" ref="hr_expense.product_product_expense_form_view"/>
         <field name="arch" type="xml">
             <field name="property_account_expense_id" position="before">
-                <field attrs="{'invisible':[('can_be_expensed','!=',True)],'required':[('can_be_expensed','=',True)]}" groups="connector_onpay.group_onpay_allow_export" name="product_onpay_id"/>
+                <field
+                    name="product_onpay_id"
+                    attrs="{'invisible':[('can_be_expensed','!=',True)],'required':[('can_be_expensed','=',True)]}"
+                    groups="connector_onpay.group_onpay_allow_export"
+                />
             </field>
         </field>
     </record>

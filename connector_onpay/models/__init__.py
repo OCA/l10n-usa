@@ -5,4 +5,3 @@ from . import onpay_pay_type
 from . import project_time_type
 from . import hr_employee
 from . import product_template
-from . import hr_expense

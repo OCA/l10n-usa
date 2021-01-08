@@ -10,9 +10,8 @@
                     <field name="file_type" required="1"/>
                 </group>
                 <footer>
-                    <button class="oe_highlight" name="export_data" string="Export" type="object"/> or
-                    
-                    <button class="oe_link" special="cancel" string="Cancel"/></footer>
+                <button class="oe_highlight" name="export_data" string="Export" type="object"/> or
+                <button class="oe_link" special="cancel" string="Cancel"/></footer>
             </form>
         </field>
     </record>
