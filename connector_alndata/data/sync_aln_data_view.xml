@@ -1,0 +1,16 @@
+<odoo noupdate="1">
+
+    <!-- Synchronization with ALN data -->
+    <record id="sync_aln_data_cron" model="ir.cron">
+        <field name="name">Sync with ALN Data</field>
+        <field name="active" eval="True"/>
+        <field name="state">code</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">months</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="model_id" ref="model_crm_lead"/>
+        <field name="code">model._cron_sync_with_aln()</field>
+    </record>
+
+</odoo>

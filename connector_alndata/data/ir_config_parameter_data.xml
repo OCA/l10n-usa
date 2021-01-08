@@ -1,0 +1,57 @@
+<odoo noupdate="1">
+
+    <!-- ALN Data Url Parameter -->
+    <record id="alndata_url" model="ir.config_parameter">
+        <field name="key">alndata.api.url</field>
+        <field name="value">http://api2.alndata.com/odata/</field>
+    </record>
+
+    <!-- ALN Data API Key Parameter -->
+    <record id="alndata_api_key" model="ir.config_parameter">
+        <field name="key">alndata.api.key</field>
+        <field name="value">b85f4d81-d726-42d4-a524-30f75e28a1ac</field>
+    </record>
+
+    <!-- ALN Data Market Row Version Parameter -->
+    <record id="alndata_market_rowversion" model="ir.config_parameter">
+        <field name="key">alndata.markets.rowversion</field>
+        <field name="value">0</field>
+    </record>
+
+    <!-- ALN Data Sub-Market Row Version Parameter -->
+    <record id="alndata_submarket_rowversion" model="ir.config_parameter">
+        <field name="key">alndata.submarkets.rowversion</field>
+        <field name="value">0</field>
+    </record>
+
+    <!-- ALN Data Management Company Row Version Parameter -->
+    <record id="alndata_management_companies_rowversion" model="ir.config_parameter">
+        <field name="key">alndata.managementcompanies.rowversion</field>
+        <field name="value">0</field>
+    </record>
+
+    <!-- ALN Data Owner Row Version Parameter -->
+    <record id="alndata_owners_rowversion" model="ir.config_parameter">
+        <field name="key">alndata.owners.rowversion</field>
+        <field name="value">0</field>
+    </record>
+
+    <!-- ALN Data Apartment Row Version Parameter -->
+    <record id="alndata_apartments_rowversion" model="ir.config_parameter">
+        <field name="key">alndata.apartments.rowversion</field>
+        <field name="value">0</field>
+    </record>
+
+    <!-- ALN Data Contact Row Version Parameter -->
+    <record id="alndata_contacts_rowversion" model="ir.config_parameter">
+        <field name="key">alndata.contacts.rowversion</field>
+        <field name="value">0</field>
+    </record>
+
+    <!-- ALN Data New Construction Row Version Parameter -->
+    <record id="alndata_newconstructions_rowversion" model="ir.config_parameter">
+        <field name="key">alndata.newconstructions.rowversion</field>
+        <field name="value">0</field>
+    </record>
+
+</odoo>

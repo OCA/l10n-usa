@@ -1,0 +1,27 @@
+<odoo>
+
+    <!-- Inherited industry form view-->
+    <record id="res_partner_industry_view_form_extened" model="ir.ui.view">
+        <field name="name">Industry</field>
+        <field name="model">res.partner.industry</field>
+        <field name="inherit_id" ref="base.res_partner_industry_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='active']" position="before">
+                <field name="parent_id"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Inherited industry tree view-->
+    <record id="res_partner_industry_view_tree_extend" model="ir.ui.view">
+        <field name="name">Industry</field>
+        <field name="model">res.partner.industry</field>
+        <field name="inherit_id" ref="base.res_partner_industry_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='active']" position="before">
+                <field name="parent_id"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
