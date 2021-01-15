@@ -1,3 +1,2 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_onpay_pay_type,onpay.pay.type,model_onpay_pay_type,hr.group_hr_manager,1,1,1,1
-access_onpay_pay_type_group,onpay.pay.type,model_onpay_pay_type,group_onpay_allow_export,1,1,1,1
+access_onpay_pay_type_group,onpay.pay.type,model_onpay_pay_type,group_onpay_allow_export,1,0,0,0
