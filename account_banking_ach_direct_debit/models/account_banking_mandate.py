@@ -19,16 +19,16 @@ class AccountBankingMandate(models.Model):
 
     _inherit = "account.banking.mandate"
 
-    format = fields.Selection(selection_add=[("ach", "ACH")], default="ach")
+    format = fields.Selection(selection_add=[("ach", "ACH")], ondelete={"ach": "set default"})
     type = fields.Selection(
         selection_add=[("recurrent", "Recurrent"), ("oneoff", "One-Off")],
         string="Type of Mandate",
-        track_visibility="onchange",
+        tracking=True,
     )
     recurrent_sequence_type = fields.Selection(
         [("first", "First"), ("recurring", "Recurring"), ("final", "Final")],
         string="Sequence Type for Next Debit",
-        track_visibility="onchange",
+        tracking=True,
         help="""This field is only used for Recurrent mandates, not for
         One-Off mandates.""",
         default="first",
@@ -37,7 +37,7 @@ class AccountBankingMandate(models.Model):
         [("CORE", "Basic (CORE)"), ("B2B", "Enterprise (B2B)")],
         string="Scheme",
         default="CORE",
-        track_visibility="onchange",
+        tracking=True,
     )
     unique_mandate_reference = fields.Char(size=35)  # cf ISO 20022
     display_name = fields.Char(compute="_compute_display_name", store=True)
