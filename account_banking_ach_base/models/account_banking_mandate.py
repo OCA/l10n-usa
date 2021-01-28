@@ -18,9 +18,7 @@ class AccountBankingMandate(models.Model):
         for mandate in self:
             if not mandate.delay_days:
                 raise UserError(
-                    _(
-                        """Delay days must be specified, and greater than 0."""
-                    )
+                    _("""Delay days must be specified, and greater than 0.""")
                 )
         super(AccountBankingMandate, self).validate()
 
@@ -30,8 +28,8 @@ class AccountBankingMandate(models.Model):
         """
         payment_modes = {}
         if (
-            self.partner_id.customer_rank and not
-            self.partner_id.customer_payment_mode_id
+            self.partner_id.customer_rank
+            and not self.partner_id.customer_payment_mode_id
         ):
             customer_mode = self.env["account.payment.mode"].search(
                 [
@@ -43,8 +41,8 @@ class AccountBankingMandate(models.Model):
             if customer_mode:
                 payment_modes["customer_payment_mode_id"] = customer_mode.id
         if (
-            self.partner_id.supplier_rank and not
-            self.partner_id.supplier_payment_mode_id
+            self.partner_id.supplier_rank
+            and not self.partner_id.supplier_payment_mode_id
         ):
             supplier_mode = self.env["account.payment.mode"].search(
                 [
