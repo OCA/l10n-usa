@@ -19,7 +19,9 @@ class AccountBankingMandate(models.Model):
 
     _inherit = "account.banking.mandate"
 
-    format = fields.Selection(selection_add=[("ach", "ACH")], ondelete={"ach": "set default"})
+    format = fields.Selection(
+        selection_add=[("ach", "ACH")], ondelete={"ach": "set default"}
+    )
     type = fields.Selection(
         selection_add=[("recurrent", "Recurrent"), ("oneoff", "One-Off")],
         string="Type of Mandate",
@@ -56,7 +58,8 @@ class AccountBankingMandate(models.Model):
         for mandate in self:
             if mandate.format == "ach":
                 name = "{} ({})".format(
-                    mandate.unique_mandate_reference, mandate.recurrent_sequence_type,
+                    mandate.unique_mandate_reference,
+                    mandate.recurrent_sequence_type,
                 )
             else:
                 name = mandate.unique_mandate_reference
