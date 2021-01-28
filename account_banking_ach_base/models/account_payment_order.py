@@ -156,7 +156,6 @@ class AccountPaymentOrder(models.Model):
                 }
             )
         outbound_payment = self.payment_type == "outbound"
-
         ach_file.add_batch(
             "PPD", entries, credits=outbound_payment, debits=inbound_payment
         )
