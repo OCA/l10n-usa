@@ -1,0 +1,14 @@
+<odoo>
+    <record id="hr_employee_onpay_form_inherit" model="ir.ui.view">
+        <field name="name">hr.employee.onpay.inherit</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='active_group']" position="before">
+                <group string="OnPay" name="onpay" groups="connector_onpay.group_onpay_allow_export">
+                    <field groups="connector_onpay.group_onpay_allow_export" name="onpay_code"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

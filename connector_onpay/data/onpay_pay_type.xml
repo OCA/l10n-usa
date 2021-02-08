@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="onpay_pay_type_1" model="onpay.pay.type">
+            <field name="name">Regular</field>
+            <field name="code">1</field>
+            <field name="treat_as_cash">0</field>
+        </record>
+        <record id="onpay_pay_type_2" model="onpay.pay.type">
+            <field name="name">Overtime</field>
+            <field name="code">2</field>
+            <field name="treat_as_cash">0</field>
+        </record>
+        <record id="onpay_pay_type_3" model="onpay.pay.type">
+            <field name="name">Vacation</field>
+            <field name="code">3</field>
+            <field name="treat_as_cash">0</field>
+        </record>
+        <record id="onpay_pay_type_4" model="onpay.pay.type">
+            <field name="name">Severance</field>
+            <field name="code">4</field>
+            <field name="treat_as_cash">1</field>
+        </record>
+        <record id="onpay_pay_type_5" model="onpay.pay.type">
+            <field name="name">Sick</field>
+            <field name="code">5</field>
+            <field name="treat_as_cash">0</field>
+        </record>
+        <record id="onpay_pay_type_6" model="onpay.pay.type">
+            <field name="name">Holiday</field>
+            <field name="code">6</field>
+            <field name="treat_as_cash">0</field>
+        </record>
+        <record id="onpay_pay_type_7" model="onpay.pay.type">
+            <field name="name">Bonus</field>
+            <field name="code">7</field>
+            <field name="treat_as_cash">1</field>
+        </record>
+        <record id="onpay_pay_type_16" model="onpay.pay.type">
+            <field name="name">PTO - Bereavement</field>
+            <field name="code">16</field>
+            <field name="treat_as_cash">0</field>
+        </record>
+        <record id="onpay_pay_type_17" model="onpay.pay.type">
+            <field name="name">June 1-13</field>
+            <field name="code">17</field>
+            <field name="treat_as_cash">0</field>
+        </record>
+        <record id="onpay_pay_type_22" model="onpay.pay.type">
+            <field name="name">Double Overtime</field>
+            <field name="code">22</field>
+            <field name="treat_as_cash">0</field>
+        </record>
+        <record id="onpay_pay_type_106" model="onpay.pay.type">
+            <field name="name">Commissions</field>
+            <field name="code">106</field>
+            <field name="treat_as_cash">1</field>
+        </record>
+        <record id="onpay_pay_type_107" model="onpay.pay.type">
+            <field name="name">Reimbursement</field>
+            <field name="code">107</field>
+            <field name="treat_as_cash">1</field>
+        </record>
+        <record id="onpay_pay_type_108" model="onpay.pay.type">
+            <field name="name">Cash Tips</field>
+            <field name="code">108</field>
+            <field name="treat_as_cash">0</field>
+        </record>
+        <record id="onpay_pay_type_118" model="onpay.pay.type">
+            <field name="name">Exempt Salary</field>
+            <field name="code">118</field>
+            <field name="treat_as_cash">1</field>
+        </record>
+        <record id="onpay_pay_type_119" model="onpay.pay.type">
+            <field name="name">Sick Time Payout</field>
+            <field name="code">119</field>
+            <field name="treat_as_cash">1</field>
+        </record>
+        <record id="onpay_pay_type_121" model="onpay.pay.type">
+            <field name="name">Vacation/Medical Lea</field>
+            <field name="code">121</field>
+            <field name="treat_as_cash">1</field>
+        </record>
+        <record id="onpay_pay_type_122" model="onpay.pay.type">
+            <field name="name">Custom 6</field>
+            <field name="code">122</field>
+            <field name="treat_as_cash">0</field>
+        </record>
+        <record id="onpay_pay_type_123" model="onpay.pay.type">
+            <field name="name">Custom 7</field>
+            <field name="code">123</field>
+            <field name="treat_as_cash">0</field>
+        </record>
+        <record id="onpay_pay_type_124" model="onpay.pay.type">
+            <field name="name">Hourly</field>
+            <field name="code">124</field>
+            <field name="treat_as_cash">0</field>
+        </record>
+        <record id="onpay_pay_type_125" model="onpay.pay.type">
+            <field name="name">July 17-18</field>
+            <field name="code">125</field>
+            <field name="treat_as_cash">1</field>
+        </record>
+        <record id="onpay_pay_type_126" model="onpay.pay.type">
+            <field name="name">Vac Payout</field>
+            <field name="code">126</field>
+            <field name="treat_as_cash">1</field>
+        </record>
+        <record id="onpay_pay_type_127" model="onpay.pay.type">
+            <field name="name">Prior Customers</field>
+            <field name="code">127</field>
+            <field name="treat_as_cash">0</field>
+        </record>
+        <record id="onpay_pay_type_128" model="onpay.pay.type">
+            <field name="name">Jun 16-30</field>
+            <field name="code">128</field>
+            <field name="treat_as_cash">1</field>
+        </record>
+        <record id="onpay_pay_type_129" model="onpay.pay.type">
+            <field name="name">Prior Cust Retro</field>
+            <field name="code">129</field>
+            <field name="treat_as_cash">0</field>
+        </record>
+        <record id="onpay_pay_type_208" model="onpay.pay.type">
+            <field name="name">Controlled Tips</field>
+            <field name="code">208</field>
+            <field name="treat_as_cash">1</field>
+        </record>
+        <record id="onpay_pay_type_222" model="onpay.pay.type">
+            <field name="name">Tip Makeup</field>
+            <field name="code">222</field>
+            <field name="treat_as_cash">0</field>
+        </record>
+        <record id="onpay_pay_type_233" model="onpay.pay.type">
+            <field name="name">Vacation Payout</field>
+            <field name="code">233</field>
+            <field name="treat_as_cash">0</field>
+        </record>
+        <record id="onpay_pay_type_235" model="onpay.pay.type">
+            <field name="name">Sick Payout</field>
+            <field name="code">235</field>
+            <field name="treat_as_cash">0</field>
+        </record>
+        <record id="onpay_pay_type_236" model="onpay.pay.type">
+            <field name="name">PTO Payout</field>
+            <field name="code">236</field>
+            <field name="treat_as_cash">0</field>
+        </record>
+        <record id="onpay_pay_type_296" model="onpay.pay.type">
+            <field name="name">FFCRA Sick</field>
+            <field name="code">296</field>
+            <field name="treat_as_cash">0</field>
+        </record>
+        <record id="onpay_pay_type_297" model="onpay.pay.type">
+            <field name="name">FFCRA Care</field>
+            <field name="code">297</field>
+            <field name="treat_as_cash">0</field>
+        </record>
+        <record id="onpay_pay_type_298" model="onpay.pay.type">
+            <field name="name">FFCRA Extended</field>
+            <field name="code">298</field>
+            <field name="treat_as_cash">0</field>
+        </record>
+        <record id="onpay_pay_type_299" model="onpay.pay.type">
+            <field name="name">Deputy Custom</field>
+            <field name="code">299</field>
+            <field name="treat_as_cash">0</field>
+        </record>
+        <record id="onpay_pay_type_300" model="onpay.pay.type">
+            <field name="name">1099 Misc Wages</field>
+            <field name="code">300</field>
+            <field name="treat_as_cash">1</field>
+        </record>
+        <record id="onpay_pay_type_301" model="onpay.pay.type">
+            <field name="name">1099 Custom1</field>
+            <field name="code">301</field>
+            <field name="treat_as_cash">1</field>
+        </record>
+        <record id="onpay_pay_type_302" model="onpay.pay.type">
+            <field name="name">1099 Custom2</field>
+            <field name="code">302</field>
+            <field name="treat_as_cash">1</field>
+        </record>
+        <record id="onpay_pay_type_303" model="onpay.pay.type">
+            <field name="name">1099 Custom3</field>
+            <field name="code">303</field>
+            <field name="treat_as_cash">1</field>
+        </record>
+        <record id="onpay_pay_type_304" model="onpay.pay.type">
+            <field name="name">1099 Custom4</field>
+            <field name="code">304</field>
+            <field name="treat_as_cash">1</field>
+        </record>
+        <record id="onpay_pay_type_305" model="onpay.pay.type">
+            <field name="name">1099 Custom5</field>
+            <field name="code">305</field>
+            <field name="treat_as_cash">1</field>
+        </record>
+        <record id="onpay_pay_type_306" model="onpay.pay.type">
+            <field name="name">1099 Custom6</field>
+            <field name="code">306</field>
+            <field name="treat_as_cash">1</field>
+        </record>
+        <record id="onpay_pay_type_307" model="onpay.pay.type">
+            <field name="name">1099 Custom7</field>
+            <field name="code">307</field>
+            <field name="treat_as_cash">1</field>
+        </record>
+        <record id="onpay_pay_type_308" model="onpay.pay.type">
+            <field name="name">1099 Custom8</field>
+            <field name="code">308</field>
+            <field name="treat_as_cash">1</field>
+        </record>
+        <record id="onpay_pay_type_309" model="onpay.pay.type">
+            <field name="name">1099 Custom9</field>
+            <field name="code">309</field>
+            <field name="treat_as_cash">1</field>
+        </record>
+        <record id="onpay_pay_type_310" model="onpay.pay.type">
+            <field name="name">1099 Custom10</field>
+            <field name="code">310</field>
+            <field name="treat_as_cash">1</field>
+        </record>
+        <record id="onpay_pay_type_350" model="onpay.pay.type">
+            <field name="name">Mileage Reimb</field>
+            <field name="code">350</field>
+            <field name="treat_as_cash">1</field>
+        </record>
+        <record id="onpay_pay_type_351" model="onpay.pay.type">
+            <field name="name">Travel Reimb</field>
+            <field name="code">351</field>
+            <field name="treat_as_cash">1</field>
+        </record>
+        <record id="onpay_pay_type_352" model="onpay.pay.type">
+            <field name="name">Phone Reimb</field>
+            <field name="code">352</field>
+            <field name="treat_as_cash">1</field>
+        </record>
+        <record id="onpay_pay_type_353" model="onpay.pay.type">
+            <field name="name">Per Diem</field>
+            <field name="code">353</field>
+            <field name="treat_as_cash">1</field>
+        </record>
+        <record id="onpay_pay_type_354" model="onpay.pay.type">
+            <field name="name">Office Sply Reimb</field>
+            <field name="code">354</field>
+            <field name="treat_as_cash">1</field>
+        </record>
+        <record id="onpay_pay_type_355" model="onpay.pay.type">
+            <field name="name">Owner's Draw</field>
+            <field name="code">355</field>
+            <field name="treat_as_cash">1</field>
+        </record>
+        <record id="onpay_pay_type_356" model="onpay.pay.type">
+            <field name="name">Non-Reported 2</field>
+            <field name="code">356</field>
+            <field name="treat_as_cash">1</field>
+        </record>
+        <record id="onpay_pay_type_390" model="onpay.pay.type">
+            <field name="name">Moving Reimb</field>
+            <field name="code">390</field>
+            <field name="treat_as_cash">1</field>
+        </record>
+        <record id="onpay_pay_type_391" model="onpay.pay.type">
+            <field name="name">QSEHRA</field>
+            <field name="code">391</field>
+            <field name="treat_as_cash">1</field>
+        </record>
+        <record id="onpay_pay_type_395" model="onpay.pay.type">
+            <field name="name">Owner Draw</field>
+            <field name="code">395</field>
+            <field name="treat_as_cash">1</field>
+        </record>
+        <record id="onpay_pay_type_401" model="onpay.pay.type">
+            <field name="name">Shareholder Insuranc</field>
+            <field name="code">401</field>
+            <field name="treat_as_cash">1</field>
+        </record>
+        <record id="onpay_pay_type_402" model="onpay.pay.type">
+            <field name="name">Term Life Insurance</field>
+            <field name="code">402</field>
+            <field name="treat_as_cash">1</field>
+        </record>
+        <record id="onpay_pay_type_403" model="onpay.pay.type">
+            <field name="name">Shareholder HSA</field>
+            <field name="code">403</field>
+            <field name="treat_as_cash">1</field>
+        </record>
+        <record id="onpay_pay_type_404" model="onpay.pay.type">
+            <field name="name">Third Party Sick - S</field>
+            <field name="code">404</field>
+            <field name="treat_as_cash">1</field>
+        </record>
+        <record id="onpay_pay_type_405" model="onpay.pay.type">
+            <field name="name">Third Party Sick - STD</field>
+            <field name="code">405</field>
+            <field name="treat_as_cash">1</field>
+        </record>
+        <record id="onpay_pay_type_406" model="onpay.pay.type">
+            <field name="name">Fringe Benefit 1</field>
+            <field name="code">406</field>
+            <field name="treat_as_cash">1</field>
+        </record>
+        <record id="onpay_pay_type_407" model="onpay.pay.type">
+            <field name="name">Fringe Benefit 2</field>
+            <field name="code">407</field>
+            <field name="treat_as_cash">1</field>
+        </record>
+        <record id="onpay_pay_type_408" model="onpay.pay.type">
+            <field name="name">Fringe Benefit 3</field>
+            <field name="code">408</field>
+            <field name="treat_as_cash">1</field>
+        </record>
+        <record id="onpay_pay_type_409" model="onpay.pay.type">
+            <field name="name">Fringe Benefit 4</field>
+            <field name="code">409</field>
+            <field name="treat_as_cash">1</field>
+        </record>
+        <record id="onpay_pay_type_410" model="onpay.pay.type">
+            <field name="name">Shareholder Auto</field>
+            <field name="code">410</field>
+            <field name="treat_as_cash">1</field>
+        </record>
+        <record id="onpay_pay_type_411" model="onpay.pay.type">
+            <field name="name">Clergy Housing Imput</field>
+            <field name="code">411</field>
+            <field name="treat_as_cash">1</field>
+        </record>
+        <record id="onpay_pay_type_412" model="onpay.pay.type">
+            <field name="name">Clergy Housing</field>
+            <field name="code">412</field>
+            <field name="treat_as_cash">1</field>
+        </record>
+    </data>
+</odoo>

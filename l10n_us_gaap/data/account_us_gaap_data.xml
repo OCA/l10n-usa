@@ -736,7 +736,7 @@
             <field name="chart_template_id" ref="l10n_us_gaap_chart_template"/>
             <field name="group_id" ref="l10n_us_gaap.account_group_6_1_10"/>
         </record>
-        <record id="account_template_6111" model="account.account.template">
+        <record id="account_template_6111_aigl" model="account.account.template">
             <field name="name">Additional Itemized Gains And Losses</field>
             <field name="code">6111</field>
             <field name="user_type_id" ref="account.data_account_type_other_income"/>
