@@ -89,6 +89,7 @@ class OnPayExport(models.TransientModel):
                   INNER JOIN onpay_pay_type opt ON opt.id = pt.product_onpay_id
             WHERE exp.employee_id in %s
               AND exp.state IN ('approved', 'done')
+              AND exp.payment_mode = 'own_account' /* To Reimburse Employee */
               AND exp.date >= %s
               AND exp.date <= %s
               AND he.onpay_code IS NOT NULL
