@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="account_payment_line_discount_amount_form" model="ir.ui.view">
+        <field name="name">account.payment.line.form</field>
+        <field name="model">account.payment.line</field>
+        <field name="inherit_id" ref="account_payment_order.account_payment_line_form"/>
+        <field name="arch" type="xml">
+            <field name="amount_currency" position="after">
+                <field name="discount_amount"/>
+                <field name="total_amount"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="account_payment_line_discount_amount_tree" model="ir.ui.view">
+        <field name="name">account.payment.line.tree</field>
+        <field name="model">account.payment.line</field>
+        <field name="inherit_id" ref="account_payment_order.account_payment_line_tree"/>
+        <field name="arch" type="xml">
+            <field name="amount_currency" position="after">
+                <field name="discount_amount"/>
+                <field name="payment_difference"/>
+                <field name="total_amount"/>
+                <field name="payment_difference_handling"/>
+                <field name="writeoff_account_id"/>
+                <field name="reason_code"/>
+                <field name="note"/>
+                <field name="move_id"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="bank_payment_line_discount_amount_form" model="ir.ui.view">
+        <field name="name">banking.bank.payment.line.form</field>
+        <field name="model">bank.payment.line</field>
+        <field name="inherit_id" ref="account_payment_order.bank_payment_line_form"/>
+        <field name="arch" type="xml">
+            <field name="amount_currency" position="after">
+                <field name="discount_amount"/>
+                <field name="total_amount"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="bank_payment_line_discount_amount_tree" model="ir.ui.view">
+        <field name="name">banking.bank.payment.line.tree</field>
+        <field name="model">bank.payment.line</field>
+        <field name="inherit_id" ref="account_payment_order.bank_payment_line_tree"/>
+        <field name="arch" type="xml">
+            <field name="amount_currency" position="after">
+                <field name="discount_amount"/>
+                <field name="total_amount"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>
