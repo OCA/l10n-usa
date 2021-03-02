@@ -9,12 +9,16 @@
     "author": "Thinkwell Designs, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/l10n-usa",
     "category": "Banking addons",
-    "depends": ["account_payment_order", "account_banking_mandate", "partner_legal_number"],
+    "depends": [
+        "account_payment_order",
+        "account_banking_mandate",
+        "partner_legal_number",
+    ],
     "data": [
         "views/account_banking_mandate.xml",
         "views/account_move.xml",
         "views/res_bank.xml",
-        "views/res_company.xml"
+        "views/res_company.xml",
     ],
     "external_dependencies": {"python": ["stdnum", "ach"]},
     "installable": True,
