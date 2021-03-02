@@ -12,7 +12,7 @@
     "depends": [
         "account_payment_order",
         "account_banking_mandate",
-        "partner_legal_number",
+        "l10n_us_partner_legal_number",
     ],
     "data": [
         "views/account_banking_mandate.xml",
