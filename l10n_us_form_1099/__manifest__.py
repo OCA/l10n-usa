@@ -4,7 +4,7 @@
 
 {
     "name": "US Form 1099",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.0.2",
     "author": "Open Source Integrators, "
     "Brian McMaster, "
     "Odoo Community Association (OCA)",
@@ -13,7 +13,7 @@
     "category": "Customers",
     "maintainer": "Open Source Integrators",
     "website": "https://github.com/OCA/l10n-usa",
-    "depends": ["contacts", "account"],
+    "depends": ["contacts", "account", "l10n_us_partner_legal_number"],
     "data": [
         "data/type_1099_data.xml",
         "data/box_1099_misc_data.xml",
@@ -21,6 +21,7 @@
         "views/type_1099_view.xml",
         "views/box_1099_misc_view.xml",
         "views/res_partner.xml",
+        "views/account_move.xml",
         "reports/account_payment_1099_report_views.xml",
     ],
     "installable": True,
