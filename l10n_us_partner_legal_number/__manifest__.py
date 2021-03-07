@@ -9,7 +9,7 @@
     "author": "Open Source Integrators, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/l10n-usa",
     "category": "Banking addons",
-    "depends": ["base"],
+    "depends": ["account"],
     "data": ["views/res_partner.xml"],
     "installable": True,
 }
