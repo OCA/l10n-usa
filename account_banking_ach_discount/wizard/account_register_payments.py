@@ -1,7 +1,6 @@
 # Copyright (C) 2019 Open Source Integrators
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-
-from odoo import api, models, _
+from odoo import _, models
 from odoo.exceptions import UserError
 
 
@@ -38,15 +37,14 @@ class AccountPaymentRegister(models.TransientModel):
                 payment_line_pool = self.env["account.payment.line"]
                 # Update invoice with Payment mode
                 if payment_mode_id:
-                    for payment_line in self.invoice_payments:
-                        invoice_id = payment_line.invoice_id
+                    for line in self.invoice_payments:
+                        invoice_id = line.invoice_id
                         # updated discount logic
                         discount = invoice_id.discount_taken
                         # discount should not be consider for open invoices
-                        if payment_line.payment_difference_handling != "open":
+                        if line.payment_difference_handling != "open":
                             discount = (
-                                invoice_id.discount_taken
-                                + payment_line.payment_difference
+                                invoice_id.discount_taken + line.payment_difference
                             )
                         invoice_id.write(
                             {
@@ -59,7 +57,7 @@ class AccountPaymentRegister(models.TransientModel):
                         )
                         action = invoice_id.with_context(
                             payment_date=self.payment_date,
-                            payment_line_state=payment_line.payment_difference_handling,
+                            payment_line_state=line.payment_difference_handling,
                         ).create_account_payment_line()
                         # Find related ACH transaction line
                         domain = [
@@ -70,12 +68,14 @@ class AccountPaymentRegister(models.TransientModel):
                         if ach_transaction_line:
                             ach_transaction_line.write(
                                 {
-                                    "payment_difference_handling": payment_line.payment_difference_handling,
-                                    "writeoff_account_id": payment_line.writeoff_account_id.id,
-                                    "reason_code": payment_line.reason_code.id,
-                                    "note": payment_line.note,
-                                    "amount_currency": payment_line.paying_amt,
-                                    "payment_difference": payment_line.payment_difference,
+                                    "payment_difference_handling": line.payment_difference_handling,
+                                    "writeoff_account_id": line.writeoff_account_id.id,
+                                    "reason_code": line.reason_code.id,
+                                    "note": line.note,
+                                    "communication": line.note,
+                                    "communication_type": "normal",
+                                    "amount_currency": line.paying_amt,
+                                    "payment_difference": line.payment_difference,
                                 }
                             )
                 return action
