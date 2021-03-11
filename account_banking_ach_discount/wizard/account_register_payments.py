@@ -72,7 +72,8 @@ class AccountPaymentRegister(models.TransientModel):
                                     "writeoff_account_id": line.writeoff_account_id.id,
                                     "reason_code": line.reason_code.id,
                                     "note": line.note,
-                                    "communication": line.note,
+                                    "communication": "Payment of invoice %s"
+                                    % line.invoice_id.name,
                                     "communication_type": "normal",
                                     "amount_currency": line.paying_amt,
                                     "payment_difference": line.payment_difference,
