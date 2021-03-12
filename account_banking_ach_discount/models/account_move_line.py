@@ -22,8 +22,11 @@ class AccountMoveLine(models.Model):
                 and invoice.invoice_payment_term_id.is_discount
                 and invoice.invoice_payment_term_id.line_ids
             ):
-                discount_information = invoice.invoice_payment_term_id._check_payment_term_discount(
-                    invoice, self._context.get("payment_date") or invoice.date_invoice
+                discount_information = (
+                    invoice.invoice_payment_term_id._check_payment_term_discount(
+                        invoice,
+                        self._context.get("payment_date") or invoice.date_invoice,
+                    )
                 )
                 discount_amt = discount_information[0]
                 vals.update(
