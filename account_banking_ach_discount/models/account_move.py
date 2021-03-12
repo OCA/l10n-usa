@@ -1,9 +1,6 @@
 # Copyright (C) 2019 Open Source Integrators
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-
-from odoo import models, api, _
-import json
-from odoo.tools import date_utils
+from odoo import models
 
 
 class AccountMove(models.Model):
@@ -17,19 +14,21 @@ class AccountMove(models.Model):
             for item in res:
                 payment_lines = set()
                 for line in self.line_ids:
-                    payment_lines.update(line.mapped(
-                        'matched_credit_ids.credit_move_id.id'))
-                    payment_lines.update(line.mapped(
-                        'matched_debit_ids.debit_move_id.id'))
-                    payment_move_line_ids = self.env['account.move.line'].browse(
-                        list(payment_lines)).sorted()
+                    payment_lines.update(
+                        line.mapped("matched_credit_ids.credit_move_id.id")
+                    )
+                    payment_lines.update(
+                        line.mapped("matched_debit_ids.debit_move_id.id")
+                    )
+                    payment_move_line_ids = (
+                        self.env["account.move.line"]
+                        .browse(list(payment_lines))
+                        .sorted()
+                    )
 
                 for mvl in payment_move_line_ids:
                     # get bank payment line
-                    if (
-                        mvl.move_id
-                        and mvl.id == item["payment_id"]
-                    ):
+                    if mvl.move_id and mvl.id == item["payment_id"]:
                         for pay_li in mvl.bank_payment_line_id.payment_line_ids:
                             # Get related payment line ref
                             if pay_li.communication == inv_number:
@@ -43,10 +42,7 @@ class AccountMove(models.Model):
                         and item["account_payment_id"] == mvl.payment_id.id
                     ):
                         if mvl.full_reconcile_id and not flag:
-                            item["amount"] = (
-                                item["amount"] -
-                                self.discount_taken
-                            )
+                            item["amount"] = item["amount"] - self.discount_taken
                             flag = True
 
         return res
@@ -59,8 +55,10 @@ class AccountMove(models.Model):
                 and invoice.invoice_payment_term_id.is_discount
                 and invoice.invoice_payment_term_id.line_ids
             ):
-                discount_information = invoice.invoice_payment_term_id._check_payment_term_discount(
-                    invoice, invoice.date_invoice
+                discount_information = (
+                    invoice.invoice_payment_term_id._check_payment_term_discount(
+                        invoice, invoice.date_invoice
+                    )
                 )
                 discount_amt = discount_information[0]
                 discount_account_id = discount_information[1]
@@ -100,9 +98,7 @@ class AccountMove(models.Model):
                 }
             )
             if invoice.move_type == "out_invoice":
-                vals.update(
-                    {"credit": 0.0, "debit": payment_line.payment_difference})
+                vals.update({"credit": 0.0, "debit": payment_line.payment_difference})
             elif invoice.move_type == "in_invoice":
-                vals.update(
-                    {"credit": payment_line.payment_difference, "debit": 0.0})
+                vals.update({"credit": payment_line.payment_difference, "debit": 0.0})
         return vals

@@ -1,7 +1,7 @@
 # Copyright (C) 2019 Open Source Integrators
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import api, fields, models, _
+from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
 
@@ -38,7 +38,9 @@ class AccountPayment(models.Model):
                             payment.reconciled_invoice_ids.move_id.line_ids.write(
                                 {"payment_mode_id": payment_mode_id.id}
                             )
-                    action = payment.reconciled_invoice_ids.create_account_payment_line()
+                    action = (
+                        payment.reconciled_invoice_ids.create_account_payment_line()
+                    )
                     payment.unlink()
                     return action
         res = super(AccountPayment, self).action_validate_invoice_payment()
