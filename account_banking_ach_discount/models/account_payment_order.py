@@ -1,6 +1,5 @@
 # Copyright (C) 2019 Open Source Integrators
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-
 from odoo import models
 
 
@@ -8,7 +7,7 @@ class AccountPaymentOrder(models.Model):
     _inherit = "account.payment.order"
 
     def _prepare_move(self, bank_lines=None):
-        values = super(AccountPaymentOrder, self)._prepare_move(bank_lines)
+        values = super()._prepare_move(bank_lines)
         bank_payment_line_pool = self.env["bank.payment.line"]
         line_ids = []
         for vals in values.get("line_ids"):
