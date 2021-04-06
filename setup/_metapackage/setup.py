@@ -9,6 +9,7 @@ setuptools.setup(
     version=version,
     install_requires=[
         'odoo14-addon-l10n_us_form_1099',
+        'odoo14-addon-l10n_us_partner_legal_number',
     ],
     classifiers=[
         'Programming Language :: Python',
