@@ -63,7 +63,9 @@ To use this module, you need to:
 #. If their type is 1099-MISC, you can select their box
 #. Go to Invoicing > Bills > Vendors
 #. Create vendor bills and payments for those 1099 vendors
+#. Modify "Is a 1099" box on Bill Lines based on your need
 #. Go to Invoicing > Reporting > 1099 Report
+#. If Bill is fully paid then payments will be included in Report
 
 Bug Tracker
 ===========
@@ -93,6 +95,7 @@ Contributors
 * Bhavesh Odedra <bodedra@opensourceintegrators.com>
 * Brian McMaster <brian@mcmpest.com>
 * Jevin Dement <jdement@opensourceintegrators.com>
+* Chankya Soni <csoni@opensourceintegrators.com>
 
 Other credits
 ~~~~~~~~~~~~~

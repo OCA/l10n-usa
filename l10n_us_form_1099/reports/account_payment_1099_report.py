@@ -1,5 +1,5 @@
 # Copyright (C) 2019 Brian McMaster
-# Copyright (C) 2019 Open Source Integrators
+# Copyright (C) 2021 Open Source Integrators
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
 from psycopg2.extensions import AsIs
@@ -17,33 +17,38 @@ class AccountPayment1099Report(models.Model):
     vendor_id = fields.Many2one("res.partner", "Vendor", readonly=True)
     type_1099 = fields.Many2one("type.1099", "1099 Type", readonly=True)
     box_1099_misc = fields.Many2one("box.1099.misc", "1099-MISC Box", readonly=True)
+    legal_id_number = fields.Char("Legal ID", readonly=True)
 
     def _select(self):
         return """
             SELECT
-                pmt.id AS id,
-                am.date AS date,
-                pmt.amount AS amount,
                 v.id AS vendor_id,
-                v.type_1099_id AS type_1099,
-                v.box_1099_misc_id AS box_1099_misc
+                aml.id AS id,
+                am.date AS date,
+                aml.price_total AS amount,
+                aml.type_1099_id AS type_1099,
+                aml.box_1099_misc_id AS box_1099_misc,
+                v.legal_id_number as legal_id_number
         """
 
     def _from(self):
         return """
-            FROM account_payment AS pmt
+            FROM account_move_line AS aml
         """
 
     def _join(self):
         return """
-            JOIN res_partner AS v ON pmt.partner_id = v.id
-            JOIN account_move AS am ON pmt.move_id = am.id
+            JOIN account_move AS am ON aml.move_id = am.id
+            JOIN res_partner AS v ON am.partner_id = v.id
         """
 
     def _where(self):
         return """
             WHERE
-                v.is_1099 = TRUE
+                am.payment_state='paid' and
+                am.move_type='in_invoice' and
+                aml.exclude_from_invoice_tab=false and
+                aml.is_1099=True
         """
 
     def init(self):
