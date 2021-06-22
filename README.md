@@ -19,6 +19,7 @@ Available addons
 ----------------
 addon | version | summary
 --- | --- | ---
+[account_banking_ach_base](account_banking_ach_base/) | 14.0.1.0.0 | Add fields required for North American Banking & Financials
 [l10n_us_form_1099](l10n_us_form_1099/) | 14.0.1.0.0 | Manage 1099 Types and Suppliers
 [l10n_us_partner_legal_number](l10n_us_partner_legal_number/) | 14.0.1.0.0 | Add Legal Number for North American Banking & Financials
 
