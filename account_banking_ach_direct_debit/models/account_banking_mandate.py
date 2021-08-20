@@ -48,7 +48,7 @@ class AccountBankingMandate(models.Model):
     def _check_recurring_type(self):
         for mandate in self:
             if mandate.type == "recurrent" and not mandate.recurrent_sequence_type:
-                raise exceptions.Warning(
+                raise exceptions.ValidationError(
                     _("The recurrent mandate '%s' must have a sequence type.")
                     % mandate.unique_mandate_reference
                 )
