@@ -1,3 +1,4 @@
+import re
 from string import ascii_uppercase
 
 from ach.builder import AchFile
@@ -144,14 +145,14 @@ class AccountPaymentOrder(models.Model):
                 self.validate_mandates(line)
             self.validate_banking(line)
             amount = line.amount_currency
-
+            partner_name = re.sub(r"[^\w ,]", "", line.partner_id.name)
             entries.append(
                 {
                     "type": self.get_transaction_type(amount=amount),
                     "routing_number": line.partner_bank_id.bank_id.routing_number,
                     "account_number": line.partner_bank_id.acc_number,
                     "amount": str(amount),
-                    "name": line.partner_id.name,
+                    "name": partner_name,
                     "addenda": [{"payment_related_info": line.communication}],
                 }
             )
