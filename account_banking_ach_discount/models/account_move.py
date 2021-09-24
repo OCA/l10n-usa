@@ -38,7 +38,7 @@ class AccountMove(models.Model):
                     # Discount is applied on the last payment (i.e. fully reconciled).
                     if (
                         not mvl.bank_payment_line_id
-                        and mvl.move_id == self.id
+                        and mvl.move_id.id == self.id
                         and item["account_payment_id"] == mvl.payment_id.id
                     ):
                         if mvl.full_reconcile_id and not flag:
