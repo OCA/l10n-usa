@@ -9,40 +9,46 @@ class AccountPayment(models.Model):
     _inherit = "account.payment"
 
     def action_validate_invoice_payment(self):
-        if any(len(record.reconciled_invoice_ids) != 1 for record in self):
-            # For multiple invoices, there is account.register.payments wizard
-            raise UserError(
-                _(
-                    "This method should only be called to process a "
-                    "single invoice's payment."
-                )
-            )
-        for payment in self:
-            payment_method = payment.payment_method_id
-            if payment_method:
-                if payment_method.code in ("ACH-In", "ACH-Out"):
-                    # Update invoice with Payment mode
-                    if not payment.reconciled_invoice_ids.payment_mode_id:
-                        payment_mode_id = self.env["account.payment.mode"].search(
-                            [
-                                ("payment_type", "=", payment.payment_type),
-                                ("payment_method_id", "=", payment_method.id),
-                                ("payment_order_ok", "=", True),
-                            ],
-                            limit=1,
-                        )
-                        if payment_mode_id:
-                            payment.reconciled_invoice_ids.write(
-                                {"payment_mode_id": payment_mode_id.id}
-                            )
-                            payment.reconciled_invoice_ids.move_id.line_ids.write(
-                                {"payment_mode_id": payment_mode_id.id}
-                            )
-                    action = (
-                        payment.reconciled_invoice_ids.create_account_payment_line()
+        # Check if Invoices have ACH IN/OUT payment method, to avoid any
+        # conflict
+        valid = False
+        if self.filtered(lambda p: p.payment_method_id.code in ("ACH-In", "ACH-Out")):
+            valid = True
+            if any(len(record.invoice_ids) != 1 for record in self):
+                # For multiple invoices, there is account.register.payments wizard
+                raise UserError(
+                    _(
+                        "This method should only be called to process a "
+                        "single invoice's payment."
                     )
-                    payment.unlink()
-                    return action
+                )
+        if valid:
+            for payment in self:
+                payment_method = payment.payment_method_id
+                if payment_method:
+                    if payment_method.code in ("ACH-In", "ACH-Out"):
+                        # Update invoice with Payment mode
+                        if not payment.reconciled_invoice_ids.payment_mode_id:
+                            payment_mode_id = self.env["account.payment.mode"].search(
+                                [
+                                    ("payment_type", "=", payment.payment_type),
+                                    ("payment_method_id", "=", payment_method.id),
+                                    ("payment_order_ok", "=", True),
+                                ],
+                                limit=1,
+                            )
+                            if payment_mode_id:
+                                payment.reconciled_invoice_ids.write(
+                                    {"payment_mode_id": payment_mode_id.id}
+                                )
+                                payment.reconciled_invoice_ids.move_id.line_ids.write(
+                                    {"payment_mode_id": payment_mode_id.id}
+                                )
+                        action = (
+                            payment.reconciled_invoice_ids.create_account_payment_line()
+                        )
+                        payment.unlink()
+                        return action
         res = super(AccountPayment, self).action_validate_invoice_payment()
         return res
 
