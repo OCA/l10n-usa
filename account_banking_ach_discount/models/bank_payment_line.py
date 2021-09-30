@@ -24,7 +24,7 @@ class BankPaymentLine(models.Model):
         for bline in self:
             discount_amount = sum(bline.mapped("payment_line_ids.discount_amount"))
             bline.discount_amount = discount_amount
-    
+
     def reconcile(self):
         self.ensure_one()
         amlo = self.env["account.move.line"]
@@ -36,4 +36,3 @@ class BankPaymentLine(models.Model):
             lines_to_rec = line
             lines_to_rec += ap_mlines
             lines_to_rec.reconcile()
-
