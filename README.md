@@ -17,9 +17,13 @@ TODO: add repo description.
 
 Available addons
 ----------------
-addon | version | summary
---- | --- | ---
-[l10n_us_form_1099](l10n_us_form_1099/) | 14.0.1.0.0 | Manage 1099 Types and Suppliers
+addon | version | maintainers | summary
+--- | --- | --- | ---
+[account_banking_ach_base](account_banking_ach_base/) | 14.0.1.0.0 |  | Add fields required for North American Banking & Financials
+[account_banking_ach_credit_transfer](account_banking_ach_credit_transfer/) | 14.0.1.0.0 |  | Create ACH files for Credit Transfers
+[account_banking_ach_direct_debit](account_banking_ach_direct_debit/) | 14.0.1.0.0 |  | Create ACH files for Direct Debit
+[l10n_us_form_1099](l10n_us_form_1099/) | 14.0.1.0.0 | [![max3903](https://github.com/max3903.png?size=30px)](https://github.com/max3903) | Manage 1099 Types and Suppliers
+[l10n_us_partner_legal_number](l10n_us_partner_legal_number/) | 14.0.1.0.0 |  | Add Legal Number for North American Banking & Financials
 
 [//]: # (end addons)
 
