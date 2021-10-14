@@ -25,7 +25,7 @@ class TestChartAcount(TransactionCase):
         self.env.user.write(
             {"company_ids": [(4, self.company.id)], "company_id": self.company.id}
         )
-        chart_us.try_loading_for_current_company()
+        chart_us.try_loading()
         self.with_context(company_id=self.company.id, force_company=self.company.id)
         bank_account = self.env["account.account"].search(
             [("code", "=", "111101"), ("company_id", "=", self.company.id)]
@@ -36,6 +36,6 @@ class TestChartAcount(TransactionCase):
         finished_goods = self.env["account.account"].search(
             [("code", "=", "133000"), ("company_id", "=", self.company.id)]
         )
-        self.assertEqual(bank_account.name, "Bank")
+        self.assertEqual(bank_account.name, "Bank Suspense Account")
         self.assertEqual(liquidity_transfer.name, "Liquidity Transfer")
         self.assertEqual(finished_goods.name, "Finished Goods")
