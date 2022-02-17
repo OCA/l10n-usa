@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <data>
         <record id="mis_report_l10n_us_gaap_balance_sheet" model="mis.report">
             <field name="name">US Balance Sheet</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_base" />
@@ -16,9 +15,9 @@
             <field name="expression">+us_1_1+us_1_2+us_1_3+us_1_4+us_1_5+us_1_6</field>
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_1"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_1"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -26,14 +25,14 @@
             <field name="name">us_1_1</field>
             <field name="description">Cash And Investments</field>
             <field
-                name="expression"
-            >+us_1_1_1+us_1_1_2+us_1_1_3+us_1_1_4+us_1_1_5+us_1_1_6</field>
+            name="expression"
+        >+us_1_1_1+us_1_1_2+us_1_1_3+us_1_1_4+us_1_1_5+us_1_1_6</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l2" />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_1_1"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_1_1"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -41,19 +40,19 @@
             <field name="name">us_1_1_1</field>
             <field name="description">Cash And Cash Equivalents</field>
             <field
-                name="expression"
-            >+bale[('group_id.code_prefix', '=like', '1.1.1%')]</field>
+            name="expression"
+        >+bale[('group_id.code_prefix_start', '=like', '1.1.1%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_1_2"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_1_2"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -61,19 +60,19 @@
             <field name="name">us_1_1_2</field>
             <field name="description">Investments And Securities</field>
             <field
-                name="expression"
-            >+bale[('group_id.code_prefix', '=like', '1.1.2%')]</field>
+            name="expression"
+        >+bale[('group_id.code_prefix_start', '=like', '1.1.2%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_1_3"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_1_3"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -81,19 +80,19 @@
             <field name="name">us_1_1_3</field>
             <field name="description">Derivative Instruments And Hedges</field>
             <field
-                name="expression"
-            >+bale[('group_id.code_prefix', '=like', '1.1.3%')]</field>
+            name="expression"
+        >+bale[('group_id.code_prefix_start', '=like', '1.1.3%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_1_4"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_1_4"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -101,19 +100,19 @@
             <field name="name">us_1_1_4</field>
             <field name="description">Capital Leases, Lessor</field>
             <field
-                name="expression"
-            >+bale[('group_id.code_prefix', '=like', '1.1.4%')]</field>
+            name="expression"
+        >+bale[('group_id.code_prefix_start', '=like', '1.1.4%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_1_5"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_1_5"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -121,19 +120,19 @@
             <field name="name">us_1_1_5</field>
             <field name="description">Restricted Assets</field>
             <field
-                name="expression"
-            >+bale[('group_id.code_prefix', '=like', '1.1.5%')]</field>
+            name="expression"
+        >+bale[('group_id.code_prefix_start', '=like', '1.1.5%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_1_6"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_1_6"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -141,19 +140,19 @@
             <field name="name">us_1_1_6</field>
             <field name="description">Intercompany Investments</field>
             <field
-                name="expression"
-            >+bale[('group_id.code_prefix', '=like', '1.1.6%')]</field>
+            name="expression"
+        >+bale[('group_id.code_prefix_start', '=like', '1.1.6%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_2"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_2"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -161,14 +160,14 @@
             <field name="name">us_1_2</field>
             <field name="description">Receivables</field>
             <field
-                name="expression"
-            >+us_1_2_1+us_1_2_2+us_1_2_3+us_1_2_4+us_1_2_5</field>
+            name="expression"
+        >+us_1_2_1+us_1_2_2+us_1_2_3+us_1_2_4+us_1_2_5</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l2" />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_2_1"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_2_1"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -176,19 +175,19 @@
             <field name="name">us_1_2_1</field>
             <field name="description">Accounts, Notes And Loans</field>
             <field
-                name="expression"
-            >+bale[('group_id.code_prefix', '=like', '1.2.1%')]</field>
+            name="expression"
+        >+bale[('group_id.code_prefix_start', '=like', '1.2.1%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_2_2"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_2_2"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -196,19 +195,19 @@
             <field name="name">us_1_2_2</field>
             <field name="description">Notes And Loans Receivable</field>
             <field
-                name="expression"
-            >+bale[('group_id.code_prefix', '=like', '1.2.2%')]</field>
+            name="expression"
+        >+bale[('group_id.code_prefix_start', '=like', '1.2.2%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_2_3"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_2_3"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -216,19 +215,19 @@
             <field name="name">us_1_2_3</field>
             <field name="description">Receivables With Imputed Interest</field>
             <field
-                name="expression"
-            >+bale[('group_id.code_prefix', '=like', '1.2.3%')]</field>
+            name="expression"
+        >+bale[('group_id.code_prefix_start', '=like', '1.2.3%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_2_4"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_2_4"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -236,19 +235,19 @@
             <field name="name">us_1_2_4</field>
             <field name="description">Contracts Or Programs</field>
             <field
-                name="expression"
-            >+bale[('group_id.code_prefix', '=like', '1.2.4%')]</field>
+            name="expression"
+        >+bale[('group_id.code_prefix_start', '=like', '1.2.4%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_2_5"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_2_5"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -256,19 +255,19 @@
             <field name="name">us_1_2_5</field>
             <field name="description">Other Receivables</field>
             <field
-                name="expression"
-            >+bale[('group_id.code_prefix', '=like', '1.2.5%')]</field>
+            name="expression"
+        >+bale[('group_id.code_prefix_start', '=like', '1.2.5%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_3"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_3"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -276,14 +275,14 @@
             <field name="name">us_1_3</field>
             <field name="description">Other Receivables</field>
             <field
-                name="expression"
-            >+us_1_3_1+us_1_3_2+us_1_3_3+us_1_3_4+us_1_3_5+us_1_3_6+us_1_3_7</field>
+            name="expression"
+        >+us_1_3_1+us_1_3_2+us_1_3_3+us_1_3_4+us_1_3_5+us_1_3_6+us_1_3_7</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l2" />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_3_1"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_3_1"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -291,19 +290,19 @@
             <field name="name">us_1_3_1</field>
             <field name="description">Merchandise, Material And Supplies</field>
             <field
-                name="expression"
-            >+bale[('group_id.code_prefix', '=like', '1.3.1%')]</field>
+            name="expression"
+        >+bale[('group_id.code_prefix_start', '=like', '1.3.1%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_3_2"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_3_2"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -311,19 +310,19 @@
             <field name="name">us_1_3_2</field>
             <field name="description">Work In Process</field>
             <field
-                name="expression"
-            >+bale[('group_id.code_prefix', '=like', '1.3.2%')]</field>
+            name="expression"
+        >+bale[('group_id.code_prefix_start', '=like', '1.3.2%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_3_3"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_3_3"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -331,19 +330,19 @@
             <field name="name">us_1_3_3</field>
             <field name="description">Finished Goods</field>
             <field
-                name="expression"
-            >+bale[('group_id.code_prefix', '=like', '1.3.3%')]</field>
+            name="expression"
+        >+bale[('group_id.code_prefix_start', '=like', '1.3.3%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_3_4"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_3_4"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -351,19 +350,19 @@
             <field name="name">us_1_3_4</field>
             <field name="description">Capitalized Contract Cost</field>
             <field
-                name="expression"
-            >+bale[('group_id.code_prefix', '=like', '1.3.4%')]</field>
+            name="expression"
+        >+bale[('group_id.code_prefix_start', '=like', '1.3.4%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_3_5"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_3_5"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -371,41 +370,41 @@
             <field name="name">us_1_3_5</field>
             <field name="description">Other Inventory</field>
             <field
-                name="expression"
-            >+bale[('group_id.code_prefix', '=like', '1.3.5%')]</field>
+            name="expression"
+        >+bale[('group_id.code_prefix_start', '=like', '1.3.5%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_3_6"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_3_6"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
             <field name="sequence">210</field>
             <field name="name">us_1_3_6</field>
             <field
-                name="description"
-            >Inventory For Long-Term Contracts Or Programs</field>
+            name="description"
+        >Inventory For Long-Term Contracts Or Programs</field>
             <field
-                name="expression"
-            >+bale[('group_id.code_prefix', '=like', '1.3.6%')]</field>
+            name="expression"
+        >+bale[('group_id.code_prefix_start', '=like', '1.3.6%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_3_7"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_3_7"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -413,19 +412,19 @@
             <field name="name">us_1_3_7</field>
             <field name="description">Allowances And Adjustments</field>
             <field
-                name="expression"
-            >+bale[('group_id.code_prefix', '=like', '1.3.7%')]</field>
+            name="expression"
+        >+bale[('group_id.code_prefix_start', '=like', '1.3.7%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_4"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_4"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -433,14 +432,14 @@
             <field name="name">us_1_4</field>
             <field name="description">Accrued, Deferred And Other Assets</field>
             <field
-                name="expression"
-            >+us_1_4_1+us_1_4_2+us_1_4_3+us_1_4_4+us_1_4_5+us_1_4_6</field>
+            name="expression"
+        >+us_1_4_1+us_1_4_2+us_1_4_3+us_1_4_4+us_1_4_5+us_1_4_6</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l2" />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_4_1"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_4_1"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -448,19 +447,19 @@
             <field name="name">us_1_4_1</field>
             <field name="description">Prepaid Expense</field>
             <field
-                name="expression"
-            >+bale[('group_id.code_prefix', '=like', '1.4.1%')]</field>
+            name="expression"
+        >+bale[('group_id.code_prefix_start', '=like', '1.4.1%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_4_2"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_4_2"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -468,19 +467,19 @@
             <field name="name">us_1_4_2</field>
             <field name="description">Returnable Deposits</field>
             <field
-                name="expression"
-            >+bale[('group_id.code_prefix', '=like', '1.4.2%')]</field>
+            name="expression"
+        >+bale[('group_id.code_prefix_start', '=like', '1.4.2%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_4_3"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_4_3"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -488,19 +487,19 @@
             <field name="name">us_1_4_3</field>
             <field name="description">Accrued Revenue</field>
             <field
-                name="expression"
-            >+bale[('group_id.code_prefix', '=like', '1.4.3%')]</field>
+            name="expression"
+        >+bale[('group_id.code_prefix_start', '=like', '1.4.3%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_4_4"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_4_4"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -508,19 +507,19 @@
             <field name="name">us_1_4_4</field>
             <field name="description">Deferred Costs</field>
             <field
-                name="expression"
-            >+bale[('group_id.code_prefix', '=like', '1.4.4%')]</field>
+            name="expression"
+        >+bale[('group_id.code_prefix_start', '=like', '1.4.4%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_4_5"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_4_5"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -528,19 +527,19 @@
             <field name="name">us_1_4_5</field>
             <field name="description">Other Accrued And Deferred Assets</field>
             <field
-                name="expression"
-            >+bale[('group_id.code_prefix', '=like', '1.4.5%')]</field>
+            name="expression"
+        >+bale[('group_id.code_prefix_start', '=like', '1.4.5%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_4_6"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_4_6"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -548,19 +547,19 @@
             <field name="name">us_1_4_6</field>
             <field name="description">Investments And Other Assets</field>
             <field
-                name="expression"
-            >+bale[('group_id.code_prefix', '=like', '1.4.6%')]</field>
+            name="expression"
+        >+bale[('group_id.code_prefix_start', '=like', '1.4.6%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_5"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_5"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -571,9 +570,9 @@
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l2" />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_5_1"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_5_1"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -581,19 +580,19 @@
             <field name="name">us_1_5_1</field>
             <field name="description">Land, Buildings And Improvements</field>
             <field
-                name="expression"
-            >+bale[('group_id.code_prefix', '=like', '1.5.1%')]</field>
+            name="expression"
+        >+bale[('group_id.code_prefix_start', '=like', '1.5.1%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_5_2"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_5_2"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -601,19 +600,19 @@
             <field name="name">us_1_5_2</field>
             <field name="description">Machinery And Equipment</field>
             <field
-                name="expression"
-            >+bale[('group_id.code_prefix', '=like', '1.5.2%')]</field>
+            name="expression"
+        >+bale[('group_id.code_prefix_start', '=like', '1.5.2%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_5_3"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_5_3"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -621,19 +620,19 @@
             <field name="name">us_1_5_3</field>
             <field name="description">Other Property, Plant And Equipment</field>
             <field
-                name="expression"
-            >+bale[('group_id.code_prefix', '=like', '1.5.3%')]</field>
+            name="expression"
+        >+bale[('group_id.code_prefix_start', '=like', '1.5.3%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_5_4"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_5_4"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -641,19 +640,19 @@
             <field name="name">us_1_5_4</field>
             <field name="description">Assets Under Construction</field>
             <field
-                name="expression"
-            >+bale[('group_id.code_prefix', '=like', '1.5.4%')]</field>
+            name="expression"
+        >+bale[('group_id.code_prefix_start', '=like', '1.5.4%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_6"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_6"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -664,9 +663,9 @@
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l2" />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_6_1"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_6_1"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -674,19 +673,19 @@
             <field name="name">us_1_6_1</field>
             <field name="description">Intangible Assets Excluding Goodwill</field>
             <field
-                name="expression"
-            >+bale[('group_id.code_prefix', '=like', '1.6.1%')]</field>
+            name="expression"
+        >+bale[('group_id.code_prefix_start', '=like', '1.6.1%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_6_2"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_6_2"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -694,19 +693,19 @@
             <field name="name">us_1_6_2</field>
             <field name="description">Goodwill</field>
             <field
-                name="expression"
-            >+bale[('group_id.code_prefix', '=like', '1.6.2%')]</field>
+            name="expression"
+        >+bale[('group_id.code_prefix_start', '=like', '1.6.2%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_6_3"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_1_6_3"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -714,14 +713,14 @@
             <field name="name">us_1_6_3</field>
             <field name="description">Acquisitions In Progress</field>
             <field
-                name="expression"
-            >+bale[('group_id.code_prefix', '=like', '1.6.3%')]</field>
+            name="expression"
+        >+bale[('group_id.code_prefix_start', '=like', '1.6.3%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record id="mis_report_kpi_l10n_us_gaap_balance_sheet_2" model="mis.report.kpi">
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
@@ -731,14 +730,14 @@
             <field name="name">us_2</field>
             <field name="description">Liabilities</field>
             <field
-                name="expression"
-            >+us_2_1+us_2_2+us_2_3+us_2_4+us_2_5+us_2_6+us_2_7+us_2_8</field>
+            name="expression"
+        >+us_2_1+us_2_2+us_2_3+us_2_4+us_2_5+us_2_6+us_2_7+us_2_8</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l1" />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_1"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_1"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -746,14 +745,14 @@
             <field name="name">us_2_1</field>
             <field name="description">Accounts Payable And Accrued Liabilities</field>
             <field
-                name="expression"
-            >+us_2_1_1+us_2_1_2+us_2_1_3+us_2_1_4+us_2_1_5</field>
+            name="expression"
+        >+us_2_1_1+us_2_1_2+us_2_1_3+us_2_1_4+us_2_1_5</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l2" />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_1_1"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_1_1"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -761,19 +760,19 @@
             <field name="name">us_2_1_1</field>
             <field name="description">Accounts Payable</field>
             <field
-                name="expression"
-            >-bale[('group_id.code_prefix', '=like', '2.1.1%')]</field>
+            name="expression"
+        >-bale[('group_id.code_prefix_start', '=like', '2.1.1%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_1_2"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_1_2"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -781,19 +780,19 @@
             <field name="name">us_2_1_2</field>
             <field name="description">Accrued Liabilities</field>
             <field
-                name="expression"
-            >-bale[('group_id.code_prefix', '=like', '2.1.2%')]</field>
+            name="expression"
+        >-bale[('group_id.code_prefix_start', '=like', '2.1.2%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_1_3"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_1_3"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -801,19 +800,19 @@
             <field name="name">us_2_1_3</field>
             <field name="description">Employee-Related Liabilities</field>
             <field
-                name="expression"
-            >-bale[('group_id.code_prefix', '=like', '2.1.3%')]</field>
+            name="expression"
+        >-bale[('group_id.code_prefix_start', '=like', '2.1.3%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_1_4"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_1_4"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -821,19 +820,19 @@
             <field name="name">us_2_1_4</field>
             <field name="description">Taxes Payable</field>
             <field
-                name="expression"
-            >-bale[('group_id.code_prefix', '=like', '2.1.4%')]</field>
+            name="expression"
+        >-bale[('group_id.code_prefix_start', '=like', '2.1.4%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_1_5"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_1_5"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -841,19 +840,19 @@
             <field name="name">us_2_1_5</field>
             <field name="description">Interest And Dividends Payable</field>
             <field
-                name="expression"
-            >-bale[('group_id.code_prefix', '=like', '2.1.5%')]</field>
+            name="expression"
+        >-bale[('group_id.code_prefix_start', '=like', '2.1.5%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_2"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_2"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -861,14 +860,14 @@
             <field name="name">us_2_2</field>
             <field name="description">Debt And Capital Lease Obligations</field>
             <field
-                name="expression"
-            >+us_2_2_1+us_2_2_2+us_2_2_3+us_2_2_4+us_2_2_5</field>
+            name="expression"
+        >+us_2_2_1+us_2_2_2+us_2_2_3+us_2_2_4+us_2_2_5</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l2" />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_2_1"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_2_1"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -876,19 +875,19 @@
             <field name="name">us_2_2_1</field>
             <field name="description">Debts</field>
             <field
-                name="expression"
-            >-bale[('group_id.code_prefix', '=like', '2.2.1%')]</field>
+            name="expression"
+        >-bale[('group_id.code_prefix_start', '=like', '2.2.1%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_2_2"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_2_2"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -896,19 +895,19 @@
             <field name="name">us_2_2_2</field>
             <field name="description">Notes And Loans Payable</field>
             <field
-                name="expression"
-            >-bale[('group_id.code_prefix', '=like', '2.2.2%')]</field>
+            name="expression"
+        >-bale[('group_id.code_prefix_start', '=like', '2.2.2%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_2_3"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_2_3"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -916,19 +915,19 @@
             <field name="name">us_2_2_3</field>
             <field name="description">Special Assessment Bond</field>
             <field
-                name="expression"
-            >-bale[('group_id.code_prefix', '=like', '2.2.3%')]</field>
+            name="expression"
+        >-bale[('group_id.code_prefix_start', '=like', '2.2.3%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_2_4"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_2_4"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -936,19 +935,19 @@
             <field name="name">us_2_2_4</field>
             <field name="description">Long-Term Federal Home Loan Bank Advances</field>
             <field
-                name="expression"
-            >-bale[('group_id.code_prefix', '=like', '2.2.4%')]</field>
+            name="expression"
+        >-bale[('group_id.code_prefix_start', '=like', '2.2.4%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_2_5"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_2_5"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -956,19 +955,19 @@
             <field name="name">us_2_2_5</field>
             <field name="description">Capital Lease Obligations</field>
             <field
-                name="expression"
-            >-bale[('group_id.code_prefix', '=like', '2.2.5%')]</field>
+            name="expression"
+        >-bale[('group_id.code_prefix_start', '=like', '2.2.5%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_3"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_3"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -976,19 +975,19 @@
             <field name="name">us_2_3</field>
             <field name="description">Deferred Revenue And Credits</field>
             <field
-                name="expression"
-            >-bale[('group_id.code_prefix', '=like', '2.3%')]</field>
+            name="expression"
+        >-bale[('group_id.code_prefix_start', '=like', '2.3%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l2" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l3i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l3i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_4"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_4"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -999,9 +998,9 @@
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l2" />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_4_1"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_4_1"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -1009,19 +1008,19 @@
             <field name="name">us_2_4_1</field>
             <field name="description">Billings In Excess Of Cost</field>
             <field
-                name="expression"
-            >-bale[('group_id.code_prefix', '=like', '2.4.1%')]</field>
+            name="expression"
+        >-bale[('group_id.code_prefix_start', '=like', '2.4.1%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_5"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_5"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -1032,9 +1031,9 @@
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l2" />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_5_1"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_5_1"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -1042,19 +1041,19 @@
             <field name="name">us_2_5_1</field>
             <field name="description">Derivative Liability</field>
             <field
-                name="expression"
-            >-bale[('group_id.code_prefix', '=like', '2.5.1%')]</field>
+            name="expression"
+        >-bale[('group_id.code_prefix_start', '=like', '2.5.1%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_5_2"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_5_2"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -1062,19 +1061,19 @@
             <field name="name">us_2_5_2</field>
             <field name="description">Hedging Liabilities</field>
             <field
-                name="expression"
-            >-bale[('group_id.code_prefix', '=like', '2.5.2%')]</field>
+            name="expression"
+        >-bale[('group_id.code_prefix_start', '=like', '2.5.2%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_5_3"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_5_3"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -1082,19 +1081,19 @@
             <field name="name">us_2_5_3</field>
             <field name="description">Energy Marketing Contract Liabilities</field>
             <field
-                name="expression"
-            >-bale[('group_id.code_prefix', '=like', '2.5.3%')]</field>
+            name="expression"
+        >-bale[('group_id.code_prefix_start', '=like', '2.5.3%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_6"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_6"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -1102,19 +1101,19 @@
             <field name="name">us_2_6</field>
             <field name="description">Liabilities Other Than Debt</field>
             <field
-                name="expression"
-            >-bale[('group_id.code_prefix', '=like', '2.6%')]</field>
+            name="expression"
+        >-bale[('group_id.code_prefix_start', '=like', '2.6%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l2" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l3i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l3i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_7"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_7"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -1122,14 +1121,14 @@
             <field name="name">us_2_7</field>
             <field name="description">Related Party Liabilities</field>
             <field
-                name="expression"
-            >+us_2_7_1+us_2_7_2+us_2_7_3+us_2_7_4+us_2_7_5+us_2_7_6</field>
+            name="expression"
+        >+us_2_7_1+us_2_7_2+us_2_7_3+us_2_7_4+us_2_7_5+us_2_7_6</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l2" />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_7_1"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_7_1"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -1137,19 +1136,19 @@
             <field name="name">us_2_7_1</field>
             <field name="description">Related Party Liabilities</field>
             <field
-                name="expression"
-            >-bale[('group_id.code_prefix', '=like', '2.7.1%')]</field>
+            name="expression"
+        >-bale[('group_id.code_prefix_start', '=like', '2.7.1%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_7_2"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_7_2"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -1157,19 +1156,19 @@
             <field name="name">us_2_7_2</field>
             <field name="description">Related Party Notes Payable</field>
             <field
-                name="expression"
-            >-bale[('group_id.code_prefix', '=like', '2.7.2%')]</field>
+            name="expression"
+        >-bale[('group_id.code_prefix_start', '=like', '2.7.2%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_7_3"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_7_3"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -1177,19 +1176,19 @@
             <field name="name">us_2_7_3</field>
             <field name="description">Due To Employees</field>
             <field
-                name="expression"
-            >-bale[('group_id.code_prefix', '=like', '2.7.3%')]</field>
+            name="expression"
+        >-bale[('group_id.code_prefix_start', '=like', '2.7.3%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_7_4"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_7_4"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -1197,19 +1196,19 @@
             <field name="name">us_2_7_4</field>
             <field name="description">Due To Officers Or Stockholders</field>
             <field
-                name="expression"
-            >-bale[('group_id.code_prefix', '=like', '2.7.4%')]</field>
+            name="expression"
+        >-bale[('group_id.code_prefix_start', '=like', '2.7.4%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_7_5"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_7_5"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -1217,19 +1216,19 @@
             <field name="name">us_2_7_5</field>
             <field name="description">Due To Affiliate</field>
             <field
-                name="expression"
-            >-bale[('group_id.code_prefix', '=like', '2.7.5%')]</field>
+            name="expression"
+        >-bale[('group_id.code_prefix_start', '=like', '2.7.5%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_7_6"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_7_6"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -1237,19 +1236,19 @@
             <field name="name">us_2_7_6</field>
             <field name="description">Due To Other Related Parties</field>
             <field
-                name="expression"
-            >-bale[('group_id.code_prefix', '=like', '2.7.6%')]</field>
+            name="expression"
+        >-bale[('group_id.code_prefix_start', '=like', '2.7.6%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_8"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_2_8"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -1257,14 +1256,14 @@
             <field name="name">us_2_8</field>
             <field name="description">Other Liabilities</field>
             <field
-                name="expression"
-            >-bale[('group_id.code_prefix', '=like', '2.8%')]</field>
+            name="expression"
+        >-bale[('group_id.code_prefix_start', '=like', '2.8%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l2" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l3i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l3i"
+        />
         </record>
         <record id="mis_report_kpi_l10n_us_gaap_balance_sheet_3" model="mis.report.kpi">
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
@@ -1277,9 +1276,9 @@
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l1" />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_3_1"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_3_1"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -1290,9 +1289,9 @@
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l2" />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_3_1_1"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_3_1_1"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -1300,19 +1299,19 @@
             <field name="name">us_3_1_1</field>
             <field name="description">Common Stock</field>
             <field
-                name="expression"
-            >-bale[('group_id.code_prefix', '=like', '3.1.1%')]</field>
+            name="expression"
+        >-bale[('group_id.code_prefix_start', '=like', '3.1.1%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_3_1_2"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_3_1_2"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -1320,19 +1319,19 @@
             <field name="name">us_3_1_2</field>
             <field name="description">Preferred Stock</field>
             <field
-                name="expression"
-            >-bale[('group_id.code_prefix', '=like', '3.1.2%')]</field>
+            name="expression"
+        >-bale[('group_id.code_prefix_start', '=like', '3.1.2%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_3_1_3"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_3_1_3"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -1340,19 +1339,19 @@
             <field name="name">us_3_1_3</field>
             <field name="description">Additional Paid-In Capital</field>
             <field
-                name="expression"
-            >-bale[('group_id.code_prefix', '=like', '3.1.3%')]</field>
+            name="expression"
+        >-bale[('group_id.code_prefix_start', '=like', '3.1.3%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_3_1_4"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_3_1_4"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -1360,19 +1359,19 @@
             <field name="name">us_3_1_4</field>
             <field name="description">Legal Equity (Statutory Capital)</field>
             <field
-                name="expression"
-            >-bale[('group_id.code_prefix', '=like', '3.1.4%')]</field>
+            name="expression"
+        >-bale[('group_id.code_prefix_start', '=like', '3.1.4%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_3_2"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_3_2"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -1383,9 +1382,9 @@
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l2" />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_3_2_1"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_3_2_1"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -1393,19 +1392,19 @@
             <field name="name">us_3_2_1</field>
             <field name="description">Appropriated</field>
             <field
-                name="expression"
-            >-bale[('group_id.code_prefix', '=like', '3.2.1%')]</field>
+            name="expression"
+        >-bale[('group_id.code_prefix_start', '=like', '3.2.1%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_3_2_2"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_3_2_2"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -1413,19 +1412,19 @@
             <field name="name">us_3_2_2</field>
             <field name="description">Unappropriated</field>
             <field
-                name="expression"
-            >-bale[('group_id.code_prefix', '=like', '3.2.2%')]-bale[('group_id.code_prefix', '=like', '4%')]-bale[('group_id.code_prefix', '=like', '5%')]-bale[('group_id.code_prefix', '=like', '6%')]-bale[('group_id.code_prefix', '=like', '7%')]-balu[('group_id.code_prefix', '=like', '4%')]-balu[('group_id.code_prefix', '=like', '5%')]-balu[('group_id.code_prefix', '=like', '6%')]-balu[('group_id.code_prefix', '=like', '7%')]</field>
+            name="expression"
+        >-bale[('group_id.code_prefix_start', '=like', '3.2.2%')]-bale[('group_id.code_prefix_start', '=like', '4%')]-bale[('group_id.code_prefix_start', '=like', '5%')]-bale[('group_id.code_prefix_start', '=like', '6%')]-bale[('group_id.code_prefix_start', '=like', '7%')]-balu[('group_id.code_prefix_start', '=like', '4%')]-balu[('group_id.code_prefix_start', '=like', '5%')]-balu[('group_id.code_prefix_start', '=like', '6%')]-balu[('group_id.code_prefix_start', '=like', '7%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">False</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_3_2_3"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_3_2_3"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -1433,19 +1432,19 @@
             <field name="name">us_3_2_3</field>
             <field name="description">Retained Earnings Deficit</field>
             <field
-                name="expression"
-            >-bale[('group_id.code_prefix', '=like', '3.2.3%')]</field>
+            name="expression"
+        >-bale[('group_id.code_prefix_start', '=like', '3.2.3%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_3_2_4"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_3_2_4"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -1453,19 +1452,19 @@
             <field name="name">us_3_2_4</field>
             <field name="description">Suspense Account</field>
             <field
-                name="expression"
-            >-bale[('group_id.code_prefix', '=like', '3.2.4%')]</field>
+            name="expression"
+        >-bale[('group_id.code_prefix_start', '=like', '3.2.4%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_3_3"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_3_3"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -1473,14 +1472,14 @@
             <field name="name">us_3_3</field>
             <field name="description">Accumulated Other Comprehensive Income</field>
             <field
-                name="expression"
-            >+us_3_3_1+us_3_3_2+us_3_3_3+us_3_3_4+us_3_3_5</field>
+            name="expression"
+        >+us_3_3_1+us_3_3_2+us_3_3_3+us_3_3_4+us_3_3_5</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l2" />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_3_3_1"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_3_3_1"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -1488,19 +1487,19 @@
             <field name="name">us_3_3_1</field>
             <field name="description">Foreign Currency Translation Gain (Loss)</field>
             <field
-                name="expression"
-            >-bale[('group_id.code_prefix', '=like', '3.3.1%')]</field>
+            name="expression"
+        >-bale[('group_id.code_prefix_start', '=like', '3.3.1%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_3_3_2"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_3_3_2"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -1508,19 +1507,19 @@
             <field name="name">us_3_3_2</field>
             <field name="description">Available For Sale Securities Gain (Loss)</field>
             <field
-                name="expression"
-            >-bale[('group_id.code_prefix', '=like', '3.3.2%')]</field>
+            name="expression"
+        >-bale[('group_id.code_prefix_start', '=like', '3.3.2%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_3_3_3"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_3_3_3"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -1528,19 +1527,19 @@
             <field name="name">us_3_3_3</field>
             <field name="description">Impairment Debt Securities</field>
             <field
-                name="expression"
-            >-bale[('group_id.code_prefix', '=like', '3.3.3%')]</field>
+            name="expression"
+        >-bale[('group_id.code_prefix_start', '=like', '3.3.3%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_3_3_4"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_3_3_4"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -1548,19 +1547,19 @@
             <field name="name">us_3_3_4</field>
             <field name="description">Cash Flow Hedges Gain (Loss)</field>
             <field
-                name="expression"
-            >-bale[('group_id.code_prefix', '=like', '3.3.4%')]</field>
+            name="expression"
+        >-bale[('group_id.code_prefix_start', '=like', '3.3.4%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_3_3_5"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_3_3_5"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -1568,19 +1567,19 @@
             <field name="name">us_3_3_5</field>
             <field name="description">Defined Benefit Plan Income (Loss)</field>
             <field
-                name="expression"
-            >-bale[('group_id.code_prefix', '=like', '3.3.5%')]</field>
+            name="expression"
+        >-bale[('group_id.code_prefix_start', '=like', '3.3.5%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_3_4"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_3_4"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -1588,14 +1587,14 @@
             <field name="name">us_3_4</field>
             <field name="description">Other Equity</field>
             <field
-                name="expression"
-            >+us_3_4_1+us_3_4_2+us_3_4_3+us_3_4_4+us_3_4_5+us_3_4_6+us_3_4_7+us_3_4_8</field>
+            name="expression"
+        >+us_3_4_1+us_3_4_2+us_3_4_3+us_3_4_4+us_3_4_5+us_3_4_6+us_3_4_7+us_3_4_8</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l2" />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_3_4_1"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_3_4_1"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -1603,85 +1602,85 @@
             <field name="name">us_3_4_1</field>
             <field name="description">Unearned Sop Shares</field>
             <field
-                name="expression"
-            >-bale[('group_id.code_prefix', '=like', '3.4.1%')]</field>
+            name="expression"
+        >-bale[('group_id.code_prefix_start', '=like', '3.4.1%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_3_4_2"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_3_4_2"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
             <field name="sequence">840</field>
             <field name="name">us_3_4_2</field>
             <field
-                name="description"
-            >Receivable From Officers, Directors For Issuance Of Capital Stock</field>
+            name="description"
+        >Receivable From Officers, Directors For Issuance Of Capital Stock</field>
             <field
-                name="expression"
-            >-bale[('group_id.code_prefix', '=like', '3.4.2%')]</field>
+            name="expression"
+        >-bale[('group_id.code_prefix_start', '=like', '3.4.2%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_3_4_3"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_3_4_3"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
             <field name="sequence">850</field>
             <field name="name">us_3_4_3</field>
             <field
-                name="description"
-            >Receivable From Shareholders Or Affiliates For Issuance Of Capital Stock</field>
+            name="description"
+        >Receivable From Shareholders Or Affiliates For Issuance Of Capital Stock</field>
             <field
-                name="expression"
-            >-bale[('group_id.code_prefix', '=like', '3.4.3%')]</field>
+            name="expression"
+        >-bale[('group_id.code_prefix_start', '=like', '3.4.3%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_3_4_4"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_3_4_4"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
             <field name="sequence">860</field>
             <field name="name">us_3_4_4</field>
             <field
-                name="description"
-            >Stockholders' Equity Note, Subscriptions Receivable</field>
+            name="description"
+        >Stockholders' Equity Note, Subscriptions Receivable</field>
             <field
-                name="expression"
-            >-bale[('group_id.code_prefix', '=like', '3.4.4%')]</field>
+            name="expression"
+        >-bale[('group_id.code_prefix_start', '=like', '3.4.4%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_3_4_5"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_3_4_5"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -1689,19 +1688,19 @@
             <field name="name">us_3_4_5</field>
             <field name="description">Warrants, Rights Outstanding</field>
             <field
-                name="expression"
-            >-bale[('group_id.code_prefix', '=like', '3.4.5%')]</field>
+            name="expression"
+        >-bale[('group_id.code_prefix_start', '=like', '3.4.5%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_3_4_6"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_3_4_6"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -1709,19 +1708,19 @@
             <field name="name">us_3_4_6</field>
             <field name="description">Other Additional Capital</field>
             <field
-                name="expression"
-            >-bale[('group_id.code_prefix', '=like', '3.4.6%')]</field>
+            name="expression"
+        >-bale[('group_id.code_prefix_start', '=like', '3.4.6%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_3_4_7"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_3_4_7"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -1729,19 +1728,19 @@
             <field name="name">us_3_4_7</field>
             <field name="description">Treasury Stock</field>
             <field
-                name="expression"
-            >-bale[('group_id.code_prefix', '=like', '3.4.7%')]</field>
+            name="expression"
+        >-bale[('group_id.code_prefix_start', '=like', '3.4.7%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_3_4_8"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_3_4_8"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -1749,41 +1748,41 @@
             <field name="name">us_3_4_8</field>
             <field name="description">Additional Items</field>
             <field
-                name="expression"
-            >-bale[('group_id.code_prefix', '=like', '3.4.8%')]</field>
+            name="expression"
+        >-bale[('group_id.code_prefix_start', '=like', '3.4.8%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l4i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l4i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_3_5"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_3_5"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
             <field name="sequence">910</field>
             <field name="name">us_3_5</field>
             <field
-                name="description"
-            >Equity Attributable To Non-Controlling Interest</field>
+            name="description"
+        >Equity Attributable To Non-Controlling Interest</field>
             <field
-                name="expression"
-            >-bale[('group_id.code_prefix', '=like', '3.5%')]</field>
+            name="expression"
+        >-bale[('group_id.code_prefix_start', '=like', '3.5%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l2" />
             <field name="auto_expand_accounts">True</field>
             <field
-                name="auto_expand_accounts_style_id"
-                ref="mis_report_style_l10n_us_gaap_l3i"
-            />
+            name="auto_expand_accounts_style_id"
+            ref="mis_report_style_l10n_us_gaap_l3i"
+        />
         </record>
         <record
-            id="mis_report_kpi_l10n_us_gaap_balance_sheet_9999"
-            model="mis.report.kpi"
-        >
+        id="mis_report_kpi_l10n_us_gaap_balance_sheet_9999"
+        model="mis.report.kpi"
+    >
             <field name="report_id" ref="mis_report_l10n_us_gaap_balance_sheet" />
             <field name="type">num</field>
             <field name="compare_method">pct</field>
@@ -1793,5 +1792,4 @@
             <field name="expression">+us_1-us_2-us_3</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l2i" />
         </record>
-    </data>
 </odoo>
