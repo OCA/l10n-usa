@@ -5,7 +5,7 @@
     "category": "Localization",
     "author": "ForgeFlow, Odoo Community Association (OCA)",
     "maintainers": ["JordiBForgeFlow"],
-    "website": "https://github.com/OCA/l10n-usa/",
+    "website": "https://github.com/OCA/l10n-usa",
     "depends": ["account"],
     "data": [
         "data/account_chart_template_data.xml",
