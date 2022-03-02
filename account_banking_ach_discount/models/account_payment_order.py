@@ -21,10 +21,13 @@ class AccountPaymentOrder(models.Model):
                     amount = line.amount_currency
                     discount = line.discount_amount
                     payment_difference = line.payment_difference
-                    writeoff = (
-                        payment_difference and payment_difference - discount or 0.0
-                    )
-                    invoice_close = line.payment_difference_handling != "open"
+                    writeoff = 0.0
+                    invoice_close = False
+                    if payment_difference:
+                        writeoff = (
+                            payment_difference and payment_difference - discount or 0.0
+                        )
+                        invoice_close = line.payment_difference_handling != "open"
                     use_debit = line.move_id.move_type in (
                         "in_invoice",
                         "out_refund",
@@ -39,21 +42,41 @@ class AccountPaymentOrder(models.Model):
                     line_ids.append((0, 0, temp_vals))
 
                     if discount > 0:
-                        discount_information = line.move_id.invoice_payment_term_id._check_payment_term_discount(
-                            line.move_id, line.date
-                        )
-                        discount_vals = temp_vals.copy()
-                        discount_vals["account_id"] = discount_information[1]
-                        discount_vals["name"] = "Early Pay Discount"
-                        if use_debit:
-                            discount_vals["debit"] = 0.0
-                            discount_vals["credit"] = discount_information[0]
+                        if payment_difference:
+                            discount_information = line.move_id.invoice_payment_term_id._check_payment_term_discount(
+                                line.move_id, line.date
+                            )
+                            discount_vals = temp_vals.copy()
+                            discount_vals["account_id"] = discount_information[1]
+                            discount_vals["name"] = "Early Pay Discount"
+                            if use_debit:
+                                discount_vals["debit"] = 0.0
+                                discount_vals["credit"] = discount_information[0]
+                            else:
+                                discount_vals["credit"] = 0.0
+                                discount_vals["debit"] = discount_information[0]
+                            discount_vals["bank_payment_line_id"] = False
+                            if discount_vals:
+                                line_ids.append((0, 0, discount_vals))
+                            # Discount Taken Update
+                            line.move_id.discount_taken = discount
                         else:
-                            discount_vals["credit"] = 0.0
-                            discount_vals["debit"] = discount_information[0]
-                        discount_vals["bank_payment_line_id"] = False
-                        if discount_vals:
-                            line_ids.append((0, 0, discount_vals))
+                            #Case: If user Manually enters discount amount
+                            discount_vals = temp_vals.copy()
+                            discount_vals["account_id"] = line.writeoff_account_id and line.writeoff_account_id.id or False
+                            discount_vals["name"] = "Early Pay Discount"
+                            if use_debit:
+                                discount_vals["debit"] = 0.0
+                                discount_vals["credit"] = discount
+                            else:
+                                discount_vals["credit"] = 0.0
+                                discount_vals["debit"] = discount
+                            discount_vals["bank_payment_line_id"] = False
+                            if discount_vals:
+                                line_ids.append((0, 0, discount_vals))
+                            # Discount Taken Update
+                            line.move_id.discount_taken = discount
+
 
                     if invoice_close and round(writeoff, 2):
                         if use_debit:
