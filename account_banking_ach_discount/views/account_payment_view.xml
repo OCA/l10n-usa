@@ -11,6 +11,7 @@
         <field name="arch" type="xml">
             <field name="amount_currency" position="after">
                 <field name="discount_amount" />
+                <field name="writeoff_account_id" string="Discount Account"/>
                 <field name="total_amount" />
             </field>
         </field>
@@ -25,14 +26,12 @@
         />
         <field name="arch" type="xml">
             <field name="amount_currency" position="after">
-                <field name="discount_amount" />
-                <field name="payment_difference" />
                 <field name="total_amount" />
-                <field name="payment_difference_handling" />
-                <field name="writeoff_account_id" />
-                <field name="reason_code" />
-                <field name="note" />
-                <field name="move_id" />
+                <field name="discount_amount" />
+                <field name="writeoff_account_id" string="Discount Account"/>
+                <field name="reason_code" optional="hide"/>
+                <field name="note" optional="hide"/>
+                <field name="move_id" optional="hide"/>
             </field>
         </field>
     </record>
