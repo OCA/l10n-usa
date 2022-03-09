@@ -13,8 +13,12 @@ class AccountMoveLine(models.Model):
         amount_currency = vals.get("amount_currency")
         # No discount for open invoices
         if (
-            "payment_line_state" in self._context
-            and self._context.get("payment_line_state") != "open"
+            (
+                "payment_line_state" in self._context
+                and self._context.get("payment_line_state") != "open"
+            )
+            or self._context.get("is_new_order")
+            or self._context.get("is_update_order")
         ):
             if (
                 invoice
@@ -25,7 +29,7 @@ class AccountMoveLine(models.Model):
                 discount_information = (
                     invoice.invoice_payment_term_id._check_payment_term_discount(
                         invoice,
-                        self._context.get("payment_date") or invoice.date_invoice,
+                        self._context.get("payment_date") or invoice.invoice_date,
                     )
                 )
                 discount_amt = discount_information[0]
@@ -33,7 +37,7 @@ class AccountMoveLine(models.Model):
                     {
                         "discount_amount": discount_amt,
                         "amount_currency": amount_currency - discount_amt,
+                        "writeoff_account_id": discount_information[1],
                     }
                 )
-
         return vals
