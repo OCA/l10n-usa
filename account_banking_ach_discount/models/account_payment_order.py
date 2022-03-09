@@ -43,8 +43,11 @@ class AccountPaymentOrder(models.Model):
 
                     if discount > 0:
                         if payment_difference:
-                            discount_information = line.move_id.invoice_payment_term_id._check_payment_term_discount(
-                                line.move_id, line.date
+                            pay_term = line.move_id.invoice_payment_term_id
+                            discount_information = (
+                                pay_term._check_payment_term_discount(
+                                    line.move_id, line.date
+                                )
                             )
                             discount_vals = temp_vals.copy()
                             discount_vals["account_id"] = discount_information[1]
@@ -61,9 +64,13 @@ class AccountPaymentOrder(models.Model):
                             # Discount Taken Update
                             line.move_id.discount_taken = discount
                         else:
-                            #Case: If user Manually enters discount amount
+                            # Case: If user Manually enters discount amount
                             discount_vals = temp_vals.copy()
-                            discount_vals["account_id"] = line.writeoff_account_id and line.writeoff_account_id.id or False
+                            discount_vals["account_id"] = (
+                                line.writeoff_account_id
+                                and line.writeoff_account_id.id
+                                or False
+                            )
                             discount_vals["name"] = "Early Pay Discount"
                             if use_debit:
                                 discount_vals["debit"] = 0.0
@@ -76,7 +83,6 @@ class AccountPaymentOrder(models.Model):
                                 line_ids.append((0, 0, discount_vals))
                             # Discount Taken Update
                             line.move_id.discount_taken = discount
-
 
                     if invoice_close and round(writeoff, 2):
                         if use_debit:
