@@ -79,6 +79,11 @@ class AccountPaymentLine(models.Model):
         "account.move", related="move_line_id.move_id", store=True
     )
 
+    @api.onchange("discount_amount")
+    def _onchange_discount_amount(self):
+        if self.discount_amount:
+            self.amount_currency = self.amount_currency - self.discount_amount
+
     @api.depends("amount_currency", "discount_amount")
     def _compute_total_amount(self):
         for line in self:
