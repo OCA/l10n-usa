@@ -274,7 +274,7 @@
             <field name="compare_method">pct</field>
             <field name="sequence">150</field>
             <field name="name">us_1_3</field>
-            <field name="description">Other Receivables</field>
+            <field name="description">Inventory</field>
             <field
                 name="expression"
             >+us_1_3_1+us_1_3_2+us_1_3_3+us_1_3_4+us_1_3_5+us_1_3_6+us_1_3_7</field>
