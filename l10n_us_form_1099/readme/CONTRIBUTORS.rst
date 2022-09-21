@@ -4,3 +4,4 @@
 * Bhavesh Odedra <bodedra@opensourceintegrators.com>
 * Brian McMaster <brian@mcmpest.com>
 * Jevin Dement <jdement@opensourceintegrators.com>
+* Freni Patel <fpatel@opensourceintegrators.com>
