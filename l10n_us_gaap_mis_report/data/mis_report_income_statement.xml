@@ -1,0 +1,603 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="mis_report_l10n_us_gaap_income_statement" model="mis.report">
+            <field name="name">US Income Statement</field>
+            <field name="style_id" ref="mis_report_style_l10n_us_gaap_base" />
+        </record>
+        <record
+            id="mis_report_kpi_l10n_us_gaap_income_statement_4"
+            model="mis.report.kpi"
+        >
+            <field name="report_id" ref="mis_report_l10n_us_gaap_income_statement" />
+            <field name="type">num</field>
+            <field name="compare_method">pct</field>
+            <field name="sequence">10</field>
+            <field name="name">us_4</field>
+            <field name="description">Revenue</field>
+            <field name="style_id" ref="mis_report_style_l10n_us_gaap_l1" />
+            <field
+                name="expression"
+            >+us_4_1_1+us_4_1_2+us_4_2_1+us_4_2_2+us_4_2_3+us_4_3_1</field>
+        </record>
+        <record
+            id="mis_report_kpi_l10n_us_gaap_income_statement_4_1_1"
+            model="mis.report.kpi"
+        >
+            <field name="report_id" ref="mis_report_l10n_us_gaap_income_statement" />
+            <field name="type">num</field>
+            <field name="compare_method">pct</field>
+            <field name="sequence">20</field>
+            <field name="name">us_4_1_1</field>
+            <field name="description">Products And Merchandise</field>
+            <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
+            <field
+                name="expression"
+            >-balp[('group_id.code_prefix_start', '=like', '411%')]</field>
+            <field name="auto_expand_accounts">True</field>
+            <field
+                name="auto_expand_accounts_style_id"
+                ref="mis_report_style_l10n_us_gaap_l4i"
+            />
+        </record>
+        <record
+            id="mis_report_kpi_l10n_us_gaap_income_statement_4_1_2"
+            model="mis.report.kpi"
+        >
+            <field name="report_id" ref="mis_report_l10n_us_gaap_income_statement" />
+            <field name="type">num</field>
+            <field name="compare_method">pct</field>
+            <field name="sequence">30</field>
+            <field name="name">us_4_1_2</field>
+            <field name="description">Allowances, Discounts</field>
+            <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
+            <field
+                name="expression"
+            >-balp[('group_id.code_prefix_start', '=like', '412%')]</field>
+            <field name="auto_expand_accounts">True</field>
+            <field
+                name="auto_expand_accounts_style_id"
+                ref="mis_report_style_l10n_us_gaap_l4i"
+            />
+        </record>
+        <record
+            id="mis_report_kpi_l10n_us_gaap_income_statement_4_2_1"
+            model="mis.report.kpi"
+        >
+            <field name="report_id" ref="mis_report_l10n_us_gaap_income_statement" />
+            <field name="type">num</field>
+            <field name="compare_method">pct</field>
+            <field name="sequence">40</field>
+            <field name="name">us_4_2_1</field>
+            <field name="description">General Services</field>
+            <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
+            <field
+                name="expression"
+            >-balp[('group_id.code_prefix_start', '=like', '421%')]</field>
+            <field name="auto_expand_accounts">True</field>
+            <field
+                name="auto_expand_accounts_style_id"
+                ref="mis_report_style_l10n_us_gaap_l4i"
+            />
+        </record>
+        <record
+            id="mis_report_kpi_l10n_us_gaap_income_statement_4_2_2"
+            model="mis.report.kpi"
+        >
+            <field name="report_id" ref="mis_report_l10n_us_gaap_income_statement" />
+            <field name="type">num</field>
+            <field name="compare_method">pct</field>
+            <field name="sequence">50</field>
+            <field name="name">us_4_2_2</field>
+            <field name="description">Allowances, Discounts</field>
+            <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
+            <field
+                name="expression"
+            >-balp[('group_id.code_prefix_start', '=like', '422%')]</field>
+            <field name="auto_expand_accounts">True</field>
+            <field
+                name="auto_expand_accounts_style_id"
+                ref="mis_report_style_l10n_us_gaap_l4i"
+            />
+        </record>
+        <record
+            id="mis_report_kpi_l10n_us_gaap_income_statement_4_2_3"
+            model="mis.report.kpi"
+        >
+            <field name="report_id" ref="mis_report_l10n_us_gaap_income_statement" />
+            <field name="type">num</field>
+            <field name="compare_method">pct</field>
+            <field name="sequence">60</field>
+            <field name="name">us_4_2_3</field>
+            <field name="description">Itemized Services</field>
+            <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
+            <field
+                name="expression"
+            >-balp[('group_id.code_prefix_start', '=like', '423%')]</field>
+            <field name="auto_expand_accounts">True</field>
+            <field
+                name="auto_expand_accounts_style_id"
+                ref="mis_report_style_l10n_us_gaap_l4i"
+            />
+        </record>
+        <record
+            id="mis_report_kpi_l10n_us_gaap_income_statement_4_3_1"
+            model="mis.report.kpi"
+        >
+            <field name="report_id" ref="mis_report_l10n_us_gaap_income_statement" />
+            <field name="type">num</field>
+            <field name="compare_method">pct</field>
+            <field name="sequence">70</field>
+            <field name="name">us_4_3_1</field>
+            <field name="description">Other Recurring Income</field>
+            <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
+            <field
+                name="expression"
+            >-balp[('group_id.code_prefix_start', '=like', '431%')]</field>
+            <field name="auto_expand_accounts">True</field>
+            <field
+                name="auto_expand_accounts_style_id"
+                ref="mis_report_style_l10n_us_gaap_l4i"
+            />
+        </record>
+        <record
+            id="mis_report_kpi_l10n_us_gaap_income_statement_5_1_1"
+            model="mis.report.kpi"
+        >
+            <field name="report_id" ref="mis_report_l10n_us_gaap_income_statement" />
+            <field name="type">num</field>
+            <field name="compare_method">pct</field>
+            <field name="sequence">80</field>
+            <field name="name">us_5_1_1</field>
+            <field name="description">Cost Of Revenue</field>
+            <field name="style_id" ref="mis_report_style_l10n_us_gaap_l1" />
+            <field
+                name="expression"
+            >-balp[('group_id.code_prefix_start', '=like', '511%')]</field>
+            <field name="auto_expand_accounts">True</field>
+            <field
+                name="auto_expand_accounts_style_id"
+                ref="mis_report_style_l10n_us_gaap_l4i"
+            />
+        </record>
+        <record
+            id="mis_report_kpi_l10n_us_gaap_income_statement_gross_profit"
+            model="mis.report.kpi"
+        >
+            <field name="report_id" ref="mis_report_l10n_us_gaap_income_statement" />
+            <field name="type">num</field>
+            <field name="compare_method">pct</field>
+            <field name="sequence">90</field>
+            <field name="name">gross_profit</field>
+            <field name="description">Gross Profit</field>
+            <field name="style_id" ref="mis_report_style_l10n_us_gaap_l1i" />
+            <field name="expression">+us_4+us_5_1_1</field>
+        </record>
+        <record
+            id="mis_report_kpi_l10n_us_gaap_income_statement_operating_expenses"
+            model="mis.report.kpi"
+        >
+            <field name="report_id" ref="mis_report_l10n_us_gaap_income_statement" />
+            <field name="type">num</field>
+            <field name="compare_method">pct</field>
+            <field name="sequence">100</field>
+            <field name="name">operating_expenses</field>
+            <field name="description">Operating Expenses</field>
+            <field name="style_id" ref="mis_report_style_l10n_us_gaap_l1" />
+            <field name="expression">+us_5_1_2+us_5_1_3</field>
+        </record>
+        <record
+            id="mis_report_kpi_l10n_us_gaap_income_statement_5_1_2"
+            model="mis.report.kpi"
+        >
+            <field name="report_id" ref="mis_report_l10n_us_gaap_income_statement" />
+            <field name="type">num</field>
+            <field name="compare_method">pct</field>
+            <field name="sequence">110</field>
+            <field name="name">us_5_1_2</field>
+            <field name="description">Selling, General, Administrative</field>
+            <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
+            <field
+                name="expression"
+            >-balp[('group_id.code_prefix_start', '=like', '512%')]</field>
+            <field name="auto_expand_accounts">True</field>
+            <field
+                name="auto_expand_accounts_style_id"
+                ref="mis_report_style_l10n_us_gaap_l4i"
+            />
+        </record>
+        <record
+            id="mis_report_kpi_l10n_us_gaap_income_statement_5_1_3"
+            model="mis.report.kpi"
+        >
+            <field name="report_id" ref="mis_report_l10n_us_gaap_income_statement" />
+            <field name="type">num</field>
+            <field name="compare_method">pct</field>
+            <field name="sequence">120</field>
+            <field name="name">us_5_1_3</field>
+            <field name="description">Doubtful Accounts</field>
+            <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
+            <field
+                name="expression"
+            >-balp[('group_id.code_prefix_start', '=like', '513%')]</field>
+            <field name="auto_expand_accounts">True</field>
+            <field
+                name="auto_expand_accounts_style_id"
+                ref="mis_report_style_l10n_us_gaap_l4i"
+            />
+        </record>
+        <record
+            id="mis_report_kpi_l10n_us_gaap_income_statement_6"
+            model="mis.report.kpi"
+        >
+            <field name="report_id" ref="mis_report_l10n_us_gaap_income_statement" />
+            <field name="type">num</field>
+            <field name="compare_method">pct</field>
+            <field name="sequence">130</field>
+            <field name="name">us_6</field>
+            <field name="description">Other Revenue, Expenses, Gains And Losses</field>
+            <field name="style_id" ref="mis_report_style_l10n_us_gaap_l1" />
+            <field name="expression">+us_6_1+us_6_2+us_6_3</field>
+        </record>
+        <record
+            id="mis_report_kpi_l10n_us_gaap_income_statement_6_1"
+            model="mis.report.kpi"
+        >
+            <field name="report_id" ref="mis_report_l10n_us_gaap_income_statement" />
+            <field name="type">num</field>
+            <field name="compare_method">pct</field>
+            <field name="sequence">140</field>
+            <field name="name">us_6_1</field>
+            <field name="description">Gains And Losses</field>
+            <field name="style_id" ref="mis_report_style_l10n_us_gaap_l2" />
+            <field
+                name="expression"
+            >+us_6_1_1+us_6_1_2+us_6_1_3+us_6_1_4+us_6_1_5+us_6_1_6+us_6_1_7+us_6_1_8+us_6_1_9+us_6_1_10+us_6_1_11</field>
+        </record>
+        <record
+            id="mis_report_kpi_l10n_us_gaap_income_statement_6_1_1"
+            model="mis.report.kpi"
+        >
+            <field name="report_id" ref="mis_report_l10n_us_gaap_income_statement" />
+            <field name="type">num</field>
+            <field name="compare_method">pct</field>
+            <field name="sequence">150</field>
+            <field name="name">us_6_1_1</field>
+            <field name="description">Foreign Currency</field>
+            <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
+            <field
+                name="expression"
+            >-balp[('group_id.code_prefix_start', '=like', '611%')]</field>
+            <field name="auto_expand_accounts">True</field>
+            <field
+                name="auto_expand_accounts_style_id"
+                ref="mis_report_style_l10n_us_gaap_l4i"
+            />
+        </record>
+        <record
+            id="mis_report_kpi_l10n_us_gaap_income_statement_6_1_2"
+            model="mis.report.kpi"
+        >
+            <field name="report_id" ref="mis_report_l10n_us_gaap_income_statement" />
+            <field name="type">num</field>
+            <field name="compare_method">pct</field>
+            <field name="sequence">160</field>
+            <field name="name">us_6_1_2</field>
+            <field name="description">Other Non-Operating Income Or Loss</field>
+            <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
+            <field
+                name="expression"
+            >-balp[('group_id.code_prefix_start', '=like', '612%')]</field>
+            <field name="auto_expand_accounts">True</field>
+            <field
+                name="auto_expand_accounts_style_id"
+                ref="mis_report_style_l10n_us_gaap_l4i"
+            />
+        </record>
+        <record
+            id="mis_report_kpi_l10n_us_gaap_income_statement_6_1_3"
+            model="mis.report.kpi"
+        >
+            <field name="report_id" ref="mis_report_l10n_us_gaap_income_statement" />
+            <field name="type">num</field>
+            <field name="compare_method">pct</field>
+            <field name="sequence">170</field>
+            <field name="name">us_6_1_3</field>
+            <field name="description">Restructuring Charge</field>
+            <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
+            <field
+                name="expression"
+            >-balp[('group_id.code_prefix_start', '=like', '613%')]</field>
+            <field name="auto_expand_accounts">True</field>
+            <field
+                name="auto_expand_accounts_style_id"
+                ref="mis_report_style_l10n_us_gaap_l4i"
+            />
+        </record>
+        <record
+            id="mis_report_kpi_l10n_us_gaap_income_statement_6_1_4"
+            model="mis.report.kpi"
+        >
+            <field name="report_id" ref="mis_report_l10n_us_gaap_income_statement" />
+            <field name="type">num</field>
+            <field name="compare_method">pct</field>
+            <field name="sequence">180</field>
+            <field name="name">us_6_1_4</field>
+            <field
+                name="description"
+            >Inventory Write-Downs (Not Recognized In Cost Of Sales)</field>
+            <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
+            <field
+                name="expression"
+            >-balp[('group_id.code_prefix_start', '=like', '614%')]</field>
+            <field name="auto_expand_accounts">True</field>
+            <field
+                name="auto_expand_accounts_style_id"
+                ref="mis_report_style_l10n_us_gaap_l4i"
+            />
+        </record>
+        <record
+            id="mis_report_kpi_l10n_us_gaap_income_statement_6_1_5"
+            model="mis.report.kpi"
+        >
+            <field name="report_id" ref="mis_report_l10n_us_gaap_income_statement" />
+            <field name="type">num</field>
+            <field name="compare_method">pct</field>
+            <field name="sequence">190</field>
+            <field name="name">us_6_1_5</field>
+            <field name="description">Impairment Charge</field>
+            <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
+            <field
+                name="expression"
+            >-balp[('group_id.code_prefix_start', '=like', '615%')]</field>
+            <field name="auto_expand_accounts">True</field>
+            <field
+                name="auto_expand_accounts_style_id"
+                ref="mis_report_style_l10n_us_gaap_l4i"
+            />
+        </record>
+        <record
+            id="mis_report_kpi_l10n_us_gaap_income_statement_6_1_6"
+            model="mis.report.kpi"
+        >
+            <field name="report_id" ref="mis_report_l10n_us_gaap_income_statement" />
+            <field name="type">num</field>
+            <field name="compare_method">pct</field>
+            <field name="sequence">200</field>
+            <field name="name">us_6_1_6</field>
+            <field name="description">Extinguishment Of Debt</field>
+            <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
+            <field
+                name="expression"
+            >-balp[('group_id.code_prefix_start', '=like', '616%')]</field>
+            <field name="auto_expand_accounts">True</field>
+            <field
+                name="auto_expand_accounts_style_id"
+                ref="mis_report_style_l10n_us_gaap_l4i"
+            />
+        </record>
+        <record
+            id="mis_report_kpi_l10n_us_gaap_income_statement_6_1_7"
+            model="mis.report.kpi"
+        >
+            <field name="report_id" ref="mis_report_l10n_us_gaap_income_statement" />
+            <field name="type">num</field>
+            <field name="compare_method">pct</field>
+            <field name="sequence">210</field>
+            <field name="name">us_6_1_7</field>
+            <field
+                name="description"
+            >Business Combination, Acquisition Related Costs</field>
+            <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
+            <field
+                name="expression"
+            >-balp[('group_id.code_prefix_start', '=like', '617%')]</field>
+            <field name="auto_expand_accounts">True</field>
+            <field
+                name="auto_expand_accounts_style_id"
+                ref="mis_report_style_l10n_us_gaap_l4i"
+            />
+        </record>
+        <record
+            id="mis_report_kpi_l10n_us_gaap_income_statement_6_1_8"
+            model="mis.report.kpi"
+        >
+            <field name="report_id" ref="mis_report_l10n_us_gaap_income_statement" />
+            <field name="type">num</field>
+            <field name="compare_method">pct</field>
+            <field name="sequence">220</field>
+            <field name="name">us_6_1_8</field>
+            <field
+                name="description"
+            >Gain (Loss) Related To Litigation Settlement</field>
+            <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
+            <field
+                name="expression"
+            >-balp[('group_id.code_prefix_start', '=like', '618%')]</field>
+            <field name="auto_expand_accounts">True</field>
+            <field
+                name="auto_expand_accounts_style_id"
+                ref="mis_report_style_l10n_us_gaap_l4i"
+            />
+        </record>
+        <record
+            id="mis_report_kpi_l10n_us_gaap_income_statement_6_1_9"
+            model="mis.report.kpi"
+        >
+            <field name="report_id" ref="mis_report_l10n_us_gaap_income_statement" />
+            <field name="type">num</field>
+            <field name="compare_method">pct</field>
+            <field name="sequence">230</field>
+            <field name="name">us_6_1_9</field>
+            <field name="description">Asset Retirement Obligation</field>
+            <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
+            <field
+                name="expression"
+            >-balp[('group_id.code_prefix_start', '=like', '619%')]</field>
+            <field name="auto_expand_accounts">True</field>
+            <field
+                name="auto_expand_accounts_style_id"
+                ref="mis_report_style_l10n_us_gaap_l4i"
+            />
+        </record>
+        <record
+            id="mis_report_kpi_l10n_us_gaap_income_statement_6_1_10"
+            model="mis.report.kpi"
+        >
+            <field name="report_id" ref="mis_report_l10n_us_gaap_income_statement" />
+            <field name="type">num</field>
+            <field name="compare_method">pct</field>
+            <field name="sequence">240</field>
+            <field name="name">us_6_1_10</field>
+            <field name="description">Unusual And/Or Infrequent Items</field>
+            <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
+            <field
+                name="expression"
+            >-balp[('group_id.code_prefix_start', '=like', '6110%')]</field>
+            <field name="auto_expand_accounts">True</field>
+            <field
+                name="auto_expand_accounts_style_id"
+                ref="mis_report_style_l10n_us_gaap_l4i"
+            />
+        </record>
+        <record
+            id="mis_report_kpi_l10n_us_gaap_income_statement_6_1_11"
+            model="mis.report.kpi"
+        >
+            <field name="report_id" ref="mis_report_l10n_us_gaap_income_statement" />
+            <field name="type">num</field>
+            <field name="compare_method">pct</field>
+            <field name="sequence">250</field>
+            <field name="name">us_6_1_11</field>
+            <field name="description">Additional Itemized Gains And Losses</field>
+            <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
+            <field
+                name="expression"
+            >-balp[('group_id.code_prefix_start', '=like', '6111%')]</field>
+            <field name="auto_expand_accounts">True</field>
+            <field
+                name="auto_expand_accounts_style_id"
+                ref="mis_report_style_l10n_us_gaap_l4i"
+            />
+        </record>
+        <record
+            id="mis_report_kpi_l10n_us_gaap_income_statement_6_2"
+            model="mis.report.kpi"
+        >
+            <field name="report_id" ref="mis_report_l10n_us_gaap_income_statement" />
+            <field name="type">num</field>
+            <field name="compare_method">pct</field>
+            <field name="sequence">260</field>
+            <field name="name">us_6_2</field>
+            <field name="description">Non-Operating Revenues, Expenses</field>
+            <field name="style_id" ref="mis_report_style_l10n_us_gaap_l2" />
+            <field name="expression">+us_6_2_1+us_6_2_2</field>
+        </record>
+        <record
+            id="mis_report_kpi_l10n_us_gaap_income_statement_6_2_1"
+            model="mis.report.kpi"
+        >
+            <field name="report_id" ref="mis_report_l10n_us_gaap_income_statement" />
+            <field name="type">num</field>
+            <field name="compare_method">pct</field>
+            <field name="sequence">270</field>
+            <field name="name">us_6_2_1</field>
+            <field name="description">Non-Operating Revenues</field>
+            <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
+            <field
+                name="expression"
+            >-balp[('group_id.code_prefix_start', '=like', '621%')]</field>
+            <field name="auto_expand_accounts">True</field>
+            <field
+                name="auto_expand_accounts_style_id"
+                ref="mis_report_style_l10n_us_gaap_l4i"
+            />
+        </record>
+        <record
+            id="mis_report_kpi_l10n_us_gaap_income_statement_6_2_2"
+            model="mis.report.kpi"
+        >
+            <field name="report_id" ref="mis_report_l10n_us_gaap_income_statement" />
+            <field name="type">num</field>
+            <field name="compare_method">pct</field>
+            <field name="sequence">280</field>
+            <field name="name">us_6_2_2</field>
+            <field name="description">Non-Operating Expenses</field>
+            <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
+            <field
+                name="expression"
+            >-balp[('group_id.code_prefix_start', '=like', '622%')]</field>
+            <field name="auto_expand_accounts">True</field>
+            <field
+                name="auto_expand_accounts_style_id"
+                ref="mis_report_style_l10n_us_gaap_l4i"
+            />
+        </record>
+        <record
+            id="mis_report_kpi_l10n_us_gaap_income_statement_6_3"
+            model="mis.report.kpi"
+        >
+            <field name="report_id" ref="mis_report_l10n_us_gaap_income_statement" />
+            <field name="type">num</field>
+            <field name="compare_method">pct</field>
+            <field name="sequence">290</field>
+            <field name="name">us_6_3</field>
+            <field name="description">Non-Monetary Transactions</field>
+            <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
+            <field
+                name="expression"
+            >-balp[('group_id.code_prefix_start', '=like', '63%')]</field>
+            <field name="auto_expand_accounts">True</field>
+            <field
+                name="auto_expand_accounts_style_id"
+                ref="mis_report_style_l10n_us_gaap_l4i"
+            />
+        </record>
+        <record
+            id="mis_report_kpi_l10n_us_gaap_income_statement_earnings_before_income_taxes"
+            model="mis.report.kpi"
+        >
+            <field name="report_id" ref="mis_report_l10n_us_gaap_income_statement" />
+            <field name="type">num</field>
+            <field name="compare_method">pct</field>
+            <field name="sequence">300</field>
+            <field name="name">earnings_before_income_taxes</field>
+            <field name="description">Earnings Before Income Taxes</field>
+            <field name="style_id" ref="mis_report_style_l10n_us_gaap_l2i" />
+            <field name="expression">+us_4+us_5_1_1+operating_expenses+us_6</field>
+        </record>
+        <record
+            id="mis_report_kpi_l10n_us_gaap_income_statement_7"
+            model="mis.report.kpi"
+        >
+            <field name="report_id" ref="mis_report_l10n_us_gaap_income_statement" />
+            <field name="type">num</field>
+            <field name="compare_method">pct</field>
+            <field name="sequence">310</field>
+            <field name="name">us_7</field>
+            <field name="description">Income Tax (Benefit)</field>
+            <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
+            <field
+                name="expression"
+            >-balp[('group_id.code_prefix_start', '=like', '7%')]</field>
+            <field name="auto_expand_accounts">True</field>
+            <field
+                name="auto_expand_accounts_style_id"
+                ref="mis_report_style_l10n_us_gaap_l4i"
+            />
+        </record>
+        <record
+            id="mis_report_kpi_l10n_us_gaap_income_statement_net_income"
+            model="mis.report.kpi"
+        >
+            <field name="report_id" ref="mis_report_l10n_us_gaap_income_statement" />
+            <field name="type">num</field>
+            <field name="compare_method">pct</field>
+            <field name="sequence">320</field>
+            <field name="name">net_income</field>
+            <field name="description">Net Income</field>
+            <field name="style_id" ref="mis_report_style_l10n_us_gaap_l1i" />
+            <field name="expression">earnings_before_income_taxes-us_7</field>
+        </record>
+    </data>
+</odoo>

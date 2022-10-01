@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2017-20 ForgeFlow S.L. (https://www.forgeflow.com)
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <data>
+        <record id="mis_report_style_l10n_us_gaap_base" model="mis.report.style">
+            <field name="name">l10n_us_gaap base</field>
+            <field name="dp_inherit" eval="0" />
+            <field name="dp">2</field>
+        </record>
+        <record id="mis_report_style_l10n_us_gaap_l1" model="mis.report.style">
+            <field name="name">l10n_us_gaap l1</field>
+            <field name="background_color_inherit" eval="0" />
+            <field name="background_color">#ffa500</field>
+            <field name="font_weight_inherit" eval="0" />
+            <field name="font_weight">bold</field>
+        </record>
+        <record id="mis_report_style_l10n_us_gaap_l1i" model="mis.report.style">
+            <field name="name">l10n_us_gaap l1i</field>
+            <field name="background_color_inherit" eval="0" />
+            <field name="background_color">#ffa500</field>
+            <field name="font_weight_inherit" eval="0" />
+            <field name="font_weight">bold</field>
+            <field name="font_style_inherit" eval="0" />
+            <field name="font_style">italic</field>
+        </record>
+        <record id="mis_report_style_l10n_us_gaap_l2" model="mis.report.style">
+            <field name="name">l10n_us_gaap l2</field>
+            <field name="font_weight_inherit" eval="0" />
+            <field name="font_weight">bold</field>
+            <field name="hide_empty_inherit" eval="0" />
+            <field name="hide_empty" eval="1" />
+        </record>
+        <record id="mis_report_style_l10n_us_gaap_l2i" model="mis.report.style">
+            <field name="name">l10n_us_gaap l2i</field>
+            <field name="font_weight_inherit" eval="0" />
+            <field name="font_weight">bold</field>
+            <field name="font_style_inherit" eval="0" />
+            <field name="font_style">italic</field>
+            <field name="hide_empty_inherit" eval="0" />
+            <field name="hide_empty" eval="1" />
+        </record>
+        <record id="mis_report_style_l10n_us_gaap_l3" model="mis.report.style">
+            <field name="name">l10n_us_gaap l3</field>
+            <field name="indent_level_inherit" eval="0" />
+            <field name="indent_level">1</field>
+            <field name="hide_empty_inherit" eval="0" />
+            <field name="hide_empty" eval="1" />
+        </record>
+        <record id="mis_report_style_l10n_us_gaap_l3i" model="mis.report.style">
+            <field name="name">l10n_us_gaap l3i</field>
+            <field name="indent_level_inherit" eval="0" />
+            <field name="indent_level">1</field>
+            <field name="font_style_inherit" eval="0" />
+            <field name="font_style">italic</field>
+            <field name="hide_empty_inherit" eval="0" />
+            <field name="hide_empty" eval="1" />
+        </record>
+        <record id="mis_report_style_l10n_us_gaap_l4" model="mis.report.style">
+            <field name="name">l10n_us_gaap l4</field>
+            <field name="indent_level_inherit" eval="0" />
+            <field name="indent_level">2</field>
+            <field name="hide_empty_inherit" eval="0" />
+            <field name="hide_empty" eval="1" />
+        </record>
+        <record id="mis_report_style_l10n_us_gaap_l4i" model="mis.report.style">
+            <field name="name">l10n_us_gaap l4i</field>
+            <field name="indent_level_inherit" eval="0" />
+            <field name="indent_level">2</field>
+            <field name="font_style_inherit" eval="0" />
+            <field name="font_style">italic</field>
+            <field name="hide_empty_inherit" eval="0" />
+            <field name="hide_empty" eval="1" />
+        </record>
+        <record id="mis_report_style_l10n_us_gaap_l5" model="mis.report.style">
+            <field name="name">l10n_us_gaap l5</field>
+            <field name="indent_level_inherit" eval="0" />
+            <field name="indent_level">3</field>
+            <field name="hide_empty_inherit" eval="0" />
+            <field name="hide_empty" eval="1" />
+        </record>
+        <record id="mis_report_style_l10n_us_gaap_l5i" model="mis.report.style">
+            <field name="name">l10n_us_gaap l5i</field>
+            <field name="indent_level_inherit" eval="0" />
+            <field name="indent_level">3</field>
+            <field name="font_style_inherit" eval="0" />
+            <field name="font_style">italic</field>
+            <field name="hide_empty_inherit" eval="0" />
+            <field name="hide_empty" eval="1" />
+        </record>
+        <record id="mis_report_style_l10n_us_gaap_l6" model="mis.report.style">
+            <field name="name">l10n_us_gaap l6</field>
+            <field name="indent_level_inherit" eval="0" />
+            <field name="indent_level">4</field>
+            <field name="hide_empty_inherit" eval="0" />
+            <field name="hide_empty" eval="1" />
+        </record>
+        <record id="mis_report_style_l10n_us_gaap_l6i" model="mis.report.style">
+            <field name="name">l10n_us_gaap l6i</field>
+            <field name="indent_level_inherit" eval="0" />
+            <field name="indent_level">4</field>
+            <field name="font_style_inherit" eval="0" />
+            <field name="font_style">italic</field>
+            <field name="hide_empty_inherit" eval="0" />
+            <field name="hide_empty" eval="1" />
+        </record>
+    </data>
+</odoo>
