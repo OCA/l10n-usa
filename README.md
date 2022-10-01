@@ -24,6 +24,8 @@ addon | version | maintainers | summary
 [account_banking_ach_credit_transfer](account_banking_ach_credit_transfer/) | 14.0.1.0.0 |  | Create ACH files for Credit Transfers
 [account_banking_ach_direct_debit](account_banking_ach_direct_debit/) | 14.0.1.0.0 |  | Create ACH files for Direct Debit
 [l10n_us_form_1099](l10n_us_form_1099/) | 14.0.1.0.0 | [![max3903](https://github.com/max3903.png?size=30px)](https://github.com/max3903) | Manage 1099 Types and Suppliers
+[l10n_us_gaap](l10n_us_gaap/) | 14.0.1.1.0 | [![JordiBForgeFlow](https://github.com/JordiBForgeFlow.png?size=30px)](https://github.com/JordiBForgeFlow) | United States Sample GAAP Chart of Accounts
+[l10n_us_gaap_mis_report](l10n_us_gaap_mis_report/) | 14.0.1.0.0 | [![JordiBForgeFlow](https://github.com/JordiBForgeFlow.png?size=30px)](https://github.com/JordiBForgeFlow) | MIS Builder Templates for US Chart of Accounts
 [l10n_us_partner_legal_number](l10n_us_partner_legal_number/) | 14.0.1.0.0 |  | Add Legal Number for North American Banking & Financials
 
 [//]: # (end addons)
