@@ -4,7 +4,7 @@
 {
     "name": "US Accounting",
     "summary": "Additional features to manage US accounting in Odoo",
-    "version": "12.0.1.0.0",
+    "version": "15.0.1.0.0",
     "category": "Accounting",
     "website": "https://github.com/OCA/l10n-usa",
     "author": "Open Source Integrators, Odoo Community Association (OCA)",
