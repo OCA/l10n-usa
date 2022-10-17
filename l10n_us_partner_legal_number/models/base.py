@@ -38,8 +38,6 @@ class LegalIDNumber(models.AbstractModel):
                 continue
         if not valid:
             raise UserError(
-                _(
-                    "%s is not a valid EIN / SSN / Canadian Business "
-                    "Number" % self.legal_id_number
-                )
+                _("%s is not a valid EIN / SSN / Canadian Business Number")
+                % self.legal_id_number
             )
