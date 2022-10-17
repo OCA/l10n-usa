@@ -4,12 +4,13 @@
 {
     "name": "Add Legal Number for North American Banking & Financials",
     "summary": "Add Legal Number for North American Banking & Financials",
-    "version": "14.0.1.0.0",
+    "version": "16.0.1.0.0",
     "license": "AGPL-3",
     "author": "Open Source Integrators, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/l10n-usa",
     "category": "Banking addons",
-    "depends": ["base"],
+    "depends": ["account"],
     "data": ["views/res_partner.xml"],
     "installable": True,
+    "external_dependencies": {"python": ["python-stdnum"]},
 }
