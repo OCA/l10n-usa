@@ -20,7 +20,7 @@
         <field name="name">box.1099.misc.tree</field>
         <field name="model">box.1099.misc</field>
         <field name="arch" type="xml">
-            <tree string="1099-MISC Boxes">
+            <tree>
                 <field name="name" />
             </tree>
         </field>
