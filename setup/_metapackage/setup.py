@@ -11,6 +11,7 @@ setuptools.setup(
         'odoo14-addon-account_banking_ach_base',
         'odoo14-addon-account_banking_ach_credit_transfer',
         'odoo14-addon-account_banking_ach_direct_debit',
+        'odoo14-addon-account_banking_ach_discount',
         'odoo14-addon-l10n_us_form_1099',
         'odoo14-addon-l10n_us_gaap',
         'odoo14-addon-l10n_us_gaap_mis_report',
