@@ -20,7 +20,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
-[account_banking_ach_base](account_banking_ach_base/) | 14.0.1.0.0 |  | Add fields required for North American Banking & Financials
+[account_banking_ach_base](account_banking_ach_base/) | 14.0.1.0.1 |  | Add fields required for North American Banking & Financials
 [account_banking_ach_credit_transfer](account_banking_ach_credit_transfer/) | 14.0.1.0.0 |  | Create ACH files for Credit Transfers
 [account_banking_ach_direct_debit](account_banking_ach_direct_debit/) | 14.0.1.0.0 |  | Create ACH files for Direct Debit
 [account_banking_ach_discount](account_banking_ach_discount/) | 14.0.1.0.0 | [![bodedra](https://github.com/bodedra.png?size=30px)](https://github.com/bodedra) | Discount on ACH batch payments
