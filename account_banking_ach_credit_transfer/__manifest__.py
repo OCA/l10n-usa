@@ -4,7 +4,7 @@
 {
     "name": "Account Banking ACH Credit Transfer",
     "summary": "Create ACH files for Credit Transfers",
-    "version": "14.0.1.0.0",
+    "version": "16.0.1.0.0",
     "license": "AGPL-3",
     "author": "Thinkwell Designs, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/l10n-usa",
@@ -12,6 +12,5 @@
     "depends": ["account_banking_ach_base"],
     "data": ["data/account_payment_method.xml"],
     "demo": ["demo/ach_credit_transfer_demo.xml"],
-    "post_init_hook": "update_bank_journals",
     "installable": True,
 }
