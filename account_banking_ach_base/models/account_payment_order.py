@@ -41,15 +41,12 @@ class AccountPaymentOrder(models.Model):
         legal_id_number = self.company_id.legal_id_number
         if not legal_id_number:
             raise UserError(
-                _(
-                    "%s does not have an EIN / SSN / BN "
-                    "assigned!" % self.company_id.name
-                )
+                _("%s does not have an EIN / SSN / BN assigned!") % self.company_id.name
             )
 
         if not routing_number:
             raise UserError(
-                _("%s does not have a Routing Number assigned!" % bank.name)
+                _("%s does not have a Routing Number assigned!") % bank.name
             )
         return {
             "immediate_dest": self.company_partner_bank_id.acc_number,
@@ -62,18 +59,14 @@ class AccountPaymentOrder(models.Model):
     def validate_banking(self, line):
         if not line.partner_bank_id.bank_id:
             raise UserError(
-                _(
-                    "%s account number has no Bank "
-                    "assigned" % line.partner_bank_id.acc_number
-                )
+                _("%s account number has no Bank assigned")
+                % line.partner_bank_id.acc_number
             )
 
         if not line.partner_bank_id.bank_id.routing_number:
             raise UserError(
-                _(
-                    "%s has no routing number "
-                    "specified" % line.partner_bank_id.bank_id.name
-                )
+                _("%s has no routing number specified")
+                % line.partner_bank_id.bank_id.name
             )
 
     def validate_mandates(self, line):
@@ -82,35 +75,32 @@ class AccountPaymentOrder(models.Model):
             raise UserError(
                 _(
                     "Missing ACH Direct Debit mandate on the "
-                    "bank payment line with partner '%s' "
-                    "(reference '%s')."
+                    "payment line with partner %(name)s "
+                    "(reference %(line_name)s).",
+                    name=line.partner_id.name,
+                    line_name=line.name,
                 )
-                % (line.partner_id.name, line.name)
             )
         if line.mandate_id.state != "valid":
             raise Warning(
                 _(
-                    "The ACH Direct Debit mandate with reference '%s' "
-                    "for partner '%s' has expired."
-                )
-                % (
-                    line.mandate_id.unique_mandate_reference,
-                    line.mandate_id.partner_id.name,
-                )
+                    "The ACH Direct Debit mandate with reference %(unique_mandate_reference)s "
+                    "for partner %(name)s has expired."
+                ),
+                unique_mandate_reference=line.mandate_id.unique_mandate_reference,
+                name=line.mandate_id.partner_id.name,
             )
         if line.mandate_id.type == "oneoff" and line.mandate_id.last_debit_date:
             raise Warning(
                 _(
-                    "The mandate with reference '%s' for partner "
-                    "'%s' has type set to 'One-Off' and it has a "
-                    "last debit date set to '%s', so we can't use "
+                    "The mandate with reference %(unique_mandate_reference)s for partner "
+                    "%(name)s has type set to 'One-Off' and it has a "
+                    "last debit date set to %(last_debit_date)s, so we can't use "
                     "it."
-                )
-                % (
-                    line.mandate_id.unique_mandate_reference,
-                    line.mandate_id.partner_id.name,
-                    line.mandate_id.last_debit_date,
-                )
+                ),
+                unique_mandate_reference=line.mandate_id.unique_mandate_reference,
+                name=line.mandate_id.partner_id.name,
+                last_debit_date=line.mandate_id.last_debit_date,
             )
 
     def get_transaction_type(self, amount):
@@ -140,20 +130,21 @@ class AccountPaymentOrder(models.Model):
             file_mod=file_mod,
         )
         entries = []
-        for line in self.bank_line_ids:
+        for line in self.payment_ids:
             if inbound_payment:
                 self.validate_mandates(line)
             self.validate_banking(line)
-            amount = line.amount_currency
-            partner_name = re.sub(r"[^\w ,]", "", line.partner_id.name)
+            amount = line.amount
+            name = re.sub("[^A-Za-z0-9]+", "", line.partner_id.name)
+            note = re.sub("[^A-Za-z0-9]+", "", line.ref)
             entries.append(
                 {
                     "type": self.get_transaction_type(amount=amount),
                     "routing_number": line.partner_bank_id.bank_id.routing_number,
                     "account_number": line.partner_bank_id.acc_number,
                     "amount": str(amount),
-                    "name": partner_name,
-                    "addenda": [{"payment_related_info": line.communication}],
+                    "name": name,
+                    "addenda": [{"payment_related_info": note}],
                 }
             )
         outbound_payment = self.payment_type == "outbound"
