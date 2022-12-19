@@ -19,6 +19,5 @@
         "views/account_banking_mandate_view.xml",
     ],
     "demo": ["demo/ach_direct_debit_demo.xml"],
-    "post_init_hook": "update_bank_journals",
     "installable": True,
 }
