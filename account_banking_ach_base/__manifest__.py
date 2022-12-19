@@ -4,7 +4,7 @@
 {
     "name": "Localizations for North American Banking & Financials",
     "summary": "Add fields required for North American Banking & Financials",
-    "version": "14.0.1.0.1",
+    "version": "16.0.1.0.1",
     "license": "AGPL-3",
     "author": "Thinkwell Designs, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/l10n-usa",
