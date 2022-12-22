@@ -32,7 +32,7 @@
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field
             name="expression"
-        >-balp[('group_id.code_prefix_start', '=like', '4.1.1%')]</field>
+        >-balp[('group_id.code_prefix_start', '=like', '411%')]</field>
             <field name="auto_expand_accounts">True</field>
             <field
             name="auto_expand_accounts_style_id"
@@ -52,7 +52,7 @@
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field
             name="expression"
-        >-balp[('group_id.code_prefix_start', '=like', '4.1.2%')]</field>
+        >-balp[('group_id.code_prefix_start', '=like', '412%')]</field>
             <field name="auto_expand_accounts">True</field>
             <field
             name="auto_expand_accounts_style_id"
@@ -72,7 +72,7 @@
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field
             name="expression"
-        >-balp[('group_id.code_prefix_start', '=like', '4.2.1%')]</field>
+        >-balp[('group_id.code_prefix_start', '=like', '421%')]</field>
             <field name="auto_expand_accounts">True</field>
             <field
             name="auto_expand_accounts_style_id"
@@ -92,7 +92,7 @@
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field
             name="expression"
-        >-balp[('group_id.code_prefix_start', '=like', '4.2.2%')]</field>
+        >-balp[('group_id.code_prefix_start', '=like', '422%')]</field>
             <field name="auto_expand_accounts">True</field>
             <field
             name="auto_expand_accounts_style_id"
@@ -112,7 +112,7 @@
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field
             name="expression"
-        >-balp[('group_id.code_prefix_start', '=like', '4.2.3%')]</field>
+        >-balp[('group_id.code_prefix_start', '=like', '423%')]</field>
             <field name="auto_expand_accounts">True</field>
             <field
             name="auto_expand_accounts_style_id"
@@ -132,7 +132,7 @@
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field
             name="expression"
-        >-balp[('group_id.code_prefix_start', '=like', '4.3.1%')]</field>
+        >-balp[('group_id.code_prefix_start', '=like', '431%')]</field>
             <field name="auto_expand_accounts">True</field>
             <field
             name="auto_expand_accounts_style_id"
@@ -152,7 +152,7 @@
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l1" />
             <field
             name="expression"
-        >-balp[('group_id.code_prefix_start', '=like', '5.1.1%')]</field>
+        >-balp[('group_id.code_prefix_start', '=like', '511%')]</field>
             <field name="auto_expand_accounts">True</field>
             <field
             name="auto_expand_accounts_style_id"
@@ -198,7 +198,7 @@
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field
             name="expression"
-        >-balp[('group_id.code_prefix_start', '=like', '5.1.2%')]</field>
+        >-balp[('group_id.code_prefix_start', '=like', '512%')]</field>
             <field name="auto_expand_accounts">True</field>
             <field
             name="auto_expand_accounts_style_id"
@@ -218,7 +218,7 @@
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field
             name="expression"
-        >-balp[('group_id.code_prefix_start', '=like', '5.1.3%')]</field>
+        >-balp[('group_id.code_prefix_start', '=like', '513%')]</field>
             <field name="auto_expand_accounts">True</field>
             <field
             name="auto_expand_accounts_style_id"
@@ -266,7 +266,7 @@
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field
             name="expression"
-        >-balp[('group_id.code_prefix_start', '=like', '6.1.1%')]</field>
+        >-balp[('group_id.code_prefix_start', '=like', '611%')]</field>
             <field name="auto_expand_accounts">True</field>
             <field
             name="auto_expand_accounts_style_id"
@@ -286,7 +286,7 @@
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field
             name="expression"
-        >-balp[('group_id.code_prefix_start', '=like', '6.1.2%')]</field>
+        >-balp[('group_id.code_prefix_start', '=like', '612%')]</field>
             <field name="auto_expand_accounts">True</field>
             <field
             name="auto_expand_accounts_style_id"
@@ -306,7 +306,7 @@
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field
             name="expression"
-        >-balp[('group_id.code_prefix_start', '=like', '6.1.3%')]</field>
+        >-balp[('group_id.code_prefix_start', '=like', '613%')]</field>
             <field name="auto_expand_accounts">True</field>
             <field
             name="auto_expand_accounts_style_id"
@@ -328,7 +328,7 @@
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field
             name="expression"
-        >-balp[('group_id.code_prefix_start', '=like', '6.1.4%')]</field>
+        >-balp[('group_id.code_prefix_start', '=like', '614%')]</field>
             <field name="auto_expand_accounts">True</field>
             <field
             name="auto_expand_accounts_style_id"
@@ -348,7 +348,7 @@
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field
             name="expression"
-        >-balp[('group_id.code_prefix_start', '=like', '6.1.5%')]</field>
+        >-balp[('group_id.code_prefix_start', '=like', '615%')]</field>
             <field name="auto_expand_accounts">True</field>
             <field
             name="auto_expand_accounts_style_id"
@@ -368,7 +368,7 @@
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field
             name="expression"
-        >-balp[('group_id.code_prefix_start', '=like', '6.1.6%')]</field>
+        >-balp[('group_id.code_prefix_start', '=like', '616%')]</field>
             <field name="auto_expand_accounts">True</field>
             <field
             name="auto_expand_accounts_style_id"
@@ -390,7 +390,7 @@
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field
             name="expression"
-        >-balp[('group_id.code_prefix_start', '=like', '6.1.7%')]</field>
+        >-balp[('group_id.code_prefix_start', '=like', '617%')]</field>
             <field name="auto_expand_accounts">True</field>
             <field
             name="auto_expand_accounts_style_id"
@@ -412,7 +412,7 @@
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field
             name="expression"
-        >-balp[('group_id.code_prefix_start', '=like', '6.1.8%')]</field>
+        >-balp[('group_id.code_prefix_start', '=like', '618%')]</field>
             <field name="auto_expand_accounts">True</field>
             <field
             name="auto_expand_accounts_style_id"
@@ -432,7 +432,7 @@
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field
             name="expression"
-        >-balp[('group_id.code_prefix_start', '=like', '6.1.9%')]</field>
+        >-balp[('group_id.code_prefix_start', '=like', '619%')]</field>
             <field name="auto_expand_accounts">True</field>
             <field
             name="auto_expand_accounts_style_id"
@@ -452,7 +452,7 @@
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field
             name="expression"
-        >-balp[('group_id.code_prefix_start', '=like', '6.1.10%')]</field>
+        >-balp[('group_id.code_prefix_start', '=like', '6110%')]</field>
             <field name="auto_expand_accounts">True</field>
             <field
             name="auto_expand_accounts_style_id"
@@ -472,7 +472,7 @@
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field
             name="expression"
-        >-balp[('group_id.code_prefix_start', '=like', '6.1.11%')]</field>
+        >-balp[('group_id.code_prefix_start', '=like', '6111%')]</field>
             <field name="auto_expand_accounts">True</field>
             <field
             name="auto_expand_accounts_style_id"
@@ -505,7 +505,7 @@
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field
             name="expression"
-        >-balp[('group_id.code_prefix_start', '=like', '6.2.1%')]</field>
+        >-balp[('group_id.code_prefix_start', '=like', '621%')]</field>
             <field name="auto_expand_accounts">True</field>
             <field
             name="auto_expand_accounts_style_id"
@@ -525,7 +525,7 @@
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field
             name="expression"
-        >-balp[('group_id.code_prefix_start', '=like', '6.2.2%')]</field>
+        >-balp[('group_id.code_prefix_start', '=like', '622%')]</field>
             <field name="auto_expand_accounts">True</field>
             <field
             name="auto_expand_accounts_style_id"
@@ -545,7 +545,7 @@
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field
             name="expression"
-        >-balp[('group_id.code_prefix_start', '=like', '6.3%')]</field>
+        >-balp[('group_id.code_prefix_start', '=like', '63%')]</field>
             <field name="auto_expand_accounts">True</field>
             <field
             name="auto_expand_accounts_style_id"
