@@ -9,7 +9,7 @@
 
 # l10n-usa
 
-TODO: add repo description.
+USA Localization
 
 <!-- /!\ do not modify below this line -->
 
