@@ -61,7 +61,7 @@
             <field name="description">Investments And Securities</field>
             <field
             name="expression"
-        >+bale[('group_id.code_prefix_start', '=like', '1.1.2%')]</field>
+        >+bale[('group_id.code_prefix_start', '=like', '112%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -81,7 +81,7 @@
             <field name="description">Derivative Instruments And Hedges</field>
             <field
             name="expression"
-        >+bale[('group_id.code_prefix_start', '=like', '1.1.3%')]</field>
+        >+bale[('group_id.code_prefix_start', '=like', '113%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -101,7 +101,7 @@
             <field name="description">Capital Leases, Lessor</field>
             <field
             name="expression"
-        >+bale[('group_id.code_prefix_start', '=like', '1.1.4%')]</field>
+        >+bale[('group_id.code_prefix_start', '=like', '114%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -121,7 +121,7 @@
             <field name="description">Restricted Assets</field>
             <field
             name="expression"
-        >+bale[('group_id.code_prefix_start', '=like', '1.1.5%')]</field>
+        >+bale[('group_id.code_prefix_start', '=like', '115%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -141,7 +141,7 @@
             <field name="description">Intercompany Investments</field>
             <field
             name="expression"
-        >+bale[('group_id.code_prefix_start', '=like', '1.1.6%')]</field>
+        >+bale[('group_id.code_prefix_start', '=like', '116%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -176,7 +176,7 @@
             <field name="description">Accounts, Notes And Loans</field>
             <field
             name="expression"
-        >+bale[('group_id.code_prefix_start', '=like', '1.2.1%')]</field>
+        >+bale[('group_id.code_prefix_start', '=like', '121%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -196,7 +196,7 @@
             <field name="description">Notes And Loans Receivable</field>
             <field
             name="expression"
-        >+bale[('group_id.code_prefix_start', '=like', '1.2.2%')]</field>
+        >+bale[('group_id.code_prefix_start', '=like', '122%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -216,7 +216,7 @@
             <field name="description">Receivables With Imputed Interest</field>
             <field
             name="expression"
-        >+bale[('group_id.code_prefix_start', '=like', '1.2.3%')]</field>
+        >+bale[('group_id.code_prefix_start', '=like', '123%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -236,7 +236,7 @@
             <field name="description">Contracts Or Programs</field>
             <field
             name="expression"
-        >+bale[('group_id.code_prefix_start', '=like', '1.2.4%')]</field>
+        >+bale[('group_id.code_prefix_start', '=like', '124%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -256,7 +256,7 @@
             <field name="description">Other Receivables</field>
             <field
             name="expression"
-        >+bale[('group_id.code_prefix_start', '=like', '1.2.5%')]</field>
+        >+bale[('group_id.code_prefix_start', '=like', '125%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -291,7 +291,7 @@
             <field name="description">Merchandise, Material And Supplies</field>
             <field
             name="expression"
-        >+bale[('group_id.code_prefix_start', '=like', '1.3.1%')]</field>
+        >+bale[('group_id.code_prefix_start', '=like', '131%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -311,7 +311,7 @@
             <field name="description">Work In Process</field>
             <field
             name="expression"
-        >+bale[('group_id.code_prefix_start', '=like', '1.3.2%')]</field>
+        >+bale[('group_id.code_prefix_start', '=like', '132%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -331,7 +331,7 @@
             <field name="description">Finished Goods</field>
             <field
             name="expression"
-        >+bale[('group_id.code_prefix_start', '=like', '1.3.3%')]</field>
+        >+bale[('group_id.code_prefix_start', '=like', '133%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -351,7 +351,7 @@
             <field name="description">Capitalized Contract Cost</field>
             <field
             name="expression"
-        >+bale[('group_id.code_prefix_start', '=like', '1.3.4%')]</field>
+        >+bale[('group_id.code_prefix_start', '=like', '134%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -371,7 +371,7 @@
             <field name="description">Other Inventory</field>
             <field
             name="expression"
-        >+bale[('group_id.code_prefix_start', '=like', '1.3.5%')]</field>
+        >+bale[('group_id.code_prefix_start', '=like', '135%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -393,7 +393,7 @@
         >Inventory For Long-Term Contracts Or Programs</field>
             <field
             name="expression"
-        >+bale[('group_id.code_prefix_start', '=like', '1.3.6%')]</field>
+        >+bale[('group_id.code_prefix_start', '=like', '136%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -413,7 +413,7 @@
             <field name="description">Allowances And Adjustments</field>
             <field
             name="expression"
-        >+bale[('group_id.code_prefix_start', '=like', '1.3.7%')]</field>
+        >+bale[('group_id.code_prefix_start', '=like', '137%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -448,7 +448,7 @@
             <field name="description">Prepaid Expense</field>
             <field
             name="expression"
-        >+bale[('group_id.code_prefix_start', '=like', '1.4.1%')]</field>
+        >+bale[('group_id.code_prefix_start', '=like', '141%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -468,7 +468,7 @@
             <field name="description">Returnable Deposits</field>
             <field
             name="expression"
-        >+bale[('group_id.code_prefix_start', '=like', '1.4.2%')]</field>
+        >+bale[('group_id.code_prefix_start', '=like', '142%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -488,7 +488,7 @@
             <field name="description">Accrued Revenue</field>
             <field
             name="expression"
-        >+bale[('group_id.code_prefix_start', '=like', '1.4.3%')]</field>
+        >+bale[('group_id.code_prefix_start', '=like', '143%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -508,7 +508,7 @@
             <field name="description">Deferred Costs</field>
             <field
             name="expression"
-        >+bale[('group_id.code_prefix_start', '=like', '1.4.4%')]</field>
+        >+bale[('group_id.code_prefix_start', '=like', '144%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -528,7 +528,7 @@
             <field name="description">Other Accrued And Deferred Assets</field>
             <field
             name="expression"
-        >+bale[('group_id.code_prefix_start', '=like', '1.4.5%')]</field>
+        >+bale[('group_id.code_prefix_start', '=like', '145%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -548,7 +548,7 @@
             <field name="description">Investments And Other Assets</field>
             <field
             name="expression"
-        >+bale[('group_id.code_prefix_start', '=like', '1.4.6%')]</field>
+        >+bale[('group_id.code_prefix_start', '=like', '146%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -581,7 +581,7 @@
             <field name="description">Land, Buildings And Improvements</field>
             <field
             name="expression"
-        >+bale[('group_id.code_prefix_start', '=like', '1.5.1%')]</field>
+        >+bale[('group_id.code_prefix_start', '=like', '151%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -601,7 +601,7 @@
             <field name="description">Machinery And Equipment</field>
             <field
             name="expression"
-        >+bale[('group_id.code_prefix_start', '=like', '1.5.2%')]</field>
+        >+bale[('group_id.code_prefix_start', '=like', '152%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -621,7 +621,7 @@
             <field name="description">Other Property, Plant And Equipment</field>
             <field
             name="expression"
-        >+bale[('group_id.code_prefix_start', '=like', '1.5.3%')]</field>
+        >+bale[('group_id.code_prefix_start', '=like', '153%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -641,7 +641,7 @@
             <field name="description">Assets Under Construction</field>
             <field
             name="expression"
-        >+bale[('group_id.code_prefix_start', '=like', '1.5.4%')]</field>
+        >+bale[('group_id.code_prefix_start', '=like', '154%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -674,7 +674,7 @@
             <field name="description">Intangible Assets Excluding Goodwill</field>
             <field
             name="expression"
-        >+bale[('group_id.code_prefix_start', '=like', '1.6.1%')]</field>
+        >+bale[('group_id.code_prefix_start', '=like', '161%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -694,7 +694,7 @@
             <field name="description">Goodwill</field>
             <field
             name="expression"
-        >+bale[('group_id.code_prefix_start', '=like', '1.6.2%')]</field>
+        >+bale[('group_id.code_prefix_start', '=like', '162%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -714,7 +714,7 @@
             <field name="description">Acquisitions In Progress</field>
             <field
             name="expression"
-        >+bale[('group_id.code_prefix_start', '=like', '1.6.3%')]</field>
+        >+bale[('group_id.code_prefix_start', '=like', '163%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -761,7 +761,7 @@
             <field name="description">Accounts Payable</field>
             <field
             name="expression"
-        >-bale[('group_id.code_prefix_start', '=like', '2.1.1%')]</field>
+        >-bale[('group_id.code_prefix_start', '=like', '211%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -781,7 +781,7 @@
             <field name="description">Accrued Liabilities</field>
             <field
             name="expression"
-        >-bale[('group_id.code_prefix_start', '=like', '2.1.2%')]</field>
+        >-bale[('group_id.code_prefix_start', '=like', '212%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -801,7 +801,7 @@
             <field name="description">Employee-Related Liabilities</field>
             <field
             name="expression"
-        >-bale[('group_id.code_prefix_start', '=like', '2.1.3%')]</field>
+        >-bale[('group_id.code_prefix_start', '=like', '213%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -821,7 +821,7 @@
             <field name="description">Taxes Payable</field>
             <field
             name="expression"
-        >-bale[('group_id.code_prefix_start', '=like', '2.1.4%')]</field>
+        >-bale[('group_id.code_prefix_start', '=like', '214%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -841,7 +841,7 @@
             <field name="description">Interest And Dividends Payable</field>
             <field
             name="expression"
-        >-bale[('group_id.code_prefix_start', '=like', '2.1.5%')]</field>
+        >-bale[('group_id.code_prefix_start', '=like', '215%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -876,7 +876,7 @@
             <field name="description">Debts</field>
             <field
             name="expression"
-        >-bale[('group_id.code_prefix_start', '=like', '2.2.1%')]</field>
+        >-bale[('group_id.code_prefix_start', '=like', '221%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -896,7 +896,7 @@
             <field name="description">Notes And Loans Payable</field>
             <field
             name="expression"
-        >-bale[('group_id.code_prefix_start', '=like', '2.2.2%')]</field>
+        >-bale[('group_id.code_prefix_start', '=like', '222%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -916,7 +916,7 @@
             <field name="description">Special Assessment Bond</field>
             <field
             name="expression"
-        >-bale[('group_id.code_prefix_start', '=like', '2.2.3%')]</field>
+        >-bale[('group_id.code_prefix_start', '=like', '223%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -936,7 +936,7 @@
             <field name="description">Long-Term Federal Home Loan Bank Advances</field>
             <field
             name="expression"
-        >-bale[('group_id.code_prefix_start', '=like', '2.2.4%')]</field>
+        >-bale[('group_id.code_prefix_start', '=like', '224%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -956,7 +956,7 @@
             <field name="description">Capital Lease Obligations</field>
             <field
             name="expression"
-        >-bale[('group_id.code_prefix_start', '=like', '2.2.5%')]</field>
+        >-bale[('group_id.code_prefix_start', '=like', '225%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -976,7 +976,7 @@
             <field name="description">Deferred Revenue And Credits</field>
             <field
             name="expression"
-        >-bale[('group_id.code_prefix_start', '=like', '2.3%')]</field>
+        >-bale[('group_id.code_prefix_start', '=like', '23%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l2" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -1009,7 +1009,7 @@
             <field name="description">Billings In Excess Of Cost</field>
             <field
             name="expression"
-        >-bale[('group_id.code_prefix_start', '=like', '2.4.1%')]</field>
+        >-bale[('group_id.code_prefix_start', '=like', '241%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -1042,7 +1042,7 @@
             <field name="description">Derivative Liability</field>
             <field
             name="expression"
-        >-bale[('group_id.code_prefix_start', '=like', '2.5.1%')]</field>
+        >-bale[('group_id.code_prefix_start', '=like', '251%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -1062,7 +1062,7 @@
             <field name="description">Hedging Liabilities</field>
             <field
             name="expression"
-        >-bale[('group_id.code_prefix_start', '=like', '2.5.2%')]</field>
+        >-bale[('group_id.code_prefix_start', '=like', '252%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -1082,7 +1082,7 @@
             <field name="description">Energy Marketing Contract Liabilities</field>
             <field
             name="expression"
-        >-bale[('group_id.code_prefix_start', '=like', '2.5.3%')]</field>
+        >-bale[('group_id.code_prefix_start', '=like', '253%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -1102,7 +1102,7 @@
             <field name="description">Liabilities Other Than Debt</field>
             <field
             name="expression"
-        >-bale[('group_id.code_prefix_start', '=like', '2.6%')]</field>
+        >-bale[('group_id.code_prefix_start', '=like', '26%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l2" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -1137,7 +1137,7 @@
             <field name="description">Related Party Liabilities</field>
             <field
             name="expression"
-        >-bale[('group_id.code_prefix_start', '=like', '2.7.1%')]</field>
+        >-bale[('group_id.code_prefix_start', '=like', '271%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -1157,7 +1157,7 @@
             <field name="description">Related Party Notes Payable</field>
             <field
             name="expression"
-        >-bale[('group_id.code_prefix_start', '=like', '2.7.2%')]</field>
+        >-bale[('group_id.code_prefix_start', '=like', '272%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -1177,7 +1177,7 @@
             <field name="description">Due To Employees</field>
             <field
             name="expression"
-        >-bale[('group_id.code_prefix_start', '=like', '2.7.3%')]</field>
+        >-bale[('group_id.code_prefix_start', '=like', '273%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -1197,7 +1197,7 @@
             <field name="description">Due To Officers Or Stockholders</field>
             <field
             name="expression"
-        >-bale[('group_id.code_prefix_start', '=like', '2.7.4%')]</field>
+        >-bale[('group_id.code_prefix_start', '=like', '274%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -1217,7 +1217,7 @@
             <field name="description">Due To Affiliate</field>
             <field
             name="expression"
-        >-bale[('group_id.code_prefix_start', '=like', '2.7.5%')]</field>
+        >-bale[('group_id.code_prefix_start', '=like', '275%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -1237,7 +1237,7 @@
             <field name="description">Due To Other Related Parties</field>
             <field
             name="expression"
-        >-bale[('group_id.code_prefix_start', '=like', '2.7.6%')]</field>
+        >-bale[('group_id.code_prefix_start', '=like', '276%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -1257,7 +1257,7 @@
             <field name="description">Other Liabilities</field>
             <field
             name="expression"
-        >-bale[('group_id.code_prefix_start', '=like', '2.8%')]</field>
+        >-bale[('group_id.code_prefix_start', '=like', '28%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l2" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -1300,7 +1300,7 @@
             <field name="description">Common Stock</field>
             <field
             name="expression"
-        >-bale[('group_id.code_prefix_start', '=like', '3.1.1%')]</field>
+        >-bale[('group_id.code_prefix_start', '=like', '311%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -1320,7 +1320,7 @@
             <field name="description">Preferred Stock</field>
             <field
             name="expression"
-        >-bale[('group_id.code_prefix_start', '=like', '3.1.2%')]</field>
+        >-bale[('group_id.code_prefix_start', '=like', '312%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -1340,7 +1340,7 @@
             <field name="description">Additional Paid-In Capital</field>
             <field
             name="expression"
-        >-bale[('group_id.code_prefix_start', '=like', '3.1.3%')]</field>
+        >-bale[('group_id.code_prefix_start', '=like', '313%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -1360,7 +1360,7 @@
             <field name="description">Legal Equity (Statutory Capital)</field>
             <field
             name="expression"
-        >-bale[('group_id.code_prefix_start', '=like', '3.1.4%')]</field>
+        >-bale[('group_id.code_prefix_start', '=like', '314%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -1393,7 +1393,7 @@
             <field name="description">Appropriated</field>
             <field
             name="expression"
-        >-bale[('group_id.code_prefix_start', '=like', '3.2.1%')]</field>
+        >-bale[('group_id.code_prefix_start', '=like', '321%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -1413,7 +1413,7 @@
             <field name="description">Unappropriated</field>
             <field
             name="expression"
-        >-bale[('group_id.code_prefix_start', '=like', '3.2.2%')]-bale[('group_id.code_prefix_start', '=like', '4%')]-bale[('group_id.code_prefix_start', '=like', '5%')]-bale[('group_id.code_prefix_start', '=like', '6%')]-bale[('group_id.code_prefix_start', '=like', '7%')]-balu[('group_id.code_prefix_start', '=like', '4%')]-balu[('group_id.code_prefix_start', '=like', '5%')]-balu[('group_id.code_prefix_start', '=like', '6%')]-balu[('group_id.code_prefix_start', '=like', '7%')]</field>
+        >-bale[('group_id.code_prefix_start', '=like', '322%')]-bale[('group_id.code_prefix_start', '=like', '4%')]-bale[('group_id.code_prefix_start', '=like', '5%')]-bale[('group_id.code_prefix_start', '=like', '6%')]-bale[('group_id.code_prefix_start', '=like', '7%')]-balu[('group_id.code_prefix_start', '=like', '4%')]-balu[('group_id.code_prefix_start', '=like', '5%')]-balu[('group_id.code_prefix_start', '=like', '6%')]-balu[('group_id.code_prefix_start', '=like', '7%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">False</field>
             <field
@@ -1433,7 +1433,7 @@
             <field name="description">Retained Earnings Deficit</field>
             <field
             name="expression"
-        >-bale[('group_id.code_prefix_start', '=like', '3.2.3%')]</field>
+        >-bale[('group_id.code_prefix_start', '=like', '323%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -1453,7 +1453,7 @@
             <field name="description">Suspense Account</field>
             <field
             name="expression"
-        >-bale[('group_id.code_prefix_start', '=like', '3.2.4%')]</field>
+        >-bale[('group_id.code_prefix_start', '=like', '324%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -1488,7 +1488,7 @@
             <field name="description">Foreign Currency Translation Gain (Loss)</field>
             <field
             name="expression"
-        >-bale[('group_id.code_prefix_start', '=like', '3.3.1%')]</field>
+        >-bale[('group_id.code_prefix_start', '=like', '331%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -1508,7 +1508,7 @@
             <field name="description">Available For Sale Securities Gain (Loss)</field>
             <field
             name="expression"
-        >-bale[('group_id.code_prefix_start', '=like', '3.3.2%')]</field>
+        >-bale[('group_id.code_prefix_start', '=like', '332%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -1528,7 +1528,7 @@
             <field name="description">Impairment Debt Securities</field>
             <field
             name="expression"
-        >-bale[('group_id.code_prefix_start', '=like', '3.3.3%')]</field>
+        >-bale[('group_id.code_prefix_start', '=like', '333%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -1548,7 +1548,7 @@
             <field name="description">Cash Flow Hedges Gain (Loss)</field>
             <field
             name="expression"
-        >-bale[('group_id.code_prefix_start', '=like', '3.3.4%')]</field>
+        >-bale[('group_id.code_prefix_start', '=like', '334%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -1568,7 +1568,7 @@
             <field name="description">Defined Benefit Plan Income (Loss)</field>
             <field
             name="expression"
-        >-bale[('group_id.code_prefix_start', '=like', '3.3.5%')]</field>
+        >-bale[('group_id.code_prefix_start', '=like', '335%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -1603,7 +1603,7 @@
             <field name="description">Unearned Sop Shares</field>
             <field
             name="expression"
-        >-bale[('group_id.code_prefix_start', '=like', '3.4.1%')]</field>
+        >-bale[('group_id.code_prefix_start', '=like', '341%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -1625,7 +1625,7 @@
         >Receivable From Officers, Directors For Issuance Of Capital Stock</field>
             <field
             name="expression"
-        >-bale[('group_id.code_prefix_start', '=like', '3.4.2%')]</field>
+        >-bale[('group_id.code_prefix_start', '=like', '342%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -1647,7 +1647,7 @@
         >Receivable From Shareholders Or Affiliates For Issuance Of Capital Stock</field>
             <field
             name="expression"
-        >-bale[('group_id.code_prefix_start', '=like', '3.4.3%')]</field>
+        >-bale[('group_id.code_prefix_start', '=like', '343%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -1669,7 +1669,7 @@
         >Stockholders' Equity Note, Subscriptions Receivable</field>
             <field
             name="expression"
-        >-bale[('group_id.code_prefix_start', '=like', '3.4.4%')]</field>
+        >-bale[('group_id.code_prefix_start', '=like', '344%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -1689,7 +1689,7 @@
             <field name="description">Warrants, Rights Outstanding</field>
             <field
             name="expression"
-        >-bale[('group_id.code_prefix_start', '=like', '3.4.5%')]</field>
+        >-bale[('group_id.code_prefix_start', '=like', '345%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -1709,7 +1709,7 @@
             <field name="description">Other Additional Capital</field>
             <field
             name="expression"
-        >-bale[('group_id.code_prefix_start', '=like', '3.4.6%')]</field>
+        >-bale[('group_id.code_prefix_start', '=like', '346%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -1729,7 +1729,7 @@
             <field name="description">Treasury Stock</field>
             <field
             name="expression"
-        >-bale[('group_id.code_prefix_start', '=like', '3.4.7%')]</field>
+        >-bale[('group_id.code_prefix_start', '=like', '347%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -1749,7 +1749,7 @@
             <field name="description">Additional Items</field>
             <field
             name="expression"
-        >-bale[('group_id.code_prefix_start', '=like', '3.4.8%')]</field>
+        >-bale[('group_id.code_prefix_start', '=like', '348%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
@@ -1771,7 +1771,7 @@
         >Equity Attributable To Non-Controlling Interest</field>
             <field
             name="expression"
-        >-bale[('group_id.code_prefix_start', '=like', '3.5%')]</field>
+        >-bale[('group_id.code_prefix_start', '=like', '35%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l2" />
             <field name="auto_expand_accounts">True</field>
             <field
