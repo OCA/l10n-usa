@@ -1,0 +1,772 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- pylint:disable=duplicate-xml-record-id -->
+<odoo>
+    <!-- Chart template of l10n_us -->
+    <!-- Account template definition -->
+    <!-- Cash And Investments -->
+    <record id="account_template_2121" model="account.account.template">
+        <field name="name">Stock Interim (Received)</field>
+        <field name="code">2121</field>
+        <field name="user_type_id" ref="account.data_account_type_current_assets" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_1331" model="account.account.template">
+        <field name="name">Stock Interim (Delivered)</field>
+        <field name="code">1331</field>
+        <field name="user_type_id" ref="account.data_account_type_current_assets" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_112" model="account.account.template">
+        <field name="name">Investments And Securities</field>
+        <field name="code">112</field>
+        <field name="user_type_id" ref="account.data_account_type_current_assets" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_113" model="account.account.template">
+        <field name="name">Derivative Instruments And Hedges</field>
+        <field name="code">113</field>
+        <field name="user_type_id" ref="account.data_account_type_current_assets" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_114" model="account.account.template">
+        <field name="name">Capital Leases, Lessor</field>
+        <field name="code">114</field>
+        <field name="user_type_id" ref="account.data_account_type_current_assets" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_115" model="account.account.template">
+        <field name="name">Restricted Assets</field>
+        <field name="code">115</field>
+        <field name="user_type_id" ref="account.data_account_type_current_assets" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_116" model="account.account.template">
+        <field name="name">Intercompany Investments</field>
+        <field name="code">116</field>
+        <field name="user_type_id" ref="account.data_account_type_current_assets" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <!-- Receivables -->
+    <record id="account_template_121" model="account.account.template">
+        <field name="reconcile" eval="True" />
+        <field name="name">Accounts Receivable</field>
+        <field name="code">121</field>
+        <field name="user_type_id" ref="account.data_account_type_receivable" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_122" model="account.account.template">
+        <field name="reconcile" eval="True" />
+        <field name="name">Notes And Loans Receivable</field>
+        <field name="code">122</field>
+        <field name="user_type_id" ref="account.data_account_type_receivable" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_123" model="account.account.template">
+        <field name="reconcile" eval="True" />
+        <field name="name">Receivables With Imputed Interest</field>
+        <field name="code">123</field>
+        <field name="user_type_id" ref="account.data_account_type_receivable" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_124" model="account.account.template">
+        <field name="reconcile" eval="True" />
+        <field name="name">Contracts Or Programs</field>
+        <field name="code">124</field>
+        <field name="user_type_id" ref="account.data_account_type_receivable" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_125" model="account.account.template">
+        <field name="reconcile" eval="True" />
+        <field name="name">Other Receivables</field>
+        <field name="code">125</field>
+        <field name="user_type_id" ref="account.data_account_type_receivable" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_131" model="account.account.template">
+        <field name="name">Merchandise, Material And Supplies</field>
+        <field name="code">131</field>
+        <field name="user_type_id" ref="account.data_account_type_current_assets" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_132" model="account.account.template">
+        <field name="name">Work In Process</field>
+        <field name="code">132</field>
+        <field name="user_type_id" ref="account.data_account_type_current_assets" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_133" model="account.account.template">
+        <field name="name">Finished Goods</field>
+        <field name="code">133</field>
+        <field name="user_type_id" ref="account.data_account_type_current_assets" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_134" model="account.account.template">
+        <field name="name">Capitalized Contract Cost</field>
+        <field name="code">134</field>
+        <field name="user_type_id" ref="account.data_account_type_current_assets" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_135" model="account.account.template">
+        <field name="name">Other Inventory</field>
+        <field name="code">135</field>
+        <field name="user_type_id" ref="account.data_account_type_current_assets" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_136" model="account.account.template">
+        <field name="name">Inventory For Long-Term Contracts Or Programs</field>
+        <field name="code">136</field>
+        <field name="user_type_id" ref="account.data_account_type_current_assets" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_137" model="account.account.template">
+        <field name="name">Allowances And Adjustments</field>
+        <field name="code">137</field>
+        <field name="user_type_id" ref="account.data_account_type_current_assets" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_141" model="account.account.template">
+        <field name="name">Prepaid Expense</field>
+        <field name="code">141</field>
+        <field name="user_type_id" ref="account.data_account_type_current_assets" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_142" model="account.account.template">
+        <field name="name">Returnable Deposits</field>
+        <field name="code">142</field>
+        <field name="user_type_id" ref="account.data_account_type_current_assets" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_143" model="account.account.template">
+        <field name="name">Accrued Revenue</field>
+        <field name="code">143</field>
+        <field name="user_type_id" ref="account.data_account_type_current_assets" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_144" model="account.account.template">
+        <field name="name">Deferred Costs</field>
+        <field name="code">144</field>
+        <field name="user_type_id" ref="account.data_account_type_current_assets" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_145" model="account.account.template">
+        <field name="name">Other Accrued And Deferred Assets</field>
+        <field name="code">145</field>
+        <field name="user_type_id" ref="account.data_account_type_current_assets" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_146" model="account.account.template">
+        <field name="name">Investments And Other Assets</field>
+        <field name="code">146</field>
+        <field name="user_type_id" ref="account.data_account_type_current_assets" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_151" model="account.account.template">
+        <field name="name">Land, Buildings And Improvements</field>
+        <field name="code">151</field>
+        <field name="user_type_id" ref="account.data_account_type_non_current_assets" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_152" model="account.account.template">
+        <field name="name">Machinery And Equipment</field>
+        <field name="code">152</field>
+        <field name="user_type_id" ref="account.data_account_type_non_current_assets" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_153" model="account.account.template">
+        <field name="name">Other Property, Plant And Equipment</field>
+        <field name="code">153</field>
+        <field name="user_type_id" ref="account.data_account_type_non_current_assets" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_154" model="account.account.template">
+        <field name="name">Assets Under Construction</field>
+        <field name="code">154</field>
+        <field name="user_type_id" ref="account.data_account_type_non_current_assets" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_161" model="account.account.template">
+        <field name="name">Intangible Assets Excluding Goodwill</field>
+        <field name="code">161</field>
+        <field name="user_type_id" ref="account.data_account_type_non_current_assets" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_162" model="account.account.template">
+        <field name="name">Goodwill</field>
+        <field name="code">162</field>
+        <field name="user_type_id" ref="account.data_account_type_non_current_assets" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_163" model="account.account.template">
+        <field name="name">Acquisitions In Progress</field>
+        <field name="code">163</field>
+        <field name="user_type_id" ref="account.data_account_type_non_current_assets" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_211" model="account.account.template">
+        <field name="reconcile" eval="True" />
+        <field name="name">Accounts Payable</field>
+        <field name="code">211</field>
+        <field name="user_type_id" ref="account.data_account_type_payable" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_212" model="account.account.template">
+        <field name="reconcile" eval="True" />
+        <field name="name">Accrued Liabilities</field>
+        <field name="code">212</field>
+        <field
+            name="user_type_id"
+            ref="account.data_account_type_current_liabilities"
+        />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_213" model="account.account.template">
+        <field name="reconcile" eval="True" />
+        <field name="name">Employee-Related Liabilities</field>
+        <field name="code">213</field>
+        <field
+            name="user_type_id"
+            ref="account.data_account_type_current_liabilities"
+        />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_214" model="account.account.template">
+        <field name="reconcile" eval="True" />
+        <field name="name">Taxes Payable</field>
+        <field name="code">214</field>
+        <field
+            name="user_type_id"
+            ref="account.data_account_type_current_liabilities"
+        />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_215" model="account.account.template">
+        <field name="reconcile" eval="True" />
+        <field name="name">Interest And Dividends Payable</field>
+        <field name="code">215</field>
+        <field
+            name="user_type_id"
+            ref="account.data_account_type_current_liabilities"
+        />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_221" model="account.account.template">
+        <field name="name">Debts</field>
+        <field name="code">221</field>
+        <field
+            name="user_type_id"
+            ref="account.data_account_type_current_liabilities"
+        />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_222" model="account.account.template">
+        <field name="name">Notes And Loans Payable</field>
+        <field name="code">222</field>
+        <field
+            name="user_type_id"
+            ref="account.data_account_type_current_liabilities"
+        />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_223" model="account.account.template">
+        <field name="name">Special Assessment Bond</field>
+        <field name="code">223</field>
+        <field
+            name="user_type_id"
+            ref="account.data_account_type_current_liabilities"
+        />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_224" model="account.account.template">
+        <field name="name">Long-Term Federal Home Loan Bank Advances</field>
+        <field name="code">224</field>
+        <field
+            name="user_type_id"
+            ref="account.data_account_type_current_liabilities"
+        />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_225" model="account.account.template">
+        <field name="name">Capital Lease Obligations</field>
+        <field name="code">225</field>
+        <field
+            name="user_type_id"
+            ref="account.data_account_type_current_liabilities"
+        />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_23" model="account.account.template">
+        <field name="name">Deferred Revenue And Credits</field>
+        <field name="code">23</field>
+        <field
+            name="user_type_id"
+            ref="account.data_account_type_current_liabilities"
+        />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_241" model="account.account.template">
+        <field name="name">Billings In Excess Of Cost</field>
+        <field name="code">241</field>
+        <field
+            name="user_type_id"
+            ref="account.data_account_type_current_liabilities"
+        />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_251" model="account.account.template">
+        <field name="name">Derivative Liability</field>
+        <field name="code">251</field>
+        <field
+            name="user_type_id"
+            ref="account.data_account_type_current_liabilities"
+        />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_252" model="account.account.template">
+        <field name="name">Hedging Liabilities</field>
+        <field name="code">252</field>
+        <field
+            name="user_type_id"
+            ref="account.data_account_type_current_liabilities"
+        />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_253" model="account.account.template">
+        <field name="name">Energy Marketing Contract Liabilities</field>
+        <field name="code">253</field>
+        <field
+            name="user_type_id"
+            ref="account.data_account_type_current_liabilities"
+        />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_271" model="account.account.template">
+        <field name="reconcile" eval="True" />
+        <field name="name">Related Party Accounts Payable</field>
+        <field name="code">271</field>
+        <field name="user_type_id" ref="account.data_account_type_payable" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_272" model="account.account.template">
+        <field name="name">Related Party Notes Payable</field>
+        <field name="code">272</field>
+        <field
+            name="user_type_id"
+            ref="account.data_account_type_current_liabilities"
+        />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_273" model="account.account.template">
+        <field name="name">Due To Employees</field>
+        <field name="code">273</field>
+        <field
+            name="user_type_id"
+            ref="account.data_account_type_current_liabilities"
+        />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_274" model="account.account.template">
+        <field name="name">Due To Officers Or Stockholders</field>
+        <field name="code">274</field>
+        <field
+            name="user_type_id"
+            ref="account.data_account_type_current_liabilities"
+        />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_275" model="account.account.template">
+        <field name="name">Due To Affiliate</field>
+        <field name="code">275</field>
+        <field
+            name="user_type_id"
+            ref="account.data_account_type_current_liabilities"
+        />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_276" model="account.account.template">
+        <field name="name">Due To Other Related Parties</field>
+        <field name="code">276</field>
+        <field
+            name="user_type_id"
+            ref="account.data_account_type_current_liabilities"
+        />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_28" model="account.account.template">
+        <field name="name">Other Liabilities</field>
+        <field name="code">28</field>
+        <field
+            name="user_type_id"
+            ref="account.data_account_type_current_liabilities"
+        />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_311" model="account.account.template">
+        <field name="name">Common Stock</field>
+        <field name="code">311</field>
+        <field name="user_type_id" ref="account.data_account_type_equity" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_312" model="account.account.template">
+        <field name="name">Preferred Stock</field>
+        <field name="code">312</field>
+        <field name="user_type_id" ref="account.data_account_type_equity" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_313" model="account.account.template">
+        <field name="name">Additional Paid-In Capital</field>
+        <field name="code">313</field>
+        <field name="user_type_id" ref="account.data_account_type_equity" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_314" model="account.account.template">
+        <field name="name">Legal Equity (Statutory Capital)</field>
+        <field name="code">314</field>
+        <field name="user_type_id" ref="account.data_account_type_equity" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_321" model="account.account.template">
+        <field name="name">Retained Earnings - Appropriated</field>
+        <field name="code">321</field>
+        <field name="user_type_id" ref="account.data_account_type_equity" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_32201" model="account.account.template">
+        <field name="name">Current Year Earnings</field>
+        <field name="code">32201</field>
+        <field name="user_type_id" ref="account.data_unaffected_earnings" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_32202" model="account.account.template">
+        <field name="name">Retained Earnings - Unappropriated</field>
+        <field name="code">32202</field>
+        <field name="user_type_id" ref="account.data_account_type_equity" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_323" model="account.account.template">
+        <field name="name">Retained Earnings Deficit</field>
+        <field name="code">323</field>
+        <field name="user_type_id" ref="account.data_account_type_equity" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_324" model="account.account.template">
+        <field name="name">Retained Earnings - Suspense Account</field>
+        <field name="code">324</field>
+        <field name="user_type_id" ref="account.data_account_type_equity" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_331" model="account.account.template">
+        <field name="name">Foreign Currency Translation Gain (Loss)</field>
+        <field name="code">331</field>
+        <field name="user_type_id" ref="account.data_account_type_equity" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_332" model="account.account.template">
+        <field name="name">Available For Sale Securities Gain (Loss)</field>
+        <field name="code">332</field>
+        <field name="user_type_id" ref="account.data_account_type_equity" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_333" model="account.account.template">
+        <field name="name">Impairment Debt Securities</field>
+        <field name="code">333</field>
+        <field name="user_type_id" ref="account.data_account_type_equity" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_334" model="account.account.template">
+        <field name="name">Cash Flow Hedges Gain (Loss)</field>
+        <field name="code">334</field>
+        <field name="user_type_id" ref="account.data_account_type_equity" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_335" model="account.account.template">
+        <field name="name">Defined Benefit Plan Income (Loss)</field>
+        <field name="code">335</field>
+        <field name="user_type_id" ref="account.data_account_type_equity" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_341" model="account.account.template">
+        <field name="name">Unearned Sop Shares</field>
+        <field name="code">341</field>
+        <field name="user_type_id" ref="account.data_account_type_equity" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_342" model="account.account.template">
+        <field
+            name="name"
+        >Receivable From Officers, Directors For Issuance Of Capital Stock</field>
+        <field name="code">342</field>
+        <field name="user_type_id" ref="account.data_account_type_equity" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_343" model="account.account.template">
+        <field
+            name="name"
+        >Receivable From Shareholders Or Affiliates For Issuance Of Capital Stock</field>
+        <field name="code">343</field>
+        <field name="user_type_id" ref="account.data_account_type_equity" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_344" model="account.account.template">
+        <field name="name">Stockholders' Equity Note, Subscriptions Receivable</field>
+        <field name="code">344</field>
+        <field name="user_type_id" ref="account.data_account_type_equity" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_345" model="account.account.template">
+        <field name="name">Warrants, Rights Outstanding</field>
+        <field name="code">345</field>
+        <field name="user_type_id" ref="account.data_account_type_equity" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_346" model="account.account.template">
+        <field name="name">Other Additional Capital</field>
+        <field name="code">346</field>
+        <field name="user_type_id" ref="account.data_account_type_equity" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_347" model="account.account.template">
+        <field name="name">Treasury Stock</field>
+        <field name="code">347</field>
+        <field name="user_type_id" ref="account.data_account_type_equity" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_348" model="account.account.template">
+        <field name="name">Additional Items</field>
+        <field name="code">348</field>
+        <field name="user_type_id" ref="account.data_account_type_equity" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_35" model="account.account.template">
+        <field name="name">Equity Attributable To Non-Controlling Interest</field>
+        <field name="code">35</field>
+        <field name="user_type_id" ref="account.data_account_type_equity" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_41101" model="account.account.template">
+        <field name="name">Product Sales</field>
+        <field name="code">41101</field>
+        <field name="user_type_id" ref="account.data_account_type_revenue" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_41102" model="account.account.template">
+        <field name="name">Merchandise Sales</field>
+        <field name="code">41102</field>
+        <field name="user_type_id" ref="account.data_account_type_revenue" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_41201" model="account.account.template">
+        <field name="name">Returns, Allowances</field>
+        <field name="code">41201</field>
+        <field name="user_type_id" ref="account.data_account_type_revenue" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_41202" model="account.account.template">
+        <field name="name">Sales Discounts (Consideration Paid To Customers)</field>
+        <field name="code">41202</field>
+        <field name="user_type_id" ref="account.data_account_type_revenue" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_421" model="account.account.template">
+        <field name="name">General Services</field>
+        <field name="code">421</field>
+        <field name="user_type_id" ref="account.data_account_type_revenue" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_42201" model="account.account.template">
+        <field name="name">Sales Allowances</field>
+        <field name="code">42201</field>
+        <field name="user_type_id" ref="account.data_account_type_revenue" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_42202" model="account.account.template">
+        <field name="name">Sales Discounts</field>
+        <field name="code">42202</field>
+        <field name="user_type_id" ref="account.data_account_type_revenue" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_423" model="account.account.template">
+        <field name="name">Itemized Services</field>
+        <field name="code">423</field>
+        <field name="user_type_id" ref="account.data_account_type_revenue" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_431" model="account.account.template">
+        <field name="name">Other Recurring Income</field>
+        <field name="code">431</field>
+        <field name="user_type_id" ref="account.data_account_type_revenue" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_51101" model="account.account.template">
+        <field name="name">Cost Of Goods Sold</field>
+        <field name="code">5111</field>
+        <field name="user_type_id" ref="account.data_account_type_expenses" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_5112" model="account.account.template">
+        <field name="name">Cost Of Services Rendered</field>
+        <field name="code">51102</field>
+        <field name="user_type_id" ref="account.data_account_type_expenses" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_51103" model="account.account.template">
+        <field name="name">Other Costs Of Sales</field>
+        <field name="code">51103</field>
+        <field name="user_type_id" ref="account.data_account_type_expenses" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_51201" model="account.account.template">
+        <field name="name">Selling And Marketing</field>
+        <field name="code">51201</field>
+        <field name="user_type_id" ref="account.data_account_type_expenses" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_51202" model="account.account.template">
+        <field name="name">General, Administrative Expenses</field>
+        <field name="code">51202</field>
+        <field name="user_type_id" ref="account.data_account_type_expenses" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_51203" model="account.account.template">
+        <field name="name">Other Operating Expenses</field>
+        <field name="code">51203</field>
+        <field name="user_type_id" ref="account.data_account_type_expenses" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_51204" model="account.account.template">
+        <field name="name">Price Differences</field>
+        <field name="code">51204</field>
+        <field name="user_type_id" ref="account.data_account_type_expenses" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_51205" model="account.account.template">
+        <field name="name">Inventory Adjustments</field>
+        <field name="code">51205</field>
+        <field name="user_type_id" ref="account.data_account_type_expenses" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_513" model="account.account.template">
+        <field name="name">Doubtful Accounts</field>
+        <field name="code">513</field>
+        <field name="user_type_id" ref="account.data_account_type_expenses" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_61101" model="account.account.template">
+        <field name="name">Foreign Currency Gain</field>
+        <field name="code">61101</field>
+        <field name="user_type_id" ref="account.data_account_type_other_income" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_61102" model="account.account.template">
+        <field name="name">Foreign Currency Loss</field>
+        <field name="code">61102</field>
+        <field name="user_type_id" ref="account.data_account_type_expenses" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_61201" model="account.account.template">
+        <field name="name">Other Non-Operating Income</field>
+        <field name="code">61201</field>
+        <field name="user_type_id" ref="account.data_account_type_other_income" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_61202" model="account.account.template">
+        <field name="name">Other Non-Operating Loss</field>
+        <field name="code">61202</field>
+        <field name="user_type_id" ref="account.data_account_type_expenses" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_613" model="account.account.template">
+        <field name="name">Restructuring Charge</field>
+        <field name="code">613</field>
+        <field name="user_type_id" ref="account.data_account_type_expenses" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_614" model="account.account.template">
+        <field
+            name="name"
+        >Inventory Write-Downs (Not Recognized In Cost Of Sales)</field>
+        <field name="code">614</field>
+        <field name="user_type_id" ref="account.data_account_type_expenses" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_615" model="account.account.template">
+        <field name="name">Impairment Charge</field>
+        <field name="code">615</field>
+        <field name="user_type_id" ref="account.data_account_type_expenses" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_616" model="account.account.template">
+        <field name="name">Extinguishment Of Debt</field>
+        <field name="code">616</field>
+        <field name="user_type_id" ref="account.data_account_type_expenses" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_617" model="account.account.template">
+        <field name="name">Business Combination, Acquisition Related Costs</field>
+        <field name="code">617</field>
+        <field name="user_type_id" ref="account.data_account_type_expenses" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_618" model="account.account.template">
+        <field name="name">Gain (Loss) Related To Litigation Settlement</field>
+        <field name="code">618</field>
+        <field name="user_type_id" ref="account.data_account_type_expenses" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_619" model="account.account.template">
+        <field name="name">Asset Retirement Obligation</field>
+        <field name="code">619</field>
+        <field name="user_type_id" ref="account.data_account_type_expenses" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_6110" model="account.account.template">
+        <field name="name">Unusual And/Or Infrequent Items</field>
+        <field name="code">6110</field>
+        <field name="user_type_id" ref="account.data_account_type_expenses" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_6111" model="account.account.template">
+        <field name="name">Additional Itemized Gains And Losses</field>
+        <field name="code">6111</field>
+        <field name="user_type_id" ref="account.data_account_type_other_income" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_621" model="account.account.template">
+        <field name="name">Non-Operating Revenues</field>
+        <field name="code">621</field>
+        <field name="user_type_id" ref="account.data_account_type_other_income" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_622" model="account.account.template">
+        <field name="name">Non-Operating Expenses</field>
+        <field name="code">622</field>
+        <field name="user_type_id" ref="account.data_account_type_expenses" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_63" model="account.account.template">
+        <field name="name">Non-Monetary Transactions</field>
+        <field name="code">63</field>
+        <field name="user_type_id" ref="account.data_account_type_expenses" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <record id="account_template_7" model="account.account.template">
+        <field name="name">Income Tax (Benefit)</field>
+        <field name="code">7</field>
+        <field name="user_type_id" ref="account.data_account_type_revenue" />
+        <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
+    </record>
+    <!-- Account Chart Template -->
+    <record id="l10n_us_gaap_chart_template" model="account.chart.template">
+        <field name="property_account_receivable_id" ref="account_template_121" />
+        <field name="property_account_payable_id" ref="account_template_211" />
+        <field name="property_account_expense_categ_id" ref="account_template_51202" />
+        <field name="property_account_income_categ_id" ref="account_template_421" />
+        <field
+            name="expense_currency_exchange_account_id"
+            ref="account_template_61102"
+        />
+        <field
+            name="income_currency_exchange_account_id"
+            ref="account_template_61101"
+        />
+    </record>
+</odoo>
