@@ -74,7 +74,8 @@ class USPSAddressPartner(models.Model):
             z = z5
             ok = "false"
         else:
-            raise ValidationError(response_data.get("Error").get("Description"))
+            if response_data.get("Error"):
+                return {"Error": response_data.get("Error").get("Description")}
         if a2 != " " or a1 != " ":
             am = "true"
         else:
@@ -119,6 +120,7 @@ class USPSAddressPartner(models.Model):
             %s</Zip5><Zip4></Zip4></Address></AddressValidateRequest>'
             % (web, user_id, address1, address2, city, state, zipcode)
         )
+        response_data = {}
         try:
             response = requests.post(request, timeout=10)
             response_data = xmltodict.parse(response.text)
@@ -127,10 +129,13 @@ class USPSAddressPartner(models.Model):
         if response_data.get("Error"):
             raise ValidationError(response_data.get("Error").get("Description"))
         try:
-            cleanse_address_res = self.env["res.partner"].cleanse_address(response_data)
-            if cleanse_address_res:
-                return cleanse_address_res
-            else:
-                raise ValidationError(_(response_data))
+            if response_data:
+                cleanse_address_res = self.env["res.partner"].cleanse_address(
+                    response_data
+                )
+                if cleanse_address_res:
+                    return cleanse_address_res
+                else:
+                    raise ValidationError(response_data)
         except Exception as error:
-            _logger.exception(_(error))
+            _logger.exception(error)

@@ -1,6 +1,7 @@
 # Copyright 2022 Open Source Integrators
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import api, fields, models
+from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
 
 
 class USPSAdressValidation(models.TransientModel):
@@ -44,6 +45,8 @@ class USPSAdressValidation(models.TransientModel):
                 }
             )
             valid_address = partner_obj.usps_xml_request()
+            if valid_address and valid_address.get("Error"):
+                raise ValidationError(_(valid_address.get("Error")))
             res = self.set_valid_address(res, valid_address)
             return res
 
