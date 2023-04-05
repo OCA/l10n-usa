@@ -3,7 +3,7 @@
 {
     "name": "USPS Address Validation",
     "category": "Contact",
-    "version": "14.0.1.0.0",
+    "version": "16.0.1.0.0",
     "summary": """Utilize the USPS open API for address validation""",
     "depends": ["contacts"],
     "external_dependencies": {"python": ["xmltodict", "requests"]},
