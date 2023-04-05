@@ -31,7 +31,7 @@ class ResConfigSettings(models.TransientModel):
         return res
 
     def set_values(self):
-        super(ResConfigSettings, self).set_values()
+        res = super(ResConfigSettings, self).set_values()
         param = self.env["ir.config_parameter"].sudo()
         usps_api_url = self.usps_api_url
         usps_username = self.usps_username
@@ -39,3 +39,4 @@ class ResConfigSettings(models.TransientModel):
         param.set_param("usps_api_url", usps_api_url)
         param.set_param("usps_username", usps_username)
         param.set_param("usps_password", usps_password)
+        return res

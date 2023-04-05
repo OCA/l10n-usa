@@ -1,11 +1,15 @@
 # Copyright 2022 Open Source Integrators
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
+import logging
+
 import requests
 import xmltodict
 
 from odoo import _, fields, models
 from odoo.exceptions import ValidationError
+
+_logger = logging.getLogger(__name__)
 
 
 class USPSAddressPartner(models.Model):
@@ -95,7 +99,7 @@ class USPSAddressPartner(models.Model):
             web = self.env["ir.config_parameter"].sudo().get_param("usps_api_url")
             user_id = self.env["ir.config_parameter"].sudo().get_param("usps_username")
         except Exception:
-            raise ValidationError(
+            _logger.exception(
                 _(
                     "Your credentials are not configured,\
                  please ensure you have a username, password,\
@@ -116,10 +120,10 @@ class USPSAddressPartner(models.Model):
             % (web, user_id, address1, address2, city, state, zipcode)
         )
         try:
-            response = requests.post(request)
+            response = requests.post(request, timeout=10)
             response_data = xmltodict.parse(response.text)
         except Exception as error:
-            raise ValidationError(error)
+            _logger.exception(error)
         if response_data.get("Error"):
             raise ValidationError(response_data.get("Error").get("Description"))
         try:
@@ -129,4 +133,4 @@ class USPSAddressPartner(models.Model):
             else:
                 raise ValidationError(_(response_data))
         except Exception as error:
-            raise ValidationError(_(error))
+            _logger.exception(_(error))
