@@ -129,7 +129,9 @@ class USPSAddressPartner(models.Model):
             raise ValidationError(response_data.get("Error").get("Description"))
         try:
             if response_data:
-                cleanse_address_res = self.env["res.partner"].cleanse_address(response_data)
+                cleanse_address_res = self.env["res.partner"].cleanse_address(
+                    response_data
+                )
                 if cleanse_address_res:
                     return cleanse_address_res
                 else:
