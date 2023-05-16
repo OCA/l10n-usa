@@ -74,7 +74,8 @@ class USPSAddressPartner(models.Model):
             z = z5
             ok = "false"
         else:
-            raise ValidationError(response_data.get("Error").get("Description"))
+            if response_data.get("Error"):
+                return {"Error": response_data.get("Error").get("Description")}
         if a2 != " " or a1 != " ":
             am = "true"
         else:
