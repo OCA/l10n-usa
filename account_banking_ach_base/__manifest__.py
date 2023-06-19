@@ -4,7 +4,7 @@
 {
     "name": "Localizations for North American Banking & Financials",
     "summary": "Add fields required for North American Banking & Financials",
-    "version": "14.0.1.0.1",
+    "version": "15.0.1.0.1",
     "license": "AGPL-3",
     "author": "Thinkwell Designs, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/l10n-usa",
@@ -20,6 +20,6 @@
         "views/res_bank.xml",
         "views/res_company.xml",
     ],
-    "external_dependencies": {"python": ["python-stdnum", "ach"]},
+    "external_dependencies": {"python": ["python-stdnum", "ach", "stdnum"]},
     "installable": True,
 }

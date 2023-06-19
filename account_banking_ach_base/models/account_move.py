@@ -1,6 +1,6 @@
-from datetime import date, timedelta
+from datetime import _, date, timedelta
 
-from odoo import _, fields, models
+from odoo import fields, models
 from odoo.exceptions import UserError
 
 
@@ -18,9 +18,12 @@ class AccountMove(models.Model):
             if today < delay_expired:
                 raise UserError(
                     _(
-                        "To satisfy payment mandate, cannot add invoice %s to "
-                        "Debit Order until %s!"
-                        % (invoice.name, delay_expired.strftime("%Y-%m-%d"))
+                        "To satisfy payment mandate, cannot add invoice %(name)s to "
+                        "Debit Order until %(expiration)s!"
                     )
+                    % {
+                        "name": invoice.name,
+                        "expiration": delay_expired.strftime("%Y-%m-%d"),
+                    }
                 )
         return super(AccountMove, self).create_account_payment_line()
