@@ -41,15 +41,14 @@ class AccountPaymentOrder(models.Model):
         legal_id_number = self.company_id.legal_id_number
         if not legal_id_number:
             raise UserError(
-                _(
-                    "%s does not have an EIN / SSN / BN "
-                    "assigned!" % self.company_id.name
-                )
+                _("%(company)s does not have an EIN / SSN / BN assigned!")
+                % {"company": self.company_id.name}
             )
 
         if not routing_number:
             raise UserError(
-                _("%s does not have a Routing Number assigned!" % bank.name)
+                _("%(bank)s does not have a Routing Number assigned!")
+                % {"bank": bank.name}
             )
         return {
             "immediate_dest": self.company_partner_bank_id.acc_number,
@@ -62,18 +61,14 @@ class AccountPaymentOrder(models.Model):
     def validate_banking(self, line):
         if not line.partner_bank_id.bank_id:
             raise UserError(
-                _(
-                    "%s account number has no Bank "
-                    "assigned" % line.partner_bank_id.acc_number
-                )
+                _("%(bank)s account number has no Bank assigned")
+                % {"bank": line.partner_bank_id.acc_number}
             )
 
         if not line.partner_bank_id.bank_id.routing_number:
             raise UserError(
-                _(
-                    "%s has no routing number "
-                    "specified" % line.partner_bank_id.bank_id.name
-                )
+                _("%(bank)s has no routing number specified")
+                % {"bank": line.partner_bank_id.bank_id.name}
             )
 
     def validate_mandates(self, line):
@@ -82,35 +77,35 @@ class AccountPaymentOrder(models.Model):
             raise UserError(
                 _(
                     "Missing ACH Direct Debit mandate on the "
-                    "bank payment line with partner '%s' "
-                    "(reference '%s')."
+                    "bank payment line with partner '%(partner)s' "
+                    "(reference '%(ref)s')."
                 )
-                % (line.partner_id.name, line.name)
+                % {"partner": line.partner_id.name, "ref": line.name}
             )
         if line.mandate_id.state != "valid":
             raise Warning(
                 _(
-                    "The ACH Direct Debit mandate with reference '%s' "
-                    "for partner '%s' has expired."
+                    "The ACH Direct Debit mandate with reference '%(ref)s' "
+                    "for partner '%(partner)s' has expired."
                 )
-                % (
-                    line.mandate_id.unique_mandate_reference,
-                    line.mandate_id.partner_id.name,
-                )
+                % {
+                    "ref": line.mandate_id.unique_mandate_reference,
+                    "partner": line.mandate_id.partner_id.name,
+                }
             )
         if line.mandate_id.type == "oneoff" and line.mandate_id.last_debit_date:
             raise Warning(
                 _(
-                    "The mandate with reference '%s' for partner "
-                    "'%s' has type set to 'One-Off' and it has a "
-                    "last debit date set to '%s', so we can't use "
+                    "The mandate with reference '%(ref)s' for partner "
+                    "'%(partner)s' has type set to 'One-Off' and it has a "
+                    "last debit date set to '%(date)s', so we can't use "
                     "it."
                 )
-                % (
-                    line.mandate_id.unique_mandate_reference,
-                    line.mandate_id.partner_id.name,
-                    line.mandate_id.last_debit_date,
-                )
+                % {
+                    "ref": line.mandate_id.unique_mandate_reference,
+                    "partner": line.mandate_id.partner_id.name,
+                    "date": line.mandate_id.last_debit_date,
+                }
             )
 
     def get_transaction_type(self, amount):

@@ -6,12 +6,12 @@ class AccountBankingMandate(models.Model):
     _inherit = "account.banking.mandate"
 
     delay_days = fields.Integer(
-        string="Delay Days",
+        string="Days to Delay",
         required=True,
         default=10,
         help="""Number of days to wait after invoice
-                                date before including an invoice in Payment
-                                Order for processing.""",
+        date before including an invoice in Payment
+        Order for processing.""",
     )
 
     def validate(self):
@@ -20,7 +20,7 @@ class AccountBankingMandate(models.Model):
                 raise UserError(
                     _("""Delay days must be specified, and greater than 0.""")
                 )
-        super(AccountBankingMandate, self).validate()
+        return super(AccountBankingMandate, self).validate()
 
     def set_payment_modes_on_partner(self):
         """
