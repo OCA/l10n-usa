@@ -14,7 +14,7 @@ class LegalIDNumber(models.AbstractModel):
     """
 
     _name = "countinghouse.legal_id_number"
-    _description = "Countinghouse Legal Id Number"
+    _description = "Counting House Legal Id Number"
 
     legal_id_number = fields.Char(
         string="Legal ID",
@@ -38,8 +38,6 @@ class LegalIDNumber(models.AbstractModel):
                 continue
         if not valid:
             raise UserError(
-                _(
-                    "%s is not a valid EIN / SSN / Canadian Business "
-                    "Number" % self.legal_id_number
-                )
+                _("%(num)s is not a valid EIN / SSN / Canadian Business Number")
+                % {"num": self.legal_id_number}
             )
