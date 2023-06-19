@@ -13,5 +13,5 @@ def update_bank_journals(cr, registry):
             raise_if_not_found=False,
         )
         if ach_ct:
-            journals.write({"outbound_payment_method_ids": [(4, ach_ct.id)]})
+            journals.write({"outbound_payment_method_line_ids": [(4, ach_ct.id)]})
     return
