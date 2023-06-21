@@ -43,14 +43,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_us_form_1099.field_res_partner__type_1099_id
 #: model:ir.model.fields,field_description:l10n_us_form_1099.field_res_users__type_1099_id
 #: model_terms:ir.ui.view,arch_db:l10n_us_form_1099.view_account_payment_1099_report_search
-#: model_terms:ir.ui.view,arch_db:l10n_us_form_1099.view_type_1099_form
 msgid "1099 Type"
 msgstr ""
 
 #. module: l10n_us_form_1099
 #: model:ir.actions.act_window,name:l10n_us_form_1099.action_type_1099_view
 #: model:ir.ui.menu,name:l10n_us_form_1099.type_1099_menu_config
-#: model_terms:ir.ui.view,arch_db:l10n_us_form_1099.view_type_1099_tree
 msgid "1099 Types"
 msgstr ""
 
@@ -60,14 +58,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_us_form_1099.field_res_partner__box_1099_misc_id
 #: model:ir.model.fields,field_description:l10n_us_form_1099.field_res_users__box_1099_misc_id
 #: model_terms:ir.ui.view,arch_db:l10n_us_form_1099.view_account_payment_1099_report_search
-#: model_terms:ir.ui.view,arch_db:l10n_us_form_1099.view_box_1099_misc_form
 msgid "1099-MISC Box"
 msgstr ""
 
 #. module: l10n_us_form_1099
 #: model:ir.actions.act_window,name:l10n_us_form_1099.action_box_1099_misc_view
 #: model:ir.ui.menu,name:l10n_us_form_1099.box_1099_misc_menu_config
-#: model_terms:ir.ui.view,arch_db:l10n_us_form_1099.view_box_1099_misc_tree
 msgid "1099-MISC Boxes"
 msgstr ""
 
@@ -103,8 +99,8 @@ msgstr ""
 #. module: l10n_us_form_1099
 #: model_terms:ir.actions.act_window,help:l10n_us_form_1099.action_account_payment_report_1099
 msgid ""
-"From this report, you can have an overview of the amount paid to your 1099 "
-"vendors."
+"From this report, you can have an overview of the amount paid to your 1099\n"
+"            vendors."
 msgstr ""
 
 #. module: l10n_us_form_1099
