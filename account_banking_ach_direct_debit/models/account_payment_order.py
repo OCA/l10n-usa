@@ -30,18 +30,18 @@ class AccountPaymentOrder(models.Model):
         mandate = self.env["account.banking.mandate"]
         for order in self:
             to_expire_mandates = first_mandates = all_mandates = mandate
-            for bank_line in order.bank_line_ids:
-                if bank_line.mandate_id in all_mandates:
+            for payment_line in order.payment_line_ids:
+                if payment_line.mandate_id in all_mandates:
                     continue
-                all_mandates += bank_line.mandate_id
-                if bank_line.mandate_id.type == "oneoff":
-                    to_expire_mandates += bank_line.mandate_id
-                elif bank_line.mandate_id.type == "recurrent":
-                    seq_type = bank_line.mandate_id.recurrent_sequence_type
+                all_mandates += payment_line.mandate_id
+                if payment_line.mandate_id.type == "oneoff":
+                    to_expire_mandates += payment_line.mandate_id
+                elif payment_line.mandate_id.type == "recurrent":
+                    seq_type = payment_line.mandate_id.recurrent_sequence_type
                     if seq_type == "final":
-                        to_expire_mandates += bank_line.mandate_id
+                        to_expire_mandates += payment_line.mandate_id
                     elif seq_type == "first":
-                        first_mandates += bank_line.mandate_id
+                        first_mandates += payment_line.mandate_id
             all_mandates.write({"last_debit_date": order.date_generated})
             to_expire_mandates.write({"state": "expired"})
             first_mandates.write({"recurrent_sequence_type": "recurring"})
