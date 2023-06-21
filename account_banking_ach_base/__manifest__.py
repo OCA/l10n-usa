@@ -20,6 +20,6 @@
         "views/res_bank.xml",
         "views/res_company.xml",
     ],
-    "external_dependencies": {"python": ["python-stdnum", "ach"]},
+    "external_dependencies": {"python": ["python-stdnum", "carta-ach"]},
     "installable": True,
 }
