@@ -22,6 +22,7 @@ Available addons
 addon | version | maintainers | summary
 --- | --- | --- | ---
 [account_banking_ach_base](account_banking_ach_base/) | 15.0.1.0.1 |  | Add fields required for North American Banking & Financials
+[account_banking_ach_credit_transfer](account_banking_ach_credit_transfer/) | 15.0.1.0.0 |  | Create ACH files for Credit Transfers
 [l10n_us_partner_legal_number](l10n_us_partner_legal_number/) | 15.0.1.0.0 |  | Add Legal Number for North American Banking & Financials
 
 [//]: # (end addons)
