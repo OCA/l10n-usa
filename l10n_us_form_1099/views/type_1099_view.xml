@@ -6,7 +6,7 @@
         <field name="name">view.type.1099.form</field>
         <field name="model">type.1099</field>
         <field name="arch" type="xml">
-            <form string="1099 Type">
+            <form>
                 <sheet>
                     <group>
                         <group>
@@ -21,7 +21,7 @@
         <field name="name">type.1099.tree</field>
         <field name="model">type.1099</field>
         <field name="arch" type="xml">
-            <tree string="1099 Types">
+            <tree>
                 <field name="name" />
             </tree>
         </field>

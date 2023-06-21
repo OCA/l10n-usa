@@ -5,7 +5,7 @@
         <field name="name">view.box.1099.misc.form</field>
         <field name="model">box.1099.misc</field>
         <field name="arch" type="xml">
-            <form string="1099-MISC Box">
+            <form>
                 <sheet>
                     <group>
                         <group>
@@ -20,7 +20,7 @@
         <field name="name">box.1099.misc.tree</field>
         <field name="model">box.1099.misc</field>
         <field name="arch" type="xml">
-            <tree string="1099-MISC Boxes">
+            <tree>
                 <field name="name" />
             </tree>
         </field>
