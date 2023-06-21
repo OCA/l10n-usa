@@ -9,6 +9,7 @@ setuptools.setup(
     version=version,
     install_requires=[
         'odoo-addon-account_banking_ach_base>=15.0dev,<15.1dev',
+        'odoo-addon-account_banking_ach_credit_transfer>=15.0dev,<15.1dev',
         'odoo-addon-l10n_us_partner_legal_number>=15.0dev,<15.1dev',
     ],
     classifiers=[
