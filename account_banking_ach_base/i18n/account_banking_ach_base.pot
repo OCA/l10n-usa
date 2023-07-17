@@ -143,7 +143,7 @@ msgstr ""
 #: code:addons/account_banking_ach_base/models/account_payment_order.py:0
 #, python-format
 msgid ""
-"Missing ACH Direct Debit mandate on the bank payment line with partner '%s' "
+"Missing ACH Direct Debit mandate on the payment line with partner '%s' "
 "(reference '%s')."
 msgstr ""
 

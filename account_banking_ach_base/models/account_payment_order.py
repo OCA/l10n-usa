@@ -82,7 +82,7 @@ class AccountPaymentOrder(models.Model):
             raise UserError(
                 _(
                     "Missing ACH Direct Debit mandate on the "
-                    "bank payment line with partner '%s' "
+                    "payment line with partner '%s' "
                     "(reference '%s')."
                 )
                 % (line.partner_id.name, line.name)
@@ -140,7 +140,7 @@ class AccountPaymentOrder(models.Model):
             file_mod=file_mod,
         )
         entries = []
-        for line in self.bank_line_ids:
+        for line in self.payment_line_ids:
             if inbound_payment:
                 self.validate_mandates(line)
             self.validate_banking(line)
