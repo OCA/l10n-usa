@@ -340,6 +340,11 @@ msgid "Interest And Dividends Payable"
 msgstr "Intereses y dividendos por pagar"
 
 #. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_1_3
+msgid "Inventory"
+msgstr ""
+
+#. module: l10n_us_gaap_mis_report
 #: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_1_3_6
 msgid "Inventory For Long-Term Contracts Or Programs"
 msgstr "Inventario para contratos o programas a largo plazo"
@@ -476,7 +481,6 @@ msgstr "Otra propiedad, planta y equipo"
 
 #. module: l10n_us_gaap_mis_report
 #: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_1_2_5
-#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_1_3
 msgid "Other Receivables"
 msgstr "Otras Cuentas a Cobrar"
 
