@@ -96,6 +96,7 @@ msgstr ""
 #. module: l10n_us_form_1099
 #: model:ir.model.fields,field_description:l10n_us_form_1099.field_account_payment_1099_report__display_name
 #: model:ir.model.fields,field_description:l10n_us_form_1099.field_box_1099_misc__display_name
+#: model:ir.model.fields,field_description:l10n_us_form_1099.field_res_partner__display_name
 #: model:ir.model.fields,field_description:l10n_us_form_1099.field_type_1099__display_name
 msgid "Display Name"
 msgstr ""
@@ -103,8 +104,8 @@ msgstr ""
 #. module: l10n_us_form_1099
 #: model_terms:ir.actions.act_window,help:l10n_us_form_1099.action_account_payment_report_1099
 msgid ""
-"From this report, you can have an overview of the amount paid to your 1099 "
-"vendors."
+"From this report, you can have an overview of the amount paid to your 1099\n"
+"            vendors."
 msgstr ""
 
 #. module: l10n_us_form_1099
@@ -115,6 +116,7 @@ msgstr ""
 #. module: l10n_us_form_1099
 #: model:ir.model.fields,field_description:l10n_us_form_1099.field_account_payment_1099_report__id
 #: model:ir.model.fields,field_description:l10n_us_form_1099.field_box_1099_misc__id
+#: model:ir.model.fields,field_description:l10n_us_form_1099.field_res_partner__id
 #: model:ir.model.fields,field_description:l10n_us_form_1099.field_type_1099__id
 msgid "ID"
 msgstr ""
@@ -129,6 +131,7 @@ msgstr "Is een 1099"
 #. module: l10n_us_form_1099
 #: model:ir.model.fields,field_description:l10n_us_form_1099.field_account_payment_1099_report____last_update
 #: model:ir.model.fields,field_description:l10n_us_form_1099.field_box_1099_misc____last_update
+#: model:ir.model.fields,field_description:l10n_us_form_1099.field_res_partner____last_update
 #: model:ir.model.fields,field_description:l10n_us_form_1099.field_type_1099____last_update
 msgid "Last Modified on"
 msgstr ""
