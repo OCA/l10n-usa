@@ -7,7 +7,7 @@ class AccountPaymentRegister(models.TransientModel):
     _inherit = "account.payment.register"
 
     def make_payments(self):
-        if self.payment_method_id and self.payment_method_id.code in (
+        if self.payment_method_code and self.payment_method_code in (
             "ACH-In",
             "ACH-Out",
         ):
@@ -15,7 +15,11 @@ class AccountPaymentRegister(models.TransientModel):
             payment_mode = self.env["account.payment.mode"].search(
                 [
                     ("payment_type", "=", self.payment_type),
-                    ("payment_method_id", "=", self.payment_method_id.id),
+                    (
+                        "payment_method_id",
+                        "=",
+                        self.payment_method_line_id.payment_method_id.id,
+                    ),
                     ("payment_order_ok", "=", True),
                 ],
                 limit=1,

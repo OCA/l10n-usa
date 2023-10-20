@@ -72,9 +72,9 @@ class AccountPaymentLine(models.Model):
         domain=[("deprecated", "!=", True)],
         copy=False,
     )
-    reason_code = fields.Many2one("payment.adjustment.reason", string="Reason Code")
-    note = fields.Text("Note")
-    payment_difference = fields.Float(string="Payment Difference")
+    reason_code = fields.Many2one("payment.adjustment.reason")
+    note = fields.Text()
+    payment_difference = fields.Float()
     move_id = fields.Many2one(
         "account.move", related="move_line_id.move_id", store=True
     )

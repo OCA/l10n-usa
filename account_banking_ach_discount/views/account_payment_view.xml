@@ -35,29 +35,4 @@
             </field>
         </field>
     </record>
-
-    <record id="bank_payment_line_discount_amount_form" model="ir.ui.view">
-        <field name="name">banking.bank.payment.line.form</field>
-        <field name="model">bank.payment.line</field>
-        <field name="inherit_id" ref="account_payment_order.bank_payment_line_form" />
-        <field name="arch" type="xml">
-            <field name="amount_currency" position="after">
-                <field name="discount_amount" />
-                <field name="total_amount" />
-            </field>
-        </field>
-    </record>
-
-    <record id="bank_payment_line_discount_amount_tree" model="ir.ui.view">
-        <field name="name">banking.bank.payment.line.tree</field>
-        <field name="model">bank.payment.line</field>
-        <field name="inherit_id" ref="account_payment_order.bank_payment_line_tree" />
-        <field name="arch" type="xml">
-            <field name="amount_currency" position="after">
-                <field name="discount_amount" />
-                <field name="total_amount" />
-            </field>
-        </field>
-    </record>
-
 </odoo>
