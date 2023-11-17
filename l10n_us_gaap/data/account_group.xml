@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<odoo>
-    <data noupdate="1">
+<odoo noupdate="1">
         <!-- Assets -->
         <record id="account_group_template_1" model="account.group.template">
             <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
@@ -520,24 +519,24 @@
         <record id="account_group_template_3_4_2" model="account.group.template">
             <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
             <field
-                name="name"
-            >Receivable From Officers, Directors For Issuance Of Capital Stock</field>
+            name="name"
+        >Receivable From Officers, Directors For Issuance Of Capital Stock</field>
             <field name="code_prefix_start">342</field>
             <field name="parent_id" ref="l10n_us_gaap.account_group_template_3_4" />
         </record>
         <record id="account_group_template_3_4_3" model="account.group.template">
             <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
             <field
-                name="name"
-            >Receivable From Shareholders Or Affiliates For Issuance Of Capital Stock</field>
+            name="name"
+        >Receivable From Shareholders Or Affiliates For Issuance Of Capital Stock</field>
             <field name="code_prefix_start">343</field>
             <field name="parent_id" ref="l10n_us_gaap.account_group_template_3_4" />
         </record>
         <record id="account_group_template_3_4_4" model="account.group.template">
             <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
             <field
-                name="name"
-            >Stockholders' Equity Note, Subscriptions Receivable</field>
+            name="name"
+        >Stockholders' Equity Note, Subscriptions Receivable</field>
             <field name="code_prefix_start">344</field>
             <field name="parent_id" ref="l10n_us_gaap.account_group_template_3_4" />
         </record>
@@ -772,8 +771,8 @@
         <record id="account_group_template_6_1_4" model="account.group.template">
             <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
             <field
-                name="name"
-            >Inventory Write-Downs (Not Recognized In Cost Of Sales)</field>
+            name="name"
+        >Inventory Write-Downs (Not Recognized In Cost Of Sales)</field>
             <field name="code_prefix_start">614</field>
             <field name="parent_id" ref="l10n_us_gaap.account_group_template_6_1" />
         </record>
@@ -849,5 +848,4 @@
             <field name="name">Income Tax (Benefit)</field>
             <field name="code_prefix_start">7</field>
         </record>
-    </data>
 </odoo>

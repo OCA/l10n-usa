@@ -2,7 +2,6 @@
 <!-- Copyright 2017-20 ForgeFlow S.L. (https://www.forgeflow.com)
      License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
 <odoo>
-    <data>
         <record id="mis_report_style_l10n_us_gaap_base" model="mis.report.style">
             <field name="name">l10n_us_gaap base</field>
             <field name="dp_inherit" eval="0" />
@@ -104,5 +103,4 @@
             <field name="hide_empty_inherit" eval="0" />
             <field name="hide_empty" eval="1" />
         </record>
-    </data>
 </odoo>

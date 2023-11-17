@@ -20,6 +20,7 @@
         "views/res_bank.xml",
         "views/res_company.xml",
     ],
-    "external_dependencies": {"python": ["python-stdnum", "ach"]},
+    # pip install python-stdnum,ach
+    "external_dependencies": {"python": ["stdnum", "ach"]},
     "installable": True,
 }
