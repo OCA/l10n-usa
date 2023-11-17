@@ -10,6 +10,7 @@ setuptools.setup(
     install_requires=[
         'odoo-addon-l10n_us_form_1099>=16.0dev,<16.1dev',
         'odoo-addon-l10n_us_gaap>=16.0dev,<16.1dev',
+        'odoo-addon-l10n_us_gaap_mis_report>=16.0dev,<16.1dev',
     ],
     classifiers=[
         'Programming Language :: Python',
