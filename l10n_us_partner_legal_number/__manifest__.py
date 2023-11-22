@@ -12,4 +12,5 @@
     "depends": ["account"],
     "data": ["views/res_partner.xml"],
     "installable": True,
+    "external_dependencies": {"python": ["python-stdnum"]},
 }
