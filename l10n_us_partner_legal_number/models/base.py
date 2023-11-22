@@ -14,7 +14,7 @@ class LegalIDNumber(models.AbstractModel):
     """
 
     _name = "countinghouse.legal_id_number"
-    _description = "Countinghouse Legal Id Number"
+    _description = "Counting House Legal Id Number"
 
     legal_id_number = fields.Char(
         string="Legal ID",
