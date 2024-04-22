@@ -36,8 +36,8 @@ their payment to the IRS as a 1099?".
 This module extends the functionality of a partner and allows you to
 specify 1099 suppliers, their 1099 type and their 1099-MISC box.
 
-It also provide a report of payments by types and boxes in Accounting >
-Reporting > 1099 Report.
+It also provides a report of payments by vendors, types and boxes in
+Invoicing > Reporting > 1099 Report.
 
 You will still need to manage payment and IRS reporting separately.
 
@@ -65,7 +65,7 @@ To use this module, you need to:
 4. Check the "Is a 1099" box
 5. Select their 1099 type
 6. If their type is 1099-MISC, you can select their box
-7. Go to Invoicing > Bills > Vendors
+7. Go to Invoicing > Vendors > Bills (or Payments)
 8. Create vendor bills and payments for those 1099 vendors
 9. Go to Invoicing > Reporting > 1099 Report
 
