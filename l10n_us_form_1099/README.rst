@@ -17,26 +17,27 @@ US Form 1099
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fl10n--usa-lightgray.png?logo=github
-    :target: https://github.com/OCA/l10n-usa/tree/16.0/l10n_us_form_1099
+    :target: https://github.com/OCA/l10n-usa/tree/17.0/l10n_us_form_1099
     :alt: OCA/l10n-usa
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/l10n-usa-16-0/l10n-usa-16-0-l10n_us_form_1099
+    :target: https://translation.odoo-community.org/projects/l10n-usa-17-0/l10n-usa-17-0-l10n_us_form_1099
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/l10n-usa&target_branch=16.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/l10n-usa&target_branch=17.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-When companies hire others as contractors, the contractor in question may
-work for themselves, another company or be the whole other company. This
-is a huge range, but it can be simplified down to "do I report their
-payment to the IRS as a 1099?".
+When companies hire others as contractors, the contractor in question
+may work for themselves, another company or be the whole other company.
+This is a huge range, but it can be simplified down to "do I report
+their payment to the IRS as a 1099?".
 
-This module extends the functionality of a partner and allows you to specify
-1099 suppliers, their 1099 type and their 1099-MISC box.
+This module extends the functionality of a partner and allows you to
+specify 1099 suppliers, their 1099 type and their 1099-MISC box.
 
-It also provide a report of payments by types and boxes in Accounting > Reporting > 1099 Report.
+It also provide a report of payments by types and boxes in Accounting >
+Reporting > 1099 Report.
 
 You will still need to manage payment and IRS reporting separately.
 
@@ -48,25 +49,25 @@ You will still need to manage payment and IRS reporting separately.
 Configuration
 =============
 
-#. Go to Contacts > Configuration > 1099 Types
-#. Review the existing types and update them if necessary
-#. Go to Contacts > Configuration > 1099-MISC Boxes
-#. Review the existing boxes and update them if necessary
+1. Go to Contacts > Configuration > 1099 Types
+2. Review the existing types and update them if necessary
+3. Go to Contacts > Configuration > 1099-MISC Boxes
+4. Review the existing boxes and update them if necessary
 
 Usage
 =====
 
 To use this module, you need to:
 
-#. Go to Contacts
-#. Create or select a partner
-#. Go to the Sales & Purchases tab
-#. Check the "Is a 1099" box
-#. Select their 1099 type
-#. If their type is 1099-MISC, you can select their box
-#. Go to Invoicing > Bills > Vendors
-#. Create vendor bills and payments for those 1099 vendors
-#. Go to Invoicing > Reporting > 1099 Report
+1. Go to Contacts
+2. Create or select a partner
+3. Go to the Sales & Purchases tab
+4. Check the "Is a 1099" box
+5. Select their 1099 type
+6. If their type is 1099-MISC, you can select their box
+7. Go to Invoicing > Bills > Vendors
+8. Create vendor bills and payments for those 1099 vendors
+9. Go to Invoicing > Reporting > 1099 Report
 
 Bug Tracker
 ===========
@@ -74,7 +75,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/l10n-usa/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/l10n-usa/issues/new?body=module:%20l10n_us_form_1099%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/l10n-usa/issues/new?body=module:%20l10n_us_form_1099%0Aversion:%2017.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -82,32 +83,32 @@ Credits
 =======
 
 Authors
-~~~~~~~
+-------
 
 * Open Source Integrators
 * Brian McMaster
 
 Contributors
-~~~~~~~~~~~~
+------------
 
-* Jenny Wu <jwu@ursainfosystems.com>
-* Maxime Chambreuil <mchambreuil@opensourceintegrators.com>
-* Serpent Consulting Services Pvt. Ltd. <support@serpentcs.com>
-* Bhavesh Odedra <bodedra@opensourceintegrators.com>
-* Brian McMaster <brian@mcmpest.com>
-* Jevin Dement <jdement@opensourceintegrators.com>
-* Levent Karakas <leventk@eska.biz>
+-  Jenny Wu <jwu@ursainfosystems.com>
+-  Maxime Chambreuil <mchambreuil@opensourceintegrators.com>
+-  Serpent Consulting Services Pvt. Ltd. <support@serpentcs.com>
+-  Bhavesh Odedra <bodedra@opensourceintegrators.com>
+-  Brian McMaster <brian@mcmpest.com>
+-  Jevin Dement <jdement@opensourceintegrators.com>
+-  Levent Karakas <leventk@eska.biz>
 
 Other credits
-~~~~~~~~~~~~~
+-------------
 
 The development of this module has been financially supported by:
 
-* Open Source Integrators <https://www.opensourceintegrators.com>
-* Brian McMaster
+-  Open Source Integrators <https://www.opensourceintegrators.com>
+-  Brian McMaster
 
 Maintainers
-~~~~~~~~~~~
+-----------
 
 This module is maintained by the OCA.
 
@@ -127,6 +128,6 @@ Current `maintainer <https://odoo-community.org/page/maintainer-role>`__:
 
 |maintainer-max3903| 
 
-This module is part of the `OCA/l10n-usa <https://github.com/OCA/l10n-usa/tree/16.0/l10n_us_form_1099>`_ project on GitHub.
+This module is part of the `OCA/l10n-usa <https://github.com/OCA/l10n-usa/tree/17.0/l10n_us_form_1099>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
