@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!-- pylint:disable=duplicate-xml-record-id -->
 <odoo>
     <!-- Chart template of l10n_us -->
     <!-- Account template definition -->
@@ -754,6 +753,7 @@
         <field name="user_type_id" ref="account.data_account_type_revenue" />
         <field name="chart_template_id" ref="l10n_us_gaap_chart_template" />
     </record>
+
     <!-- Account Chart Template -->
     <record id="l10n_us_gaap_chart_template" model="account.chart.template">
         <field name="property_account_receivable_id" ref="account_template_121" />
