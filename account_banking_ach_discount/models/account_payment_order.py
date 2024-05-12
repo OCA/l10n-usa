@@ -16,7 +16,6 @@ class AccountPaymentOrder(models.Model):
                 bank_payment_id = vals[2].get("bank_payment_line_id")
                 bank_payment = bank_payment_line_pool.browse(bank_payment_id)
                 for line in bank_payment.payment_line_ids:
-
                     temp_vals = vals[2].copy()
                     amount = line.amount_currency
                     discount = line.discount_amount
