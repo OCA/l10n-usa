@@ -11,5 +11,6 @@
     "category": "Banking addons",
     "depends": ["account"],
     "data": ["views/res_partner.xml"],
+    "external_dependencies": {"python": ["stdnum"]},
     "installable": True,
 }
