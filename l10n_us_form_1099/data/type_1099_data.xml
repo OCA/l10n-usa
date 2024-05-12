@@ -1,0 +1,59 @@
+<odoo>
+    <record id="1099_type_a" model="type.1099">
+        <field name="name">1099-A</field>
+    </record>
+    <record id="1099_type_b" model="type.1099">
+        <field name="name">1099-B</field>
+    </record>
+    <record id="1099_type_c" model="type.1099">
+        <field name="name">1099-C</field>
+    </record>
+    <record id="1099_type_cap" model="type.1099">
+        <field name="name">1099-CAP</field>
+    </record>
+    <record id="1099_type_div" model="type.1099">
+        <field name="name">1099-DIV</field>
+    </record>
+    <record id="1099_type_g" model="type.1099">
+        <field name="name">1099-G</field>
+    </record>
+    <record id="1099_type_h" model="type.1099">
+        <field name="name">1099-H</field>
+    </record>
+    <record id="1099_type_int" model="type.1099">
+        <field name="name">1099-INT</field>
+    </record>
+    <record id="1099_type_k" model="type.1099">
+        <field name="name">1099-K</field>
+    </record>
+    <record id="1099_type_ltc" model="type.1099">
+        <field name="name">1099-LTC</field>
+    </record>
+    <record id="1099_type_misc" model="type.1099">
+        <field name="name">1099-MISC</field>
+    </record>
+    <record id="1099_type_oid" model="type.1099">
+        <field name="name">1099-OID</field>
+    </record>
+    <record id="1099_type_patr" model="type.1099">
+        <field name="name">1099-PATR</field>
+    </record>
+    <record id="1099_type_q" model="type.1099">
+        <field name="name">1099-Q</field>
+    </record>
+    <record id="1099_type_r" model="type.1099">
+        <field name="name">1099-R</field>
+    </record>
+    <record id="1099_type_s" model="type.1099">
+        <field name="name">1099-S</field>
+    </record>
+    <record id="1099_type_sa" model="type.1099">
+        <field name="name">1099-SA</field>
+    </record>
+    <record id="1099_type_rrb" model="type.1099">
+        <field name="name">RRB-1099</field>
+    </record>
+    <record id="1099_type_ssa" model="type.1099">
+        <field name="name">SSA-1099</field>
+    </record>
+</odoo>
