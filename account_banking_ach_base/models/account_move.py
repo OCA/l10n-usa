@@ -18,7 +18,8 @@ class AccountMove(models.Model):
             if today < delay_expired:
                 raise UserError(
                     _(
-                        "To satisfy payment mandate, cannot add invoice %(name)s to Debit Order until %(delay_expired)s!"
+                        "To satisfy payment mandate, cannot add "
+                        "invoice %(name)s to Debit Order until %(delay_expired)s!"
                     ),
                     name=invoice.name,
                     delay_expired=delay_expired.strftime("%Y-%m-%d"),
