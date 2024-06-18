@@ -31,7 +31,6 @@
         <field name="arch" type="xml">
             <field name="unique_mandate_reference" position="after">
                 <field name="scheme" />
-                <field name="type" string="Type" />
                 <field name="recurrent_sequence_type" string="Sequence Type" />
             </field>
         </field>

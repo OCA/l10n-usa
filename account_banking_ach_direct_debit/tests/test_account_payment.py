@@ -6,57 +6,56 @@ from odoo.tests.common import TransactionCase
 
 
 class TestPayment(TransactionCase):
-    def setUp(self):
-        super(TestPayment, self).setUp()
-        self.partner = self.env["res.partner"].create({"name": "Partner 1"})
-        self.company = self.env.ref("base.main_company")
-        self.company.partner_id = self.partner.id
-        self.company.legal_id_number = "12-3456789"
-        self.payment_method_model = self.env["account.payment.method"]
-        self.ach_payment_method_01 = self.payment_method_model.search(
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.partner = cls.env["res.partner"].create({"name": "Partner 1"})
+        cls.company = cls.env.ref("base.main_company")
+        cls.company.partner_id = cls.partner.id
+        cls.company.legal_id_number = "12-3456789"
+        cls.payment_method_model = cls.env["account.payment.method"]
+        cls.ach_payment_method_01 = cls.payment_method_model.search(
             [("code", "=", "ACH-In")], limit=1
         )
-        self.acme_bank = self.env["res.bank"].create(
+        cls.acme_bank = cls.env["res.bank"].create(
             {
                 "name": "ACME Bank",
                 "bic": "GEBABEBB03B",
                 "city": "Charleroi",
                 "routing_number": "021000021",
-                "country": self.env.ref("base.be").id,
+                "country": cls.env.ref("base.be").id,
             }
         )
-        bank_account = self.env["res.partner.bank"].create(
+        bank_account = cls.env["res.partner.bank"].create(
             {
                 "acc_number": "0023032234211123",
-                "partner_id": self.partner.id,
-                "bank_id": self.acme_bank.id,
-                "company_id": self.company.id,
+                "partner_id": cls.partner.id,
+                "bank_id": cls.acme_bank.id,
+                "company_id": cls.company.id,
             }
         )
-        self.journal_c1 = self.env["account.journal"].create(
+        cls.journal_c1 = cls.env["account.journal"].create(
             {
                 "name": "Journal 1",
                 "code": "J1",
                 "type": "bank",
-                "company_id": self.company.id,
+                "company_id": cls.company.id,
                 "bank_account_id": bank_account.id,
             }
         )
-        self.inbound_mode = self.env.ref(
-            "account_payment_mode.payment_mode_inbound_dd1"
-        )
-        self.journal = self.env["account.journal"].search(
-            [("type", "=", "bank"), ("company_id", "=", self.env.user.company_id.id)],
+        cls.inbound_mode = cls.env.ref("account_payment_mode.payment_mode_inbound_dd1")
+        cls.journal = cls.env["account.journal"].search(
+            [("type", "=", "bank"), ("company_id", "=", cls.env.user.company_id.id)],
             limit=1,
         )
-        self.payment_mode_c1 = self.env["account.payment.mode"].create(
+        cls.payment_mode_c1 = cls.env["account.payment.mode"].create(
             {
                 "name": "ACH Direct Debit",
                 "bank_account_link": "variable",
-                "payment_method_id": self.ach_payment_method_01.id,
-                "company_id": self.company.id,
-                "fixed_journal_id": self.journal_c1.id,
-                "variable_journal_ids": [(6, 0, [self.journal_c1.id])],
+                "payment_method_id": cls.ach_payment_method_01.id,
+                "company_id": cls.company.id,
+                "fixed_journal_id": cls.journal_c1.id,
+                "variable_journal_ids": [(6, 0, [cls.journal_c1.id])],
             }
         )
 

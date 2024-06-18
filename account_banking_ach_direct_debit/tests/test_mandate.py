@@ -6,9 +6,10 @@ from odoo.tests.common import TransactionCase
 
 
 class TestMandate(TransactionCase):
-    def setUp(self):
-        super(TestMandate, self).setUp()
-        self.company = self.env.ref("base.main_company")
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.company = cls.env.ref("base.main_company")
 
     def test_bank_mandate(self):
         bank_account = self.env.ref("account_payment_mode.res_partner_12_iban")
