@@ -25,6 +25,7 @@ class AccountBankingMandate(models.Model):
         """
         Set the payment modes on the Partner if they don't already exist.
         """
+        self.ensure_one()
         payment_modes = {}
         if (
             self.partner_id.customer_rank
