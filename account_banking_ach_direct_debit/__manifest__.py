@@ -4,7 +4,7 @@
 {
     "name": "Account Banking ACH Direct Debit",
     "summary": "Create ACH files for Direct Debit",
-    "version": "14.0.1.0.0",
+    "version": "16.0.1.0.0",
     "license": "AGPL-3",
     "author": "Thinkwell Designs, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/l10n-usa",
