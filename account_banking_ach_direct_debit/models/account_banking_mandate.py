@@ -37,7 +37,6 @@ class AccountBankingMandate(models.Model):
     )
     scheme = fields.Selection(
         [("CORE", "Basic (CORE)"), ("B2B", "Enterprise (B2B)")],
-        string="Scheme",
         default="CORE",
         tracking=True,
     )
@@ -49,8 +48,11 @@ class AccountBankingMandate(models.Model):
         for mandate in self:
             if mandate.type == "recurrent" and not mandate.recurrent_sequence_type:
                 raise exceptions.ValidationError(
-                    _("The recurrent mandate '%s' must have a sequence type.")
-                    % mandate.unique_mandate_reference
+                    _(
+                        "The recurrent mandate '%(mandate_reference)s' "
+                        "must have a sequence type."
+                    )
+                    % {"mandate_reference": mandate.unique_mandate_reference}
                 )
 
     @api.depends("unique_mandate_reference", "recurrent_sequence_type")
