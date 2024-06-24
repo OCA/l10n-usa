@@ -21,6 +21,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
+[l10n_us_account_routing](l10n_us_account_routing/) | 16.0.1.0.0 |  | Add the routing numbers to the banks
 [l10n_us_form_1099](l10n_us_form_1099/) | 16.0.1.0.0 | [![max3903](https://github.com/max3903.png?size=30px)](https://github.com/max3903) | Manage 1099 Types and Suppliers
 [l10n_us_gaap](l10n_us_gaap/) | 16.0.1.0.0 | [![JordiBForgeFlow](https://github.com/JordiBForgeFlow.png?size=30px)](https://github.com/JordiBForgeFlow) | United States Sample GAAP Chart of Accounts
 [l10n_us_gaap_mis_report](l10n_us_gaap_mis_report/) | 16.0.1.0.0 | [![JordiBForgeFlow](https://github.com/JordiBForgeFlow.png?size=30px)](https://github.com/JordiBForgeFlow) | MIS Builder Templates for US Chart of Accounts
