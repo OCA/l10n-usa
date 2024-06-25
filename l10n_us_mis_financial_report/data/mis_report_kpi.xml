@@ -1,0 +1,532 @@
+<odoo>
+    <!-- Profit & Loss (US) -->
+    <record id="kpi_net_profit" model="mis.report.kpi">
+        <field name="name">net_profit</field>
+        <field name="description">Net Profit</field>
+        <field
+            name="expression"
+        >op_inc + other_inc - cost_of_reven - expenses - depreciation</field>
+        <field name="style_id" ref="mis_template_financial_report.style_header" />
+        <field name="type">num</field>
+        <field name="compare_method">diff</field>
+        <field name="accumulation_method">sum</field>
+        <field name="sequence">0</field>
+        <field name="report_id" ref="report_pl_us" />
+    </record>
+    <record id="kpi_income" model="mis.report.kpi">
+        <field name="name">income</field>
+        <field name="description">Income</field>
+        <field name="expression">op_inc + other_inc</field>
+        <field name="style_id" ref="mis_template_financial_report.style_header" />
+        <field name="type">num</field>
+        <field name="compare_method">diff</field>
+        <field name="accumulation_method">sum</field>
+        <field name="sequence">1</field>
+        <field name="report_id" ref="report_pl_us" />
+    </record>
+    <record id="kpi_gross_profit" model="mis.report.kpi">
+        <field name="name">gross_profit</field>
+        <field name="description">Gross Profit</field>
+        <field name="expression">op_inc - cost_of_reven</field>
+        <field
+            name="style_id"
+            ref="mis_template_financial_report.style_header_indent"
+        />
+        <field name="type">num</field>
+        <field name="compare_method">diff</field>
+        <field name="accumulation_method">sum</field>
+        <field name="sequence">2</field>
+        <field name="report_id" ref="report_pl_us" />
+    </record>
+    <record id="kpi_op_inc" model="mis.report.kpi">
+        <field name="name">op_inc</field>
+        <field name="description">Operating Income</field>
+        <field name="expression">-balp[('account_type', '=', 'income')][]</field>
+        <field name="auto_expand_accounts">true</field>
+        <field name="auto_expand_accounts_style_id" ref="style_details_triple_indent" />
+        <field name="style_id" ref="style_double_header_indent" />
+        <field name="type">num</field>
+        <field name="compare_method">diff</field>
+        <field name="accumulation_method">sum</field>
+        <field name="sequence">3</field>
+        <field name="report_id" ref="report_pl_us" />
+        <field name="split_after" eval="True" />
+    </record>
+    <record id="kpi_cost_of_reven" model="mis.report.kpi">
+        <field name="name">cost_of_reven</field>
+        <field name="description">Cost of Revenue</field>
+        <field
+            name="expression"
+        >balp[('account_type', '=', 'expense_direct_cost')][]</field>
+        <field name="auto_expand_accounts">true</field>
+        <field name="auto_expand_accounts_style_id" ref="style_details_triple_indent" />
+        <field name="style_id" ref="style_double_header_indent" />
+        <field name="type">num</field>
+        <field name="compare_method">diff</field>
+        <field name="accumulation_method">sum</field>
+        <field name="sequence">4</field>
+        <field name="report_id" ref="report_pl_us" />
+        <field name="split_after" eval="True" />
+    </record>
+    <record id="kpi_other_inc" model="mis.report.kpi">
+        <field name="name">other_inc</field>
+        <field name="description">Other Income</field>
+        <field name="expression">-balp[('account_type', '=', 'income_other')][]</field>
+        <field name="auto_expand_accounts">true</field>
+        <field
+            name="auto_expand_accounts_style_id"
+            ref="mis_template_financial_report.style_details_double_indent"
+        />
+        <field
+            name="style_id"
+            ref="mis_template_financial_report.style_header_indent"
+        />
+        <field name="type">num</field>
+        <field name="compare_method">diff</field>
+        <field name="accumulation_method">sum</field>
+        <field name="sequence">5</field>
+        <field name="report_id" ref="report_pl_us" />
+        <field name="split_after" eval="True" />
+    </record>
+    <record id="kpi_expenses_total" model="mis.report.kpi">
+        <field name="name">expenses_total</field>
+        <field name="description">Expenses</field>
+        <field name="expression">expenses + depreciation</field>
+        <field name="style_id" ref="mis_template_financial_report.style_header" />
+        <field name="type">num</field>
+        <field name="compare_method">diff</field>
+        <field name="accumulation_method">sum</field>
+        <field name="sequence">6</field>
+        <field name="report_id" ref="report_pl_us" />
+    </record>
+    <record id="kpi_expenses" model="mis.report.kpi">
+        <field name="name">expenses</field>
+        <field name="description">Expenses</field>
+        <field name="expression">balp[('account_type', '=', 'expense')][]</field>
+        <field name="auto_expand_accounts">true</field>
+        <field
+            name="auto_expand_accounts_style_id"
+            ref="mis_template_financial_report.style_details_double_indent"
+        />
+        <field
+            name="style_id"
+            ref="mis_template_financial_report.style_header_indent"
+        />
+        <field name="type">num</field>
+        <field name="compare_method">diff</field>
+        <field name="accumulation_method">sum</field>
+        <field name="sequence">7</field>
+        <field name="report_id" ref="report_pl_us" />
+        <field name="split_after" eval="True" />
+    </record>
+    <record id="kpi_depreciation" model="mis.report.kpi">
+        <field name="name">depreciation</field>
+        <field name="description">Depreciation</field>
+        <field
+            name="expression"
+        >balp[('account_type', '=', 'expense_depreciation')][]</field>
+        <field name="auto_expand_accounts">true</field>
+        <field
+            name="auto_expand_accounts_style_id"
+            ref="mis_template_financial_report.style_details_double_indent"
+        />
+        <field
+            name="style_id"
+            ref="mis_template_financial_report.style_header_indent"
+        />
+        <field name="type">num</field>
+        <field name="compare_method">diff</field>
+        <field name="accumulation_method">sum</field>
+        <field name="sequence">8</field>
+        <field name="report_id" ref="report_pl_us" />
+        <field name="split_after" eval="True" />
+    </record>
+
+    <!-- Balance Sheet (US) -->
+    <record id="kpi_assets" model="mis.report.kpi">
+        <field name="name">assets</field>
+        <field name="description">Assets</field>
+        <field
+            name="expression"
+        >current_assets + fixed_assets + non_current_assets</field>
+        <field name="auto_expand_accounts">false</field>
+        <field name="style_id" ref="mis_template_financial_report.style_header" />
+        <field name="type">num</field>
+        <field name="compare_method">diff</field>
+        <field name="accumulation_method">sum</field>
+        <field name="sequence">0</field>
+        <field name="report_id" ref="report_bs_us" />
+    </record>
+    <record id="kpi_current_assets" model="mis.report.kpi">
+        <field name="name">current_assets</field>
+        <field name="description">Current Assets</field>
+        <field
+            name="expression"
+        >bank_and_cash_accounts + receivables + current_assets_ca + prepayments</field>
+        <field name="auto_expand_accounts">false</field>
+        <field
+            name="style_id"
+            ref="mis_template_financial_report.style_header_indent"
+        />
+        <field name="type">num</field>
+        <field name="compare_method">diff</field>
+        <field name="accumulation_method">sum</field>
+        <field name="sequence">1</field>
+        <field name="report_id" ref="report_bs_us" />
+    </record>
+    <record id="kpi_bank_and_cash_accounts" model="mis.report.kpi">
+        <field name="name">bank_and_cash_accounts</field>
+        <field name="description">Bank and Cash Accounts</field>
+        <field name="expression">bale[('account_type', '=', 'asset_cash')]</field>
+        <field name="auto_expand_accounts">true</field>
+        <field name="auto_expand_accounts_style_id" ref="style_details_triple_indent" />
+        <field name="style_id" ref="style_double_header_indent" />
+        <field name="type">num</field>
+        <field name="compare_method">diff</field>
+        <field name="accumulation_method">sum</field>
+        <field name="sequence">2</field>
+        <field name="report_id" ref="report_bs_us" />
+        <field name="split_after" eval="True" />
+    </record>
+    <record id="kpi_receivables" model="mis.report.kpi">
+        <field name="name">receivables</field>
+        <field name="description">Receivables</field>
+        <field
+            name="expression"
+        >bale[('account_type', '=', 'asset_receivable'), ('non_trade', '=', False)]</field>
+        <field name="auto_expand_accounts">true</field>
+        <field name="auto_expand_accounts_style_id" ref="style_details_triple_indent" />
+        <field name="style_id" ref="style_double_header_indent" />
+        <field name="type">num</field>
+        <field name="compare_method">diff</field>
+        <field name="accumulation_method">sum</field>
+        <field name="sequence">3</field>
+        <field name="report_id" ref="report_bs_us" />
+        <field name="split_after" eval="True" />
+    </record>
+    <record id="kpi_current_assets_ca" model="mis.report.kpi">
+        <field name="name">current_assets_ca</field>
+        <field name="description">Current Assets</field>
+        <field
+            name="expression"
+        >bale['|',('account_type', '=', 'asset_current'), '&amp;', ('account_type', '=', 'asset_receivable'), ('non_trade', '=', True)]</field>
+        <field name="auto_expand_accounts">true</field>
+        <field name="auto_expand_accounts_style_id" ref="style_details_triple_indent" />
+        <field name="style_id" ref="style_double_header_indent" />
+        <field name="type">num</field>
+        <field name="compare_method">diff</field>
+        <field name="accumulation_method">sum</field>
+        <field name="sequence">4</field>
+        <field name="report_id" ref="report_bs_us" />
+        <field name="split_after" eval="True" />
+    </record>
+    <record id="kpi_prepayments" model="mis.report.kpi">
+        <field name="name">prepayments</field>
+        <field name="description">Prepayments</field>
+        <field
+            name="expression"
+        >bale[('account_type', '=', 'asset_prepayments')]</field>
+        <field name="auto_expand_accounts">true</field>
+        <field name="auto_expand_accounts_style_id" ref="style_details_triple_indent" />
+        <field name="style_id" ref="style_double_header_indent" />
+        <field name="type">num</field>
+        <field name="compare_method">diff</field>
+        <field name="accumulation_method">sum</field>
+        <field name="sequence">5</field>
+        <field name="report_id" ref="report_bs_us" />
+        <field name="split_after" eval="True" />
+    </record>
+    <record id="kpi_fixed_assets" model="mis.report.kpi">
+        <field name="name">fixed_assets</field>
+        <field name="description">Plus Fixed Assets</field>
+        <field name="expression">bale[('account_type', '=', 'asset_fixed')]</field>
+        <field name="auto_expand_accounts">true</field>
+        <field
+            name="auto_expand_accounts_style_id"
+            ref="mis_template_financial_report.style_details_double_indent"
+        />
+        <field
+            name="style_id"
+            ref="mis_template_financial_report.style_header_indent"
+        />
+        <field name="type">num</field>
+        <field name="compare_method">diff</field>
+        <field name="accumulation_method">sum</field>
+        <field name="sequence">6</field>
+        <field name="report_id" ref="report_bs_us" />
+        <field name="split_after" eval="True" />
+    </record>
+    <record id="kpi_non_current_assets" model="mis.report.kpi">
+        <field name="name">non_current_assets</field>
+        <field name="description">Plus Non-current Assets</field>
+        <field
+            name="expression"
+        >bale[('account_type', '=', 'asset_non_current')]</field>
+        <field name="auto_expand_accounts">true</field>
+        <field
+            name="auto_expand_accounts_style_id"
+            ref="mis_template_financial_report.style_details_double_indent"
+        />
+        <field
+            name="style_id"
+            ref="mis_template_financial_report.style_header_indent"
+        />
+        <field name="type">num</field>
+        <field name="compare_method">diff</field>
+        <field name="accumulation_method">sum</field>
+        <field name="sequence">7</field>
+        <field name="report_id" ref="report_bs_us" />
+        <field name="split_after" eval="True" />
+    </record>
+    <record id="kpi_liability_header" model="mis.report.kpi">
+        <field name="name">liability_header</field>
+        <field name="description">LIABILITY</field>
+        <field name="expression">abs(liability + non_current_liabilities)</field>
+        <field name="auto_expand_accounts">false</field>
+        <field name="style_id" ref="mis_template_financial_report.style_header" />
+        <field name="type">num</field>
+        <field name="compare_method">diff</field>
+        <field name="accumulation_method">sum</field>
+        <field name="sequence">8</field>
+        <field name="report_id" ref="report_bs_us" />
+    </record>
+    <record id="kpi_liability" model="mis.report.kpi">
+        <field name="name">liability</field>
+        <field name="description">Current Liabilities</field>
+        <field name="expression">abs(current_liabilities_1 + payables)</field>
+        <field name="auto_expand_accounts">true</field>
+        <field
+            name="style_id"
+            ref="mis_template_financial_report.style_header_indent"
+        />
+        <field name="type">num</field>
+        <field name="compare_method">diff</field>
+        <field name="accumulation_method">sum</field>
+        <field name="sequence">9</field>
+        <field name="report_id" ref="report_bs_us" />
+    </record>
+    <record id="kpi_current_liabilities_1" model="mis.report.kpi">
+        <field name="name">current_liabilities_1</field>
+        <field name="description">Current Liabilities</field>
+        <field
+            name="expression"
+        >abs(bale['|', ('account_type', 'in', ('liability_current', 'liability_credit_card')), '&amp;', ('account_type', '=', 'liability_payable'), ('non_trade', '=', True)])</field>
+        <field name="auto_expand_accounts">true</field>
+        <field name="auto_expand_accounts_style_id" ref="style_details_triple_indent" />
+        <field name="style_id" ref="style_double_header_indent" />
+        <field name="type">num</field>
+        <field name="compare_method">diff</field>
+        <field name="accumulation_method">sum</field>
+        <field name="sequence">10</field>
+        <field name="report_id" ref="report_bs_us" />
+        <field name="split_after" eval="True" />
+    </record>
+    <record id="kpi_payables" model="mis.report.kpi">
+        <field name="name">payables</field>
+        <field name="description">Payables</field>
+        <field
+            name="expression"
+        >abs(bale[('account_type', '=', 'liability_payable'), ('non_trade', '=', False)])</field>
+        <field name="auto_expand_accounts">true</field>
+        <field name="auto_expand_accounts_style_id" ref="style_details_triple_indent" />
+        <field name="style_id" ref="style_double_header_indent" />
+        <field name="type">num</field>
+        <field name="compare_method">diff</field>
+        <field name="accumulation_method">sum</field>
+        <field name="sequence">11</field>
+        <field name="report_id" ref="report_bs_us" />
+        <field name="split_after" eval="True" />
+    </record>
+    <record id="kpi_non_current_liabilities" model="mis.report.kpi">
+        <field name="name">non_current_liabilities</field>
+        <field name="description">Plus Non-current Liabilities</field>
+        <field
+            name="expression"
+        >abs(bale[('account_type', '=', 'liability_non_current')])</field>
+        <field name="auto_expand_accounts">true</field>
+        <field
+            name="auto_expand_accounts_style_id"
+            ref="mis_template_financial_report.style_details_double_indent"
+        />
+        <field
+            name="style_id"
+            ref="mis_template_financial_report.style_header_indent"
+        />
+        <field name="type">num</field>
+        <field name="compare_method">diff</field>
+        <field name="accumulation_method">sum</field>
+        <field name="sequence">12</field>
+        <field name="report_id" ref="report_bs_us" />
+        <field name="split_after" eval="True" />
+    </record>
+    <record id="kpi_equity" model="mis.report.kpi">
+        <field name="name">equity</field>
+        <field name="description">EQUITY</field>
+        <field name="expression">unallocated_earnings+retained_earning</field>
+        <field name="auto_expand_accounts">false</field>
+        <field name="style_id" ref="mis_template_financial_report.style_header" />
+        <field name="type">num</field>
+        <field name="compare_method">diff</field>
+        <field name="accumulation_method">sum</field>
+        <field name="sequence">13</field>
+        <field name="report_id" ref="report_bs_us" />
+    </record>
+    <record id="kpi_unallocated_earnings" model="mis.report.kpi">
+        <field name="name">unallocated_earnings</field>
+        <field name="description">Unallocated Earnings</field>
+        <field
+            name="expression"
+        >current_year_unallocated+previous_years_unallocated_earnings</field>
+        <field name="auto_expand_accounts">false</field>
+        <field
+            name="style_id"
+            ref="mis_template_financial_report.style_header_indent"
+        />
+        <field name="type">num</field>
+        <field name="compare_method">diff</field>
+        <field name="accumulation_method">sum</field>
+        <field name="sequence">14</field>
+        <field name="report_id" ref="report_bs_us" />
+    </record>
+    <record id="kpi_current_year_unallocated" model="mis.report.kpi">
+        <field name="name">current_year_unallocated</field>
+        <field name="description">Current Year Unallocated Earnings</field>
+        <field
+            name="expression"
+        >current_year_earnings+current_year_allocated_earnings</field>
+        <field name="auto_expand_accounts">false</field>
+        <field name="style_id" ref="style_double_header_indent" />
+        <field name="type">num</field>
+        <field name="compare_method">diff</field>
+        <field name="accumulation_method">sum</field>
+        <field name="sequence">15</field>
+        <field name="report_id" ref="report_bs_us" />
+    </record>
+    <record id="kpi_current_year_earnings" model="mis.report.kpi">
+        <field name="name">current_year_earnings</field>
+        <field name="description">Current Year Earnings</field>
+        <field name="expression">subreport_pl_us.net_profit</field>
+        <field name="auto_expand_accounts">false</field>
+        <field name="style_id" ref="style_triple_header_indent" />
+        <field name="type">num</field>
+        <field name="compare_method">diff</field>
+        <field name="accumulation_method">sum</field>
+        <field name="sequence">16</field>
+        <field name="report_id" ref="report_bs_us" />
+    </record>
+    <record id="kpi_current_year_allocated_earnings" model="mis.report.kpi">
+        <field name="name">current_year_allocated_earnings</field>
+        <field name="description">Current Year Allocated Earnings</field>
+        <field
+            name="expression"
+        >-balp[('account_type', '=', 'equity_unaffected')]</field>
+        <field name="auto_expand_accounts">true</field>
+        <field
+            name="auto_expand_accounts_style_id"
+            ref="style_details_cuadruple_indent"
+        />
+        <field name="style_id" ref="style_triple_header_indent" />
+        <field name="type">num</field>
+        <field name="compare_method">diff</field>
+        <field name="accumulation_method">sum</field>
+        <field name="sequence">17</field>
+        <field name="report_id" ref="report_bs_us" />
+        <field name="split_after" eval="True" />
+    </record>
+    <record id="kpi_previous_years_unallocated_earnings" model="mis.report.kpi">
+        <field name="name">previous_years_unallocated_earnings</field>
+        <field name="description">Previous Years Unallocated Earnings</field>
+        <field
+            name="expression"
+        >balance_domain+allocated_earnings-current_year_unallocated</field>
+        <field name="auto_expand_accounts">false</field>
+        <field name="style_id" ref="style_double_header_indent" />
+        <field name="type">num</field>
+        <field name="compare_method">diff</field>
+        <field name="accumulation_method">sum</field>
+        <field name="sequence">18</field>
+        <field name="report_id" ref="report_bs_us" />
+    </record>
+    <record id="kpi_retained_earning" model="mis.report.kpi">
+        <field name="name">retained_earning</field>
+        <field name="description">Retained Earning</field>
+        <field name="expression">-bale[('account_type', '=', 'equity')]</field>
+        <field name="auto_expand_accounts">true</field>
+        <field
+            name="auto_expand_accounts_style_id"
+            ref="mis_template_financial_report.style_details_double_indent"
+        />
+        <field
+            name="style_id"
+            ref="mis_template_financial_report.style_header_indent"
+        />
+        <field name="type">num</field>
+        <field name="compare_method">diff</field>
+        <field name="accumulation_method">sum</field>
+        <field name="sequence">19</field>
+        <field name="report_id" ref="report_bs_us" />
+        <field name="split_after" eval="True" />
+    </record>
+    <record id="kpi_liabilities_equity" model="mis.report.kpi">
+        <field name="name">liabilities_equity</field>
+        <field name="description">LIABILITIES + EQUITY</field>
+        <field name="expression">liability_header+equity</field>
+        <field name="auto_expand_accounts">false</field>
+        <field name="style_id" ref="mis_template_financial_report.style_header" />
+        <field name="type">num</field>
+        <field name="compare_method">diff</field>
+        <field name="accumulation_method">sum</field>
+        <field name="sequence">20</field>
+        <field name="report_id" ref="report_bs_us" />
+    </record>
+    <record id="kpi_os" model="mis.report.kpi">
+        <field name="name">os</field>
+        <field name="description">OFF BALANCE SHEET ACCOUNTS</field>
+        <field name="expression">abs(bale[('account_type', '=', 'off_balance')])</field>
+        <field name="auto_expand_accounts">true</field>
+        <field
+            name="auto_expand_accounts_style_id"
+            ref="mis_template_financial_report.style_details_double_indent"
+        />
+        <field
+            name="style_id"
+            ref="mis_template_financial_report.style_header_indent"
+        />
+        <field name="type">num</field>
+        <field name="compare_method">diff</field>
+        <field name="accumulation_method">sum</field>
+        <field name="sequence">21</field>
+        <field name="report_id" ref="report_bs_us" />
+        <field name="split_after" eval="True" />
+    </record>
+    <record id="kpi_allocated_earnings" model="mis.report.kpi">
+        <field name="name">allocated_earnings</field>
+        <field name="description">Allocated earnings</field>
+        <field
+            name="expression"
+        >-bale[('account_type', '=', 'equity_unaffected')]</field>
+        <field name="auto_expand_accounts">false</field>
+        <field name="style_id" ref="style_hide" />
+        <field name="type">num</field>
+        <field name="compare_method">diff</field>
+        <field name="accumulation_method">sum</field>
+        <field name="sequence">22</field>
+        <field name="report_id" ref="report_bs_us" />
+        <field name="split_after" eval="True" />
+    </record>
+    <record id="kpi_balance_domain" model="mis.report.kpi">
+        <field name="name">balance_domain</field>
+        <field name="description">Balance Domain</field>
+        <field
+            name="expression"
+        >-(balu[('account_type', 'in', ('income', 'income_other', 'expense_direct_cost', 'expense', 'expense_depreciation'))]+balp[('account_type', 'in', ('income', 'income_other', 'expense_direct_cost', 'expense', 'expense_depreciation'))])</field>
+        <field name="auto_expand_accounts">false</field>
+        <field name="style_id" ref="style_hide" />
+        <field name="type">num</field>
+        <field name="compare_method">diff</field>
+        <field name="accumulation_method">sum</field>
+        <field name="sequence">23</field>
+        <field name="report_id" ref="report_bs_us" />
+        <field name="split_after" eval="True" />
+    </record>
+</odoo>
