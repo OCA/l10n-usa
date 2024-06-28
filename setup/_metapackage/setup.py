@@ -12,6 +12,7 @@ setuptools.setup(
         'odoo-addon-l10n_us_form_1099>=16.0dev,<16.1dev',
         'odoo-addon-l10n_us_gaap>=16.0dev,<16.1dev',
         'odoo-addon-l10n_us_gaap_mis_report>=16.0dev,<16.1dev',
+        'odoo-addon-l10n_us_mis_financial_report>=16.0dev,<16.1dev',
         'odoo-addon-l10n_us_partner_legal_number>=16.0dev,<16.1dev',
     ],
     classifiers=[
