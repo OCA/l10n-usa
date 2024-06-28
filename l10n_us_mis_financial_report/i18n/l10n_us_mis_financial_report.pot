@@ -1,0 +1,177 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_us_mis_financial_report
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_us_mis_financial_report
+#: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_allocated_earnings
+msgid "Allocated earnings"
+msgstr ""
+
+#. module: l10n_us_mis_financial_report
+#: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_assets
+msgid "Assets"
+msgstr ""
+
+#. module: l10n_us_mis_financial_report
+#: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_balance_domain
+msgid "Balance Domain"
+msgstr ""
+
+#. module: l10n_us_mis_financial_report
+#: model:mis.report,name:l10n_us_mis_financial_report.report_bs_us
+msgid "Balance Sheet (US)"
+msgstr ""
+
+#. module: l10n_us_mis_financial_report
+#: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_bank_and_cash_accounts
+msgid "Bank and Cash Accounts"
+msgstr ""
+
+#. module: l10n_us_mis_financial_report
+#: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_cost_of_reven
+msgid "Cost of Revenue"
+msgstr ""
+
+#. module: l10n_us_mis_financial_report
+#: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_current_assets
+#: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_current_assets_ca
+msgid "Current Assets"
+msgstr ""
+
+#. module: l10n_us_mis_financial_report
+#: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_current_liabilities_1
+#: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_liability
+msgid "Current Liabilities"
+msgstr ""
+
+#. module: l10n_us_mis_financial_report
+#: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_current_year_allocated_earnings
+msgid "Current Year Allocated Earnings"
+msgstr ""
+
+#. module: l10n_us_mis_financial_report
+#: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_current_year_earnings
+msgid "Current Year Earnings"
+msgstr ""
+
+#. module: l10n_us_mis_financial_report
+#: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_current_year_unallocated
+msgid "Current Year Unallocated Earnings"
+msgstr ""
+
+#. module: l10n_us_mis_financial_report
+#: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_depreciation
+msgid "Depreciation"
+msgstr ""
+
+#. module: l10n_us_mis_financial_report
+#: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_equity
+msgid "EQUITY"
+msgstr ""
+
+#. module: l10n_us_mis_financial_report
+#: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_expenses
+#: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_expenses_total
+msgid "Expenses"
+msgstr ""
+
+#. module: l10n_us_mis_financial_report
+#: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_gross_profit
+msgid "Gross Profit"
+msgstr ""
+
+#. module: l10n_us_mis_financial_report
+#: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_income
+msgid "Income"
+msgstr ""
+
+#. module: l10n_us_mis_financial_report
+#: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_liabilities_equity
+msgid "LIABILITIES + EQUITY"
+msgstr ""
+
+#. module: l10n_us_mis_financial_report
+#: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_liability_header
+msgid "LIABILITY"
+msgstr ""
+
+#. module: l10n_us_mis_financial_report
+#: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_net_profit
+msgid "Net Profit"
+msgstr ""
+
+#. module: l10n_us_mis_financial_report
+#: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_os
+msgid "OFF BALANCE SHEET ACCOUNTS"
+msgstr ""
+
+#. module: l10n_us_mis_financial_report
+#: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_op_inc
+msgid "Operating Income"
+msgstr ""
+
+#. module: l10n_us_mis_financial_report
+#: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_other_inc
+msgid "Other Income"
+msgstr ""
+
+#. module: l10n_us_mis_financial_report
+#: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_payables
+msgid "Payables"
+msgstr ""
+
+#. module: l10n_us_mis_financial_report
+#: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_fixed_assets
+msgid "Plus Fixed Assets"
+msgstr ""
+
+#. module: l10n_us_mis_financial_report
+#: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_non_current_assets
+msgid "Plus Non-current Assets"
+msgstr ""
+
+#. module: l10n_us_mis_financial_report
+#: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_non_current_liabilities
+msgid "Plus Non-current Liabilities"
+msgstr ""
+
+#. module: l10n_us_mis_financial_report
+#: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_prepayments
+msgid "Prepayments"
+msgstr ""
+
+#. module: l10n_us_mis_financial_report
+#: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_previous_years_unallocated_earnings
+msgid "Previous Years Unallocated Earnings"
+msgstr ""
+
+#. module: l10n_us_mis_financial_report
+#: model:mis.report,name:l10n_us_mis_financial_report.report_pl_us
+msgid "Profit & Loss (US)"
+msgstr ""
+
+#. module: l10n_us_mis_financial_report
+#: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_receivables
+msgid "Receivables"
+msgstr ""
+
+#. module: l10n_us_mis_financial_report
+#: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_retained_earning
+msgid "Retained Earning"
+msgstr ""
+
+#. module: l10n_us_mis_financial_report
+#: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_unallocated_earnings
+msgid "Unallocated Earnings"
+msgstr ""
