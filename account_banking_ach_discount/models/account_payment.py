@@ -1,7 +1,7 @@
 # Copyright (C) 2019 Open Source Integrators
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo import _, api, fields, models
+from odoo import _, models
 from odoo.exceptions import UserError
 
 
@@ -50,49 +50,4 @@ class AccountPayment(models.Model):
                         payment.unlink()
                         return action
         res = super(AccountPayment, self).action_validate_invoice_payment()
-        return res
-
-
-class AccountPaymentLine(models.Model):
-    _inherit = "account.payment.line"
-
-    discount_amount = fields.Monetary(currency_field="currency_id")
-    total_amount = fields.Monetary(
-        compute="_compute_total_amount", currency_field="currency_id"
-    )
-    payment_difference_handling = fields.Selection(
-        [("open", "Keep open"), ("reconcile", "Mark invoice as fully paid")],
-        default="reconcile",
-        string="Action",
-        copy=False,
-    )
-    writeoff_account_id = fields.Many2one(
-        "account.account",
-        string="Account",
-        domain=[("deprecated", "!=", True)],
-        copy=False,
-    )
-    reason_code = fields.Many2one("payment.adjustment.reason")
-    note = fields.Text()
-    payment_difference = fields.Float()
-    move_id = fields.Many2one(
-        "account.move", related="move_line_id.move_id", store=True
-    )
-
-    @api.onchange("discount_amount")
-    def _onchange_discount_amount(self):
-        if self.discount_amount:
-            self.amount_currency = self.amount_currency - self.discount_amount
-
-    @api.depends("amount_currency", "discount_amount")
-    def _compute_total_amount(self):
-        for line in self:
-            line.total_amount = line.amount_currency + line.payment_difference
-
-    @api.model
-    def same_fields_payment_line_and_bank_payment_line(self):
-        res = super(
-            AccountPaymentLine, self
-        ).same_fields_payment_line_and_bank_payment_line()
-        res.append("discount_amount")
         return res
