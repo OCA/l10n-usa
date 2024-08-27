@@ -519,7 +519,7 @@
         <field name="description">Balance Domain</field>
         <field
             name="expression"
-        >-(balu[('account_type', 'in', ('income', 'income_other', 'expense_direct_cost', 'expense', 'expense_depreciation'))]+balp[('account_type', 'in', ('income', 'income_other', 'expense_direct_cost', 'expense', 'expense_depreciation'))])</field>
+        >-(balu[('account_type', 'in', ('income', 'income_other', 'expense_direct_cost', 'expense', 'expense_depreciation'))]+bale[('account_type', 'in', ('income', 'income_other', 'expense_direct_cost', 'expense', 'expense_depreciation'))])</field>
         <field name="auto_expand_accounts">false</field>
         <field name="style_id" ref="style_hide" />
         <field name="type">num</field>
