@@ -17,16 +17,17 @@ United States Sample GAAP Chart of Accounts
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fl10n--usa-lightgray.png?logo=github
-    :target: https://github.com/OCA/l10n-usa/tree/16.0/l10n_us_gaap
+    :target: https://github.com/OCA/l10n-usa/tree/17.0/l10n_us_gaap
     :alt: OCA/l10n-usa
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/l10n-usa-16-0/l10n-usa-16-0-l10n_us_gaap
+    :target: https://translation.odoo-community.org/projects/l10n-usa-17-0/l10n-usa-17-0-l10n_us_gaap
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/l10n-usa&target_branch=16.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/l10n-usa&target_branch=17.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
+
 
 
 **Table of contents**
@@ -37,18 +38,18 @@ United States Sample GAAP Chart of Accounts
 Installation
 ============
 
-This module should be installed before any other accounting related module.
-Otherwise Odoo will install the module l10n_us in the current company, by
-default.
+This module should be installed before any other accounting related
+module. Otherwise Odoo will install the module l10n_us in the current
+company, by default.
 
 Usage
 =====
 
-Provides a sample Chart of Accounts (CoA) for the United States based on the
-principles of GAAP.
+Provides a sample Chart of Accounts (CoA) for the United States based on
+the principles of GAAP.
 
 Additional remarks
-~~~~~~~~~~~~~~~~~~
+------------------
 
 Companies should review and alter the sample CoA to fulfill the specific
 needs of their business.
@@ -57,8 +58,8 @@ U.S. SEC not allow the classification of expenses by nature, thus the
 classification is proposed by function.
 
 This module contains in the 'docs' folder a a sample Trial Balance
-generated using the `OCA Account Financial Report module
-<https://github.com/OCA/account-financial-reporting/blob/12.0/account_financial_report>`_.
+generated using the `OCA Account Financial Report
+module <https://github.com/OCA/account-financial-reporting/blob/12.0/account_financial_report>`__.
 
 Bug Tracker
 ===========
@@ -66,7 +67,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/l10n-usa/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/l10n-usa/issues/new?body=module:%20l10n_us_gaap%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/l10n-usa/issues/new?body=module:%20l10n_us_gaap%0Aversion:%2017.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -74,20 +75,20 @@ Credits
 =======
 
 Authors
-~~~~~~~
+-------
 
 * ForgeFlow
 
 Contributors
-~~~~~~~~~~~~
+------------
 
-* Jordi Ballester Alomar <jordi.ballester@forgeflow.com>
-* Diogo Duarte <dduarte@odoogap.com>
-* Bhavesh Odedra <bodedra@opensourceintegrators.com>
-* Levent Karakas <leventk@eska.biz>
+-  Jordi Ballester Alomar <jordi.ballester@forgeflow.com>
+-  Diogo Duarte <dduarte@odoogap.com>
+-  Bhavesh Odedra <bodedra@opensourceintegrators.com>
+-  Levent Karakas <leventk@eska.biz>
 
 Maintainers
-~~~~~~~~~~~
+-----------
 
 This module is maintained by the OCA.
 
@@ -107,6 +108,6 @@ Current `maintainer <https://odoo-community.org/page/maintainer-role>`__:
 
 |maintainer-JordiBForgeFlow| 
 
-This module is part of the `OCA/l10n-usa <https://github.com/OCA/l10n-usa/tree/16.0/l10n_us_gaap>`_ project on GitHub.
+This module is part of the `OCA/l10n-usa <https://github.com/OCA/l10n-usa/tree/17.0/l10n_us_gaap>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
