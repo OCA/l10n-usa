@@ -59,7 +59,7 @@ classification is proposed by function.
 
 This module contains in the 'docs' folder a a sample Trial Balance
 generated using the `OCA Account Financial Report
-module <https://github.com/OCA/account-financial-reporting/blob/12.0/account_financial_report>`__.
+module <https://github.com/OCA/account-financial-reporting/blob/17.0/account_financial_report>`__.
 
 Bug Tracker
 ===========
