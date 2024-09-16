@@ -1,7 +1,7 @@
 Includes the following templates for the *mis_builder* module.
 
-* US Balance Sheet
-* US Income Statement
+- US Balance Sheet
+- US Income Statement
 
 The templates are based on the Chart of Accounts provided by the module
 *l10n_us_gaap*.
