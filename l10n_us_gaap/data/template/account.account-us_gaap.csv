@@ -1,0 +1,113 @@
+id,name,code,account_type
+l10n_us_gaap_account_2121,Stock Interim (Received),2121,asset_current
+l10n_us_gaap_account_1331,Stock Interim (Delivered),1331,asset_current
+l10n_us_gaap_account_112,Investments And Securities,112,asset_current
+l10n_us_gaap_account_113,Derivative Instruments And Hedges,113,asset_current
+l10n_us_gaap_account_114,"Capital Leases, Lessor",114,asset_current
+l10n_us_gaap_account_115,Restricted Assets,115,asset_current
+l10n_us_gaap_account_116,Intercompany Investments,116,asset_current
+l10n_us_gaap_account_121,Accounts Receivable,121,asset_receivable
+l10n_us_gaap_account_122,Notes And Loans Receivable,122,asset_receivable
+l10n_us_gaap_account_123,Receivables With Imputed Interest,123,asset_receivable
+l10n_us_gaap_account_124,Contracts Or Programs,124,asset_receivable
+l10n_us_gaap_account_125,Other Receivables,125,asset_receivable
+l10n_us_gaap_account_131,"Merchandise, Material And Supplies",131,asset_current
+l10n_us_gaap_account_132,Work In Process,132,asset_current
+l10n_us_gaap_account_133,Finished Goods,133,asset_current
+l10n_us_gaap_account_134,Capitalized Contract Cost,134,asset_current
+l10n_us_gaap_account_135,Other Inventory,135,asset_current
+l10n_us_gaap_account_136,Inventory For Long-Term Contracts Or Programs,136,asset_current
+l10n_us_gaap_account_137,Allowances And Adjustments,137,asset_current
+l10n_us_gaap_account_141,Prepaid Expense,141,asset_current
+l10n_us_gaap_account_142,Returnable Deposits,142,asset_current
+l10n_us_gaap_account_143,Accrued Revenue,143,asset_current
+l10n_us_gaap_account_144,Deferred Costs,144,asset_current
+l10n_us_gaap_account_145,Other Accrued And Deferred Assets,145,asset_current
+l10n_us_gaap_account_146,Investments And Other Assets,146,asset_current
+l10n_us_gaap_account_151,"Land, Buildings And Improvements",151,asset_non_current
+l10n_us_gaap_account_152,Machinery And Equipment,152,asset_non_current
+l10n_us_gaap_account_153,"Other Property, Plant And Equipment",153,asset_non_current
+l10n_us_gaap_account_154,Assets Under Construction,154,asset_non_current
+l10n_us_gaap_account_161,Intangible Assets Excluding Goodwill,161,asset_non_current
+l10n_us_gaap_account_162,Goodwill,162,asset_non_current
+l10n_us_gaap_account_163,Acquisitions In Progress,163,asset_non_current
+l10n_us_gaap_account_211,Accounts Payable,211,liability_payable
+l10n_us_gaap_account_212,Accrued Liabilities,212,liability_current
+l10n_us_gaap_account_213,Employee-Related Liabilities,213,liability_current
+l10n_us_gaap_account_214,Taxes Payable,214,liability_current
+l10n_us_gaap_account_215,Interest And Dividends Payable,215,liability_current
+l10n_us_gaap_account_221,Debts,221,liability_current
+l10n_us_gaap_account_222,Notes And Loans Payable,222,liability_current
+l10n_us_gaap_account_223,Special Assessment Bond,223,liability_current
+l10n_us_gaap_account_224,Long-Term Federal Home Loan Bank Advances,224,liability_current
+l10n_us_gaap_account_225,Capital Lease Obligations,225,liability_current
+l10n_us_gaap_account_23,Deferred Revenue And Credits,23,liability_current
+l10n_us_gaap_account_241,Billings In Excess Of Cost,241,liability_current
+l10n_us_gaap_account_251,Derivative Liability,251,liability_current
+l10n_us_gaap_account_252,Hedging Liabilities,252,liability_current
+l10n_us_gaap_account_253,Energy Marketing Contract Liabilities,253,liability_current
+l10n_us_gaap_account_271,Related Party Accounts Payable,271,liability_payable
+l10n_us_gaap_account_272,Related Party Notes Payable,272,liability_current
+l10n_us_gaap_account_273,Due To Employees,273,liability_current
+l10n_us_gaap_account_274,Due To Officers Or Stockholders,274,liability_current
+l10n_us_gaap_account_275,Due To Affiliate,275,liability_current
+l10n_us_gaap_account_276,Due To Other Related Parties,276,liability_current
+l10n_us_gaap_account_28,Other Liabilities,28,liability_current
+l10n_us_gaap_account_311,Common Stock,311,equity
+l10n_us_gaap_account_312,Preferred Stock,312,equity
+l10n_us_gaap_account_313,Additional Paid-In Capital,313,equity
+l10n_us_gaap_account_314,Legal Equity (Statutory Capital),314,equity
+l10n_us_gaap_account_321,Retained Earnings - Appropriated,321,equity
+l10n_us_gaap_account_32201,Current Year Earnings,32201,equity_unaffected
+l10n_us_gaap_account_32202,Retained Earnings - Unappropriated,32202,equity
+l10n_us_gaap_account_323,Retained Earnings Deficit,323,equity
+l10n_us_gaap_account_324,Retained Earnings - Suspense Account,324,equity
+l10n_us_gaap_account_331,Foreign Currency Translation Gain (Loss),331,equity
+l10n_us_gaap_account_332,Available For Sale Securities Gain (Loss),332,equity
+l10n_us_gaap_account_333,Impairment Debt Securities,333,equity
+l10n_us_gaap_account_334,Cash Flow Hedges Gain (Loss),334,equity
+l10n_us_gaap_account_335,Defined Benefit Plan Income (Loss),335,equity
+l10n_us_gaap_account_341,Unearned Sop Shares,341,equity
+l10n_us_gaap_account_342,"Receivable From Officers, Directors For Issuance Of Capital Stock",342,equity
+l10n_us_gaap_account_343,Receivable From Shareholders Or Affiliates For Issuance Of Capital Stock,343,equity
+l10n_us_gaap_account_344,"Stockholders' Equity Note, Subscriptions Receivable",344,equity
+l10n_us_gaap_account_345,"Warrants, Rights Outstanding",345,equity
+l10n_us_gaap_account_346,Other Additional Capital,346,equity
+l10n_us_gaap_account_347,Treasury Stock,347,equity
+l10n_us_gaap_account_348,Additional Items,348,equity
+l10n_us_gaap_account_35,Equity Attributable To Non-Controlling Interest,35,equity
+l10n_us_gaap_account_41101,Product Sales,41101,income
+l10n_us_gaap_account_41102,Merchandise Sales,41102,income
+l10n_us_gaap_account_41201,"Returns, Allowances",41201,income
+l10n_us_gaap_account_41202,Sales Discounts (Consideration Paid To Customers),41202,income
+l10n_us_gaap_account_421,General Services,421,income
+l10n_us_gaap_account_42201,Sales Allowances,42201,income
+l10n_us_gaap_account_42202,Sales Discounts,42202,income
+l10n_us_gaap_account_423,Itemized Services,423,income
+l10n_us_gaap_account_431,Other Recurring Income,431,income
+l10n_us_gaap_account_5112,Cost Of Services Rendered,51102,expense
+l10n_us_gaap_account_51103,Other Costs Of Sales,51103,expense
+l10n_us_gaap_account_51101,Cost Of Goods Sold,5111,expense
+l10n_us_gaap_account_51201,Selling And Marketing,51201,expense
+l10n_us_gaap_account_51202,"General, Administrative Expenses",51202,expense
+l10n_us_gaap_account_51203,Other Operating Expenses,51203,expense
+l10n_us_gaap_account_51204,Price Differences,51204,expense
+l10n_us_gaap_account_51205,Inventory Adjustments,51205,expense
+l10n_us_gaap_account_513,Doubtful Accounts,513,expense
+l10n_us_gaap_account_6110,Unusual And/Or Infrequent Items,6110,expense
+l10n_us_gaap_account_61101,Foreign Currency Gain,61101,income_other
+l10n_us_gaap_account_61102,Foreign Currency Loss,61102,expense
+l10n_us_gaap_account_6111,Additional Itemized Gains And Losses,6111,income_other
+l10n_us_gaap_account_61201,Other Non-Operating Income,61201,income_other
+l10n_us_gaap_account_61202,Other Non-Operating Loss,61202,expense
+l10n_us_gaap_account_613,Restructuring Charge,613,expense
+l10n_us_gaap_account_614,Inventory Write-Downs (Not Recognized In Cost Of Sales),614,expense
+l10n_us_gaap_account_615,Impairment Charge,615,expense
+l10n_us_gaap_account_616,Extinguishment Of Debt,616,expense
+l10n_us_gaap_account_617,"Business Combination, Acquisition Related Costs",617,expense
+l10n_us_gaap_account_618,Gain (Loss) Related To Litigation Settlement,618,expense
+l10n_us_gaap_account_619,Asset Retirement Obligation,619,expense
+l10n_us_gaap_account_621,Non-Operating Revenues,621,income_other
+l10n_us_gaap_account_622,Non-Operating Expenses,622,expense
+l10n_us_gaap_account_63,Non-Monetary Transactions,63,expense
+l10n_us_gaap_account_7,Income Tax (Benefit),7,income
