@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <function model="account.chart.template" name="try_loading">
+        <value eval="[]" />
+        <value>us_gaap</value>
+        <value
+            model="res.company"
+            search="[('partner_id.country_id.code', 'in', ['US', False])]"
+        />
+    </function>
+</odoo>
