@@ -19,7 +19,7 @@ class AccountBankingMandate(models.Model):
                 raise UserError(
                     _("""Delay days must be specified, and greater than 0.""")
                 )
-        return super(AccountBankingMandate, self).validate()
+        return super().validate()
 
     def set_payment_modes_on_partner(self):
         """
@@ -55,8 +55,9 @@ class AccountBankingMandate(models.Model):
         if payment_modes:
             self.partner_id.write(payment_modes)
 
-    @api.model
-    def create(self, vals):
-        mandate = super(AccountBankingMandate, self).create(vals)
-        mandate.set_payment_modes_on_partner()
-        return mandate
+    @api.model_create_multi
+    def create(self, vals_list):
+        mandates = super().create(vals_list)
+        for mandate in mandates:
+            mandate.set_payment_modes_on_partner()
+        return mandates

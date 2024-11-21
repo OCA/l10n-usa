@@ -84,7 +84,8 @@ class AccountPaymentOrder(models.Model):
         if line.mandate_id.state != "valid":
             raise Warning(
                 _(
-                    "The ACH Direct Debit mandate with reference %(unique_mandate_reference)s "
+                    "The ACH Direct Debit mandate with "
+                    "reference %(unique_mandate_reference)s "
                     "for partner %(name)s has expired."
                 ),
                 unique_mandate_reference=line.mandate_id.unique_mandate_reference,
@@ -93,8 +94,8 @@ class AccountPaymentOrder(models.Model):
         if line.mandate_id.type == "oneoff" and line.mandate_id.last_debit_date:
             raise Warning(
                 _(
-                    "The mandate with reference %(unique_mandate_reference)s for partner "
-                    "%(name)s has type set to 'One-Off' and it has a "
+                    "The mandate with reference %(unique_mandate_reference)s "
+                    "for partner %(name)s has type set to 'One-Off' and it has a "
                     "last debit date set to %(last_debit_date)s, so we can't use "
                     "it."
                 ),
