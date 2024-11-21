@@ -24,4 +24,4 @@ class AccountMove(models.Model):
                     name=invoice.name,
                     delay_expired=delay_expired.strftime("%Y-%m-%d"),
                 )
-        return super(AccountMove, self).create_account_payment_line()
+        return super().create_account_payment_line()
