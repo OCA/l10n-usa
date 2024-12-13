@@ -50,7 +50,6 @@ class TestACHCreditTransfer(TransactionCase):
         cls.payment_mode.variable_journal_ids += cls.bank_journal
 
     def test_account_payment_order(self):
-
         self.payment_order = self.env["account.payment.order"].create(
             {
                 "payment_type": "outbound",
