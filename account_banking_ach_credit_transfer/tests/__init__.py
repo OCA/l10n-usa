@@ -1,1 +1,1 @@
-from . import test_account_banking_ach_credit_trasnfer
+from . import test_account_banking_ach_credit_transfer
