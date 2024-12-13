@@ -1,9 +1,7 @@
 # Copyright (C) 2024, ForgeFlow S.A.
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html)
-
-from datetime import datetime
-
-from odoo.tests.common import TransactionCase
+from odoo import fields
+from odoo.tests.common import Form, TransactionCase
 
 
 class TestACHCreditTransfer(TransactionCase):
@@ -11,7 +9,7 @@ class TestACHCreditTransfer(TransactionCase):
     def setUpClass(cls):
         super().setUpClass()
         cls.partner = cls.env["res.partner"].create({"name": "Partner 1"})
-        cls.company = cls.env.ref("base.main_company")
+        cls.company = cls.env.company
         cls.company.partner_id = cls.partner.id
         cls.company.legal_id_number = "12-3456789"
         cls.payment_method_model = cls.env["account.payment.method"]
@@ -58,16 +56,17 @@ class TestACHCreditTransfer(TransactionCase):
                 "payment_method_id": self.ach_out_payment_method.id,
             }
         )
-        line_created_due = (
-            self.env["account.payment.line.create"]
-            .with_context(
+        line_create_form = Form(
+            self.env["account.payment.line.create"].with_context(
                 active_model="account.payment.order", active_id=self.payment_order.id
             )
-            .create({"date_type": "due", "due_date": datetime.now()})
         )
-        line_created_due.payment_mode = "any"
-        line_created_due.target_move = "all"
-        line_created_due.allow_blocked = True
+        line_create_form.date_type = "due"
+        line_create_form.due_date = fields.Date.today()
+        line_create_form.payment_mode = "any"
+        line_create_form.target_move = "all"
+        line_create_form.allow_blocked = True
+        line_created_due = line_create_form.save()
         line_created_due.populate()
         line_created_due.create_payment_lines()
         self.assertEqual(len(line_created_due.move_line_ids), 1)
