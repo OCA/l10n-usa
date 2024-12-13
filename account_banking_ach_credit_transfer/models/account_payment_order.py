@@ -12,4 +12,4 @@ class AccountPaymentOrder(models.Model):
         self.ensure_one()
         if self.payment_method_id.code == "ACH-Out":
             return self.generate_ach_file()
-        return super(AccountPaymentOrder, self).generate_payment_file()
+        return super().generate_payment_file()
