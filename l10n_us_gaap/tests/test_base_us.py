@@ -10,30 +10,23 @@ _logger = logging.getLogger("us_gaap")
 
 
 class TestChartAcount(TransactionCase):
-    def with_context(self, *args, **kwargs):
-        context = dict(args[0] if args else self.env.context, **kwargs)
-        self.env = self.env(context=context)
-        return self
-
     def test_basic(self):
         _logger.debug("Creating chart of account")
-        self.company = self.env["res.company"].create({"name": "US test company"})
-        self.env.ref("base.group_multi_company").write({"users": [(4, self.env.uid)]})
-        self.env.user.write(
-            {"company_ids": [(4, self.company.id)], "company_id": self.company.id}
+        self.company = self.env.ref("l10n_us_gaap.demo_company_us_gaap")
+        bank_account = (
+            self.env["account.account"]
+            .with_company(self.company)
+            .search([("code", "=", "111102"), ("company_ids", "in", self.company.ids)])
         )
-        self.env["account.chart.template"].try_loading(
-            template_code="us_gaap", company=self.company, install_demo=False
+        liquidity_transfer = (
+            self.env["account.account"]
+            .with_company(self.company)
+            .search([("code", "=", "111701"), ("company_ids", "in", self.company.ids)])
         )
-        self.with_context(company_id=self.company.id, force_company=self.company.id)
-        bank_account = self.env["account.account"].search(
-            [("code", "=", "111102"), ("company_id", "=", self.company.id)]
-        )
-        liquidity_transfer = self.env["account.account"].search(
-            [("code", "=", "111701"), ("company_id", "=", self.company.id)]
-        )
-        finished_goods = self.env["account.account"].search(
-            [("code", "=", "133000"), ("company_id", "=", self.company.id)]
+        finished_goods = (
+            self.env["account.account"]
+            .with_company(self.company)
+            .search([("code", "=", "133000"), ("company_ids", "in", self.company.ids)])
         )
         self.assertEqual(bank_account.name, "Bank Suspense Account")
         self.assertEqual(liquidity_transfer.name, "Liquidity Transfer")
