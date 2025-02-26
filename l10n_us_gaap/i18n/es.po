@@ -1,0 +1,4 @@
+#. module: l10n_us_gaap
+#: model:ir.model,name:l10n_us_gaap.model_account_chart_template
+msgid "Account Chart Template"
+msgstr ""
