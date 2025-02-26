@@ -41,7 +41,7 @@
             <field name="description">Cash And Cash Equivalents</field>
             <field
             name="expression"
-        >+bale[('group_id.code_prefix_start', '=like', '1.1.1%')]</field>
+        >+bale[('group_id.code_prefix_start', '=like', '111%')]</field>
             <field name="style_id" ref="mis_report_style_l10n_us_gaap_l3" />
             <field name="auto_expand_accounts">True</field>
             <field
