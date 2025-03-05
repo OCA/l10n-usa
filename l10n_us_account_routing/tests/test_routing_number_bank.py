@@ -4,7 +4,7 @@ from odoo.tests import TransactionCase
 
 class TestResBank(TransactionCase):
     def setUp(self):
-        super(TestResBank, self).setUp()
+        super().setUp()
         self.us_bank = self.env["res.bank"].create(
             {
                 "name": "US Bank",
