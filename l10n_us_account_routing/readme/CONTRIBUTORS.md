@@ -1,1 +1,2 @@
 - Thiago Mulero \<<thiago.mulero@forgeflow.com>\>
+- Do Anh Duy \<<duyda@trobz.com>\>
