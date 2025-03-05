@@ -1,38 +1,37 @@
 from odoo.exceptions import ValidationError
-from odoo.tests import TransactionCase
+from odoo.tests.common import TransactionCase
 
 
 class TestResBank(TransactionCase):
-    def setUp(self):
-        super().setUp()
-        self.us_bank = self.env["res.bank"].create(
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.us_bank = cls.env["res.bank"].create(
             {
                 "name": "US Bank",
-                "country": self.env["res.country"].search([("code", "=", "US")]).id,
+                "country": cls.env.ref("base.us").id,
             }
         )
-
-        self.canadian_bank = self.env["res.bank"].create(
+        cls.canadian_bank = cls.env["res.bank"].create(
             {
                 "name": "Canadian Bank",
-                "country": self.env["res.country"].search([("code", "=", "CA")]).id,
+                "country": cls.env.ref("base.ca").id,
             }
         )
-
-        self.belgium_bank = self.env["res.bank"].create(
+        cls.belgium_bank = cls.env["res.bank"].create(
             {
                 "name": "Belgium Bank",
-                "country": self.env["res.country"].search([("code", "=", "BE")]).id,
+                "country": cls.env.ref("base.be").id,
             }
         )
 
     def test_routing_number_us_bank(self):
         number = self.us_bank.routing_number = 310033974
+        bank_name = self.us_bank.name
         self.assertEqual(
             number,
             310033974,
-            "You should have the routing number 310033974 for the bank %s"
-            % self.us_bank.name,
+            f"You should have the routing number {number} for the bank {bank_name}",
         )
         # We want to test the exception
         with self.assertRaises(ValidationError):
@@ -40,11 +39,11 @@ class TestResBank(TransactionCase):
 
     def test_routing_number_canadian_bank(self):
         number = self.canadian_bank.routing_number = 12162004
+        bank_name = self.canadian_bank.name
         self.assertEqual(
             number,
             12162004,
-            "You should have the routing number 12162004 for the bank %s"
-            % self.canadian_bank.name,
+            f"You should have the routing number 12162004 for the bank {bank_name}",
         )
         # We want to test the exception
         with self.assertRaises(ValidationError):
@@ -52,9 +51,9 @@ class TestResBank(TransactionCase):
 
     def test_routing_number_belgium_bank(self):
         number = self.belgium_bank.routing_number = 5
+        bank_name = self.belgium_bank.name
         self.assertEqual(
             number,
             5,
-            "You should have the routing number 5 for the bank %s"
-            % self.belgium_bank.name,
+            f"You should have the routing number 5 for the bank {bank_name}",
         )

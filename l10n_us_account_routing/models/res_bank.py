@@ -1,6 +1,6 @@
 from stdnum.us import rtn
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import ValidationError
 
 
@@ -11,19 +11,25 @@ class ResBank(models.Model):
 
     @api.constrains("routing_number")
     def validate_routing_number(self):
-        if not self.routing_number or not self.country:
+        banks_filtered = self.filtered(
+            lambda b: b.routing_number and b.country and b.country_code in ("US", "CA")
+        )
+        if not banks_filtered:
             return
-        country_code = self.country.code
-        if country_code == "US":
-            try:
-                rtn.validate(self.routing_number)
-            except Exception:
-                raise ValidationError(
-                    _("%s is not a valid US routing number!") % self.routing_number
-                ) from None
-        elif country_code == "CA":
-            if len(self.routing_number) != 8 or not self.routing_number.isdigit():
-                raise ValidationError(
-                    _("%s is not a valid Canadian routing number!")
-                    % self.routing_number
-                )
+        for bank in banks_filtered:
+            country_code = bank.country_code
+            if country_code == "US":
+                if not rtn.is_valid(bank.routing_number):
+                    raise ValidationError(
+                        self.env._(
+                            "%s is not a valid US routing number!", bank.routing_number
+                        )
+                    )
+            elif country_code == "CA":
+                if len(bank.routing_number) != 8 or not bank.routing_number.isdigit():
+                    raise ValidationError(
+                        self.env._(
+                            "%s is not a valid Canadian routing number!",
+                            bank.routing_number,
+                        )
+                    )
