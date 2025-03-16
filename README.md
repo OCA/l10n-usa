@@ -27,6 +27,7 @@ addon | version | maintainers | summary
 [l10n_us_gaap_mis_report](l10n_us_gaap_mis_report/) | 16.0.1.0.1 | [![JordiBForgeFlow](https://github.com/JordiBForgeFlow.png?size=30px)](https://github.com/JordiBForgeFlow) | MIS Builder Templates for US Chart of Accounts
 [l10n_us_mis_financial_report](l10n_us_mis_financial_report/) | 16.0.1.1.0 | [![Christian-RB](https://github.com/Christian-RB.png?size=30px)](https://github.com/Christian-RB) | Profit & Loss (US) / Balance sheet (US) MIS templates
 [l10n_us_partner_legal_number](l10n_us_partner_legal_number/) | 16.0.1.0.0 |  | Add Legal Number for North American Banking & Financials
+[partner_usps_address_validation](partner_usps_address_validation/) | 16.0.1.0.0 |  | Utilize the USPS open API for address validation
 
 [//]: # (end addons)
 
