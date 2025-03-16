@@ -28,6 +28,7 @@ addon | version | maintainers | summary
 [l10n_us_gaap](l10n_us_gaap/) | 14.0.1.1.1 | [![JordiBForgeFlow](https://github.com/JordiBForgeFlow.png?size=30px)](https://github.com/JordiBForgeFlow) | United States Sample GAAP Chart of Accounts
 [l10n_us_gaap_mis_report](l10n_us_gaap_mis_report/) | 14.0.1.0.0 | [![JordiBForgeFlow](https://github.com/JordiBForgeFlow.png?size=30px)](https://github.com/JordiBForgeFlow) | MIS Builder Templates for US Chart of Accounts
 [l10n_us_partner_legal_number](l10n_us_partner_legal_number/) | 14.0.1.0.1 |  | Add Legal Number for North American Banking & Financials
+[partner_usps_address_validation](partner_usps_address_validation/) | 14.0.1.0.0 |  | Utilize the USPS open API for address validation
 
 
 Unported addons
