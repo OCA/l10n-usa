@@ -16,14 +16,12 @@ msgstr ""
 #. module: l10n_us_account_routing
 #. odoo-python
 #: code:addons/l10n_us_account_routing/models/res_bank.py:0
-#, python-format
 msgid "%s is not a valid Canadian routing number!"
 msgstr ""
 
 #. module: l10n_us_account_routing
 #. odoo-python
 #: code:addons/l10n_us_account_routing/models/res_bank.py:0
-#, python-format
 msgid "%s is not a valid US routing number!"
 msgstr ""
 
