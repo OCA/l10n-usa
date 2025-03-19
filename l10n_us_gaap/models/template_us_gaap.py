@@ -13,6 +13,10 @@ class AccountChartTemplate(models.AbstractModel):
             "name": "US GAAP Chart of Accounts",
             "country": "base.us",
             "code_digits": "6",
+            "property_account_receivable_id": "l10n_us_gaap_account_121",
+            "property_account_payable_id": "l10n_us_gaap_account_211",
+            "property_account_expense_categ_id": "l10n_us_gaap_account_51202",
+            "property_account_income_categ_id": "l10n_us_gaap_account_421",
         }
 
     @template("us_gaap", "res.company")
@@ -25,10 +29,6 @@ class AccountChartTemplate(models.AbstractModel):
                 "cash_account_code_prefix": "1112",
                 "transfer_account_code_prefix": "1117",
                 "currency_id": "base.USD",
-                "property_account_receivable_id": "l10n_us_gaap_account_121",
-                "property_account_payable_id": "l10n_us_gaap_account_211",
-                "property_account_expense_categ_id": "l10n_us_gaap_account_51202",
-                "property_account_income_categ_id": "l10n_us_gaap_account_421",
                 "expense_currency_exchange_account_id": "l10n_us_gaap_account_61102",
                 "income_currency_exchange_account_id": "l10n_us_gaap_account_61101",
                 "account_journal_early_pay_discount_loss_account_id": "l10n_us_gaap_account_41202",
