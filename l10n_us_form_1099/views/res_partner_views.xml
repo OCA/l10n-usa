@@ -7,10 +7,7 @@
         <field name="model">res.partner</field>
         <field name="inherit_id" ref="base.view_partner_form" />
         <field name="arch" type="xml">
-            <xpath
-                expr="//group[2]/field[@name='property_supplier_payment_term_id']"
-                position="before"
-            >
+            <xpath expr="//group[@name='purchase']" position="inside">
                 <field name="is_1099" />
                 <field name="type_1099_id" widget="selection" invisible="not is_1099" />
                 <field
