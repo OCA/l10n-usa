@@ -17,21 +17,21 @@
             </form>
         </field>
     </record>
-    <record id="view_type_1099_tree" model="ir.ui.view">
-        <field name="name">type.1099.tree</field>
+    <record id="view_type_1099_list" model="ir.ui.view">
+        <field name="name">type.1099.list</field>
         <field name="model">type.1099</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name" />
-            </tree>
+            </list>
         </field>
     </record>
     <record model="ir.actions.act_window" id="action_type_1099_view">
         <field name="name">1099 Types</field>
         <field name="res_model">type.1099</field>
         <field name="type">ir.actions.act_window</field>
-        <field name="view_mode">tree,form</field>
-        <field name="view_id" eval="view_type_1099_tree" />
+        <field name="view_mode">list,form</field>
+        <field name="view_id" eval="view_type_1099_list" />
     </record>
     <menuitem
         id="type_1099_menu_config"

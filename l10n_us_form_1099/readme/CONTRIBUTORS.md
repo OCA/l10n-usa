@@ -5,3 +5,5 @@
 - Brian McMaster \<<brian@mcmpest.com>\>
 - Jevin Dement \<<jdement@opensourceintegrators.com>\>
 - Levent Karakas \<<leventk@eska.biz>\>
+- Sodexis <<dev@sodexis.com>>
+- Sakthivel <<sakthivel@sodexis.com>>

@@ -16,21 +16,21 @@
             </form>
         </field>
     </record>
-    <record id="view_box_1099_misc_tree" model="ir.ui.view">
-        <field name="name">box.1099.misc.tree</field>
+    <record id="view_box_1099_misc_list" model="ir.ui.view">
+        <field name="name">box.1099.misc.list</field>
         <field name="model">box.1099.misc</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name" />
-            </tree>
+            </list>
         </field>
     </record>
     <record model="ir.actions.act_window" id="action_box_1099_misc_view">
         <field name="name">1099-MISC Boxes</field>
         <field name="res_model">box.1099.misc</field>
         <field name="type">ir.actions.act_window</field>
-        <field name="view_mode">tree,form</field>
-        <field name="view_id" eval="view_box_1099_misc_tree" />
+        <field name="view_mode">list,form</field>
+        <field name="view_id" eval="view_box_1099_misc_list" />
     </record>
     <menuitem
         id="box_1099_misc_menu_config"
