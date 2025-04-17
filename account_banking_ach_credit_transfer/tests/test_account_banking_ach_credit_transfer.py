@@ -1,10 +1,12 @@
 # Copyright (C) 2024, ForgeFlow S.A.
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html)
 from odoo import fields
-from odoo.tests.common import Form, TransactionCase
+from odoo.tests import Form
+
+from odoo.addons.base.tests.common import BaseCommon
 
 
-class TestACHCreditTransfer(TransactionCase):
+class TestACHCreditTransfer(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -65,7 +67,6 @@ class TestACHCreditTransfer(TransactionCase):
         line_create_form.due_date = fields.Date.today()
         line_create_form.payment_mode = "any"
         line_create_form.target_move = "all"
-        line_create_form.allow_blocked = True
         line_created_due = line_create_form.save()
         line_created_due.populate()
         line_created_due.create_payment_lines()
