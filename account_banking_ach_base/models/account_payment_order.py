@@ -125,10 +125,8 @@ class AccountPaymentOrder(models.Model):
 
         file_mod = self.get_file_id_mod()
         ach_file = AchFile(file_id_mod=file_mod, settings=self.ach_settings())
-        filename = "{today}_{bank}_{file_mod}.txt".format(
-            today=fields.Date.today(),
-            bank=self.company_partner_bank_id.id,
-            file_mod=file_mod,
+        filename = (
+            f"{fields.Date.today()}_{self.company_partner_bank_id.id}_{file_mod}.txt"
         )
         entries = []
         for line in self.payment_ids:
