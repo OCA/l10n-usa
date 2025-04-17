@@ -3,7 +3,7 @@ from string import ascii_uppercase
 
 from ach.builder import AchFile
 
-from odoo import _, fields, models
+from odoo import fields, models
 from odoo.exceptions import UserError
 
 CREDIT_AUTOMATED_RETURN = "21"
@@ -41,12 +41,13 @@ class AccountPaymentOrder(models.Model):
         legal_id_number = self.company_id.legal_id_number
         if not legal_id_number:
             raise UserError(
-                _("%s does not have an EIN / SSN / BN assigned!") % self.company_id.name
+                self.env._("%s does not have an EIN / SSN / BN assigned!")
+                % self.company_id.name
             )
 
         if not routing_number:
             raise UserError(
-                _("%s does not have a Routing Number assigned!") % bank.name
+                self.env._("%s does not have a Routing Number assigned!") % bank.name
             )
         return {
             "immediate_dest": self.company_partner_bank_id.acc_number,
@@ -59,13 +60,13 @@ class AccountPaymentOrder(models.Model):
     def validate_banking(self, line):
         if not line.partner_bank_id.bank_id:
             raise UserError(
-                _("%s account number has no Bank assigned")
+                self.env._("%s account number has no Bank assigned")
                 % line.partner_bank_id.acc_number
             )
 
         if not line.partner_bank_id.bank_id.routing_number:
             raise UserError(
-                _("%s has no routing number specified")
+                self.env._("%s has no routing number specified")
                 % line.partner_bank_id.bank_id.name
             )
 
@@ -73,7 +74,7 @@ class AccountPaymentOrder(models.Model):
         """Ensure that mandates are correctly set"""
         if not line.mandate_id:
             raise UserError(
-                _(
+                self.env._(
                     "Missing ACH Direct Debit mandate on the "
                     "payment line with partner %(name)s "
                     "(reference %(line_name)s).",
@@ -83,7 +84,7 @@ class AccountPaymentOrder(models.Model):
             )
         if line.mandate_id.state != "valid":
             raise Warning(
-                _(
+                self.env._(
                     "The ACH Direct Debit mandate with "
                     "reference %(unique_mandate_reference)s "
                     "for partner %(name)s has expired."
@@ -93,7 +94,7 @@ class AccountPaymentOrder(models.Model):
             )
         if line.mandate_id.type == "oneoff" and line.mandate_id.last_debit_date:
             raise Warning(
-                _(
+                self.env._(
                     "The mandate with reference %(unique_mandate_reference)s "
                     "for partner %(name)s has type set to 'One-Off' and it has a "
                     "last debit date set to %(last_debit_date)s, so we can't use "
@@ -135,7 +136,7 @@ class AccountPaymentOrder(models.Model):
             self.validate_banking(line)
             amount = line.amount
             name = re.sub("[^A-Za-z0-9]+", "", line.partner_id.name)
-            note = re.sub("[^A-Za-z0-9]+", "", line.ref)
+            note = re.sub("[^A-Za-z0-9]+", "", line.memo)
             entries.append(
                 {
                     "type": self.get_transaction_type(amount=amount),

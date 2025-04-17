@@ -1,4 +1,4 @@
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import UserError
 
 
@@ -17,7 +17,7 @@ class AccountBankingMandate(models.Model):
         for mandate in self:
             if not mandate.delay_days:
                 raise UserError(
-                    _("""Delay days must be specified, and greater than 0.""")
+                    self.env._("""Delay days must be specified, and greater than 0.""")
                 )
         return super().validate()
 

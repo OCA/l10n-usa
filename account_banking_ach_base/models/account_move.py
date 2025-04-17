@@ -1,6 +1,6 @@
 from datetime import date, timedelta
 
-from odoo import _, fields, models
+from odoo import fields, models
 from odoo.exceptions import UserError
 
 
@@ -17,7 +17,7 @@ class AccountMove(models.Model):
             delay_expired = invoice_date + timedelta(days=mandate.delay_days)
             if today < delay_expired:
                 raise UserError(
-                    _(
+                    self.env._(
                         "To satisfy payment mandate, cannot add "
                         "invoice %(name)s to Debit Order until %(delay_expired)s!"
                     ),
