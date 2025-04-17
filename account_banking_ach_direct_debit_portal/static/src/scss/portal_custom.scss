@@ -1,0 +1,224 @@
+#wrapwrap.o_portal {
+    background-color: #ffff !important;
+
+    .btn-secondary {
+        border: 1px solid #1e5593;
+        background-color: white;
+        color: #1e5593;
+        font-weight: 500;
+
+        &:hover {
+            color: white;
+            background-color: #1e5593;
+        }
+    }
+
+    .blue-title {
+        color: #1e5593 !important;
+    }
+
+    .btn-blue {
+        background-color: #1e5593;
+        color: white;
+        font-weight: 500;
+    }
+
+    .w-fit {
+        width: fit-content !important;
+    }
+
+    .btn-back {
+        border: 1px solid #6b7280;
+        background-color: white;
+        color: #6d6d6d;
+
+        &:hover {
+            color: white;
+            background-color: #6b7280;
+        }
+    }
+
+    .border-top-lg {
+        @media (min-width: 768px) {
+            border-top: 1px solid #dee2e6 !important;
+        }
+    }
+
+    .header-title {
+        font-family: Inter;
+        font-weight: 700;
+        font-size: 28px;
+        line-height: 100%;
+        letter-spacing: -2%;
+        color: #1e5593;
+        margin-bottom: 0;
+    }
+
+    .searchbar-navbar {
+        @media (min-width: 993px) {
+            align-items: center;
+            justify-content: space-between;
+            display: flex;
+        }
+
+        .searchbar-left {
+            display: flex;
+            justify-content: start;
+            align-items: center;
+
+            @media (max-width: 768px) {
+                justify-content: space-between;
+            }
+        }
+    }
+
+    #navbar_content {
+        padding: 0.5rem;
+        color: #000000;
+        display: flex;
+        align-items: center;
+        justify-content: end;
+
+        @media (max-width: 768px) {
+            justify-content: space-between;
+        }
+
+        .navbar-text {
+            font-family: Inter;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 20px;
+            letter-spacing: 0%;
+            vertical-align: middle;
+            color: #000000;
+
+            @media (max-width: 768px) {
+                font-size: 12px !important;
+            }
+        }
+
+        .input-group {
+            min-width: 200px;
+
+            .form-control {
+                border: 1px solid #1e5593;
+                border-radius: 0 !important;
+            }
+
+            .search-submit {
+                background-color: #1e5593;
+                color: white;
+            }
+        }
+
+        .btn {
+            padding: 0.2rem 0.75rem;
+        }
+    }
+
+    .o_portal_my_doc_table {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: sans-serif;
+
+        .label {
+            color: #6d6d6d;
+            font-weight: 500;
+            font-size: 12px;
+            line-height: 15.26px;
+            letter-spacing: 0%;
+            margin-bottom: 5px;
+        }
+
+        .value {
+            font-weight: 400;
+            font-size: 15px;
+            line-height: 15.26px;
+            letter-spacing: 0%;
+        }
+
+        thead tr {
+            background-color: #fafafa;
+            font-weight: 600;
+        }
+
+        tbody {
+            border-top: none;
+
+            tr:hover {
+                background-color: #f5f5f5;
+            }
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 10px 12px;
+            border-bottom: 1px solid #e0e0e0;
+            overflow: visible;
+        }
+
+        @media (max-width: 768px) {
+            tr:last-child {
+                td {
+                    border-bottom: none;
+                }
+            }
+        }
+
+        /* General badge styling */
+        .tx_status {
+            .badge {
+                display: inline-block;
+                font-size: 13px;
+                font-weight: 500;
+                border-radius: 999px;
+                padding: 3px 12px;
+                line-height: 1.5;
+                white-space: nowrap;
+                vertical-align: middle;
+            }
+        }
+
+        .dropdown-wrapper {
+            button {
+                &:hover {
+                    color: #1e5593;
+                    background-color: #fafafa;
+                }
+
+                @media (max-width: 768px) {
+                    font-size: 23px !important;
+                }
+            }
+
+            .dropdown-menu {
+                padding: 8px 5px;
+
+                .dropdown-item {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+                    font-family: Inter;
+                    font-weight: 400;
+                    font-size: 12.54px;
+                    line-height: 21.37px;
+                    letter-spacing: 0%;
+                    color: #6d6d6d;
+                    border-radius: 0.3rem;
+
+                    &:hover {
+                        color: #1e5593;
+                        background-color: #e7f2ff;
+                    }
+                }
+            }
+        }
+    }
+}
+
+header {
+    .hide-after::after {
+        display: none !important;
+    }
+}

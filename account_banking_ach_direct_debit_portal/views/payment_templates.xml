@@ -1,0 +1,752 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="portal_scheduled_payments">
+        <t t-call="portal.portal_layout">
+            <t t-set="page_title" t-value="'Schedules Payments'" />
+            <t t-set="additional_title"><t t-esc="page_title" /></t>
+            <t t-set="breadcrumbs_searchbar" t-value="True" />
+
+            <t t-call="account_banking_ach_direct_debit_portal.debit_portal_searchbar">
+                <t t-set="title">Schedule Payments</t>
+            </t>
+
+            <t t-if="not payments">
+                <p>There are currently no schedule payments for your account.</p>
+            </t>
+            <t t-if="payments">
+                <!-- Table desktop/tablet -->
+                <div class="d-none d-lg-block">
+                    <t t-call="portal.portal_table">
+                        <thead>
+                            <tr class="active">
+                                <th>Linked invoices</th>
+                                <th>Schedule Date</th>
+                                <th>Bank account</th>
+                                <th class="text-center">Amount</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="payments" t-as="payment">
+                                <tr>
+                                    <td> #<span t-field="payment.move_id.name" />
+                                    </td>
+                                    <td>
+                                        <span t-field="payment.date" />
+                                    </td>
+                                    <td>
+                                        <span
+                                            t-field="payment.bank_partner_id.display_name"
+                                        />
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="payment.amount_total" />
+                                    </td>
+                                    <td>
+                                        <div class="dropdown-wrapper text-center">
+                                            <button
+                                                class="btn border-0"
+                                                type="button"
+                                                data-bs-toggle="dropdown"
+                                                aria-expanded="false"
+                                            >
+                                                ⋮
+                                            </button>
+                                            <ul
+                                                class="dropdown-menu dropdown-menu-end shadow-sm rounded-3"
+                                            >
+                                                <li>
+                                                    <a class="dropdown-item" href="#"><i
+                                                            class="fa fa-edit me-2"
+                                                        />Edit</a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item" href="#"><i
+                                                            class="fa fa-times me-2"
+                                                        /> Cancel</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </t>
+                </div>
+
+                <!-- Table mobile -->
+                <div class="d-md-none">
+                    <div
+                        t-foreach="payments"
+                        t-as="payment"
+                        class="table-responsive d-flex align-items-center justify-content-between p-3 border rounded mb-2"
+                    >
+                        <div class="mx-1">
+                            <strong>Linked invoices</strong> #<span
+                                t-field="payment.move_id.name"
+                            />
+                        </div>
+                        <div class="mx-1">
+                            <strong>Schedule Date</strong>
+                            <span t-field="payment.date" />
+                        </div>
+                        <div class="mx-1">
+                            <strong>Bank account</strong>
+                            <span t-field="payment.bank_partner_id.display_name" />
+                        </div>
+                        <div class="mx-1">
+                            <strong>Amount</strong>
+                            <span t-field="payment.amount_total" />
+                        </div>
+
+                        <div class="dropdown-wrapper text-center">
+                            <button
+                                class="btn border-0"
+                                type="button"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                            >
+                                ⋮
+                            </button>
+                            <ul
+                                class="dropdown-menu dropdown-menu-end shadow-sm rounded-3"
+                            >
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="fa fa-edit me-2" /> Edit </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="fa fa-times me-2" /> Cancel </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="portal_payment">
+        <t t-call="portal.portal_layout">
+            <t t-set="page_title" t-value="'Payment'" />
+            <t t-set="additional_title"><t t-esc="page_title" /></t>
+            <t t-set="breadcrumbs_searchbar" t-value="True" />
+
+            <div class="d-none d-md-block">
+                <t
+                    t-call="account_banking_ach_direct_debit_portal.debit_portal_searchbar"
+                >
+                    <t t-set="title">Payment</t>
+                </t>
+            </div>
+
+            <div id="payment" class="container my-4">
+                <div class="row">
+                    <div class="left col-md-8 mb-3">
+                        <div class="card detail h-100">
+                            <div class="card-header">
+                                <h5 class="card-title">Details</h5>
+                            </div>
+
+                            <div class="table-responsive d-none d-md-block border-0">
+                                <table
+                                    class="table mb-0 bg-white o_portal_my_doc_table"
+                                >
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>Invoice no</th>
+                                            <th>Date</th>
+                                            <th>Due Date</th>
+                                            <th>Amount</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="invoices" t-as="invoice">
+                                            <tr>
+                                                <td>
+                                                    <span t-field="invoice.name" />
+                                                </td>
+                                                <td>
+                                                    <span
+                                                        t-field="invoice.invoice_date"
+                                                    />
+                                                </td>
+                                                <td>
+                                                    <span
+                                                        t-field="invoice.invoice_date_due"
+                                                    />
+                                                </td>
+                                                <td>
+                                                    <span
+                                                        t-esc="-invoice.amount_residual if invoice.move_type == 'out_refund' else invoice.amount_residual"
+                                                        t-options='{"widget": "monetary", "display_currency": invoice.currency_id}'
+                                                    />
+                                                </td>
+                                                <td class="tx_status text-center">
+                                                    <t
+                                                        t-if="invoice.state == 'posted' and invoice.payment_state not in ('in_payment', 'paid', 'reversed')"
+                                                    >
+                                                        <span
+                                                            class="badge rounded-pill text-bg-info"
+                                                        >
+                                                            <i
+                                                                class="fa fa-fw fa-clock-o"
+                                                                aria-label="Opened"
+                                                                title="Opened"
+                                                                role="img"
+                                                            />
+                                                            <span
+                                                                class="d-none d-md-inline"
+                                                            > Waiting
+                                                                for Payment</span>
+                                                        </span>
+                                                    </t>
+                                                    <t
+                                                        t-if="invoice.state == 'posted' and invoice.payment_state in ('paid', 'in_payment')"
+                                                    >
+                                                        <span
+                                                            class="badge rounded-pill text-bg-success"
+                                                        >
+                                                            <i
+                                                                class="fa fa-fw fa-check"
+                                                                aria-label="Paid"
+                                                                title="Paid"
+                                                                role="img"
+                                                            />
+                                                            <span
+                                                                class="d-none d-md-inline"
+                                                            > Paid</span>
+                                                        </span>
+                                                    </t>
+                                                    <t
+                                                        t-if="invoice.state == 'posted' and invoice.payment_state == 'reversed'"
+                                                    >
+                                                        <span
+                                                            class="badge rounded-pill text-bg-success"
+                                                        >
+                                                            <i
+                                                                class="fa fa-fw fa-check"
+                                                                aria-label="Reversed"
+                                                                title="Reversed"
+                                                                role="img"
+                                                            />
+                                                            <span
+                                                                class="d-none d-md-inline"
+                                                            > Reversed</span>
+                                                        </span>
+                                                    </t>
+                                                    <t t-if="invoice.state == 'cancel'">
+                                                        <span
+                                                            class="badge rounded-pill text-bg-warning"
+                                                        >
+                                                            <i
+                                                                class="fa fa-fw fa-remove"
+                                                                aria-label="Cancelled"
+                                                                title="Cancelled"
+                                                                role="img"
+                                                            />
+                                                            <span
+                                                                class="d-none d-md-inline"
+                                                            > Cancelled</span>
+                                                        </span>
+                                                    </t>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div
+                                class="table-responsive d-md-none border rounded px-3 py-2"
+                            >
+                                <table
+                                    class="table o_portal_my_doc_table align-middle mb-0"
+                                >
+                                    <tbody>
+                                        <t t-foreach="invoices" t-as="invoice">
+                                            <tr>
+                                                <td>
+                                                    <div class="label">Invoice No</div>
+                                                    <div class="value">
+                                                        <span t-field="invoice.name" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="label">Amount</div>
+                                                    <div class="value">
+                                                        <span
+                                                            t-esc="-invoice.amount_residual if invoice.move_type == 'out_refund' else invoice.amount_residual"
+                                                            t-options='{"widget": "monetary", "display_currency": invoice.currency_id}'
+                                                        />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="label">Date</div>
+                                                    <div class="value">
+                                                        <span
+                                                            t-field="invoice.invoice_date"
+                                                        />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="label">Due Date</div>
+                                                    <div class="value">
+                                                        <span
+                                                            t-field="invoice.invoice_date_due"
+                                                        />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="label">Status</div>
+                                                    <div class="tx_status text-center">
+                                                        <t
+                                                            t-if="invoice.state == 'posted' and invoice.payment_state not in ('in_payment', 'paid', 'reversed')"
+                                                        >
+                                                            <span
+                                                                class="badge rounded-pill text-bg-info"
+                                                            >
+                                                                <i
+                                                                    class="fa fa-fw fa-clock-o"
+                                                                    aria-label="Opened"
+                                                                    title="Opened"
+                                                                    role="img"
+                                                                />
+                                                                <span
+                                                                    class="d-none d-md-inline"
+                                                                >
+                                                                    Waiting for Payment</span>
+                                                            </span>
+                                                        </t>
+                                                        <t
+                                                            t-if="invoice.state == 'posted' and invoice.payment_state in ('paid', 'in_payment')"
+                                                        >
+                                                            <span
+                                                                class="badge rounded-pill text-bg-success"
+                                                            >
+                                                                <i
+                                                                    class="fa fa-fw fa-check"
+                                                                    aria-label="Paid"
+                                                                    title="Paid"
+                                                                    role="img"
+                                                                />
+                                                                <span
+                                                                    class="d-none d-md-inline"
+                                                                > Paid</span>
+                                                            </span>
+                                                        </t>
+                                                        <t
+                                                            t-if="invoice.state == 'posted' and invoice.payment_state == 'reversed'"
+                                                        >
+                                                            <span
+                                                                class="badge rounded-pill text-bg-success"
+                                                            >
+                                                                <i
+                                                                    class="fa fa-fw fa-check"
+                                                                    aria-label="Reversed"
+                                                                    title="Reversed"
+                                                                    role="img"
+                                                                />
+                                                                <span
+                                                                    class="d-none d-md-inline"
+                                                                >
+                                                                    Reversed</span>
+                                                            </span>
+                                                        </t>
+                                                        <t
+                                                            t-if="invoice.state == 'cancel'"
+                                                        >
+                                                            <span
+                                                                class="badge rounded-pill text-bg-warning"
+                                                            >
+                                                                <i
+                                                                    class="fa fa-fw fa-remove"
+                                                                    aria-label="Cancelled"
+                                                                    title="Cancelled"
+                                                                    role="img"
+                                                                />
+                                                                <span
+                                                                    class="d-none d-md-inline"
+                                                                >
+                                                                    Cancelled</span>
+                                                            </span>
+                                                        </t>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="right col-md-4 mb-3">
+                        <div class="card summary h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">Summary</h5>
+
+                                <div class="wrapper">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span class="label">Quantity</span>
+                                        <span t-esc="quantity" />
+                                    </div>
+
+                                    <div
+                                        class="d-flex justify-content-between border-top-lg pt-2 mb-2"
+                                    >
+                                        <span class="label">Total amount</span>
+                                        <span
+                                            t-esc="total_amount"
+                                            t-options='{"widget": "monetary", "display_currency": display_currency}'
+                                        />
+                                    </div>
+
+                                    <div
+                                        class="d-flex justify-content-between border-top-lg pt-2 mb-2"
+                                    >
+                                        <span class="label">Due date</span>
+                                        <span t-esc="earliest_due_date" />
+                                    </div>
+
+                                    <div
+                                        class="d-flex justify-content-between fw-bold border-top pt-2 mt-2"
+                                    >
+                                        <span class="label">Total amount</span>
+                                        <span
+                                            t-esc="total_amount"
+                                            t-options='{"widget": "monetary", "display_currency": display_currency}'
+                                        />
+                                    </div>
+                                    <t t-if="not invisible_button">
+                                        <a
+                                            t-att-href="select_payment_url"
+                                            class="btn btn-submit w-100"
+                                        >
+                                            Make a Payment
+                                        </a>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="portal_select_payment_method">
+        <t t-call="portal.portal_layout">
+            <t t-set="page_title" t-value="'Select Payment Method'" />
+            <t t-set="additional_title"><t t-esc="page_title" /></t>
+            <t t-set="breadcrumbs_searchbar" t-value="True" />
+            <t t-call="account_banking_ach_direct_debit_portal.debit_portal_searchbar">
+                <t t-set="title">Payment Method</t>
+            </t>
+            <div id="payment" class="container my-0 my-lg-4">
+                <form t-att-action="make_payment_url" method="get">
+                    <t t-foreach="invoices" t-as="invoice">
+                        <input type="hidden" name="invoice" t-att-value="invoice.id" />
+                    </t>
+                    <div class="row">
+                        <div class="col-md-8 mb-3">
+                            <div class="d-none d-md-block">
+                                <h5 class="card-title">Payment method</h5>
+                            </div>
+                            <div class="rounded border mt-md-3">
+                                <t t-foreach="payment_methods" t-as="method">
+                                    <label
+                                        class="payment-method-option"
+                                        t-att-for="method['id']"
+                                    >
+                                        <div
+                                            class="flex-desktop justify-content-between cursor-pointer w-100"
+                                        >
+                                            <div
+                                                class="d-flex justify-content-start align-items-center w-md-75 w-100"
+                                            >
+                                                <div class="form-check">
+                                                    <input
+                                                        type="radio"
+                                                        name="payment_method"
+                                                        class="form-check-input"
+                                                        t-att-id="method['id']"
+                                                        t-att-value="method['value']"
+                                                        t-att-checked="'checked' if method['checked'] else None"
+                                                        onchange="this.form.submit();"
+                                                    />
+                                                    <label
+                                                        class="form-check-label fw-normal"
+                                                        t-att-for="method['id']"
+                                                        t-esc="method['label']"
+                                                    />
+                                                </div>
+                                                <span
+                                                    class="note text-muted ms-md-4 ms-2"
+                                                    t-esc="method['note']"
+                                                />
+                                            </div>
+                                            <div t-if="method['image']">
+                                                <img
+                                                    t-att-src="method['image']"
+                                                    alt="My Image"
+                                                    class="credit_card_img"
+                                                />
+                                            </div>
+                                        </div>
+                                    </label>
+                                </t>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3 d-none d-md-block">
+                            <div class="card summary h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">Summary</h5>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span class="label">Invoice no</span>
+                                        <div>
+                                            <div
+                                                t-foreach="invoices"
+                                                t-as="invoice"
+                                                t-field="invoice.name"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="d-flex justify-content-between border-top pt-2 mb-2"
+                                    >
+                                        <span class="label">Amount due</span>
+                                        <span
+                                            t-esc="base_total_amount"
+                                            t-options='{"widget": "monetary", "display_currency": display_currency}'
+                                        />
+                                    </div>
+                                    <div
+                                        class="d-flex justify-content-between border-top pt-2 mb-2"
+                                    >
+                                        <span class="label">Due date</span>
+                                        <span t-esc="earliest_due_date" />
+                                    </div>
+                                    <t
+                                        t-if="surcharge_percent and selected_payment_method == 'credit_card'"
+                                    >
+                                        <div
+                                            class="d-flex justify-content-between border-top pt-2 pb-4 mb-3"
+                                        >
+                                            <span class="label">Surcharge</span>
+                                            <span
+                                                t-esc="surcharge_amount"
+                                                t-options='{"widget": "monetary", "display_currency": display_currency}'
+                                            />
+                                        </div>
+                                    </t>
+                                    <t
+                                        t-if="plaid_discount_percent and selected_payment_method == 'bank_account'"
+                                    >
+                                        <div
+                                            class="d-flex justify-content-between border-top pt-2 pb-4 mb-3"
+                                        >
+                                            <span class="label">Discount</span>
+                                            <span
+                                                t-esc="-discount_amount"
+                                                t-options='{"widget": "monetary", "display_currency": display_currency}'
+                                            />
+                                        </div>
+                                    </t>
+                                    <div
+                                        class="d-flex justify-content-between border-top pt-2 mb-2 fw-bold"
+                                    >
+                                        <span class="label">Total Amount</span>
+                                        <span
+                                            t-esc="total_amount"
+                                            t-options='{"widget": "monetary", "display_currency": display_currency}'
+                                        />
+                                    </div>
+                                    <t t-if="not invisible_button">
+                                        <button
+                                            type="submit"
+                                            name="action"
+                                            value="make_payment"
+                                            class="btn btn-submit w-100 mt-2"
+                                        >
+                                            Make a Payment
+                                        </button>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-md-none">
+                        <button
+                            type="submit"
+                            name="action"
+                            value="make_payment"
+                            class="btn btn-submit w-100 mt-5"
+                        >
+                            Done
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </t>
+    </template>
+
+    <template id="portal_payment_confirmation">
+        <t t-call="portal.portal_layout">
+            <t t-set="page_title" t-value="'Payment Confirmation'" />
+            <t t-set="additional_title"><t t-esc="page_title" /></t>
+            <t t-set="breadcrumbs_searchbar" t-value="True" />
+
+            <t t-call="account_banking_ach_direct_debit_portal.debit_portal_searchbar">
+                <t t-set="title">Payment confirmation</t>
+            </t>
+
+            <div id="payment-confirmation">
+                <form t-att-action="make_payment_url" method="post">
+                    <input
+                        type="hidden"
+                        name="csrf_token"
+                        t-att-value="request.csrf_token()"
+                    />
+
+                    <div class="container">
+                        <div class="card shadow-sm">
+                            <div class="card-body mx-5 my-4">
+                                <h3
+                                    class="card-title text-primary blue-title fw-bold pb-4 mb-4"
+                                >Please
+                                    Confirm Your Payment Details</h3>
+
+                                <div class="mb-2 row">
+                                    <label class="col-sm-4 fw-bold">Invoice no#</label>
+                                    <div class="col-sm-8 fw-bold value">
+                                        <t t-foreach="invoices" t-as="invoice">
+                                            <span class="me-1" t-field="invoice.name" />
+                                        </t>
+                                    </div>
+                                </div>
+                                <div class="mb-2 row">
+                                    <label class="col-sm-4 fw-bold">Amount due</label>
+                                    <div class="col-sm-8 fw-bold value">
+                                        <span
+                                            t-esc="total_due"
+                                            t-options='{"widget": "monetary", "display_currency": display_currency}'
+                                        />
+                                    </div>
+                                </div>
+                                <div class="mb-2 row">
+                                    <label class="col-sm-4 fw-bold">Due date</label>
+                                    <div
+                                        class="col-sm-8 fw-bold value"
+                                        t-esc="earliest_due_date"
+                                    />
+                                </div>
+                                <div t-if="discount_amount" class="mb-2 row">
+                                    <label
+                                        class="col-sm-4 fw-bold"
+                                    >Discount amount</label>
+                                    <div class="col-sm-8 fw-bold value">
+                                        <span
+                                            t-esc="-discount_amount"
+                                            t-options='{"widget": "monetary", "display_currency": display_currency}'
+                                        />
+                                    </div>
+                                </div>
+                                <div class="mb-2 row">
+                                    <label class="col-sm-4 fw-bold">Total amount</label>
+                                    <div class="col-sm-8 fw-bold value">
+                                        <span
+                                            t-esc="total_amount"
+                                            t-options='{"widget": "monetary", "display_currency": display_currency}'
+                                        />
+                                    </div>
+                                </div>
+                                <div class="mb-2 row">
+                                    <label class="col-sm-4 fw-bold">Bank name</label>
+                                    <div
+                                        class="col-sm-8 fw-bold value"
+                                        t-esc="partner_bank.bank_id.name"
+                                    />
+                                </div>
+                                <div class="mb-2 row">
+                                    <label class="col-sm-4 fw-bold">Account name</label>
+                                    <div
+                                        class="col-sm-8 fw-bold value"
+                                        t-esc="partner_bank.acc_holder_name"
+                                    />
+                                </div>
+                                <div class="mb-4 row">
+                                    <label
+                                        class="col-sm-4 fw-bold"
+                                    >Account number</label>
+                                    <div
+                                        class="col-sm-8 fw-bold value"
+                                        t-esc="partner_bank.acc_number"
+                                    />
+                                </div>
+
+                                <div class="alert">
+                                    <i
+                                        class="fa fa-exclamation-triangle text-warning me-2"
+                                    /> Please
+                                    double-check all the information above before proceeding. </div>
+
+                                <div class="d-flex justify-content-center">
+                                    <a
+                                        href="javascript:history.back()"
+                                        class="btn btn-light me-2 border"
+                                    >
+                                        <i class="fa fa-angle-left me-1" /> Back </a>
+                                    <button
+                                        type="submit"
+                                        class="btn btn-primary btn-blue"
+                                    >Proceed to Pay</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </t>
+    </template>
+
+    <template id="portal_payment_success">
+        <t t-call="portal.portal_layout">
+            <t t-set="page_title" t-value="'Payment Success'" />
+            <t t-set="additional_title"><t t-esc="page_title" /></t>
+            <t t-set="breadcrumbs_searchbar" t-value="True" />
+
+            <t t-call="account_banking_ach_direct_debit_portal.debit_portal_searchbar">
+                <t t-set="title">Payment Success</t>
+            </t>
+
+            <div id="payment-success">
+                <div class="container">
+                    <div class="card px-5 py-4 shadow-sm">
+                        <h2 class="text-primary blue-title fw-bold mb-3">Thank You!</h2>
+                        <p
+                            class="mb-2"
+                        >Your payment has been successfully processed.</p>
+
+                        <p class="mb-2">
+                            We appreciate your business and look forward to serving you again.
+                            A confirmation email with your invoice details has been sent to
+                            your registered email address.
+                        </p>
+
+                        <p class="mb-4">
+                            If you have any questions, feel free to contact our support team.
+                        </p>
+
+                        <a
+                            href="/my/invoices"
+                            class="btn btn-primary w-fit btn-blue"
+                        >Return to Invoices</a>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

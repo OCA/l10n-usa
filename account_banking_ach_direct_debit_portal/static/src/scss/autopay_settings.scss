@@ -1,0 +1,75 @@
+#wrapwrap.o_portal {
+    #autopay-settings {
+        .left-header {
+            align-items: center;
+            -webkit-box-pack: start;
+            justify-content: flex-start;
+
+            @media (min-width: 768px) {
+                display: flex !important;
+            }
+        }
+
+        .btn-toggle {
+            position: relative;
+            padding: 6px 12px;
+            background-color: #f4f4f4;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            color: #1e5593;
+
+            input[type="checkbox"] {
+                display: none;
+            }
+
+            .slider {
+                margin-left: 10px;
+                width: 30px;
+                height: 16px;
+                background-color: white;
+                border-radius: 10px;
+                position: relative;
+                border: 1px solid #1e60a1;
+            }
+
+            .slider::before {
+                content: "";
+                width: 12px;
+                height: 12px;
+                background: #1e60a1;
+                position: absolute;
+                left: 2px;
+                top: 1px;
+                border-radius: 50%;
+                transition: 0.3s;
+            }
+
+            input:checked + .slider::before {
+                transform: translateX(12px);
+            }
+
+            input:checked + .slider {
+                background-color: white;
+            }
+        }
+
+        .rule-option {
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 12px;
+            background-color: #fff;
+            font-size: 14px;
+            font-weight: 500;
+            width: 100%;
+
+            &:has(input[type="radio"]:checked) {
+                border-color: #1e60a1;
+            }
+        }
+    }
+}

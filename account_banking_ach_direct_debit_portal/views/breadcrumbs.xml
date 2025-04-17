@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template
+        id="portal_breadcrumbs"
+        name="Portal layout : payment menu entries"
+        inherit_id="portal.portal_breadcrumbs"
+        priority="30"
+    >
+        <xpath expr="//ol" position="attributes">
+            <attribute name="class" remove="flex-grow-1" add="me-2" separator=" " />
+        </xpath>
+
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li
+                t-if="page_name == 'schedule_payment'"
+                t-attf-class="breadcrumb-item #{'active ' if not invoice else ''}"
+            >
+                <a
+                    t-if="invoice"
+                    t-attf-href="/my/payment?{{ keep_query() }}"
+                >Schedule Payments</a>
+                <t t-else="">Schedule Payments</t>
+            </li>
+
+            <li t-if="page_name == 'payment'" class="breadcrumb-item active">
+                Payment
+            </li>
+
+            <li t-if="page_name == 'manual_payment'" class="breadcrumb-item active">
+                Manual Payment
+            </li>
+
+            <li
+                t-if="page_name == 'select_payment_method'"
+                class="breadcrumb-item active"
+            >
+                Select payment method
+            </li>
+
+            <li
+                t-if="page_name == 'payment_confirmation'"
+                class="breadcrumb-item active"
+            >
+                Payment confirmation
+            </li>
+
+            <li t-if="page_name == 'autopay_rules'" class="breadcrumb-item active">
+                Autopay Rules
+            </li>
+
+            <t t-if="page_name == 'verification'">
+                <li class="breadcrumb-item"><a href="/my/invoices">Invoices</a></li>
+                <li class="breadcrumb-item"><a
+                        href="/my/banks/add"
+                    >Add bank account</a></li>
+                <li class="breadcrumb-item active">Verification</li>
+            </t>
+
+            <t t-if="page_name == 'bank'">
+                <li class="breadcrumb-item"><a href="/my/invoices">Invoices</a></li>
+                <li class="breadcrumb-item active">
+                    <t t-if="edit_mode">Edit bank account</t>
+                    <t t-else="">Manage bank accounts</t>
+                </li>
+            </t>
+        </xpath>
+    </template>
+</odoo>

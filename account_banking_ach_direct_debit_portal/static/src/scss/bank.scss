@@ -1,0 +1,113 @@
+#wrapwrap.o_portal {
+    #bank_accounts {
+        .title {
+            @media (max-width: 768px) {
+                color: #1e5593;
+                font-size: 28px;
+            }
+        }
+
+        .bank-account {
+            border: 1px solid #e5e7eb;
+            border-radius: 5px;
+            padding: 15px 20px;
+            min-height: 100px;
+            margin: 10px auto;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            background-color: #fff;
+
+            .bank-info {
+                color: #444;
+                font-size: 14px;
+                line-height: 1.5;
+
+                div:first-child {
+                    font-weight: 600;
+                }
+
+                @media (max-width: 768px) {
+                    margin-left: 3px;
+                }
+            }
+
+            .verified {
+                span {
+                    color: #444;
+                }
+
+                i {
+                    color: #45c46d;
+                    font-size: 16px;
+                }
+            }
+
+            .mobile-circle {
+                @media (max-width: 768px) {
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 100px;
+                    padding: 10px;
+                    position: relative;
+                    border: 1px solid rgba(30, 85, 147, 0.1);
+
+                    i {
+                        position: absolute;
+                        left: 50%;
+                        top: 50%;
+                        transform: translate(-50%, -45%) !important;
+                    }
+                }
+            }
+
+            .edit-btn {
+                font-size: 16px;
+                color: #111827;
+                text-decoration: none;
+                font-weight: 500;
+                font-size: 16px;
+                line-height: 20px;
+                letter-spacing: 0%;
+            }
+
+            .mark-default-btn {
+                border: 1px solid #e5e7eb;
+                color: #6b7280;
+                background-color: transparent;
+                border-radius: 0.375rem;
+                padding: 0.5rem 1rem;
+
+                &:hover {
+                    background-color: #f9fafb;
+                    border-color: #9ca3af;
+                    color: #374151;
+                }
+            }
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px 40px;
+
+            label {
+                display: block;
+                font-weight: 600;
+                margin-bottom: 8px;
+            }
+
+            input,
+            select {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 6px;
+                font-size: 14px;
+            }
+
+            select {
+                height: 42px;
+                background-color: white;
+            }
+        }
+    }
+}

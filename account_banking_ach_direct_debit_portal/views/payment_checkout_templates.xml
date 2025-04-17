@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <template id="pay_inherit" inherit_id="payment.pay">
+        <xpath expr="//t[@t-esc='reference_prefix']" position="after">
+            <t t-if="surcharge_amount">
+                <br />
+                <b>Surcharge Amount:</b>
+                <t
+                    t-esc="surcharge_amount"
+                    t-options="{'widget': 'monetary', 'display_currency': currency}"
+                />
+                <br />
+                <b>Amount Due:</b>
+                <t
+                    t-esc="base_total_amount"
+                    t-options="{'widget': 'monetary', 'display_currency': currency}"
+                />
+            </t>
+        </xpath>
+    </template>
+    <template id="payment_checkout_inherit_multi" inherit_id="payment.checkout">
+        <xpath expr="//form[@name='o_payment_checkout']" position="attributes">
+            <attribute name="t-att-data-invoices">invoices</attribute>
+        </xpath>
+    </template>
+
+    <template id="payment_manage_inherit_multi" inherit_id="payment.manage">
+        <xpath expr="//form[@name='o_payment_manage']" position="attributes">
+            <attribute name="t-att-data-invoices">invoices</attribute>
+        </xpath>
+    </template>
+
+</odoo>

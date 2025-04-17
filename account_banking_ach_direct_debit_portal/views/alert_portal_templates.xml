@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="alert_portal_403_template" name="ACH Portal Access Denied">
+        <t t-call="portal.portal_layout">
+            <div class="container my-5">
+                <div
+                    class="alert alert-danger shadow-sm position-relative"
+                    role="alert"
+                >
+                    <button
+                        type="button"
+                        class="btn-close position-absolute end-0 top-0 mt-2 me-3"
+                        data-bs-dismiss="alert"
+                        aria-label="Close"
+                    />
+                    <h4 class="alert-heading">Access Denied</h4>
+                    <p>
+                        Sorry, you are not allowed to access this page.<br />
+                        The ACH Payment Portal has not been enabled for your account.
+                    </p>
+                    <hr />
+                    <p
+                        class="mb-0"
+                    >Please contact your administrator for more information.</p>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

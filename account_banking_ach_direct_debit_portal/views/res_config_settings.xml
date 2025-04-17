@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.payment</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='analytic']" position="after">
+                <h2>Plaid</h2>
+                <div class="row mt16 o_settings_container" id="transfer_journal">
+                    <div class="col-xs-12 col-md-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label
+                                        for="plaid_env"
+                                        class="col-md-6 o_light_label"
+                                    />
+                                    <field name="plaid_env" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-md-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label
+                                        for="plaid_client_id"
+                                        class="col-md-6 o_light_label"
+                                    />
+                                    <field name="plaid_client_id" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt16 o_settings_container" id="transfer_journal">
+                    <div class="col-xs-12 col-md-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label
+                                        for="plaid_secret"
+                                        class="col-md-6 o_light_label"
+                                    />
+                                    <field name="plaid_secret" password="True" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h2>Bank account</h2>
+                <div class="row mt16 o_settings_container" id="plaid_discount_settings">
+                    <div class="col-xs-12 col-md-6 o_setting_box">
+                        <div class="o_setting_left_pane" />
+                        <div class="o_setting_right_pane">
+                            <label for="plaid_discount" />
+                            <div class="text-muted">
+                                Plaid Discount to apply when customers pay with a bank account on the portal.
+                            </div>
+                            <div class="content-group">
+                                <field name="plaid_discount" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h2>Credit Card</h2>
+                <div
+                    class="row mt16 o_settings_container"
+                    id="credit_card_surcharge_settings"
+                >
+                    <div class="col-xs-12 col-md-6 o_setting_box">
+                        <div class="o_setting_left_pane" />
+                        <div class="o_setting_right_pane">
+                            <label for="credit_card_surcharge" />
+                            <div class="text-muted">
+                                Surcharge percentage to apply when customers pay with a credit card on the portal.
+                            </div>
+                            <div class="content-group">
+                                <field name="credit_card_surcharge" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h2>ACH Payment Portal Activation</h2>
+                <div
+                    class="row mt16 o_settings_container"
+                    id="payment_portal_activation_settings"
+                >
+                    <div class="col-12 col-lg-12 o_setting_box">
+                        <div class="text-muted">
+                            <p
+                                class="mb-0"
+                            >Controls who can access the ACH Payment Portal features:</p>
+                            <ul class="">
+                                <li>Disabled: Hide all ACH portal features</li>
+                                <li
+                                >Selected Users Only: Show to users with 'Enable ACH Payment Portal' enabled</li>
+                                <li
+                                >All Portal Users: Enable ACH features for all portal users</li>
+                            </ul>
+                        </div>
+                        <div class="o_setting_right_pane mt16">
+                            <label for="enable_portal" />
+                            <div>
+                                <field name="enable_portal" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
