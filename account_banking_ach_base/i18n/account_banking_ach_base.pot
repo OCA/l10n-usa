@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 17.0\n"
+"Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -16,42 +16,36 @@ msgstr ""
 #. module: account_banking_ach_base
 #. odoo-python
 #: code:addons/account_banking_ach_base/models/account_payment_order.py:0
-#, python-format
 msgid "%s account number has no Bank assigned"
 msgstr ""
 
 #. module: account_banking_ach_base
 #. odoo-python
 #: code:addons/account_banking_ach_base/models/account_payment_order.py:0
-#, python-format
 msgid "%s does not have a Routing Number assigned!"
 msgstr ""
 
 #. module: account_banking_ach_base
 #. odoo-python
 #: code:addons/account_banking_ach_base/models/account_payment_order.py:0
-#, python-format
 msgid "%s does not have an EIN / SSN / BN assigned!"
 msgstr ""
 
 #. module: account_banking_ach_base
 #. odoo-python
 #: code:addons/account_banking_ach_base/models/account_payment_order.py:0
-#, python-format
 msgid "%s has no routing number specified"
 msgstr ""
 
 #. module: account_banking_ach_base
 #. odoo-python
 #: code:addons/account_banking_ach_base/models/res_bank.py:0
-#, python-format
 msgid "%s is not a valid Canadian routing number!"
 msgstr ""
 
 #. module: account_banking_ach_base
 #. odoo-python
 #: code:addons/account_banking_ach_base/models/res_bank.py:0
-#, python-format
 msgid "%s is not a valid US routing number!"
 msgstr ""
 
@@ -78,7 +72,6 @@ msgstr ""
 #. module: account_banking_ach_base
 #. odoo-python
 #: code:addons/account_banking_ach_base/models/account_banking_mandate.py:0
-#, python-format
 msgid "Delay days must be specified, and greater than 0."
 msgstr ""
 
@@ -122,7 +115,6 @@ msgstr ""
 #. module: account_banking_ach_base
 #. odoo-python
 #: code:addons/account_banking_ach_base/models/account_payment_order.py:0
-#, python-format
 msgid ""
 "Missing ACH Direct Debit mandate on the payment line with partner %(name)s "
 "(reference %(line_name)s)."
@@ -159,7 +151,6 @@ msgstr ""
 #. module: account_banking_ach_base
 #. odoo-python
 #: code:addons/account_banking_ach_base/models/account_payment_order.py:0
-#, python-format
 msgid ""
 "The ACH Direct Debit mandate with reference %(unique_mandate_reference)s for"
 " partner %(name)s has expired."
@@ -168,7 +159,6 @@ msgstr ""
 #. module: account_banking_ach_base
 #. odoo-python
 #: code:addons/account_banking_ach_base/models/account_payment_order.py:0
-#, python-format
 msgid ""
 "The mandate with reference %(unique_mandate_reference)s for partner %(name)s"
 " has type set to 'One-Off' and it has a last debit date set to "
@@ -178,7 +168,6 @@ msgstr ""
 #. module: account_banking_ach_base
 #. odoo-python
 #: code:addons/account_banking_ach_base/models/account_move.py:0
-#, python-format
 msgid ""
 "To satisfy payment mandate, cannot add invoice %(name)s to Debit Order until"
 " %(delay_expired)s!"
