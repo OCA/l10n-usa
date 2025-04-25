@@ -1,0 +1,1 @@
+odoo-addon-account_banking_ach_direct_debit @ git+https://github.com/OCA/l10n-usa.git@refs/pull/127/head#subdirectory=setup/account_banking_ach_direct_debit
