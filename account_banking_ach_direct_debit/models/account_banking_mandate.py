@@ -59,10 +59,7 @@ class AccountBankingMandate(models.Model):
     def _compute_display_name(self):
         for mandate in self:
             if mandate.format == "ach":
-                name = "{} ({})".format(
-                    mandate.unique_mandate_reference,
-                    mandate.recurrent_sequence_type,
-                )
+                name = f"{mandate.unique_mandate_reference} ({mandate.recurrent_sequence_type})"
             else:
                 name = mandate.unique_mandate_reference
             mandate.display_name = name
@@ -70,7 +67,7 @@ class AccountBankingMandate(models.Model):
     @api.onchange("partner_bank_id")
     def mandate_partner_bank_change(self):
         for mandate in self:
-            super(AccountBankingMandate, self).mandate_partner_bank_change()
+            super().mandate_partner_bank_change()
             res = {}
             if (
                 mandate.state == "valid"
