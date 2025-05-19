@@ -15,7 +15,7 @@ class AccountPaymentOrder(models.Model):
         self.ensure_one()
         if self.payment_method_id.code == "ACH-In":
             return self.generate_ach_file()
-        return super(AccountPaymentOrder, self).generate_payment_file()
+        return super().generate_payment_file()
 
     def generated2uploaded(self):
         """Write 'last debit date' on mandates
@@ -26,7 +26,7 @@ class AccountPaymentOrder(models.Model):
         # from first to recurring, so that the account move
         # is generated BEFORE, which will allow the split
         # of the account move per sequence_type
-        res = super(AccountPaymentOrder, self).generated2uploaded()
+        res = super().generated2uploaded()
         mandate = self.env["account.banking.mandate"]
         for order in self:
             to_expire_mandates = first_mandates = all_mandates = mandate
