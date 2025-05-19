@@ -2,14 +2,11 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html)
 
 from odoo.exceptions import ValidationError
-from odoo.tests.common import TransactionCase
+
+from odoo.addons.base.tests.common import BaseCommon
 
 
-class TestMandate(TransactionCase):
-    def setUp(self):
-        super().setUp()
-        self.company = self.env.ref("base.main_company")
-
+class TestMandate(BaseCommon):
     def test_bank_mandate(self):
         bank_account = self.env.ref("account_payment_mode.res_partner_12_iban")
         mandate = self.env["account.banking.mandate"].create(
@@ -27,7 +24,6 @@ class TestMandate(TransactionCase):
             mandate._check_recurring_type()
         mandate.format = "basic"
         mandate._achdd_mandate_set_state_to_expired()
-        mandate._compute_display_name()
         mandate.validate()
         mandate.mandate_partner_bank_change()
         mandate._achdd_mandate_set_state_to_expired()

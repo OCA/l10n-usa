@@ -42,9 +42,9 @@ Installation
 
 This module depends on :
 
--  account_banking_ach_base
--  carta-ach
--  stdnum
+- account_banking_ach_base
+- carta-ach
+- stdnum
 
 Configuration
 =============
@@ -62,7 +62,7 @@ For defining a payment mode that uses ACH direct debit:
 Usage
 =====
 
-In the menu *Accounting > Payments > Debit Order*, create a new debit
+In the menu *Accounting > Customers > Debit Order*, create a new debit
 order and select the Payment Mode dedicated to ACH Direct Debit that you
 created during the configuration step.
 
@@ -87,10 +87,11 @@ Authors
 Contributors
 ------------
 
--  Dave Burkholder <dave@thinkwelldesigns.com>
--  Maxime Chambreuil <mchambreuil@opensourceintegrators.com>
--  Serpent Consulting Services Pvt. Ltd. <support@serpentcs.com>
--  Murtaza Mithaiwala mmithaiwala@@opensourceintegrators.com>
+- Dave Burkholder <dave@thinkwelldesigns.com>
+- Maxime Chambreuil <mchambreuil@opensourceintegrators.com>
+- Serpent Consulting Services Pvt. Ltd. <support@serpentcs.com>
+- Murtaza Mithaiwala <mmithaiwala@opensourceintegrators.com>
+- Do Anh Duy <duyda@trobz.com>
 
 Maintainers
 -----------

@@ -8,18 +8,18 @@
             <field name="partner_id" position="after">
                 <field
                     name="scheme"
-                    attrs="{'invisible': [('format', '!=', 'ach')],
-                                             'required': [('format', '=', 'ach')]}"
+                    invisible="format != 'ach'"
+                    required="format == 'ach'"
                 />
                 <field
                     name="type"
-                    attrs="{'invisible': [('format', '!=', 'ach')],
-                                           'required': [('format', '=', 'ach')]}"
+                    invisible="format != 'ach'"
+                    required="format == 'ach'"
                 />
                 <field
                     name="recurrent_sequence_type"
-                    attrs="{'invisible': ['|', ('type', '=', 'oneoff'), ('format', '!=', 'ach')],
-                               'required': [('type', '=', 'recurrent')]}"
+                    invisible="type == 'oneoff' or format != 'ach'"
+                    required="type == 'recurrent'"
                 />
             </field>
         </field>
@@ -29,9 +29,8 @@
         <field name="model">account.banking.mandate</field>
         <field name="inherit_id" ref="account_banking_mandate.view_mandate_tree" />
         <field name="arch" type="xml">
-            <field name="unique_mandate_reference" position="after">
+            <field name="type" position="after">
                 <field name="scheme" />
-                <field name="type" string="Type" />
                 <field name="recurrent_sequence_type" string="Sequence Type" />
             </field>
         </field>
