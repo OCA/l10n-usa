@@ -1,7 +1,9 @@
 # Copyright 2018 Thinkwell Designs <dave@thinkwelldesigns.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import _, models
+from markupsafe import Markup
+
+from odoo import models
 
 
 class AccountPaymentOrder(models.Model):
@@ -27,33 +29,37 @@ class AccountPaymentOrder(models.Model):
         # is generated BEFORE, which will allow the split
         # of the account move per sequence_type
         res = super().generated2uploaded()
-        mandate = self.env["account.banking.mandate"]
+        Mandate = self.env["account.banking.mandate"]
         for order in self:
-            to_expire_mandates = first_mandates = all_mandates = mandate
-            for payment in order.payment_ids:
-                if payment.mandate_id in all_mandates:
+            to_expire_mandates = first_mandates = all_mandates = Mandate
+            for payment in order.payment_ids.filtered("mandate_id"):
+                mandate = payment.mandate_id
+                if mandate in all_mandates:
                     continue
-                all_mandates += payment.mandate_id
-                if payment.mandate_id.type == "oneoff":
-                    to_expire_mandates += payment.mandate_id
-                elif payment.mandate_id.type == "recurrent":
-                    seq_type = payment.mandate_id.recurrent_sequence_type
+                all_mandates |= mandate
+                if mandate.type == "oneoff":
+                    to_expire_mandates |= mandate
+                elif mandate.type == "recurrent":
+                    seq_type = mandate.recurrent_sequence_type
                     if seq_type == "final":
-                        to_expire_mandates += payment.mandate_id
+                        to_expire_mandates |= mandate
                     elif seq_type == "first":
-                        first_mandates += payment.mandate_id
+                        first_mandates |= mandate
             all_mandates.write({"last_debit_date": order.date_generated})
             to_expire_mandates.write({"state": "expired"})
             first_mandates.write({"recurrent_sequence_type": "recurring"})
             for first_mandate in first_mandates:
                 first_mandate.message_post(
-                    body=_(
-                        "Automatically switched from <b>First</b> to "
-                        "<b>Recurring</b> when the debit order "
-                        "<a href=# data-oe-model=account.payment.order "
-                        "data-oe-id=%(order_id)d>%(order_name)s</a> "
-                        "has been marked as uploaded."
+                    body=Markup(
+                        self.env._(
+                            "Automatically switched from <b>First</b> to "
+                            "<b>Recurring</b> when the debit order "
+                            "<a href=# data-oe-model=account.payment.order "
+                            "data-oe-id=%(order_id)d>%(order_name)s</a> "
+                            "has been marked as uploaded.",
+                            order_id=order.id,
+                            order_name=order.name,
+                        )
                     )
-                    % {"order_id": order.id, "order_name": order.name}
                 )
         return res
