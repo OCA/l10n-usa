@@ -43,9 +43,7 @@ class AccountPaymentLine(models.Model):
 
     @api.model
     def same_fields_payment_line_and_bank_payment_line(self):
-        res = super(
-            AccountPaymentLine, self
-        ).same_fields_payment_line_and_bank_payment_line()
+        res = super().same_fields_payment_line_and_bank_payment_line()
         res.update(
             {
                 "payment_difference_handling",

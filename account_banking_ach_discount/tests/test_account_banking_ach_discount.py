@@ -121,7 +121,6 @@ class TestPayment(TransactionCase):
         )
 
     def test_account_payment_order_ach_discount(self):
-
         # Create customer invoice
         self.customer_invoice = self.account_invoice_model.create(
             dict(

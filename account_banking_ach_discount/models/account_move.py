@@ -7,7 +7,7 @@ class AccountMove(models.Model):
     _inherit = "account.move"
 
     def _compute_payments_widget_reconciled_info(self):
-        res = super(AccountMove, self)._compute_payments_widget_reconciled_info()
+        res = super()._compute_payments_widget_reconciled_info()
         for move in self:
             if move.invoice_payments_widget:
                 inv_number = move.name

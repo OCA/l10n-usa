@@ -8,7 +8,7 @@ class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
 
     def _prepare_payment_line_vals(self, payment_order):
-        vals = super(AccountMoveLine, self)._prepare_payment_line_vals(payment_order)
+        vals = super()._prepare_payment_line_vals(payment_order)
         invoice = self.move_id
         amount_currency = vals.get("amount_currency")
         # No discount for open invoices

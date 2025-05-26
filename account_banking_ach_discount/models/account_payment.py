@@ -49,5 +49,5 @@ class AccountPayment(models.Model):
                         )
                         payment.unlink()
                         return action
-        res = super(AccountPayment, self).action_validate_invoice_payment()
+        res = super().action_validate_invoice_payment()
         return res

@@ -17,13 +17,13 @@ Discount on ACH batch payments
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fl10n--usa-lightgray.png?logo=github
-    :target: https://github.com/OCA/l10n-usa/tree/16.0/account_banking_ach_discount
+    :target: https://github.com/OCA/l10n-usa/tree/18.0/account_banking_ach_discount
     :alt: OCA/l10n-usa
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/l10n-usa-16-0/l10n-usa-16-0-account_banking_ach_discount
+    :target: https://translation.odoo-community.org/projects/l10n-usa-18-0/l10n-usa-18-0-account_banking_ach_discount
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/l10n-usa&target_branch=16.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/l10n-usa&target_branch=18.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
@@ -39,47 +39,51 @@ Configuration
 =============
 
 Payment Terms
-~~~~~~~~~~~~~
+-------------
 
-* Go to *Accounting > Configuration > Payment Terms*
-* Create or select a payment term
-* Activate the discounts options
-* On a line, set the discount percentage and number of days
+-  Go to *Accounting > Configuration > Payment Terms*
+-  Create or select a payment term
+-  Activate the discounts options
+-  On a line, set the discount percentage and number of days
 
 Payment Modes
-~~~~~~~~~~~~~
+-------------
 
-* Go to *Accounting > Configuration > Payment Modes*
-* Create or select a payment mode
-* Link it to an ACH payment method
+-  Go to *Accounting > Configuration > Payment Modes*
+-  Create or select a payment mode
+-  Link it to an ACH payment method
 
 Vendors
-~~~~~~~
+-------
 
-* Go *Contacts* or *Accounting > Vendors > Vendors*
-* Create or select a vendor
-* On the Sales and Purchase tab, set the supplier payment mode
-* On the Accounting tab, set their bank information (account number, bank, routing number)
+-  Go *Contacts* or *Accounting > Vendors > Vendors*
+-  Create or select a vendor
+-  On the Sales and Purchase tab, set the supplier payment mode
+-  On the Accounting tab, set their bank information (account number,
+   bank, routing number)
 
 Usage
 =====
 
-* Go to *Accounting > Customers > Invoices* or *Accounting > Vendors > Bills*
-* Select or create various records in the state posted with ACH and discounts
-* In the Action menu, click on Batch Payments
-* Review the payment information provided by default
-* Click on Make Payments
-* Review the payment order, confirm it and generate the ACH file
-* Go to your bank's website to upload the file
-* Come back to Odoo and confirm the upload to the bank was successful
+-  Go to *Accounting > Customers > Invoices* or *Accounting > Vendors >
+   Bills*
+-  Select or create various records in the state posted with ACH and
+   discounts
+-  In the Action menu, click on Batch Payments
+-  Review the payment information provided by default
+-  Click on Make Payments
+-  Review the payment order, confirm it and generate the ACH file
+-  Go to your bank's website to upload the file
+-  Come back to Odoo and confirm the upload to the bank was successful
 
 Changelog
 =========
 
 12.0.1.0.0
-~~~~~~~~~~
+----------
 
-- ACH Payment, Automatic Discount and Batch Payment Partial Pay Integration
+-  ACH Payment, Automatic Discount and Batch Payment Partial Pay
+   Integration
 
 Bug Tracker
 ===========
@@ -87,7 +91,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/l10n-usa/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/l10n-usa/issues/new?body=module:%20account_banking_ach_discount%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/l10n-usa/issues/new?body=module:%20account_banking_ach_discount%0Aversion:%2018.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -95,23 +99,24 @@ Credits
 =======
 
 Authors
-~~~~~~~
+-------
 
 * Open Source Integrators
 
 Contributors
-~~~~~~~~~~~~
+------------
 
-* Open Source Integrators <https://www.opensourceintegrators.com>
+-  Open Source Integrators <https://www.opensourceintegrators.com>
 
-  * Bhavesh Odedra <bodedra@opensourceintegrators.com>
-  * Maxime Chambreuil <mchambreuil@opensourceintegrators.com>
+   -  Bhavesh Odedra <bodedra@opensourceintegrators.com>
+   -  Maxime Chambreuil <mchambreuil@opensourceintegrators.com>
 
-* ForgeFlow <https://www.forgeflow.com>
-  * Jasmin Solanki <jasmin.solanki@forgeflow.com>
+-  ForgeFlow <https://www.forgeflow.com>
+
+   -  Jasmin Solanki <jasmin.solanki@forgeflow.com>
 
 Maintainers
-~~~~~~~~~~~
+-----------
 
 This module is maintained by the OCA.
 
@@ -131,6 +136,6 @@ Current `maintainer <https://odoo-community.org/page/maintainer-role>`__:
 
 |maintainer-bodedra| 
 
-This module is part of the `OCA/l10n-usa <https://github.com/OCA/l10n-usa/tree/16.0/account_banking_ach_discount>`_ project on GitHub.
+This module is part of the `OCA/l10n-usa <https://github.com/OCA/l10n-usa/tree/18.0/account_banking_ach_discount>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
