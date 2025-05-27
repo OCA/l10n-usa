@@ -3,10 +3,12 @@
 
 from datetime import datetime, timedelta
 
-from odoo.tests.common import Form, TransactionCase
+from odoo.tests import Form
+
+from odoo.addons.base.tests.common import BaseCommon
 
 
-class TestPayment(TransactionCase):
+class TestPayment(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -14,9 +16,9 @@ class TestPayment(TransactionCase):
         cls.payment_term_model = cls.env["account.payment.term"]
         cls.account_invoice_model = cls.env["account.move"]
         cls.account_model = cls.env["account.account"]
-        Journal = cls.env["account.journal"]
-
-        cls.journal_sale = Journal.search([("type", "=", "sale")], limit=1)
+        cls.journal_model = cls.env["account.journal"]
+        cls.account_mandate_model = cls.env["account.banking.mandate"]
+        cls.journal_sale = cls.journal_model.search([("type", "=", "sale")], limit=1)
         cls.income_account = cls.account_model.search(
             [
                 (
@@ -27,8 +29,6 @@ class TestPayment(TransactionCase):
             ],
             limit=1,
         )
-        cls.partner = cls.env["res.partner"].create({"name": "Partner 1"})
-        cls.company = cls.env.ref("base.main_company")
         cls.company.partner_id = cls.partner.id
         cls.company.legal_id_number = "12-3456789"
         cls.payment_method_line = cls.env["account.payment.method.line"].search(
@@ -54,7 +54,7 @@ class TestPayment(TransactionCase):
                 "company_id": cls.company.id,
             }
         )
-        cls.mandate = cls.env["account.banking.mandate"].create(
+        cls.mandate = cls.account_mandate_model.create(
             {
                 "partner_bank_id": bank_account.id,
                 "signature_date": "2024-01-01",
@@ -63,7 +63,7 @@ class TestPayment(TransactionCase):
             }
         )
         cls.mandate.validate()
-        cls.journal_c1 = cls.env["account.journal"].create(
+        cls.journal_c1 = cls.journal_model.create(
             {
                 "name": "Journal 1",
                 "code": "J1",
@@ -73,8 +73,8 @@ class TestPayment(TransactionCase):
             }
         )
         cls.inbound_mode = cls.env.ref("account_payment_mode.payment_mode_inbound_dd1")
-        cls.journal = cls.env["account.journal"].search(
-            [("type", "=", "bank"), ("company_id", "=", cls.env.user.company_id.id)],
+        cls.journal = cls.journal_model.search(
+            [("type", "=", "bank"), ("company_id", "=", cls.company.id)],
             limit=1,
         )
         cls.payment_mode_c1 = cls.env["account.payment.mode"].create(
@@ -102,18 +102,19 @@ class TestPayment(TransactionCase):
         cls.payment_term = cls.payment_term_model.create(
             dict(
                 name="5%10 NET30",
-                is_discount=True,
+                early_discount=True,
                 note="5% discount if payment done within 10 days, otherwise net",
+                discount_percentage=5.0,
+                discount_days=10,
+                discount_expense_account_id=cls.account_discount.id,
                 line_ids=[
                     (
                         0,
                         0,
                         {
-                            "value": "balance",
-                            "discount_percentage": 5.0,
-                            "discount_days": 10,
-                            "discount_expense_account_id": cls.account_discount.id,
-                            "days": 30,
+                            "value": "percent",
+                            "value_amount": 100.0,
+                            "nb_days": 30,
                         },
                     )
                 ],

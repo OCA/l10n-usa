@@ -23,8 +23,7 @@ class AccountMoveLine(models.Model):
             if (
                 invoice
                 and invoice.invoice_payment_term_id
-                and invoice.invoice_payment_term_id.is_discount
-                and invoice.invoice_payment_term_id.line_ids
+                and invoice.invoice_payment_term_id.early_discount
             ):
                 discount_information = (
                     invoice.invoice_payment_term_id._check_payment_term_discount(

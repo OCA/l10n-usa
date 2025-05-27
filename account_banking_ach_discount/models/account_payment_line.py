@@ -1,6 +1,6 @@
 # Copyright (C) 2019 Open Source Integrators
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import UserError
 from odoo.tools.float_utils import float_is_zero
 
@@ -21,8 +21,9 @@ class AccountPaymentLine(models.Model):
     writeoff_account_id = fields.Many2one(
         "account.account",
         string="Account",
-        domain=[("deprecated", "!=", True)],
+        domain=[("deprecated", "=", False)],
         copy=False,
+        check_company=True,
     )
     reason_code = fields.Many2one("payment.adjustment.reason")
     note = fields.Text()
@@ -42,51 +43,43 @@ class AccountPaymentLine(models.Model):
             line.total_amount = line.amount_currency + line.payment_difference
 
     @api.model
-    def same_fields_payment_line_and_bank_payment_line(self):
-        res = super().same_fields_payment_line_and_bank_payment_line()
-        res.update(
-            {
-                "payment_difference_handling",
-                "writeoff_account_id",
-                "reason_code",
-                "move_id",
-            }
-        )
-        return res
-
-    @api.model
     def _get_payment_line_grouping_fields(self):
         """This list of fields is used o compute the grouping hashcode."""
         fields = super()._get_payment_line_grouping_fields()
-        fields.append("writeoff_account_id")
+        fields += [
+            "writeoff_account_id",
+            "payment_difference_handling",
+            "writeoff_account_id",
+            "reason_code",
+            "move_id",
+        ]
         return fields
 
     def _prepare_account_payment_vals(self):
         values = super()._prepare_account_payment_vals()
         note = ""
         total_payment_difference = 0.0
-        for rec in self:
-            payment_difference = rec.payment_difference
-            if rec.reason_code:
-                note = rec.reason_code.display_name + ": "
-            if rec.note:
-                note += rec.note
-            if rec.payment_type == "outbound":
-                payment_difference *= -1
-            total_payment_difference += payment_difference
+        payment_difference = self.payment_difference
+        if self.reason_code:
+            note = self.reason_code.display_name + ": "
+        if self.note:
+            note += self.note
+        if self.payment_type == "outbound":
+            payment_difference *= -1
+        total_payment_difference += payment_difference
         if not float_is_zero(
             total_payment_difference, precision_digits=self.currency_id.decimal_places
         ):
             if not self.writeoff_account_id:
                 raise UserError(
-                    _(
+                    self.env._(
                         "A payment difference was found, but you "
                         "need to indicicate a corresponding "
                         "writeoff account"
                     )
                 )
             write_off_line_vals = {
-                "account_id": self[:1].writeoff_account_id.id,
+                "account_id": self.writeoff_account_id.id,
                 "name": note,
                 "amount_currency": total_payment_difference,
                 "balance": total_payment_difference,

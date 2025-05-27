@@ -51,13 +51,11 @@ class AccountPaymentRegister(models.TransientModel):
                     if ach_lines:
                         ach_lines.write(
                             {
-                                "payment_difference_handling": line.payment_difference_handling,
+                                "payment_difference_handling": line.payment_difference_handling,  # noqa: E501
                                 "writeoff_account_id": line.writeoff_account_id.id,
                                 "reason_code": line.reason_code.id,
                                 "note": line.note,
-                                "communication": "Payment of invoice %s"
-                                % line.invoice_id.name,
-                                "communication_type": "normal",
+                                "communication": f"Payment of invoice {line.invoice_id.name}",  # noqa: E501
                                 "amount_currency": line.amount,
                                 "payment_difference": line.payment_difference,
                             }

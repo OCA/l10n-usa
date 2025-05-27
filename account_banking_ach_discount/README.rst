@@ -44,7 +44,7 @@ Payment Terms
 -  Go to *Accounting > Configuration > Payment Terms*
 -  Create or select a payment term
 -  Activate the discounts options
--  On a line, set the discount percentage and number of days
+-  Set the discount percentage and number of days
 
 Payment Modes
 -------------
@@ -114,6 +114,10 @@ Contributors
 -  ForgeFlow <https://www.forgeflow.com>
 
    -  Jasmin Solanki <jasmin.solanki@forgeflow.com>
+
+-  Trobz <https://www.trobz.com>
+
+   -  Do Anh Duy <duyda@trobz.com>
 
 Maintainers
 -----------

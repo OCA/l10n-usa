@@ -3,7 +3,7 @@
 - Go to *Accounting \> Configuration \> Payment Terms*
 - Create or select a payment term
 - Activate the discounts options
-- On a line, set the discount percentage and number of days
+- Set the discount percentage and number of days
 
 ## Payment Modes
 

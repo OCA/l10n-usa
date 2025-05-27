@@ -17,7 +17,7 @@
     </record>
 
     <record id="account_payment_line_discount_amount_tree" model="ir.ui.view">
-        <field name="name">account.payment.line.tree</field>
+        <field name="name">account.payment.line.list</field>
         <field name="model">account.payment.line</field>
         <field
             name="inherit_id"
