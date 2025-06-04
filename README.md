@@ -24,9 +24,9 @@ addon | version | maintainers | summary
 [account_banking_ach_base](account_banking_ach_base/) | 14.0.1.0.2 |  | Add fields required for North American Banking & Financials
 [account_banking_ach_credit_transfer](account_banking_ach_credit_transfer/) | 14.0.1.0.0 |  | Create ACH files for Credit Transfers
 [account_banking_ach_direct_debit](account_banking_ach_direct_debit/) | 14.0.1.0.0 |  | Create ACH files for Direct Debit
-[l10n_us_form_1099](l10n_us_form_1099/) | 14.0.1.0.0 | [![max3903](https://github.com/max3903.png?size=30px)](https://github.com/max3903) | Manage 1099 Types and Suppliers
-[l10n_us_gaap](l10n_us_gaap/) | 14.0.1.1.1 | [![JordiBForgeFlow](https://github.com/JordiBForgeFlow.png?size=30px)](https://github.com/JordiBForgeFlow) | United States Sample GAAP Chart of Accounts
-[l10n_us_gaap_mis_report](l10n_us_gaap_mis_report/) | 14.0.1.0.0 | [![JordiBForgeFlow](https://github.com/JordiBForgeFlow.png?size=30px)](https://github.com/JordiBForgeFlow) | MIS Builder Templates for US Chart of Accounts
+[l10n_us_form_1099](l10n_us_form_1099/) | 14.0.1.0.0 | <a href='https://github.com/max3903'><img src='https://github.com/max3903.png' width='32' height='32' style='border-radius:50%;' alt='max3903'/></a> | Manage 1099 Types and Suppliers
+[l10n_us_gaap](l10n_us_gaap/) | 14.0.1.1.1 | <a href='https://github.com/JordiBForgeFlow'><img src='https://github.com/JordiBForgeFlow.png' width='32' height='32' style='border-radius:50%;' alt='JordiBForgeFlow'/></a> | United States Sample GAAP Chart of Accounts
+[l10n_us_gaap_mis_report](l10n_us_gaap_mis_report/) | 14.0.1.0.0 | <a href='https://github.com/JordiBForgeFlow'><img src='https://github.com/JordiBForgeFlow.png' width='32' height='32' style='border-radius:50%;' alt='JordiBForgeFlow'/></a> | MIS Builder Templates for US Chart of Accounts
 [l10n_us_partner_legal_number](l10n_us_partner_legal_number/) | 14.0.1.0.1 |  | Add Legal Number for North American Banking & Financials
 [partner_usps_address_validation](partner_usps_address_validation/) | 14.0.1.0.0 |  | Utilize the USPS open API for address validation
 
@@ -35,7 +35,7 @@ Unported addons
 ---------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
-[account_banking_ach_discount](account_banking_ach_discount/) | 14.0.1.0.0 (unported) | [![bodedra](https://github.com/bodedra.png?size=30px)](https://github.com/bodedra) | Discount on ACH batch payments
+[account_banking_ach_discount](account_banking_ach_discount/) | 14.0.1.0.0 (unported) | <a href='https://github.com/bodedra'><img src='https://github.com/bodedra.png' width='32' height='32' style='border-radius:50%;' alt='bodedra'/></a> | Discount on ACH batch payments
 
 [//]: # (end addons)
 
