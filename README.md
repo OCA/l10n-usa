@@ -22,10 +22,10 @@ Available addons
 addon | version | maintainers | summary
 --- | --- | --- | ---
 [l10n_us_account_routing](l10n_us_account_routing/) | 16.0.1.0.0 |  | Add the routing numbers to the banks
-[l10n_us_form_1099](l10n_us_form_1099/) | 16.0.1.0.0 | [![max3903](https://github.com/max3903.png?size=30px)](https://github.com/max3903) | Manage 1099 Types and Suppliers
-[l10n_us_gaap](l10n_us_gaap/) | 16.0.1.0.1 | [![JordiBForgeFlow](https://github.com/JordiBForgeFlow.png?size=30px)](https://github.com/JordiBForgeFlow) | United States Sample GAAP Chart of Accounts
-[l10n_us_gaap_mis_report](l10n_us_gaap_mis_report/) | 16.0.1.0.1 | [![JordiBForgeFlow](https://github.com/JordiBForgeFlow.png?size=30px)](https://github.com/JordiBForgeFlow) | MIS Builder Templates for US Chart of Accounts
-[l10n_us_mis_financial_report](l10n_us_mis_financial_report/) | 16.0.1.1.0 | [![Christian-RB](https://github.com/Christian-RB.png?size=30px)](https://github.com/Christian-RB) | Profit & Loss (US) / Balance sheet (US) MIS templates
+[l10n_us_form_1099](l10n_us_form_1099/) | 16.0.1.0.0 | <a href='https://github.com/max3903'><img src='https://github.com/max3903.png' width='32' height='32' style='border-radius:50%;' alt='max3903'/></a> | Manage 1099 Types and Suppliers
+[l10n_us_gaap](l10n_us_gaap/) | 16.0.1.0.1 | <a href='https://github.com/JordiBForgeFlow'><img src='https://github.com/JordiBForgeFlow.png' width='32' height='32' style='border-radius:50%;' alt='JordiBForgeFlow'/></a> | United States Sample GAAP Chart of Accounts
+[l10n_us_gaap_mis_report](l10n_us_gaap_mis_report/) | 16.0.1.0.1 | <a href='https://github.com/JordiBForgeFlow'><img src='https://github.com/JordiBForgeFlow.png' width='32' height='32' style='border-radius:50%;' alt='JordiBForgeFlow'/></a> | MIS Builder Templates for US Chart of Accounts
+[l10n_us_mis_financial_report](l10n_us_mis_financial_report/) | 16.0.1.1.0 | <a href='https://github.com/Christian-RB'><img src='https://github.com/Christian-RB.png' width='32' height='32' style='border-radius:50%;' alt='Christian-RB'/></a> | Profit & Loss (US) / Balance sheet (US) MIS templates
 [l10n_us_partner_legal_number](l10n_us_partner_legal_number/) | 16.0.1.0.0 |  | Add Legal Number for North American Banking & Financials
 [partner_usps_address_validation](partner_usps_address_validation/) | 16.0.1.0.0 |  | Utilize the USPS open API for address validation
 
