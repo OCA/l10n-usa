@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <record id="ir_cron_autopay_on_due_date" model="ir.cron">
+        <field name="name">Autopay - On Due Date</field>
+        <field name="model_id" ref="model_account_payment" />
+        <field name="state">code</field>
+        <field name="code">model.run_autopay_with_invoice_on_due_date()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="active">True</field>
+    </record>
+
+    <record id="ir_cron_autopay_end_of_month" model="ir.cron">
+        <field name="name">Autopay - End Of Month (D-5)</field>
+        <field name="model_id" ref="model_account_payment" />
+        <field name="state">code</field>
+        <field name="code">model.run_autopay_with_invoice_end_of_month()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="active">True</field>
+    </record>
+
+    <record id="ir_cron_email_autopay_reminders" model="ir.cron">
+        <field name="name">Email Autopay Reminders</field>
+        <field name="model_id" ref="model_account_payment" />
+        <field name="state">code</field>
+        <field name="code">model.send_email_autopay_reminders()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="active">True</field>
+    </record>
+</odoo>

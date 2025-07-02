@@ -17,7 +17,6 @@ class PlaidServerController(http.Controller):
         cors="*",
     )
     def get_link_token(self, provider_id=None, transaction_id=None):
-        """Genera un link_token de Plaid para Transfer."""
         plaid_env = (
             request.env["ir.config_parameter"]
             .sudo()

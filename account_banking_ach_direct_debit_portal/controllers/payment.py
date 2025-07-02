@@ -3,7 +3,7 @@ import copy
 import werkzeug.urls
 
 from odoo import _, fields, http
-from odoo.exceptions import UserError, ValidationError
+from odoo.exceptions import ValidationError
 from odoo.fields import Command
 from odoo.http import request
 from odoo.tools import float_repr
@@ -352,6 +352,9 @@ class PaymentController(CustomerPortal):
             ]
         )
 
+        if not invoices:
+            raise ValidationError(_("The provided parameters are invalid."))
+
         payment_method = request.httprequest.args.get("payment_method", "bank_account")
 
         make_payment_url = "/make-payment?" + "&".join(
@@ -426,8 +429,8 @@ class PaymentController(CustomerPortal):
             ]
         )
 
-        if len(invoices) == 0:
-            return request.redirect("/my/invoices")
+        if not invoices:
+            raise ValidationError(_("The provided parameters are invalid."))
 
         payment_method = kw.get("payment_method", "bank_account")
 
@@ -436,47 +439,15 @@ class PaymentController(CustomerPortal):
 
         plaid_discount_percent = self._get_plaid_discount_percent()
 
-        payments_vals = []
+        payments_vals = request.env["account.payment"].make_payment_values(
+            invoices, plaid_discount_percent
+        )
 
-        for invoice in invoices:
-            bank_journal = request.env["account.journal"].search(
-                [
-                    ("company_id", "=", invoice.company_id.id),
-                    ("type", "=", "bank"),
-                ],
-                limit=1,
-            )
-
-            payment_method_line = bank_journal._get_available_payment_method_lines(
-                "inbound"
-            ).filtered(lambda l: l.code == "ACH-In")
-            if not payment_method_line:
-                raise UserError(_("ACH-In payment method line not found."))
-
-            payment_date = fields.Date.today()
-
-            amount = invoice.amount_residual
-            discount_amount = invoice.currency_id.round(
-                amount * plaid_discount_percent / 100
-            )
-            amount -= discount_amount
-
-            payments_vals.append(
-                {
-                    "payment_type": "inbound",
-                    "partner_type": "customer",
-                    "partner_id": invoice.partner_id.id,
-                    "amount": -amount if invoice.move_type == "out_refund" else amount,
-                    "currency_id": invoice.currency_id.id,
-                    "date": payment_date,
-                    "journal_id": bank_journal.id,
-                    "payment_method_line_id": payment_method_line.id,
-                    "ref": invoice.ref or invoice.name,
-                }
-            )
-
-        payment = request.env["account.payment"].create(payments_vals)
-        payment.action_post()
+        if payments_vals:
+            payment = request.env["account.payment"].sudo().create(payments_vals)
+            payment.action_post()
+        else:
+            return request.redirect("/my/invoices")
 
         return request.redirect("/payment-success")
 

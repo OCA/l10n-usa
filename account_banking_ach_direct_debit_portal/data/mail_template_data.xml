@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="mail_template_autopay_created" model="mail.template">
+        <field name="name">AutoPay: Scheduled Payment Order</field>
+        <field name="model_id" ref="base.model_res_partner" />
+        <field
+            name="subject"
+        >[AutoPay] Your payment is scheduled for {{ ctx.get('today', '') }}</field>
+        <field name="email_from">{{ user.email_formatted }}</field>
+        <field name="partner_to">{{ object.id }}</field>
+        <field name="auto_delete" eval="True" />
+        <field name="body_html" type="html">
+            <div>
+                <p>Hello <t t-out="object.name" />!</p>
+
+                <p
+                >We have created an automatic payment on your behalf for the following due invoices:</p>
+
+                <ul>
+                    <t t-foreach="ctx.get('invoice_lines', [])" t-as="inv">
+                        <li>
+                            Invoice: <t t-out="inv['name']" /> - Amount: <t
+                                t-out="inv['amount']"
+                            /> <t t-out="inv['currency']" />
+                        </li>
+                    </t>
+                </ul>
+
+                <p>The scheduled payment date is <strong><t
+                            t-out="ctx.get('today', '')"
+                        /></strong>.</p>
+
+                <p
+                >If you have any questions or concerns, please contact our support team.</p>
+
+                <p>Best regards,<br />
+                The Accounting Team</p>
+            </div>
+        </field>
+    </record>
+
+    <record id="mail_template_autopay_reminder" model="mail.template">
+        <field name="name">AutoPay: Upcoming Invoice Reminder</field>
+        <field name="model_id" ref="base.model_res_partner" />
+        <field name="subject">[AutoPay Reminder] Upcoming invoices due soon</field>
+        <field name="email_from">{{ user.email_formatted }}</field>
+        <field name="partner_to">{{ object.id }}</field>
+        <field name="auto_delete" eval="True" />
+        <field name="body_html" type="html">
+            <div>
+                <p>Hello <t t-out="object.name" />!</p>
+
+                <p
+                >This is a reminder that you have the following invoice(s) due within the next few days:</p>
+
+                <ul>
+                    <t t-foreach="ctx.get('invoice_lines', [])" t-as="inv">
+                        <li>
+                            Invoice: <t t-out="inv['name']" /> - Amount: <t
+                                t-out="inv['amount']"
+                            /> <t t-out="inv['currency']" />
+                        </li>
+                    </t>
+                </ul>
+
+                <p
+                >Please ensure payment is made on time to avoid service disruptions.</p>
+
+                <p
+                >If you have any questions or need assistance, feel free to contact our team.</p>
+
+                <p>Best regards,<br />
+                The Accounting Team</p>
+            </div>
+        </field>
+    </record>
+</odoo>

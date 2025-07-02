@@ -3,23 +3,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const checkboxes = document.querySelectorAll(".invoice-checkbox");
     const payButton = document.querySelector(".pay-btn");
-    const manualPayBtn = document.querySelector(".manual-pay-btn");
     const manageBankBtn = document.querySelector(".manage-bank-btn");
 
     function updateActionVisibility() {
         const anyChecked = Array.from(checkboxes).some((cb) => cb.checked);
         if (anyChecked) {
             payButton.classList.remove("d-none");
-            manualPayBtn.classList.add("d-none");
             manageBankBtn.classList.add("d-none");
         } else {
             payButton.classList.add("d-none");
-            manualPayBtn.classList.remove("d-none");
             manageBankBtn.classList.remove("d-none");
         }
     }
 
-    if (checkboxes && payButton && manualPayBtn && manageBankBtn) {
+    if (checkboxes && payButton && manageBankBtn) {
         checkboxes.forEach((cb) => {
             cb.addEventListener("change", updateActionVisibility);
         });
