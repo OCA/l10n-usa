@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="my_payment_account_link" inherit_id="portal.my_account_link">
+        <xpath expr="//a[@href='/my/home']" position="after">
+            <a href="/my/payment-account" role="menuitem" class="dropdown-item ps-3">
+                <i
+                    class="fa fa-fw fa-credit-card me-1 small text-muted"
+                /> My Payment Account
+            </a>
+        </xpath>
+    </template>
+
+    <template
+        id="portal_my_home_invoice_custom_url"
+        inherit_id="account.portal_my_home_invoice"
+        name="Show Payment Account"
+        priority="10"
+    >
+        <xpath
+            expr="//t[@t-set='title' and normalize-space(text())='Invoices &amp; Bills']/following-sibling::t[@t-set='url']"
+            position="attributes"
+        >
+            <attribute name="t-value">'/my/payment-account'</attribute>
+        </xpath>
+    </template>
+
+    <template id="custom_payment_footer_with_back_button" inherit_id="payment.footer">
+        <xpath expr="//div[contains(@class, 'float-end')]" position="before">
+            <button
+                t-if="request.httprequest.path == '/payment/pay'"
+                type="button"
+                class="btn btn-light border btn-lg mb8 mt8"
+                onclick="window.history.back()"
+            >
+                <i class="fa fa-angle-left me-1" />Back
+            </button>
+        </xpath>
+    </template>
+</odoo>

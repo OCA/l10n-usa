@@ -654,6 +654,17 @@
                                         />
                                     </div>
                                 </div>
+                                <div t-if="surcharge_amount" class="mb-2 row">
+                                    <label
+                                        class="col-sm-4 fw-bold"
+                                    >Surcharge amount</label>
+                                    <div class="col-sm-8 fw-bold value">
+                                        <span
+                                            t-esc="surcharge_amount"
+                                            t-options='{"widget": "monetary", "display_currency": display_currency}'
+                                        />
+                                    </div>
+                                </div>
                                 <div class="mb-2 row">
                                     <label class="col-sm-4 fw-bold">Total amount</label>
                                     <div class="col-sm-8 fw-bold value">
@@ -663,29 +674,70 @@
                                         />
                                     </div>
                                 </div>
-                                <div class="mb-2 row">
-                                    <label class="col-sm-4 fw-bold">Bank name</label>
-                                    <div
-                                        class="col-sm-8 fw-bold value"
-                                        t-esc="partner_bank.bank_id.name"
-                                    />
-                                </div>
-                                <div class="mb-2 row">
-                                    <label class="col-sm-4 fw-bold">Account name</label>
-                                    <div
-                                        class="col-sm-8 fw-bold value"
-                                        t-esc="partner_bank.acc_holder_name"
-                                    />
-                                </div>
-                                <div class="mb-4 row">
-                                    <label
-                                        class="col-sm-4 fw-bold"
-                                    >Account number</label>
-                                    <div
-                                        class="col-sm-8 fw-bold value"
-                                        t-esc="partner_bank.acc_number"
-                                    />
-                                </div>
+                                <t t-if="payment_method=='bank_account'">
+                                    <t t-if="show_select_bank">
+                                        <div class="mb-2 row">
+                                            <label
+                                                class="col-sm-3 fw-bold"
+                                            >Select Bank</label>
+                                            <div class="col-sm-4 fw-bold value">
+                                                <select
+                                                    name="partner_bank_id"
+                                                    class="form-select"
+                                                >
+                                                    <t
+                                                        t-foreach="partner_banks"
+                                                        t-as="bank"
+                                                    >
+                                                        <option
+                                                            t-att-value="bank.id"
+                                                            t-att-selected="bank.id == partner_bank.id and 'selected' or None"
+                                                        >
+                                                            <t
+                                                                t-esc="bank.bank_id.name"
+                                                            /> -
+                                                            <t
+                                                                t-esc="bank.acc_number"
+                                                            />
+                                                            (<t
+                                                                t-esc="bank.acc_holder_name"
+                                                            />)
+                                                        </option>
+                                                    </t>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </t>
+                                    <t t-else="">
+                                        <div class="mb-2 row">
+                                            <label
+                                                class="col-sm-4 fw-bold"
+                                            >Bank name</label>
+                                            <div
+                                                class="col-sm-8 fw-bold value"
+                                                t-esc="partner_bank.bank_id.name"
+                                            />
+                                        </div>
+                                        <div class="mb-2 row">
+                                            <label
+                                                class="col-sm-4 fw-bold"
+                                            >Account name</label>
+                                            <div
+                                                class="col-sm-8 fw-bold value"
+                                                t-esc="partner_bank.acc_holder_name"
+                                            />
+                                        </div>
+                                        <div class="mb-4 row">
+                                            <label
+                                                class="col-sm-4 fw-bold"
+                                            >Account number</label>
+                                            <div
+                                                class="col-sm-8 fw-bold value"
+                                                t-esc="partner_bank.acc_number"
+                                            />
+                                        </div>
+                                    </t>
+                                </t>
 
                                 <div class="alert">
                                     <i

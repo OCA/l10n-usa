@@ -250,8 +250,22 @@
             <t t-set="breadcrumbs_searchbar" t-value="True" />
 
             <t t-call="account_banking_ach_direct_debit_portal.debit_portal_searchbar">
-                <t t-set="title">Verification</t>
+                <t t-set="title">Add Bank Account</t>
             </t>
+
+            <div class="d-flex justify-content-between align-items-center w-100">
+                <h3 class="header-title mb-0">Add Account</h3>
+
+                <a href="javascript:history.back()" class="btn btn-back">
+                    <i class="fa fa-angle-left me-2" /> Back
+                </a>
+            </div>
+
+            <div class="text-center mt-5">
+                <button id="try-again-btn" class="btn btn-blue d-none">
+                    Try Again
+                </button>
+            </div>
 
             <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js" />
 

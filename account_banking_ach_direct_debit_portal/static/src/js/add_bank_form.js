@@ -21,6 +21,8 @@ document.addEventListener("DOMContentLoaded", async function () {
         return;
     }
 
+    const tryAgainBtn = document.getElementById("try-again-btn");
+
     /* global Plaid */
     const handler = Plaid.create({
         token: response.link_token,
@@ -48,8 +50,14 @@ document.addEventListener("DOMContentLoaded", async function () {
         },
         onExit: function (err, metadata) {
             console.warn("User exited Plaid Link", err, metadata);
+            tryAgainBtn.classList.remove("d-none");
         },
     });
 
     handler.open();
+
+    tryAgainBtn.onclick = function () {
+        tryAgainBtn.classList.add("d-none");
+        handler.open();
+    };
 });

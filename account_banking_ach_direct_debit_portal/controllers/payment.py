@@ -243,7 +243,7 @@ class PaymentController(CustomerPortal):
         currency = display_currency or company.currency_id
         total_amount = base_total_amount
 
-        if selected_payment_method == "credit_card" and surcharge_percent:
+        if selected_payment_method == "credit_card":
             surcharge_amount = currency.round(
                 base_total_amount * surcharge_percent / 100
             )
@@ -260,29 +260,10 @@ class PaymentController(CustomerPortal):
         total_amount = float(total_amount_format)
 
         if request.params.get("action") == "make_payment":
-            if selected_payment_method == "credit_card":
-                partner_id = request.env.user.partner_id.id
-                currency_id = currency.id
-                access_token = payment_utils.generate_access_token(
-                    partner_id, total_amount, currency_id
-                )
-                query_params = {
-                    "amount": total_amount,
-                    "access_token": access_token,
-                    "surcharge_amount": surcharge_amount,
-                    "base_total_amount": base_total_amount,
-                    "partner_id": partner_id,
-                    "currency_id": currency_id,
-                    "invoice": invoice_ids,
-                }
-                return request.redirect(
-                    "/payment/pay?" + werkzeug.urls.url_encode(query_params)
-                )
-            elif selected_payment_method == "bank_account":
-                make_payment_url = "/payment-confirmation?" + werkzeug.urls.url_encode(
-                    query_params
-                )
-                return request.redirect(make_payment_url)
+            make_payment_url = "/payment-confirmation?" + werkzeug.urls.url_encode(
+                query_params
+            )
+            return request.redirect(make_payment_url)
 
         payment_methods = copy.deepcopy(PAYMENT_METHODS)
 
@@ -376,21 +357,31 @@ class PaymentController(CustomerPortal):
             for inv in invoices
         )
 
+        company = request.env.user.partner_id.company_id
         display_currency = invoices[0].currency_id if invoices else None
+        currency = display_currency or company.currency_id
 
-        plaid_discount_percent = self._get_plaid_discount_percent()
-        discount_amount = display_currency.round(
-            total_amount * plaid_discount_percent / 100
-        )
-        total_amount -= discount_amount
+        surcharge_amount = 0.0
+        if payment_method == "credit_card":
+            surcharge_percent = self._get_surcharge_percent()
+            surcharge_amount = currency.round(total_amount * surcharge_percent / 100)
+            total_amount += surcharge_amount
 
-        partner_bank = request.env["res.partner.bank"].search(
+        discount_amount = 0
+        if payment_method == "bank_account":
+            plaid_discount_percent = self._get_plaid_discount_percent()
+            discount_amount = display_currency.round(
+                total_amount * plaid_discount_percent / 100
+            )
+            total_amount -= discount_amount
+
+        partner_banks = request.env["res.partner.bank"].search(
             [
                 ("partner_id", "=", request.env.user.partner_id.id),
-                ("default", "=", True),
-            ],
-            limit=1,
+            ]
         )
+
+        partner_bank_default = partner_banks.filtered(lambda b: b.default)[:1]
 
         values = {
             "page_name": "payment_confirmation",
@@ -398,9 +389,13 @@ class PaymentController(CustomerPortal):
             "invoices": invoices,
             "total_due": total_due,
             "earliest_due_date": earliest_due_date,
+            "surcharge_amount": surcharge_amount,
             "discount_amount": discount_amount,
+            "payment_method": payment_method,
             "total_amount": total_amount,
-            "partner_bank": partner_bank,
+            "partner_banks": partner_banks,
+            "partner_bank": partner_bank_default,
+            "show_select_bank": len(partner_banks) > 1,
             "display_currency": display_currency,
         }
 
@@ -435,12 +430,53 @@ class PaymentController(CustomerPortal):
         payment_method = kw.get("payment_method", "bank_account")
 
         if payment_method == "credit_card":
-            return request.redirect("/my/invoices")
+            display_currency = invoices[0].currency_id if invoices else None
+            company = request.env.user.partner_id.company_id
+            currency = display_currency or company.currency_id
+            partner_id = request.env.user.partner_id.id
+            currency_id = currency.id
+
+            base_total_amount = sum(
+                -inv.amount_residual
+                if inv.move_type == "out_refund"
+                else inv.amount_residual
+                for inv in invoices
+            )
+
+            total_amount = base_total_amount
+
+            surcharge_percent = self._get_surcharge_percent()
+            surcharge_amount = 0.0
+
+            if surcharge_percent:
+                surcharge_amount = currency.round(
+                    base_total_amount * surcharge_percent / 100
+                )
+                total_amount += surcharge_amount
+
+            access_token = payment_utils.generate_access_token(
+                partner_id, total_amount, currency_id
+            )
+
+            query_params = {
+                "amount": total_amount,
+                "access_token": access_token,
+                "surcharge_amount": surcharge_amount,
+                "base_total_amount": base_total_amount,
+                "partner_id": partner_id,
+                "currency_id": currency_id,
+                "invoice": invoice_ids,
+            }
+            return request.redirect(
+                "/payment/pay?" + werkzeug.urls.url_encode(query_params)
+            )
+
+        partner_bank_id = kw.get("partner_bank_id")
 
         plaid_discount_percent = self._get_plaid_discount_percent()
 
         payments_vals = request.env["account.payment"].make_payment_values(
-            invoices, plaid_discount_percent
+            invoices, plaid_discount_percent, partner_bank_id
         )
 
         if payments_vals:

@@ -61,8 +61,8 @@ class HomepageController(CustomerPortal):
 
         return values
 
-    @http.route(["/my", "/my/home"], type="http", auth="user", website=True)
-    def home(self, invoice_sortby=None, payment_sortby=None, **kw):
+    @http.route(["/my/payment-account"], type="http", auth="user", website=True)
+    def payment_account(self, invoice_sortby=None, payment_sortby=None, **kw):
         values = self._prepare_homepage_layout_values(invoice_sortby, payment_sortby)
 
         partner = request.env.user.partner_id

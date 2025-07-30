@@ -107,6 +107,17 @@ class AccountPayment(models.Model):
             if not invoices:
                 continue
 
+            partner_bank = self.env["res.partner.bank"].search(
+                [
+                    ("partner_id", "=", partner.id),
+                    ("default", "=", True),
+                ],
+                limit=1,
+            )
+
+            if not partner_bank:
+                continue
+
             valid_invoices = []
             for invoice in invoices:
                 invoice_refs = list(filter(None, [invoice.ref, invoice.name]))
@@ -126,7 +137,7 @@ class AccountPayment(models.Model):
                 continue
 
             payments_vals = self.make_payment_values(
-                valid_invoices, plaid_discount_percent
+                valid_invoices, plaid_discount_percent, partner_bank.id
             )
 
             if not payments_vals:
@@ -155,7 +166,7 @@ class AccountPayment(models.Model):
                 mail_template.with_context(**ctx).send_mail(partner.id, force_send=True)
 
     @api.model
-    def make_payment_values(self, invoices, discount_percent):
+    def make_payment_values(self, invoices, discount_percent, partner_bank_id):
         payments_vals = []
 
         payment_date = fields.Date.today()
@@ -194,6 +205,7 @@ class AccountPayment(models.Model):
                     "journal_id": bank_journal.id,
                     "payment_method_line_id": payment_method_line.id,
                     "ref": invoice.ref or invoice.name,
+                    "partner_bank_id": partner_bank_id,
                 }
             )
 

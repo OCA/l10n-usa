@@ -22,6 +22,7 @@
         "views/homepage_templates.xml",
         "views/invoice_templates.xml",
         "views/payment_templates.xml",
+        "views/portal_templates.xml",
         "views/payment_checkout_templates.xml",
         "views/alert_portal_templates.xml",
         "views/res_config_settings.xml",
