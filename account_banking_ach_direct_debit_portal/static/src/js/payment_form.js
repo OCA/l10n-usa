@@ -13,6 +13,12 @@ odoo.define("account_banking_ach_direct_debit_portal.payment_form", (require) =>
                 invoices: Array.isArray(this.txContext.invoices)
                     ? this.txContext.invoices
                     : [],
+                surcharge_amount: parseFloat(this.txContext.surchargeAmount)
+                    ? this.txContext.surchargeAmount
+                    : 0.0,
+                base_total_amount: parseFloat(this.txContext.baseTotalAmount)
+                    ? this.txContext.baseTotalAmount
+                    : 0.0,
             };
         },
     };

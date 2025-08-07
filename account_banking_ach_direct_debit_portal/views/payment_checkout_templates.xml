@@ -22,12 +22,16 @@
     <template id="payment_checkout_inherit_multi" inherit_id="payment.checkout">
         <xpath expr="//form[@name='o_payment_checkout']" position="attributes">
             <attribute name="t-att-data-invoices">invoices</attribute>
+            <attribute name="t-att-data-surcharge-amount">surcharge_amount</attribute>
+            <attribute name="t-att-data-base-total-amount">base_total_amount</attribute>
         </xpath>
     </template>
 
     <template id="payment_manage_inherit_multi" inherit_id="payment.manage">
         <xpath expr="//form[@name='o_payment_manage']" position="attributes">
             <attribute name="t-att-data-invoices">invoices</attribute>
+            <attribute name="t-att-data-surcharge-amount">surcharge_amount</attribute>
+            <attribute name="t-att-data-base-total-amount">base_total_amount</attribute>
         </xpath>
     </template>
 

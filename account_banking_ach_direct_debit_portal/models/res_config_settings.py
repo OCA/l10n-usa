@@ -1,5 +1,7 @@
 from odoo import fields, models
 
+from odoo.addons.account.models.product import ACCOUNT_DOMAIN
+
 
 class ResConfigSettings(models.TransientModel):
     _inherit = "res.config.settings"
@@ -35,7 +37,22 @@ class ResConfigSettings(models.TransientModel):
         help="Surcharge percentage to apply "
         "when customers pay with a credit card on the portal.",
     )
-
+    surcharge_account_id = fields.Many2one(
+        "account.account",
+        string="Surcharge Account",
+        domain=ACCOUNT_DOMAIN,
+        help="Account to use for credit card surcharges.",
+        related="company_id.surcharge_account_id",
+        readonly=False,
+    )
+    discount_account_id = fields.Many2one(
+        "account.account",
+        string="Discount Account",
+        domain=ACCOUNT_DOMAIN,
+        help="Account to use for plaid discount.",
+        related="company_id.discount_account_id",
+        readonly=False,
+    )
     plaid_discount = fields.Float(
         string="Plaid Discount (%)",
         config_parameter="account_banking_ach_direct_debit_portal.plaid_discount",

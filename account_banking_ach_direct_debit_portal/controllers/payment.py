@@ -6,7 +6,7 @@ from odoo import _, fields, http
 from odoo.exceptions import ValidationError
 from odoo.fields import Command
 from odoo.http import request
-from odoo.tools import float_repr
+from odoo.tools import float_is_zero, float_repr
 
 from odoo.addons.payment import utils as payment_utils
 from odoo.addons.payment.controllers import portal as payment_portal
@@ -431,21 +431,18 @@ class PaymentController(CustomerPortal):
             raise ValidationError(_("The provided parameters are invalid."))
 
         payment_method = kw.get("payment_method", "bank_account")
-
+        display_currency = invoices[0].currency_id if invoices else None
+        company = request.env.user.partner_id.company_id
+        currency = display_currency or company.currency_id
+        partner_id = request.env.user.partner_id.id
+        currency_id = currency.id
+        base_total_amount = sum(
+            -inv.amount_residual
+            if inv.move_type == "out_refund"
+            else inv.amount_residual
+            for inv in invoices
+        )
         if payment_method == "credit_card":
-            display_currency = invoices[0].currency_id if invoices else None
-            company = request.env.user.partner_id.company_id
-            currency = display_currency or company.currency_id
-            partner_id = request.env.user.partner_id.id
-            currency_id = currency.id
-
-            base_total_amount = sum(
-                -inv.amount_residual
-                if inv.move_type == "out_refund"
-                else inv.amount_residual
-                for inv in invoices
-            )
-
             total_amount = base_total_amount
 
             surcharge_percent = self._get_surcharge_percent()
@@ -483,6 +480,42 @@ class PaymentController(CustomerPortal):
         )
 
         if payments_vals:
+            discount_account = company.discount_account_id
+            discount_amount = display_currency.round(
+                base_total_amount * plaid_discount_percent / 100
+            )
+            if discount_account and discount_amount > 0:
+                for invoice in invoices:
+                    existing_discount_line = invoice.invoice_line_ids.filtered(
+                        lambda l: "Discount" in l.name
+                        and l.account_id == discount_account
+                    )
+                    if existing_discount_line:
+                        continue
+
+                    discount_share = invoice.amount_residual / base_total_amount
+                    line_amount = round(
+                        discount_amount * discount_share, currency.decimal_places
+                    )
+
+                    invoice.write(
+                        {
+                            "invoice_line_ids": [
+                                Command.create(
+                                    {
+                                        "name": _(
+                                            "%.4g%% Bank Transfer Discount"
+                                            % round(plaid_discount_percent, 4)
+                                        ),
+                                        "quantity": 1.0,
+                                        "price_unit": -line_amount,
+                                        "account_id": discount_account.id,
+                                        "tax_ids": [Command.clear()],
+                                    }
+                                )
+                            ]
+                        }
+                    )
             payment = request.env["account.payment"].sudo().create(payments_vals)
             payment.action_post()
         else:
@@ -586,12 +619,62 @@ class PaymentPortal(payment_portal.PaymentPortal):
         return rendering_context_values
 
     def _create_transaction(
-        self, *args, invoices=None, custom_create_values=None, **kwargs
+        self,
+        *args,
+        invoices=None,
+        base_total_amount=None,
+        surcharge_amount=None,
+        custom_create_values=None,
+        **kwargs,
     ):
         if invoices:
             if custom_create_values is None:
                 custom_create_values = {}
             custom_create_values["invoice_ids"] = [Command.set(invoices)]
+            base_total_amount, surcharge_amount = tuple(
+                map(
+                    self._cast_as_float,
+                    (
+                        base_total_amount if base_total_amount else 0.0,
+                        surcharge_amount if surcharge_amount else 0.0,
+                    ),
+                )
+            )
+            if surcharge_amount and not float_is_zero(
+                surcharge_amount, precision_digits=2
+            ):
+                company = request.env.user.partner_id.company_id
+                surcharge_account = company.surcharge_account_id
+                invoices_sudo = request.env["account.move"].sudo().browse(invoices)
+                percent = self._get_surcharge_percent()
+                for invoice in invoices_sudo:
+                    existing_surcharge_line = invoice.invoice_line_ids.filtered(
+                        lambda l: "Surcharge" in l.name
+                        and l.account_id == surcharge_account
+                    )
+                    if existing_surcharge_line:
+                        continue
+
+                    surcharge_share = invoice.amount_residual / base_total_amount
+                    line_amount = surcharge_amount * surcharge_share
+                    currency = invoice.currency_id or company.currency_id
+                    invoice.write(
+                        {
+                            "invoice_line_ids": [
+                                Command.create(
+                                    {
+                                        "name": _(
+                                            "%.4g%% Credit Card Surcharge" % percent
+                                        ),
+                                        "quantity": 1,
+                                        "price_unit": currency.round(line_amount),
+                                        "account_id": company.surcharge_account_id.id,
+                                        "tax_ids": [Command.clear()],
+                                    }
+                                )
+                            ]
+                        }
+                    )
         return super()._create_transaction(
             *args, custom_create_values=custom_create_values, **kwargs
         )

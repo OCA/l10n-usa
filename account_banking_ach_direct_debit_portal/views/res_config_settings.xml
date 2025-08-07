@@ -55,7 +55,10 @@
                 </div>
                 <h2>Bank account</h2>
                 <div class="row mt16 o_settings_container" id="plaid_discount_settings">
-                    <div class="col-xs-12 col-md-6 o_setting_box">
+                    <div
+                        class="col-12 col-lg-6 o_setting_box"
+                        id="plaid_discount_settings"
+                    >
                         <div class="o_setting_left_pane" />
                         <div class="o_setting_right_pane">
                             <label for="plaid_discount" />
@@ -63,7 +66,32 @@
                                 Plaid Discount to apply when customers pay with a bank account on the portal.
                             </div>
                             <div class="content-group">
-                                <field name="plaid_discount" />
+                                <div class="mt16">
+                                    <field
+                                        name="plaid_discount"
+                                        class="o_light_label"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="col-12 col-lg-6 o_setting_box"
+                        id="discount_account_id_setting"
+                    >
+                        <div class="o_setting_left_pane" />
+                        <div class="o_setting_right_pane">
+                            <label for="discount_account_id" />
+                            <div class="text-muted">
+                                Account to use for plaid discount.
+                            </div>
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <field
+                                        name="discount_account_id"
+                                        class="o_light_label"
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -71,9 +99,12 @@
                 <h2>Credit Card</h2>
                 <div
                     class="row mt16 o_settings_container"
-                    id="credit_card_surcharge_settings"
+                    id="credit_card_general_settings"
                 >
-                    <div class="col-xs-12 col-md-6 o_setting_box">
+                    <div
+                        class="col-12 col-lg-6 o_setting_box"
+                        id="credit_card_surcharge_settings"
+                    >
                         <div class="o_setting_left_pane" />
                         <div class="o_setting_right_pane">
                             <label for="credit_card_surcharge" />
@@ -81,7 +112,32 @@
                                 Surcharge percentage to apply when customers pay with a credit card on the portal.
                             </div>
                             <div class="content-group">
-                                <field name="credit_card_surcharge" />
+                                <div class="mt16">
+                                    <field
+                                        name="credit_card_surcharge"
+                                        class="o_light_label"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="col-12 col-lg-6 o_setting_box"
+                        id="surcharge_account_id_setting"
+                    >
+                        <div class="o_setting_left_pane" />
+                        <div class="o_setting_right_pane">
+                            <label for="surcharge_account_id" />
+                            <div class="text-muted">
+                                Account to use for credit card surcharges.
+                            </div>
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <field
+                                        name="surcharge_account_id"
+                                        class="o_light_label"
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>
