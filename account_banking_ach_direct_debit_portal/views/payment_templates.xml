@@ -643,7 +643,10 @@
                                         t-esc="earliest_due_date"
                                     />
                                 </div>
-                                <div t-if="discount_amount" class="mb-2 row">
+                                <div
+                                    t-if="discount_amount and payment_method == 'bank_account'"
+                                    class="mb-2 row"
+                                >
                                     <label
                                         class="col-sm-4 fw-bold"
                                     >Discount amount</label>
@@ -654,7 +657,10 @@
                                         />
                                     </div>
                                 </div>
-                                <div t-if="surcharge_amount" class="mb-2 row">
+                                <div
+                                    t-if="surcharge_amount and payment_method == 'credit_card'"
+                                    class="mb-2 row"
+                                >
                                     <label
                                         class="col-sm-4 fw-bold"
                                     >Surcharge amount</label>

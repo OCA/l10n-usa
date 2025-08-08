@@ -24,16 +24,20 @@
         </xpath>
     </template>
 
-    <template id="custom_payment_footer_with_back_button" inherit_id="payment.footer">
-        <xpath expr="//div[contains(@class, 'float-end')]" position="before">
-            <button
-                t-if="request.httprequest.path == '/payment/pay'"
-                type="button"
-                class="btn btn-light border btn-lg mb8 mt8"
-                onclick="window.history.back()"
-            >
-                <i class="fa fa-angle-left me-1" />Back
-            </button>
+    <template id="checkout_inherit" inherit_id="payment.checkout">
+        <xpath expr="//form/t[@t-call='{{footer_template_id}}']" position="before">
+            <t t-if="request.httprequest.path == '/payment/pay'">
+                <div class="float-start mt-2">
+                    <button
+                        t-if="request.httprequest.path == '/payment/pay'"
+                        type="button"
+                        class="btn btn-light border btn-lg mb8 mt8"
+                        onclick="window.history.back()"
+                    >
+                        <i class="fa fa-angle-left me-1" />Back
+                    </button>
+                </div>
+            </t>
         </xpath>
     </template>
 </odoo>

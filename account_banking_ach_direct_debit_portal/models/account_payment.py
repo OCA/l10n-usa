@@ -87,7 +87,7 @@ class AccountPayment(models.Model):
             return 0
 
     def _process_autopay_partners(self, partners, today):
-        plaid_discount_percent = self._get_plaid_discount_percent()
+        discount_percent = self._get_plaid_discount_percent()
 
         mail_template = self.env.ref(
             "account_banking_ach_direct_debit_portal.mail_template_autopay_created",
@@ -95,6 +95,11 @@ class AccountPayment(models.Model):
         )
 
         for partner in partners:
+            partner_bank = partner.bank_ids.filtered("default")[:1]
+
+            if not partner_bank:
+                continue
+
             invoices = self.env["account.move"].search(
                 [
                     ("partner_id", "=", partner.id),
@@ -102,114 +107,70 @@ class AccountPayment(models.Model):
                     ("invoice_date_due", "<=", today),
                     ("state", "=", "posted"),
                     ("payment_state", "!=", "paid"),
+                    ("amount_residual", ">", 0.0),
                 ]
             )
-            if not invoices:
-                continue
-
-            partner_bank = self.env["res.partner.bank"].search(
-                [
-                    ("partner_id", "=", partner.id),
-                    ("default", "=", True),
-                ],
-                limit=1,
+            invoices_to_process = invoices.filtered(
+                lambda i: not i._get_reconciled_payments()
             )
-
-            if not partner_bank:
+            if not invoices_to_process:
                 continue
 
-            valid_invoices = []
-            for invoice in invoices:
-                invoice_refs = list(filter(None, [invoice.ref, invoice.name]))
+            if discount_percent > 0.0:
+                # Calculate total discount amount
+                total_discount_amount = 0.0
+                for invoice in invoices_to_process:
+                    amount_residual = (
+                        -invoice.amount_residual
+                        if invoice.move_type == "out_refund"
+                        else invoice.amount_residual
+                    )
+                    total_discount_amount += amount_residual * discount_percent / 100
 
-                existing_payment = self.env["account.payment"].search(
-                    [
-                        ("ref", "in", invoice_refs),
-                        ("state", "!=", "cancel"),
-                    ],
-                    limit=1,
+                # Round total discount and distribute proportionally
+                if total_discount_amount > 0:
+                    currency = invoices_to_process[0].currency_id
+                    total_discount_amount = currency.round(total_discount_amount)
+                    self._distribute_discount_amount_autopay(
+                        invoices_to_process, total_discount_amount, discount_percent
+                    )
+
+            for invoice in invoices_to_process:
+                payment_vals = invoice.prepare_payment_register_vals(partner_bank.id)
+                register_payment = (
+                    self.env["account.payment.register"]
+                    .with_context(
+                        active_model="account.move",
+                        active_ids=[invoice.id],
+                    )
+                    .sudo()
+                    .create(payment_vals)
                 )
+                is_success = register_payment.with_context(
+                    dont_redirect_to_payments=True,
+                    force_partner_bank_id=partner_bank.id,
+                ).action_create_payments()
 
-                if not existing_payment:
-                    valid_invoices.append(invoice)
+                if is_success:
+                    _logger.info(
+                        f"Create successful payment for invoice: '{invoice.name}'"
+                    )
+                else:
+                    _logger.info(f"Create failed payment for invoice: '{invoice.name}'")
 
-            if not valid_invoices:
-                continue
-
-            payments_vals = self.make_payment_values(
-                valid_invoices, plaid_discount_percent, partner_bank.id
-            )
-
-            if not payments_vals:
-                continue
-
-            payment = self.env["account.payment"].create(payments_vals)
-            payment.action_post()
-
-            if mail_template and payments_vals:
-                currency_obj = self.env["res.currency"].browse(
-                    list({val["currency_id"] for val in payments_vals})
-                )
-                currency_map = {c.id: c for c in currency_obj}
-
+            if mail_template and invoices_to_process:
                 ctx = {
                     "invoice_lines": [
                         {
-                            "name": val["ref"],
-                            "amount": val["amount"],
-                            "currency": currency_map[val["currency_id"]].name,
+                            "name": invoice.ref or invoice.name,
+                            "amount": invoice.amount_total_signed,
+                            "currency": invoice.currency_id.name,
                         }
-                        for val in payments_vals
+                        for invoice in invoices_to_process
                     ],
                     "today": fields.Date.to_string(today),
                 }
                 mail_template.with_context(**ctx).send_mail(partner.id, force_send=True)
-
-    @api.model
-    def make_payment_values(self, invoices, discount_percent, partner_bank_id):
-        payments_vals = []
-
-        payment_date = fields.Date.today()
-
-        for invoice in invoices:
-            bank_journal = (
-                self.env["account.journal"]
-                .sudo()
-                .search(
-                    [
-                        ("company_id", "=", invoice.company_id.id),
-                        ("type", "=", "bank"),
-                    ],
-                    limit=1,
-                )
-            )
-
-            payment_method_line = bank_journal._get_available_payment_method_lines(
-                "inbound"
-            ).filtered(lambda l: l.code == "ACH-In")
-            if not payment_method_line:
-                continue
-
-            amount = invoice.amount_residual
-            discount_amount = invoice.currency_id.round(amount * discount_percent / 100)
-            amount -= discount_amount
-
-            payments_vals.append(
-                {
-                    "payment_type": "inbound",
-                    "partner_type": "customer",
-                    "partner_id": invoice.partner_id.id,
-                    "amount": -amount if invoice.move_type == "out_refund" else amount,
-                    "currency_id": invoice.currency_id.id,
-                    "date": payment_date,
-                    "journal_id": bank_journal.id,
-                    "payment_method_line_id": payment_method_line.id,
-                    "ref": invoice.ref or invoice.name,
-                    "partner_bank_id": partner_bank_id,
-                }
-            )
-
-        return payments_vals
 
     def _process_autopay_reminders(self, date, autopay):
         plaid_discount_percent = self._get_plaid_discount_percent()
@@ -228,6 +189,7 @@ class AccountPayment(models.Model):
                 ("state", "=", "posted"),
                 ("payment_state", "!=", "paid"),
                 ("partner_id.autopay", "=", autopay),
+                ("amount_residual", ">", 0.0),
             ]
         )
 
@@ -238,17 +200,7 @@ class AccountPayment(models.Model):
             invoice_map = defaultdict(lambda: 0.0)
 
             for invoice in partner_invoices:
-                invoice_refs = list(filter(None, [invoice.ref, invoice.name]))
-
-                existing_payment = self.env["account.payment"].search(
-                    [
-                        ("ref", "in", invoice_refs),
-                        ("state", "!=", "cancel"),
-                    ],
-                    limit=1,
-                )
-
-                if existing_payment:
+                if invoice._get_reconciled_payments():
                     continue
 
                 amount = invoice.amount_residual
@@ -271,3 +223,45 @@ class AccountPayment(models.Model):
                 }
 
                 mail_template.with_context(**ctx).send_mail(partner.id, force_send=True)
+
+    def _distribute_discount_amount_autopay(
+        self, invoices_sudo, total_discount_amount, discount_percent
+    ):
+        if not invoices_sudo or total_discount_amount <= 0:
+            return
+
+        # Calculate base amounts for each invoice
+        invoice_amounts = []
+        total_base_amount = 0.0
+
+        for invoice in invoices_sudo:
+            amount_residual = (
+                -invoice.amount_residual
+                if invoice.move_type == "out_refund"
+                else invoice.amount_residual
+            )
+            invoice_amounts.append(amount_residual)
+            total_base_amount += amount_residual
+
+        # Distribute discount proportionally
+        distributed_amount = 0.0
+        currency = invoices_sudo[0].currency_id
+
+        for i, invoice in enumerate(invoices_sudo):
+            if i == len(invoices_sudo) - 1:
+                # Last invoice gets the remainder to ensure total matches exactly
+                invoice_discount = total_discount_amount - distributed_amount
+            else:
+                # Calculate proportional amount
+                if total_base_amount > 0:
+                    proportion = invoice_amounts[i] / total_base_amount
+                    invoice_discount = currency.round(
+                        total_discount_amount * proportion
+                    )
+                else:
+                    invoice_discount = 0.0
+
+            if invoice_discount > 0:
+                invoice.add_discount_line(discount_percent, invoice_discount)
+
+            distributed_amount += invoice_discount
