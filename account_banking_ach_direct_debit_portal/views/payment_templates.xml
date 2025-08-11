@@ -764,6 +764,43 @@
         </t>
     </template>
 
+    <template id="portal_no_bank_account">
+        <t t-call="portal.portal_layout">
+            <t t-set="page_title" t-value="'No Bank Account Configured'" />
+            <t t-set="additional_title"><t t-esc="page_title" /></t>
+            <t t-set="breadcrumbs_searchbar" t-value="True" />
+
+            <t t-call="account_banking_ach_direct_debit_portal.debit_portal_searchbar">
+                <t t-set="title">No Bank Account Configured</t>
+            </t>
+
+            <div id="no-bank-account">
+                <div class="container">
+                    <div class="card px-5 py-4 shadow-sm">
+                        <h2 class="text-danger fw-bold mb-3">No Bank Account Found!</h2>
+                        <p class="mb-2">
+                            You have not configured any bank account yet.
+                        </p>
+
+                        <p class="mb-2">
+                            Please add your bank account information to proceed with transactions.
+                        </p>
+
+                        <p class="mb-4">
+                            You can manage your bank accounts in the Bank Accounts section.
+                        </p>
+
+                        <a
+                            href="/my/banks"
+                            class="btn btn-primary w-fit btn-blue"
+                        >Go to Bank Accounts</a>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+
     <template id="portal_payment_success">
         <t t-call="portal.portal_layout">
             <t t-set="page_title" t-value="'Payment Success'" />

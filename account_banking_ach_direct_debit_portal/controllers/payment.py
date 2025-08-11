@@ -383,6 +383,9 @@ class PaymentController(CustomerPortal):
 
         partner_bank_default = partner_banks.filtered(lambda b: b.default)[:1]
 
+        if not partner_bank_default and payment_method == "bank_account":
+            return request.redirect("/no-bank")
+
         values = {
             "page_name": "payment_confirmation",
             "make_payment_url": make_payment_url,
@@ -486,6 +489,21 @@ class PaymentController(CustomerPortal):
             return request.redirect("/my/invoices")
 
         return request.redirect("/payment-success")
+
+    @http.route(
+        "/no-bank",
+        type="http",
+        auth="user",
+        website=True,
+        methods=["GET"],
+    )
+    def no_bank(self, **kw):
+        if not user_portal.is_ach_accessible():
+            return user_portal.deny_403()
+
+        return request.render(
+            "account_banking_ach_direct_debit_portal.portal_no_bank_account"
+        )
 
     @http.route(
         "/payment-success",
