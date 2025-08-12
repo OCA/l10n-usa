@@ -21,5 +21,5 @@ class ResCompany(models.Model):
             [("type", "=", "sale"), ("company_id", "=", self.id)], limit=1
         )
         if invoice_journal and invoice_journal.default_account_id:
-            return invoice_journal.default_account_id.id
+            return invoice_journal.default_account_id
         return False

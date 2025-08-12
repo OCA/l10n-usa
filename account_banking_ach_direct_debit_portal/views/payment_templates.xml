@@ -450,6 +450,12 @@
                     <t t-foreach="invoices" t-as="invoice">
                         <input type="hidden" name="invoice" t-att-value="invoice.id" />
                     </t>
+                    <input
+                        t-if="order"
+                        type="hidden"
+                        name="order"
+                        t-att-value="order.id"
+                    />
                     <div class="row">
                         <div class="col-md-8 mb-3">
                             <div class="d-none d-md-block">
@@ -504,7 +510,10 @@
                             <div class="card summary h-100">
                                 <div class="card-body">
                                     <h5 class="card-title">Summary</h5>
-                                    <div class="d-flex justify-content-between mb-2">
+                                    <div
+                                        t-if="invoices"
+                                        class="d-flex justify-content-between mb-2"
+                                    >
                                         <span class="label">Invoice no</span>
                                         <div>
                                             <div
@@ -513,6 +522,13 @@
                                                 t-field="invoice.name"
                                             />
                                         </div>
+                                    </div>
+                                    <div
+                                        t-if="order"
+                                        class="d-flex justify-content-between mb-2"
+                                    >
+                                        <span class="label">Order no</span>
+                                        <div t-esc="order.name" />
                                     </div>
                                     <div
                                         class="d-flex justify-content-between border-top pt-2 mb-2"
@@ -524,6 +540,7 @@
                                         />
                                     </div>
                                     <div
+                                        t-if="earliest_due_date"
                                         class="d-flex justify-content-between border-top pt-2 mb-2"
                                     >
                                         <span class="label">Due date</span>
@@ -619,7 +636,7 @@
                                 >Please
                                     Confirm Your Payment Details</h3>
 
-                                <div class="mb-2 row">
+                                <div t-if="invoices" class="mb-2 row">
                                     <label class="col-sm-4 fw-bold">Invoice no#</label>
                                     <div class="col-sm-8 fw-bold value">
                                         <t t-foreach="invoices" t-as="invoice">
@@ -627,16 +644,22 @@
                                         </t>
                                     </div>
                                 </div>
+                                <div t-if="order" class="mb-2 row">
+                                    <label class="col-sm-4 fw-bold">Order no#</label>
+                                    <div class="col-sm-8 fw-bold value">
+                                        <span class="me-1" t-esc="order.name" />
+                                    </div>
+                                </div>
                                 <div class="mb-2 row">
                                     <label class="col-sm-4 fw-bold">Amount due</label>
                                     <div class="col-sm-8 fw-bold value">
                                         <span
-                                            t-esc="total_due"
+                                            t-esc="base_total_amount"
                                             t-options='{"widget": "monetary", "display_currency": display_currency}'
                                         />
                                     </div>
                                 </div>
-                                <div class="mb-2 row">
+                                <div t-if="earliest_due_date" class="mb-2 row">
                                     <label class="col-sm-4 fw-bold">Due date</label>
                                     <div
                                         class="col-sm-8 fw-bold value"

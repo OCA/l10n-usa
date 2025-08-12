@@ -7,7 +7,7 @@ from odoo import _, fields, http
 from odoo.exceptions import ValidationError
 from odoo.fields import Command
 from odoo.http import request
-from odoo.tools import float_is_zero, float_repr
+from odoo.tools import float_is_zero
 
 from odoo.addons.payment import utils as payment_utils
 from odoo.addons.payment.controllers import portal as payment_portal
@@ -200,70 +200,77 @@ class PaymentController(CustomerPortal):
         methods=["GET", "POST"],
     )
     def select_payment_method(self, **kw):
-        try:
-            invoice_ids = list(map(int, request.httprequest.args.getlist("invoice")))
-        except Exception:
-            return request.redirect("/my/invoices")
+        invoice_ids = list(map(int, request.httprequest.args.getlist("invoice")))
+        order_id = request.httprequest.args.get("order")
 
-        invoices = request.env["account.move"].search(
-            [
-                ("id", "in", invoice_ids),
-                *self._get_invoices_domain(),
-            ]
-        )
-
-        if not invoices:
+        if not invoice_ids and not order_id:
             raise ValidationError(_("The provided parameters are invalid."))
 
-        earliest_due_date = (
-            min(invoices.mapped("invoice_date_due")) if invoices else None
-        )
+        invoices = False
+        order = False
+        if invoice_ids:
+            invoices = request.env["account.move"].search(
+                [
+                    ("id", "in", invoice_ids),
+                    *self._get_invoices_domain(),
+                ]
+            )
+
+            if not invoices:
+                raise ValidationError(_("The provided parameters are invalid."))
+
+        if order_id:
+            order = request.env["sale.order"].search(
+                [
+                    ("id", "=", order_id),
+                ]
+            )
+            if not order:
+                raise ValidationError(_("The provided parameters are invalid."))
 
         surcharge_percent = self._get_surcharge_percent()
         discount_percent = self._get_plaid_discount_percent()
-        base_total_amount = 0.0
-        surcharge_amount = 0.0
-        discount_amount = 0.0
-        for inv in invoices:
-            amount_residual = (
-                -inv.amount_residual
-                if inv.move_type == "out_refund"
-                else inv.amount_residual
-            )
-            base_total_amount += amount_residual
-            surcharge_amount += amount_residual * surcharge_percent / 100
-            discount_amount += amount_residual * discount_percent / 100
 
-        display_currency = invoices[0].currency_id if invoices else None
+        amounts = self._compute_amounts(
+            invoices=invoices,
+            order=order,
+            surcharge_percent=surcharge_percent,
+            discount_percent=discount_percent,
+        )
+        currency = amounts["currency"]
+
+        base_total_amount = currency.round(amounts["base_total_amount"])
+        surcharge_amount = currency.round(amounts["surcharge_amount"])
+        discount_amount = currency.round(amounts["discount_amount"])
 
         selected_payment_method = kw.get("payment_method") or "bank_account"
-        query_params = {
-            "invoice": invoice_ids,
-            "payment_method": selected_payment_method,
-        }
+
+        total_amount = base_total_amount
+        if selected_payment_method == "credit_card":
+            total_amount = currency.round(total_amount + surcharge_amount)
+        else:
+            total_amount = currency.round(total_amount - discount_amount)
+
+        query_params = {"payment_method": selected_payment_method}
+        if invoices:
+            query_params["invoice"] = [inv.id for inv in invoices]
+        if order:
+            query_params["order"] = order.id
+
         make_payment_url = "/select-payment-method?" + werkzeug.urls.url_encode(
             query_params
         )
-
-        company = request.env.user.partner_id.company_id
-        currency = display_currency or company.currency_id
-        total_amount = base_total_amount
-
-        if selected_payment_method == "credit_card":
-            total_amount += surcharge_amount
-        elif selected_payment_method == "bank_account":
-            total_amount -= discount_amount
-
-        total_amount_format = float_repr(
-            total_amount, precision_digits=currency.decimal_places
-        )
-        total_amount = float(total_amount_format)
 
         if request.params.get("action") == "make_payment":
             make_payment_url = "/payment-confirmation?" + werkzeug.urls.url_encode(
                 query_params
             )
             return request.redirect(make_payment_url)
+
+        earliest_due_date = None
+        if invoices:
+            dues = [d for d in invoices.mapped("invoice_date_due") if d]
+            earliest_due_date = min(dues) if dues else None
 
         payment_methods = copy.deepcopy(PAYMENT_METHODS)
 
@@ -287,21 +294,22 @@ class PaymentController(CustomerPortal):
 
         values = {
             "page_name": "select_payment_method",
-            "invoices": invoices,
-            "earliest_due_date": earliest_due_date,
-            "base_total_amount": currency.round(base_total_amount),
-            "total_amount": currency.round(total_amount),
-            "display_currency": display_currency,
-            "make_payment_url": make_payment_url,
-            "surcharge_percent": (
-                surcharge_percent if selected_payment_method == "credit_card" else 0.0
-            ),
-            "surcharge_amount": currency.round(surcharge_amount),
-            "plaid_discount_percent": (
-                discount_percent if selected_payment_method == "bank_account" else 0.0
-            ),
-            "discount_amount": currency.round(discount_amount),
             "selected_payment_method": selected_payment_method,
+            "surcharge_percent": surcharge_percent
+            if selected_payment_method == "credit_card"
+            else 0.0,
+            "plaid_discount_percent": discount_percent
+            if selected_payment_method == "bank_account"
+            else 0.0,
+            "invoices": invoices,
+            "order": order,
+            "earliest_due_date": earliest_due_date,
+            "base_total_amount": base_total_amount,
+            "total_amount": total_amount,
+            "surcharge_amount": surcharge_amount,
+            "discount_amount": discount_amount,
+            "display_currency": currency,
+            "make_payment_url": make_payment_url,
             "payment_methods": payment_methods,
             "invisible_button": not user_portal.is_ach_accessible(),
         }
@@ -319,101 +327,119 @@ class PaymentController(CustomerPortal):
         methods=["GET", "POST"],
     )
     def payment_confirmation(self, **kw):
-        try:
-            invoice_ids = list(map(int, request.httprequest.args.getlist("invoice")))
-        except Exception:
-            return request.redirect("/my/invoices")
+        invoice_ids = list(map(int, request.httprequest.args.getlist("invoice")))
+        order_id = request.httprequest.args.get("order")
 
-        invoices = request.env["account.move"].search(
-            [
-                ("id", "in", invoice_ids),
-                *self._get_invoices_domain(),
-            ]
-        )
-
-        if not invoices:
+        if not invoice_ids and not order_id:
             raise ValidationError(_("The provided parameters are invalid."))
 
-        payment_method = request.httprequest.args.get("payment_method", "bank_account")
+        selected_payment_method = kw.get("payment_method") or "bank_account"
 
-        make_payment_url = "/make-payment?" + "&".join(
-            f"invoice={invoice_id}" for invoice_id in invoice_ids
-        )
+        invoices = False
+        order = False
 
-        make_payment_url += f"&payment_method={payment_method}"
+        if invoice_ids:
+            invoices = request.env["account.move"].search(
+                [
+                    ("id", "in", invoice_ids),
+                    *self._get_invoices_domain(),
+                ]
+            )
 
-        earliest_due_date = (
-            min(invoices.mapped("invoice_date_due")) if invoices else None
-        )
+            if not invoices:
+                raise ValidationError(_("The provided parameters are invalid."))
 
-        total_due = sum(invoices.mapped("amount_residual"))
+        if order_id:
+            order = request.env["sale.order"].search(
+                [
+                    ("id", "=", order_id),
+                ]
+            )
+
+            if not order:
+                raise ValidationError(_("The provided parameters are invalid."))
+
         surcharge_percent = self._get_surcharge_percent()
         discount_percent = self._get_plaid_discount_percent()
-        total_amount = 0.0
-        surcharge_amount = 0.0
-        discount_amount = 0
-        for inv in invoices:
-            amount_residual = (
-                -inv.amount_residual
-                if inv.move_type == "out_refund"
-                else inv.amount_residual
+
+        amounts = self._compute_amounts(
+            invoices=invoices,
+            order=order,
+            surcharge_percent=surcharge_percent,
+            discount_percent=discount_percent,
+        )
+        currency = amounts["currency"]
+
+        base_total_amount = currency.round(amounts["base_total_amount"])
+        surcharge_amount = currency.round(amounts["surcharge_amount"])
+        discount_amount = currency.round(amounts["discount_amount"])
+
+        total_amount = base_total_amount
+        if selected_payment_method == "credit_card":
+            total_amount = currency.round(total_amount + surcharge_amount)
+        else:
+            total_amount = currency.round(total_amount - discount_amount)
+
+        next_params = {"payment_method": selected_payment_method}
+        if invoices:
+            next_params["invoice"] = [inv.id for inv in invoices]
+            make_payment_url = "/make-payment/invoices?" + werkzeug.urls.url_encode(
+                next_params
             )
-            total_amount += amount_residual
-            surcharge_amount += amount_residual * surcharge_percent / 100
-            discount_amount += amount_residual * discount_percent / 100
-
-        display_currency = invoices[0].currency_id if invoices else None
-
-        if payment_method == "credit_card":
-            total_amount += surcharge_amount
-
-        if payment_method == "bank_account":
-            total_amount -= discount_amount
+        else:
+            next_params["order"] = order.id
+            make_payment_url = "/make-payment/order?" + werkzeug.urls.url_encode(
+                next_params
+            )
 
         partner_banks = request.env["res.partner.bank"].search(
             [
                 ("partner_id", "=", request.env.user.partner_id.id),
             ]
         )
-
         partner_bank_default = partner_banks.filtered(lambda b: b.default)[:1]
 
-        if not partner_bank_default and payment_method == "bank_account":
+        if selected_payment_method == "bank_account" and not partner_bank_default:
             return request.redirect("/no-bank")
+
+        earliest_due_date = None
+        if invoices:
+            dues = [d for d in invoices.mapped("invoice_date_due") if d]
+            earliest_due_date = min(dues) if dues else None
 
         values = {
             "page_name": "payment_confirmation",
-            "make_payment_url": make_payment_url,
-            "invoices": invoices,
-            "total_due": total_due,
+            "payment_method": selected_payment_method,
+            "invoices": invoices or request.env["account.move"],
+            "order": order or request.env["sale.order"],
             "earliest_due_date": earliest_due_date,
-            "surcharge_amount": display_currency.round(surcharge_amount),
-            "discount_amount": display_currency.round(discount_amount),
-            "payment_method": payment_method,
-            "total_amount": display_currency.round(total_amount),
+            "base_total_amount": base_total_amount,
+            "total_amount": total_amount,
+            "surcharge_amount": surcharge_amount,
+            "discount_amount": discount_amount,
+            "display_currency": currency,
+            "make_payment_url": make_payment_url,
             "partner_banks": partner_banks,
             "partner_bank": partner_bank_default,
             "show_select_bank": len(partner_banks) > 1,
-            "display_currency": display_currency,
         }
-
         return request.render(
             "account_banking_ach_direct_debit_portal.portal_payment_confirmation",
             values,
         )
 
     @http.route(
-        "/make-payment",
+        "/make-payment/invoices",
         type="http",
         auth="user",
         website=True,
         methods=["POST"],
     )
-    def make_payment(self, **kw):
-        try:
-            invoice_ids = list(map(int, request.httprequest.args.getlist("invoice")))
-        except Exception:
-            return request.redirect("/my/invoices")
+    def pay_invoices(self, **kw):
+        invoice_ids = list(map(int, request.httprequest.args.getlist("invoice")))
+
+        if not invoice_ids:
+            raise ValidationError(_("No invoice ids provided."))
 
         invoices = request.env["account.move"].search(
             [
@@ -425,56 +451,32 @@ class PaymentController(CustomerPortal):
         if not invoices:
             raise ValidationError(_("The provided parameters are invalid."))
 
-        payment_method = kw.get("payment_method", "bank_account")
-        display_currency = invoices[0].currency_id if invoices else None
-        company = request.env.user.partner_id.company_id
-        currency = display_currency or company.currency_id
-        partner_id = request.env.user.partner_id.id
-        currency_id = currency.id
         surcharge_percent = self._get_surcharge_percent()
         discount_percent = self._get_plaid_discount_percent()
-        surcharge_amount = 0.0
-        discount_amount = 0.0
-        base_total_amount = 0.0
-        for inv in invoices:
-            if float_is_zero(inv.amount_residual, precision_digits=2):
-                return request.render("payment.pay", {"amount": 0})
+        amounts = self._compute_amounts(
+            invoices=invoices,
+            order=False,
+            surcharge_percent=surcharge_percent,
+            discount_percent=discount_percent,
+        )
 
-            amount_residual = (
-                -inv.amount_residual
-                if inv.move_type == "out_refund"
-                else inv.amount_residual
-            )
-            base_total_amount += amount_residual
-            surcharge_amount += amount_residual * surcharge_percent / 100
-            discount_amount += amount_residual * discount_percent / 100
-        total_amount = base_total_amount
+        if float_is_zero(amounts["base_total_amount"], precision_digits=2):
+            return request.render("payment.pay", {"amount": 0})
+
+        payment_method = kw.get("payment_method", "bank_account")
         if payment_method == "credit_card":
-            if surcharge_percent:
-                total_amount += surcharge_amount
-            access_token = payment_utils.generate_access_token(
-                partner_id, currency.round(total_amount), currency_id
-            )
-            query_params = {
-                "amount": currency.round(total_amount),
-                "access_token": access_token,
-                "surcharge_amount": currency.round(surcharge_amount),
-                "base_total_amount": currency.round(base_total_amount),
-                "partner_id": partner_id,
-                "currency_id": currency_id,
-                "invoice": invoice_ids,
-            }
-            return request.redirect(
-                "/payment/pay?" + werkzeug.urls.url_encode(query_params)
+            return self._redirect_credit_card(
+                invoices=invoices, order=False, amounts=amounts
             )
 
-        partner_bank_id = kw.get("partner_bank_id")
+        partner_bank_id = (
+            int(kw.get("partner_bank_id")) if kw.get("partner_bank_id") else False
+        )
 
-        if discount_percent > 0.0 and discount_amount > 0.0:
+        if discount_percent > 0.0 and amounts["discount_amount"] > 0.0:
             self._distribute_discount_amount(
-                invoices, discount_amount, discount_percent
+                invoices.sudo(), amounts["discount_amount"], discount_percent
             )
-
         for invoice in invoices:
             payment_vals = invoice.prepare_payment_register_vals(partner_bank_id)
             if not payment_vals:
@@ -482,10 +484,7 @@ class PaymentController(CustomerPortal):
 
             register_payment = (
                 request.env["account.payment.register"]
-                .with_context(
-                    active_model="account.move",
-                    active_ids=[invoice.id],
-                )
+                .with_context(active_model="account.move", active_ids=[invoice.id])
                 .sudo()
                 .create(payment_vals)
             )
@@ -500,6 +499,155 @@ class PaymentController(CustomerPortal):
                 _logger.info(f"Create failed payment for invoice: '{invoice.name}'")
 
         return request.redirect("/payment-success")
+
+    @http.route(
+        "/make-payment/order",
+        type="http",
+        auth="user",
+        website=True,
+        methods=["POST"],
+    )
+    def pay_order(self, **kw):
+        order_id = request.params.get("order")
+        if not order_id:
+            raise ValidationError(_("No order id provided."))
+        order_id = int(order_id)
+
+        order = (
+            request.env["sale.order"]
+            .sudo()
+            .search(
+                [
+                    ("id", "=", order_id),
+                ],
+                limit=1,
+            )
+        )
+        if not order:
+            raise ValidationError(_("The provided parameters are invalid."))
+
+        surcharge_percent = self._get_surcharge_percent()
+        discount_percent = self._get_plaid_discount_percent()
+        amounts = self._compute_amounts(
+            invoices=False,
+            order=order,
+            surcharge_percent=surcharge_percent,
+            discount_percent=discount_percent,
+        )
+
+        if float_is_zero(amounts["base_total_amount"], precision_digits=2):
+            return request.render("payment.pay", {"amount": 0})
+
+        payment_method = kw.get("payment_method", "bank_account")
+        if payment_method == "credit_card":
+            return self._redirect_credit_card(
+                invoices=False, order=order, amounts=amounts
+            )
+        else:
+            partner_bank_id = (
+                int(kw.get("partner_bank_id")) if kw.get("partner_bank_id") else False
+            )
+
+            order_data = {
+                "partner_bank_id": partner_bank_id,
+            }
+
+            journal = (
+                request.env["account.journal"]
+                .sudo()
+                .search(
+                    [
+                        ("type", "=", "bank"),
+                    ],
+                    limit=1,
+                )
+            )
+
+            if journal:
+                order_data["payment_method_id"] = (journal.id,)
+
+            ach_method = request.env.ref(
+                "account_banking_ach_direct_debit.ach_direct_debit",
+                raise_if_not_found=False,
+            )
+
+            if ach_method:
+                payment_mode = (
+                    request.env["account.payment.mode"]
+                    .sudo()
+                    .search([("payment_method_id", "=", ach_method.id)], limit=1)
+                )
+
+                order_data["payment_mode_id"] = payment_mode if payment_mode else None
+
+            order.write(order_data)
+            order.action_confirm()
+            return request.redirect("/payment-success")
+
+    def _redirect_credit_card(self, invoices, order, amounts):
+        currency = amounts["currency"]
+        total_amount = amounts["base_total_amount"]
+        if not float_is_zero(amounts["surcharge_amount"], precision_digits=2):
+            total_amount += amounts["surcharge_amount"]
+
+        if invoices:
+            partner_id = request.env.user.partner_id.id
+        else:
+            partner_id = order.partner_invoice_id.id
+
+        access_token = payment_utils.generate_access_token(
+            partner_id, currency.round(total_amount), currency.id
+        )
+
+        params = {
+            "amount": currency.round(total_amount),
+            "access_token": access_token,
+            "surcharge_amount": currency.round(amounts["surcharge_amount"]),
+            "base_total_amount": currency.round(amounts["base_total_amount"]),
+            "partner_id": partner_id,
+            "currency_id": currency.id,
+        }
+        if invoices:
+            params["invoice"] = [inv.id for inv in invoices]
+        elif order:
+            params["reference"] = order.display_name
+            params["sale_order_id"] = order.id
+
+        return request.redirect("/payment/pay?" + werkzeug.urls.url_encode(params))
+
+    def _compute_amounts(self, invoices, order, surcharge_percent, discount_percent):
+        base_total = 0.0
+        surcharge_amount = 0.0
+        discount_amount = 0.0
+        display_currency = None
+
+        if invoices:
+            for inv in invoices:
+                if float_is_zero(inv.amount_residual, precision_digits=2):
+                    continue
+                residual = (
+                    -inv.amount_residual
+                    if inv.move_type == "out_refund"
+                    else inv.amount_residual
+                )
+                base_total += residual
+                surcharge_amount += residual * surcharge_percent / 100.0
+                discount_amount += residual * discount_percent / 100.0
+            display_currency = invoices[0].currency_id if invoices else None
+
+        if order:
+            base_total += order.amount_total
+            surcharge_amount += order.amount_total * surcharge_percent / 100.0
+            discount_amount += order.amount_total * discount_percent / 100.0
+            display_currency = display_currency or order.currency_id
+
+        currency = display_currency or request.env.user.company_id.currency_id
+        return {
+            "base_total_amount": base_total,
+            "surcharge_amount": surcharge_amount,
+            "discount_amount": discount_amount,
+            "currency": currency,
+        }
 
     @http.route(
         "/no-bank",

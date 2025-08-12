@@ -9,7 +9,7 @@
     "author": "Kencove, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/l10n-usa",
     "category": "Banking addons",
-    "depends": ["account_banking_ach_direct_debit", "account_payment"],
+    "depends": ["account_banking_ach_direct_debit", "account_payment", "sale"],
     "data": [
         "data/ir_crons.xml",
         "data/res_config_settings_data.xml",
