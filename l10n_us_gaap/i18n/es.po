@@ -1,4 +1,20 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-08-19 12:53+0000\n"
+"PO-Revision-Date: 2025-08-19 12:53+0000\n"
+"Last-Translator: \"Leonardo J. Caballero G.\" <leonardocaballero@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: ENCODING\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.10.4\n"
+
 #. module: l10n_us_gaap
 #: model:ir.model,name:l10n_us_gaap.model_account_chart_template
 msgid "Account Chart Template"
-msgstr ""
+msgstr "Plantilla del plan contable"
