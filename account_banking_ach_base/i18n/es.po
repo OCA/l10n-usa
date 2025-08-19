@@ -6,87 +6,89 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2025-08-19 19:25+0000\n"
+"Last-Translator: \"Leonardo J. Caballero G.\" <leonardocaballero@gmail.com>\n"
 "Language-Team: none\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.10.4\n"
 
 #. module: account_banking_ach_base
 #. odoo-python
 #: code:addons/account_banking_ach_base/models/account_payment_order.py:0
 #, python-format
 msgid "%s account number has no Bank assigned"
-msgstr ""
+msgstr "%s número de cuenta no tiene ningún banco asignado"
 
 #. module: account_banking_ach_base
 #. odoo-python
 #: code:addons/account_banking_ach_base/models/account_payment_order.py:0
 #, python-format
 msgid "%s does not have a Routing Number assigned!"
-msgstr ""
+msgstr "¡%s no tiene un número de ruta asignado!"
 
 #. module: account_banking_ach_base
 #. odoo-python
 #: code:addons/account_banking_ach_base/models/account_payment_order.py:0
 #, python-format
 msgid "%s does not have an EIN / SSN / BN assigned!"
-msgstr ""
+msgstr "¡%s no tiene asignado un EIN / SSN / BN!"
 
 #. module: account_banking_ach_base
 #. odoo-python
 #: code:addons/account_banking_ach_base/models/account_payment_order.py:0
 #, python-format
 msgid "%s has no routing number specified"
-msgstr ""
+msgstr "%s no tiene un número de ruta especificado"
 
 #. module: account_banking_ach_base
 #. odoo-python
 #: code:addons/account_banking_ach_base/models/res_bank.py:0
 #, python-format
 msgid "%s is not a valid Canadian routing number!"
-msgstr ""
+msgstr "¡%s no es un número de ruta canadiense válido!"
 
 #. module: account_banking_ach_base
 #. odoo-python
 #: code:addons/account_banking_ach_base/models/res_bank.py:0
 #, python-format
 msgid "%s is not a valid US routing number!"
-msgstr ""
+msgstr "¡%s no es un número de ruta válido de EE.UU.!"
 
 #. module: account_banking_ach_base
 #: model:ir.model,name:account_banking_ach_base.model_account_banking_mandate
 msgid "A generic banking mandate"
-msgstr ""
+msgstr "Un mandato bancario genérico"
 
 #. module: account_banking_ach_base
 #: model:ir.model,name:account_banking_ach_base.model_res_bank
 msgid "Bank"
-msgstr ""
+msgstr "Banco"
 
 #. module: account_banking_ach_base
 #: model:ir.model,name:account_banking_ach_base.model_res_company
 msgid "Companies"
-msgstr ""
+msgstr "Empresas"
 
 #. module: account_banking_ach_base
 #: model:ir.model.fields,field_description:account_banking_ach_base.field_account_banking_mandate__delay_days
 msgid "Delay Days"
-msgstr ""
+msgstr "Días de Retraso"
 
 #. module: account_banking_ach_base
 #. odoo-python
 #: code:addons/account_banking_ach_base/models/account_banking_mandate.py:0
 #, python-format
 msgid "Delay days must be specified, and greater than 0."
-msgstr ""
+msgstr "Se deben especificar días de retraso y mayores que 0."
 
 #. module: account_banking_ach_base
 #: model_terms:ir.ui.view,arch_db:account_banking_ach_base.view_company_legal_id_number
 msgid "EIN / SSN / BN"
-msgstr ""
+msgstr "EIN / SSN / BN"
 
 #. module: account_banking_ach_base
 #: model:ir.model.fields,help:account_banking_ach_base.field_res_company__legal_id_number
@@ -95,6 +97,9 @@ msgid ""
 "        Canadian entities, enter Canadian Business Number.\n"
 "        "
 msgstr ""
+"Para entidades de EE.UU., ingrese EIN o número de seguro social válido.\n"
+"        para entidades canadienses, ingrese el número comercial canadiense.\n"
+"        "
 
 #. module: account_banking_ach_base
 #: model:ir.model.fields,help:account_banking_ach_base.field_res_company__mandate_url
@@ -104,21 +109,27 @@ msgid ""
 "                              templates for customer to access and\n"
 "                              complete the Mandate form."
 msgstr ""
+"URL completa para descargar el formulario de Mandato /\n"
+"                              Autorización ACH. Útil para incluir en "
+"plantillas de\n"
+"                              correo electrónico para que el cliente acceda "
+"y\n"
+"                              complete el formulario de Mandato."
 
 #. module: account_banking_ach_base
 #: model:ir.model,name:account_banking_ach_base.model_account_move
 msgid "Journal Entry"
-msgstr ""
+msgstr "Anotación en el diario"
 
 #. module: account_banking_ach_base
 #: model:ir.model.fields,field_description:account_banking_ach_base.field_res_company__legal_id_number
 msgid "Legal ID"
-msgstr ""
+msgstr "Identificación legal"
 
 #. module: account_banking_ach_base
 #: model:ir.model.fields,field_description:account_banking_ach_base.field_res_company__mandate_url
 msgid "Mandate URL"
-msgstr ""
+msgstr "URL del mandato"
 
 #. module: account_banking_ach_base
 #. odoo-python
@@ -128,6 +139,8 @@ msgid ""
 "Missing ACH Direct Debit mandate on the payment line with partner %(name)s "
 "(reference %(line_name)s)."
 msgstr ""
+"Falta la orden de domiciliación bancaria ACH en la línea de pago con %(name)"
+"s de socio (referencia %(line_name)s)."
 
 #. module: account_banking_ach_base
 #: model:ir.model.fields,help:account_banking_ach_base.field_account_banking_mandate__delay_days
@@ -136,26 +149,30 @@ msgid ""
 "                                date before including an invoice in Payment\n"
 "                                Order for processing."
 msgstr ""
+"Número de días que hay que esperar después de la fecha\n"
+"                                de la factura antes de incluir una factura "
+"en la\n"
+"                                orden de pago para su procesamiento."
 
 #. module: account_banking_ach_base
 #: model:ir.model,name:account_banking_ach_base.model_account_payment_method
 msgid "Payment Methods"
-msgstr ""
+msgstr "Métodos de pago"
 
 #. module: account_banking_ach_base
 #: model:ir.model,name:account_banking_ach_base.model_account_payment_order
 msgid "Payment Order"
-msgstr ""
+msgstr "Orden de pago"
 
 #. module: account_banking_ach_base
 #: model_terms:ir.ui.view,arch_db:account_banking_ach_base.view_account_invoice_filter_valid_mandate_id
 msgid "Ready for Payment Order"
-msgstr ""
+msgstr "Listo para la orden de pago"
 
 #. module: account_banking_ach_base
 #: model:ir.model.fields,field_description:account_banking_ach_base.field_res_bank__routing_number
 msgid "Routing Number"
-msgstr ""
+msgstr "Número de ruta"
 
 #. module: account_banking_ach_base
 #. odoo-python
@@ -165,6 +182,8 @@ msgid ""
 "The ACH Direct Debit mandate with reference %(unique_mandate_reference)s for"
 " partner %(name)s has expired."
 msgstr ""
+"El mandato de adeudo directo ACH con %(unique_mandate_reference)s de "
+"referencia para %(name)s de socios ha expirado."
 
 #. module: account_banking_ach_base
 #. odoo-python
@@ -175,6 +194,9 @@ msgid ""
 " has type set to 'One-Off' and it has a last debit date set to "
 "%(last_debit_date)s, so we can't use it."
 msgstr ""
+"El mandato con %(unique_mandate_reference)s de referencia para %(name)s de "
+"socios tiene el tipo establecido en 'Único' y tiene una última fecha de "
+"débito establecida en %(last_debit_date)s, por lo que no podemos usarlo."
 
 #. module: account_banking_ach_base
 #. odoo-python
@@ -184,3 +206,5 @@ msgid ""
 "To satisfy payment mandate, cannot add invoice %(name)s to Debit Order until"
 " %(delay_expired)s!"
 msgstr ""
+"Para satisfacer el mandato de pago, ¡no se puede agregar %(name)s de factura "
+"a la orden de débito hasta %(delay_expired)s!"
