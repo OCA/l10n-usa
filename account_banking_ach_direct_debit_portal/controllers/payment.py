@@ -1,4 +1,3 @@
-import copy
 import logging
 
 import werkzeug.urls
@@ -16,26 +15,6 @@ from odoo.addons.portal.controllers.portal import CustomerPortal, pager as porta
 from ..controllers.user_portal import UserPortalController as user_portal
 
 _logger = logging.getLogger(__name__)
-
-
-PAYMENT_METHODS = [
-    {
-        "id": "1",
-        "value": "bank_account",
-        "label": "Bank account",
-        "note": "1% Discount (with plaid verification)",
-        "checked": False,
-        "image": None,
-    },
-    {
-        "id": "2",
-        "value": "credit_card",
-        "label": "Credit card",
-        "note": "",
-        "checked": False,
-        "image": "/account_banking_ach_direct_debit_portal/static/src/img/credit_card.png",
-    },
-]
 
 
 class PaymentController(CustomerPortal):
@@ -202,31 +181,10 @@ class PaymentController(CustomerPortal):
     def select_payment_method(self, **kw):
         invoice_ids = list(map(int, request.httprequest.args.getlist("invoice")))
         order_id = request.httprequest.args.get("order")
+        invoices, order = self._get_documents(invoice_ids, order_id)
 
-        if not invoice_ids and not order_id:
+        if not invoices and not order:
             raise ValidationError(_("The provided parameters are invalid."))
-
-        invoices = False
-        order = False
-        if invoice_ids:
-            invoices = request.env["account.move"].search(
-                [
-                    ("id", "in", invoice_ids),
-                    *self._get_invoices_domain(),
-                ]
-            )
-
-            if not invoices:
-                raise ValidationError(_("The provided parameters are invalid."))
-
-        if order_id:
-            order = request.env["sale.order"].search(
-                [
-                    ("id", "=", order_id),
-                ]
-            )
-            if not order:
-                raise ValidationError(_("The provided parameters are invalid."))
 
         surcharge_percent = self._get_surcharge_percent()
         discount_percent = self._get_plaid_discount_percent()
@@ -243,15 +201,48 @@ class PaymentController(CustomerPortal):
         surcharge_amount = currency.round(amounts["surcharge_amount"])
         discount_amount = currency.round(amounts["discount_amount"])
 
-        selected_payment_method = kw.get("payment_method") or "bank_account"
-
+        providers_sudo = (
+            request.env["payment.provider"]
+            .sudo()
+            ._get_compatible_providers(
+                request.env.company.id,
+                request.env.user.partner_id.id,
+                0,
+                currency_id=currency.id,
+                include_ach_bank_account=True,
+                **kw,
+            )
+        )
+        if not providers_sudo:
+            return request.redirect("/my/payment_method")
+        providers_sudo = providers_sudo.sorted(
+            key=lambda provider: provider.display_as or provider.name
+        )
+        for provider in providers_sudo:
+            if not provider.note:
+                if provider.code == "authorize":
+                    provider.note = f"{surcharge_percent:.4g}% Surcharge"  # noqa: E231
+                elif provider.code == "ach_bank_account":
+                    provider.note = f"{discount_percent:.4g}% Discount (with plaid verification)"  # noqa: B950,E231
+        selected_payment_option_id = kw.get(
+            "selected_payment_option_id",
+            providers_sudo[0].id if providers_sudo else None,
+        )
+        query_params = {"selected_payment_option_id": selected_payment_option_id}
+        selected_provider = (
+            providers_sudo.filtered(lambda p: p.id == int(selected_payment_option_id))
+            if selected_payment_option_id
+            else False
+        )
         total_amount = base_total_amount
-        if selected_payment_method == "credit_card":
-            total_amount = currency.round(total_amount + surcharge_amount)
-        else:
-            total_amount = currency.round(total_amount - discount_amount)
+        if selected_provider:
+            selected_payment_option_id = selected_provider.id
+            query_params["selected_payment_option_id"] = selected_provider.id
+            if selected_provider.code == "authorize":
+                total_amount = currency.round(total_amount + surcharge_amount)
+            elif selected_provider.code == "ach_bank_account":
+                total_amount = currency.round(total_amount - discount_amount)
 
-        query_params = {"payment_method": selected_payment_method}
         if invoices:
             query_params["invoice"] = [inv.id for inv in invoices]
         if order:
@@ -272,35 +263,11 @@ class PaymentController(CustomerPortal):
             dues = [d for d in invoices.mapped("invoice_date_due") if d]
             earliest_due_date = min(dues) if dues else None
 
-        payment_methods = copy.deepcopy(PAYMENT_METHODS)
-
-        payment_methods[0].update(
-            {
-                "checked": selected_payment_method == "bank_account",
-                "note": f"{discount_percent:.4g}% Discount "  # noqa: E231
-                "(with plaid verification)"
-                if surcharge_percent
-                else "",
-            }
-        )
-        payment_methods[1].update(
-            {
-                "checked": selected_payment_method == "credit_card",
-                "note": f"{surcharge_percent:.4g}% Surcharge"  # noqa: E231
-                if surcharge_percent
-                else "",
-            }
-        )
-
         values = {
             "page_name": "select_payment_method",
-            "selected_payment_method": selected_payment_method,
-            "surcharge_percent": surcharge_percent
-            if selected_payment_method == "credit_card"
-            else 0.0,
-            "plaid_discount_percent": discount_percent
-            if selected_payment_method == "bank_account"
-            else 0.0,
+            "selected_payment_option_id": selected_payment_option_id,
+            "surcharge_percent": surcharge_percent,
+            "plaid_discount_percent": discount_percent,
             "invoices": invoices,
             "order": order,
             "earliest_due_date": earliest_due_date,
@@ -310,7 +277,10 @@ class PaymentController(CustomerPortal):
             "discount_amount": discount_amount,
             "display_currency": currency,
             "make_payment_url": make_payment_url,
-            "payment_methods": payment_methods,
+            "selected_provider": selected_provider
+            if selected_provider
+            else providers_sudo[0],
+            "providers": providers_sudo,
             "invisible_button": not user_portal.is_ach_accessible(),
         }
 
@@ -333,7 +303,16 @@ class PaymentController(CustomerPortal):
         if not invoice_ids and not order_id:
             raise ValidationError(_("The provided parameters are invalid."))
 
-        selected_payment_method = kw.get("payment_method") or "bank_account"
+        selected_payment_option_id = kw.get("selected_payment_option_id", False)
+        if not selected_payment_option_id:
+            raise ValidationError(_("The provided parameters are invalid."))
+        selected_provider = (
+            request.env["payment.provider"]
+            .sudo()
+            .browse(int(selected_payment_option_id))
+        )
+        if not selected_provider:
+            raise ValidationError(_("The provided parameters are invalid."))
 
         invoices = False
         order = False
@@ -375,12 +354,12 @@ class PaymentController(CustomerPortal):
         discount_amount = currency.round(amounts["discount_amount"])
 
         total_amount = base_total_amount
-        if selected_payment_method == "credit_card":
+        if selected_provider.code == "authorize":
             total_amount = currency.round(total_amount + surcharge_amount)
-        else:
+        elif selected_provider.code == "ach_bank_account":
             total_amount = currency.round(total_amount - discount_amount)
 
-        next_params = {"payment_method": selected_payment_method}
+        next_params = {"selected_payment_option_id": selected_provider.id}
         if invoices:
             next_params["invoice"] = [inv.id for inv in invoices]
             make_payment_url = "/make-payment/invoices?" + werkzeug.urls.url_encode(
@@ -399,7 +378,7 @@ class PaymentController(CustomerPortal):
         )
         partner_bank_default = partner_banks.filtered(lambda b: b.default)[:1]
 
-        if selected_payment_method == "bank_account" and not partner_bank_default:
+        if selected_provider.code == "ach_bank_account" and not partner_bank_default:
             return request.redirect("/no-bank")
 
         earliest_due_date = None
@@ -409,7 +388,7 @@ class PaymentController(CustomerPortal):
 
         values = {
             "page_name": "payment_confirmation",
-            "payment_method": selected_payment_method,
+            "selected_provider": selected_provider,
             "invoices": invoices or request.env["account.move"],
             "order": order or request.env["sale.order"],
             "earliest_due_date": earliest_due_date,
@@ -463,10 +442,22 @@ class PaymentController(CustomerPortal):
         if float_is_zero(amounts["base_total_amount"], precision_digits=2):
             return request.render("payment.pay", {"amount": 0})
 
-        payment_method = kw.get("payment_method", "bank_account")
-        if payment_method == "credit_card":
-            return self._redirect_credit_card(
-                invoices=invoices, order=False, amounts=amounts
+        selected_payment_option_id = kw.get("selected_payment_option_id", False)
+        if not selected_payment_option_id:
+            raise ValidationError(_("The provided parameters are invalid."))
+        selected_provider = (
+            request.env["payment.provider"]
+            .sudo()
+            .browse(int(selected_payment_option_id))
+        )
+        if not selected_provider:
+            raise ValidationError(_("The provided parameters are invalid."))
+        if selected_provider.code != "ach_bank_account":
+            return self._redirect_to_native_payment(
+                invoices=invoices,
+                order=False,
+                amounts=amounts,
+                provider=selected_provider,
             )
 
         partner_bank_id = (
@@ -538,10 +529,19 @@ class PaymentController(CustomerPortal):
         if float_is_zero(amounts["base_total_amount"], precision_digits=2):
             return request.render("payment.pay", {"amount": 0})
 
-        payment_method = kw.get("payment_method", "bank_account")
-        if payment_method == "credit_card":
-            return self._redirect_credit_card(
-                invoices=False, order=order, amounts=amounts
+        selected_payment_option_id = kw.get("selected_payment_option_id", False)
+        if not selected_payment_option_id:
+            raise ValidationError(_("The provided parameters are invalid."))
+        selected_provider = (
+            request.env["payment.provider"]
+            .sudo()
+            .browse(int(selected_payment_option_id))
+        )
+        if not selected_provider:
+            raise ValidationError(_("The provided parameters are invalid."))
+        if selected_provider.code != "ach_bank_account":
+            return self._redirect_to_native_payment(
+                invoices=False, order=order, amounts=amounts, provider=selected_provider
             )
         else:
             partner_bank_id = (
@@ -584,10 +584,13 @@ class PaymentController(CustomerPortal):
             order.action_confirm()
             return request.redirect("/payment-success")
 
-    def _redirect_credit_card(self, invoices, order, amounts):
+    def _redirect_to_native_payment(self, invoices, order, amounts, provider):
         currency = amounts["currency"]
         total_amount = amounts["base_total_amount"]
-        if not float_is_zero(amounts["surcharge_amount"], precision_digits=2):
+        if (
+            not float_is_zero(amounts["surcharge_amount"], precision_digits=2)
+            and provider.code == "authorize"
+        ):
             total_amount += amounts["surcharge_amount"]
 
         if invoices:
@@ -606,6 +609,7 @@ class PaymentController(CustomerPortal):
             "base_total_amount": currency.round(amounts["base_total_amount"]),
             "partner_id": partner_id,
             "currency_id": currency.id,
+            "provider_id": provider.id,
         }
         if invoices:
             params["invoice"] = [inv.id for inv in invoices]
@@ -736,6 +740,25 @@ class PaymentController(CustomerPortal):
                 invoice.add_discount_line(discount_percent, invoice_discount)
 
             distributed_amount += invoice_discount
+
+    def _get_documents(self, invoice_ids, order_id):
+        invoices = order = False
+        if invoice_ids:
+            invoices = request.env["account.move"].search(
+                [
+                    ("id", "in", invoice_ids),
+                    *self._get_invoices_domain(),
+                ]
+            )
+            if not invoices:
+                raise ValidationError(_("The provided parameters are invalid."))
+
+        if order_id:
+            order = request.env["sale.order"].search([("id", "=", order_id)])
+            if not order:
+                raise ValidationError(_("The provided parameters are invalid."))
+
+        return invoices, order
 
 
 class PaymentPortal(payment_portal.PaymentPortal):

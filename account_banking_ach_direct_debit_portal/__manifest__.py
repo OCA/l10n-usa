@@ -14,6 +14,8 @@
         "data/ir_crons.xml",
         "data/res_config_settings_data.xml",
         "data/mail_template_data.xml",
+        "views/payment_ach_bank_account_templates.xml",
+        "data/payment_provider_data.xml",
         "security/portal_user_access.xml",
         "views/searchbar.xml",
         "views/autopay_rules_templates.xml",

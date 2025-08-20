@@ -446,7 +446,11 @@
                 <t t-set="title">Payment Method</t>
             </t>
             <div id="payment" class="container my-0 my-lg-4">
-                <form t-att-action="make_payment_url" method="get">
+                <form
+                    t-att-action="make_payment_url"
+                    method="get"
+                    class="o_payment_form mt-3 clearfix"
+                >
                     <t t-foreach="invoices" t-as="invoice">
                         <input type="hidden" name="invoice" t-att-value="invoice.id" />
                     </t>
@@ -461,47 +465,32 @@
                             <div class="d-none d-md-block">
                                 <h5 class="card-title">Payment method</h5>
                             </div>
-                            <div class="rounded border mt-md-3">
-                                <t t-foreach="payment_methods" t-as="method">
+                            <div class="card rounded border mt-md-3" t-if="providers">
+                                <t t-foreach="providers" t-as="provider">
                                     <label
-                                        class="payment-method-option"
-                                        t-att-for="method['id']"
+                                        name="o_payment_option_card"
+                                        class="card-body o_payment_option_card"
+                                        t-att-for="provider.id"
                                     >
-                                        <div
-                                            class="flex-desktop justify-content-between cursor-pointer w-100"
-                                        >
-                                            <div
-                                                class="d-flex justify-content-start align-items-center w-md-75 w-100"
-                                            >
-                                                <div class="form-check">
-                                                    <input
-                                                        type="radio"
-                                                        name="payment_method"
-                                                        class="form-check-input"
-                                                        t-att-id="method['id']"
-                                                        t-att-value="method['value']"
-                                                        t-att-checked="'checked' if method['checked'] else None"
-                                                        onchange="this.form.submit();"
-                                                    />
-                                                    <label
-                                                        class="form-check-label fw-normal"
-                                                        t-att-for="method['id']"
-                                                        t-esc="method['label']"
-                                                    />
-                                                </div>
-                                                <span
-                                                    class="note text-muted ms-md-4 ms-2"
-                                                    t-esc="method['note']"
-                                                />
-                                            </div>
-                                            <div t-if="method['image']">
-                                                <img
-                                                    t-att-src="method['image']"
-                                                    alt="My Image"
-                                                    class="credit_card_img"
-                                                />
-                                            </div>
-                                        </div>
+                                        <input
+                                            type="radio"
+                                            name="selected_payment_option_id"
+                                            t-att-value="provider.id"
+                                            t-att-checked="provider.id == selected_payment_option_id"
+                                            t-att-id="provider.id"
+                                            onchange="this.form.submit();"
+                                        />
+                                        <span class="payment_option_name">
+                                            <b
+                                                t-esc="provider.display_as or provider.name"
+                                            />
+                                        </span>
+                                        <span
+                                            class="note text-muted ms-md-4 ms-2"
+                                            t-if="provider.note"
+                                            t-esc="provider.note"
+                                        />
+                                        <t t-call="payment.icon_list" />
                                     </label>
                                 </t>
                             </div>
@@ -547,7 +536,7 @@
                                         <span t-esc="earliest_due_date" />
                                     </div>
                                     <t
-                                        t-if="surcharge_percent and selected_payment_method == 'credit_card'"
+                                        t-if="surcharge_percent and selected_provider.code == 'authorize'"
                                     >
                                         <div
                                             class="d-flex justify-content-between border-top pt-2 pb-4 mb-3"
@@ -560,7 +549,7 @@
                                         </div>
                                     </t>
                                     <t
-                                        t-if="plaid_discount_percent and selected_payment_method == 'bank_account'"
+                                        t-if="plaid_discount_percent and selected_provider.code == 'ach_bank_account'"
                                     >
                                         <div
                                             class="d-flex justify-content-between border-top pt-2 pb-4 mb-3"
@@ -667,7 +656,7 @@
                                     />
                                 </div>
                                 <div
-                                    t-if="discount_amount and payment_method == 'bank_account'"
+                                    t-if="discount_amount and selected_provider.code == 'ach_bank_account'"
                                     class="mb-2 row"
                                 >
                                     <label
@@ -681,7 +670,7 @@
                                     </div>
                                 </div>
                                 <div
-                                    t-if="surcharge_amount and payment_method == 'credit_card'"
+                                    t-if="surcharge_amount and selected_provider.code == 'authorize'"
                                     class="mb-2 row"
                                 >
                                     <label
@@ -703,7 +692,7 @@
                                         />
                                     </div>
                                 </div>
-                                <t t-if="payment_method=='bank_account'">
+                                <t t-if="selected_provider.code == 'ach_bank_account'">
                                     <t t-if="show_select_bank">
                                         <div class="mb-2 row">
                                             <label
