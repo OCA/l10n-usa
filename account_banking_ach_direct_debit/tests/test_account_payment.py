@@ -7,7 +7,7 @@ from odoo.tests.common import TransactionCase
 
 class TestPayment(TransactionCase):
     def setUp(self):
-        super(TestPayment, self).setUp()
+        super().setUp()
         self.partner = self.env["res.partner"].create({"name": "Partner 1"})
         self.company = self.env.ref("base.main_company")
         self.company.partner_id = self.partner.id

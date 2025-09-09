@@ -7,7 +7,7 @@ from odoo.tests.common import TransactionCase
 
 class TestMandate(TransactionCase):
     def setUp(self):
-        super(TestMandate, self).setUp()
+        super().setUp()
         self.company = self.env.ref("base.main_company")
 
     def test_bank_mandate(self):

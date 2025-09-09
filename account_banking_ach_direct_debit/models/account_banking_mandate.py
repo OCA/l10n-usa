@@ -70,7 +70,7 @@ class AccountBankingMandate(models.Model):
     @api.onchange("partner_bank_id")
     def mandate_partner_bank_change(self):
         for mandate in self:
-            super(AccountBankingMandate, self).mandate_partner_bank_change()
+            super().mandate_partner_bank_change()
             res = {}
             if (
                 mandate.state == "valid"
