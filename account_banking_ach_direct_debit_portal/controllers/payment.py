@@ -539,11 +539,34 @@ class PaymentController(CustomerPortal):
         )
         if not selected_provider:
             raise ValidationError(_("The provided parameters are invalid."))
-        if selected_provider.code != "ach_bank_account":
-            return self._redirect_to_native_payment(
-                invoices=False, order=order, amounts=amounts, provider=selected_provider
+
+        order_data = dict()
+
+        account_payment_term_immediate = request.env.ref(
+            "account.account_payment_term_immediate",
+            raise_if_not_found=False,
+        )
+
+        if account_payment_term_immediate:
+            order_data["payment_term_id"] = (account_payment_term_immediate.id,)
+
+        journal = (
+            request.env["account.journal"]
+            .sudo()
+            .search(
+                [
+                    ("type", "=", "bank"),
+                ],
+                limit=1,
             )
-        else:
+        )
+
+        if journal:
+            order_data["payment_method_id"] = (journal.id,)
+
+        order.write(order_data)
+
+        if selected_provider.code == "ach_bank_account":
             partner_bank_id = (
                 int(kw.get("partner_bank_id")) if kw.get("partner_bank_id") else False
             )
@@ -551,20 +574,6 @@ class PaymentController(CustomerPortal):
             order_data = {
                 "partner_bank_id": partner_bank_id,
             }
-
-            journal = (
-                request.env["account.journal"]
-                .sudo()
-                .search(
-                    [
-                        ("type", "=", "bank"),
-                    ],
-                    limit=1,
-                )
-            )
-
-            if journal:
-                order_data["payment_method_id"] = (journal.id,)
 
             ach_method = request.env.ref(
                 "account_banking_ach_direct_debit.ach_direct_debit",
@@ -583,6 +592,10 @@ class PaymentController(CustomerPortal):
             order.write(order_data)
             order.action_confirm()
             return request.redirect("/payment-success")
+
+        return self._redirect_to_native_payment(
+            invoices=False, order=order, amounts=amounts, provider=selected_provider
+        )
 
     def _redirect_to_native_payment(self, invoices, order, amounts, provider):
         currency = amounts["currency"]
