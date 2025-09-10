@@ -131,13 +131,13 @@ class AccountPaymentOrder(models.Model):
             file_mod=file_mod,
         )
         entries = []
-        for line in self.payment_ids:
+        for line in self.payment_line_ids:
             if inbound_payment:
                 self.validate_mandates(line)
             self.validate_banking(line)
-            amount = line.amount
+            amount = line.amount_currency
             name = re.sub("[^A-Za-z0-9]+", "", line.partner_id.name)
-            note = re.sub("[^A-Za-z0-9]+", "", line.ref)
+            note = re.sub("[^A-Za-z0-9]+", "", line.communication)
             entries.append(
                 {
                     "type": self.get_transaction_type(amount=amount),
