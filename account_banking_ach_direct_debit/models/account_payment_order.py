@@ -13,7 +13,7 @@ class AccountPaymentOrder(models.Model):
         generate_ach_file in countinghouse_ach_base
         """
         self.ensure_one()
-        if self.payment_method_id.code == "ACH-In":
+        if self.payment_method_id.code in ["ACH-In", "ACH-Out"]:
             return self.generate_ach_file()
         return super().generate_payment_file()
 

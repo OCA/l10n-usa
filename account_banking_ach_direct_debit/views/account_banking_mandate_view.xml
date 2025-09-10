@@ -7,19 +7,19 @@
         <field name="arch" type="xml">
             <field name="partner_id" position="after">
                 <field
-                    name="scheme"
-                    attrs="{'invisible': [('format', '!=', 'ach')],
-                                             'required': [('format', '=', 'ach')]}"
+                    name="scheme"                   
+                    invisible="format != 'ach'"
+                    required="format == 'ach'"
                 />
                 <field
                     name="type"
-                    attrs="{'invisible': [('format', '!=', 'ach')],
-                                           'required': [('format', '=', 'ach')]}"
+                    invisible="format != 'ach'"
+                    required="format == 'ach'"
                 />
                 <field
-                    name="recurrent_sequence_type"
-                    attrs="{'invisible': ['|', ('type', '=', 'oneoff'), ('format', '!=', 'ach')],
-                               'required': [('type', '=', 'recurrent')]}"
+                    name="recurrent_sequence_type"                
+                    invisible="type == 'oneoff' or format != 'ach'"
+                    required="type == 'recurrent'"
                 />
             </field>
         </field>
