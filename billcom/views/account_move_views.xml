@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="action_sync_to_billcom" model="ir.actions.server">
+        <field name="name">Sync to Bill.com</field>
+        <field name="model_id" ref="account.model_account_move" />
+        <field name="binding_model_id" ref="account.model_account_move" />
+        <field name="state">code</field>
+        <field name="code">records.button_sync_to_billcom()</field>
+        <field name="groups_id" eval="[(4, ref('account.group_account_invoice'))]" />
+    </record>
+
+    <!-- Vendor Bill Form View -->
+    <record id="view_account_move_supplier_form_billcom" model="ir.ui.view">
+        <field name="name">account.move.supplier.form.billcom</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/notebook" position="inside">
+                <page
+                    string="Bill.com Integration"
+                    name="billcom"
+                    attrs="{'invisible': [('move_type', 'not in', ['in_invoice', 'out_invoice'])]}"
+                >
+                    <group>
+                        <group>
+                            <field name="is_sync_to_billcom" />
+                            <field
+                                name="billcom"
+                                readonly="1"
+                                attrs="{'invisible': [('billcom', '=', False)]}"
+                            />
+                            <field
+                                name="last_sync_date"
+                                readonly="1"
+                                attrs="{'invisible': [('last_sync_date', '=', False)]}"
+                            />
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+            <xpath expr="//header" position="inside">
+                <button
+                    name="%(action_sync_to_billcom)d"
+                    string="Sync to Bill.com"
+                    type="action"
+                    class="oe_highlight"
+                    attrs="{'invisible': ['|', '|', ('is_sync_to_billcom', '=', False), ('move_type', '!=', 'in_invoice'), ('state', '!=', 'posted')]}"
+                    groups="account.group_account_invoice"
+                />
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Customer Invoice Form View -->
+    <record id="view_account_move_form_billcom" model="ir.ui.view">
+        <field name="name">account.move.form.billcom</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button
+                    name="%(action_sync_to_billcom)d"
+                    string="Sync to Bill.com"
+                    type="action"
+                    class="oe_highlight"
+                    attrs="{'invisible': ['|', '|', ('is_sync_to_billcom', '=', False), ('move_type', '!=', 'out_invoice'), ('state', '!=', 'posted')]}"
+                    groups="account.group_account_invoice"
+                />
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_account_move_filter_inherit_billcom" model="ir.ui.view">
+        <field name="name">account.move.select.inherit.billcom</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_move_filter" />
+        <field name="arch" type="xml">
+            <filter name="posted" position="after">
+                <filter
+                    string="Bill.com Sync Enabled"
+                    name="billcom_sync"
+                    domain="[('is_sync_to_billcom', '=', True)]"
+                />
+                <filter
+                    string="Bill.com Linked"
+                    name="billcom_linked"
+                    domain="[('billcom', '!=', False)]"
+                />
+            </filter>
+            <group position="inside">
+                <filter
+                    string="Bill.com Status"
+                    name="group_billcom_status"
+                    context="{'group_by': 'is_sync_to_billcom'}"
+                />
+            </group>
+        </field>
+    </record>
+
+    <!-- Tree View -->
+    <record id="view_account_move_tree_inherit_billcom" model="ir.ui.view">
+        <field name="name">account.move.tree.inherit.billcom</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_tree" />
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="is_sync_to_billcom" optional="hide" />
+                <field name="billcom" optional="hide" />
+                <field name="last_sync_date" optional="hide" />
+            </field>
+        </field>
+    </record>
+</odoo>

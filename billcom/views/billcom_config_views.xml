@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_billcom_config_form" model="ir.ui.view">
+        <field name="name">billcom.config.form</field>
+        <field name="model">billcom.config</field>
+        <field name="arch" type="xml">
+            <form string="Bill.com Configuration">
+                <header>
+                    <field
+                        name="state"
+                        widget="statusbar"
+                        statusbar_visible="draft,connected,error"
+                        readonly="1"
+                    />
+                    <button
+                        name="test_connection"
+                        type="object"
+                        string="Test Connection"
+                        class="btn-primary"
+                        attrs="{'invisible': [('state', '=', 'connected')]}"
+                    />
+                    <button
+                        name="test_connection"
+                        type="object"
+                        string="Test Connection Again"
+                        class="btn-secondary"
+                        attrs="{'invisible': [('state', '=', 'draft')]}"
+                    />
+                </header>
+                <sheet>
+                    <widget
+                        name="web_ribbon"
+                        title="Archived"
+                        bg_color="bg-danger"
+                        attrs="{'invisible': [('active', '=', True)]}"
+                    />
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Name" />
+                        </h1>
+                    </div>
+                    <div
+                        class="alert alert-danger"
+                        role="alert"
+                        attrs="{'invisible': [('state', '!=', 'error')]}"
+                    >
+                        <field name="last_error_message" readonly="1" />
+                    </div>
+                    <group>
+                        <group string="API Configuration">
+                            <field name="environment" />
+                            <field name="api_url" readonly="1" />
+                            <field name="username" />
+                            <field name="password" password="True" />
+                            <field name="user_id" />
+                            <field name="organization_id" />
+                            <field name="dev_key" password="True" />
+                            <field
+                                name="company_id"
+                                groups="base.group_multi_company"
+                            />
+                        </group>
+                        <group string="Status">
+                            <field name="active" invisible="1" />
+                            <field name="state" invisible="1" />
+                            <field name="last_connection_test" readonly="1" />
+                        </group>
+                    </group>
+                    <group string="Synchronization Settings">
+                        <group string="Partner Sync">
+                            <field name="sync_vendors" />
+                            <field name="sync_customers" />
+                        </group>
+                        <group string="Document Sync">
+                            <field name="sync_bills" />
+                            <field name="sync_invoices" />
+                            <field name="sync_payments" />
+                            <field
+                                name="default_payment_type"
+                                attrs="{'invisible': [('sync_payments', '=', False)]}"
+                            />
+                        </group>
+                    </group>
+                    <group string="Automation">
+                        <group>
+                            <field name="auto_sync_enabled" />
+                            <field
+                                name="sync_interval"
+                                attrs="{'invisible': [('auto_sync_enabled', '=', False)]}"
+                            />
+                        </group>
+                    </group>
+                    <group string="Webhook Integration">
+                        <group>
+                            <field name="enable_webhooks" />
+                            <field
+                                name="webhook_secret"
+                                password="True"
+                                attrs="{'invisible': [('enable_webhooks', '=', False)]}"
+                            />
+                        </group>
+                    </group>
+                    <group string="API Settings">
+                        <group>
+                            <field name="api_max_retries" />
+                            <field name="api_retry_delay" />
+                        </group>
+                    </group>
+                    <group string="Scheduled Actions">
+                        <group>
+                            <field name="full_sync_interval" />
+                            <field name="payment_sync_interval" />
+                            <field
+                                name="payment_status_check_interval"
+                                help="Set to 0 to disable automatic status checks"
+                            />
+                        </group>
+                        <group>
+                            <button
+                                name="update_scheduled_actions"
+                                type="object"
+                                string="Update Scheduled Actions"
+                                class="btn-primary"
+                            />
+                            <div class="text-muted">
+                                Update the scheduled actions with the intervals defined above.
+                                Changes will take effect immediately.
+                            </div>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user" />
+                    <field name="activity_ids" />
+                    <field name="message_ids" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Bill.com Configuration Tree View -->
+    <record id="view_billcom_config_tree" model="ir.ui.view">
+        <field name="name">billcom.config.tree</field>
+        <field name="model">billcom.config</field>
+        <field name="arch" type="xml">
+            <tree
+                decoration-danger="state == 'error'"
+                decoration-warning="state == 'draft'"
+                decoration-success="state == 'connected'"
+            >
+                <field name="name" />
+                <field name="environment" />
+                <field name="company_id" groups="base.group_multi_company" />
+                <field name="state" />
+                <field name="last_connection_test" />
+                <field name="active" invisible="1" />
+            </tree>
+        </field>
+    </record>
+
+    <!-- Bill.com Configuration Search View -->
+    <record id="view_billcom_config_search" model="ir.ui.view">
+        <field name="name">billcom.config.search</field>
+        <field name="model">billcom.config</field>
+        <field name="arch" type="xml">
+            <search string="Search Bill.com Configuration">
+                <field name="name" />
+                <field name="environment" />
+                <field name="company_id" groups="base.group_multi_company" />
+                <separator />
+                <filter
+                    string="Not Connected"
+                    name="draft"
+                    domain="[('state', '=', 'draft')]"
+                />
+                <filter
+                    string="Connected"
+                    name="connected"
+                    domain="[('state', '=', 'connected')]"
+                />
+                <filter
+                    string="Connection Error"
+                    name="error"
+                    domain="[('state', '=', 'error')]"
+                />
+                <separator />
+                <filter
+                    string="Archived"
+                    name="inactive"
+                    domain="[('active', '=', False)]"
+                />
+                <group expand="0" string="Group By">
+                    <filter
+                        string="Environment"
+                        name="group_by_environment"
+                        context="{'group_by': 'environment'}"
+                    />
+                    <filter
+                        string="Status"
+                        name="group_by_state"
+                        context="{'group_by': 'state'}"
+                    />
+                    <filter
+                        string="Company"
+                        name="group_by_company"
+                        context="{'group_by': 'company_id'}"
+                        groups="base.group_multi_company"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Bill.com Configuration Action -->
+    <record id="action_billcom_config" model="ir.actions.act_window">
+        <field name="name">Bill.com Configuration</field>
+        <field name="res_model">billcom.config</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_billcom_config_search" />
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first Bill.com configuration
+            </p>
+            <p>
+                Configure your Bill.com API credentials to enable synchronization
+                between Odoo and Bill.com.
+            </p>
+        </field>
+    </record>
+
+    <!-- Main Menu -->
+    <menuitem
+        id="menu_billcom_root"
+        name="Bill.com"
+        parent="account.menu_finance"
+        sequence="100"
+        groups="account.group_account_manager"
+    />
+
+    <!-- Sync Action -->
+    <record id="action_sync_billcom" model="ir.actions.server">
+        <field name="name">Sync with Bill.com</field>
+        <field name="model_id" ref="model_billcom_service" />
+        <field name="binding_model_id" ref="model_billcom_service" />
+        <field name="state">code</field>
+        <field name="groups_id" eval="[(4, ref('account.group_account_manager'))]" />
+        <field name="code">
+            model.sync_all()
+        </field>
+    </record>
+
+    <menuitem
+        id="menu_sync_billcom"
+        name="Sync Now"
+        parent="menu_billcom_root"
+        action="action_sync_billcom"
+        sequence="10"
+        groups="account.group_account_manager"
+    />
+
+    <!-- Configuration Menu -->
+    <menuitem
+        id="menu_billcom_settings"
+        name="Settings"
+        parent="menu_billcom_root"
+        groups="account.group_account_manager"
+        action="action_billcom_config"
+        sequence="20"
+    />
+</odoo>

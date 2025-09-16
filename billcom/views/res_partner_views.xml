@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Inherit Partner Form View -->
+    <record id="view_partner_form_inherit_billcom" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit.billcom</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <!-- Add invisible fields for attrs usage -->
+            <xpath expr="//field[@name='vat']" position="after">
+                <field name="customer_rank" invisible="1" />
+                <field name="supplier_rank" invisible="1" />
+            </xpath>
+
+            <!-- Add to Purchase tab for vendors -->
+            <xpath
+                expr="//page[@name='sales_purchases']//group[@name='purchase']"
+                position="inside"
+            >
+                <group
+                    string="Bill.com Integration (Vendor)"
+                    groups="account.group_account_invoice"
+                    attrs="{'invisible': [('supplier_rank', '=', 0)]}"
+                >
+                    <field name="is_sync_to_billcom" />
+                    <field
+                        name="billcom"
+                        readonly="1"
+                        attrs="{'invisible': [('billcom', '=', False)]}"
+                    />
+                    <field
+                        name="last_sync_date"
+                        readonly="1"
+                        attrs="{'invisible': [('last_sync_date', '=', False)]}"
+                    />
+                    <button
+                        name="sync_to_billcom_vendor"
+                        string="Sync as Vendor"
+                        type="object"
+                        class="oe_highlight"
+                        attrs="{'invisible': [('is_sync_to_billcom', '=', False)]}"
+                        groups="account.group_account_manager"
+                    />
+                </group>
+            </xpath>
+
+            <!-- Add to Sales tab for customers -->
+            <xpath
+                expr="//page[@name='sales_purchases']//group[@name='sale']"
+                position="inside"
+            >
+                <group
+                    string="Bill.com Integration (Customer)"
+                    groups="account.group_account_invoice"
+                    attrs="{'invisible': [('customer_rank', '=', 0)]}"
+                >
+                    <field name="is_sync_to_billcom" />
+                    <field
+                        name="billcom"
+                        readonly="1"
+                        attrs="{'invisible': [('billcom', '=', False)]}"
+                    />
+                    <field
+                        name="last_sync_date"
+                        readonly="1"
+                        attrs="{'invisible': [('last_sync_date', '=', False)]}"
+                    />
+                    <button
+                        name="sync_to_billcom_customer"
+                        string="Sync as Customer"
+                        type="object"
+                        class="oe_highlight"
+                        attrs="{'invisible': [('is_sync_to_billcom', '=', False)]}"
+                        groups="account.group_account_manager"
+                    />
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_partner_filter_inherit_billcom" model="ir.ui.view">
+        <field name="name">res.partner.filter.inherit.billcom</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter" />
+        <field name="arch" type="xml">
+            <filter name="supplier" position="after">
+                <filter
+                    string="Bill.com Sync Enabled"
+                    name="billcom_sync"
+                    domain="[('is_sync_to_billcom', '=', True)]"
+                />
+                <filter
+                    string="Bill.com Linked"
+                    name="billcom_linked"
+                    domain="[('billcom', '!=', False)]"
+                />
+            </filter>
+            <group position="inside">
+                <filter
+                    string="Bill.com Status"
+                    name="group_billcom_status"
+                    context="{'group_by': 'is_sync_to_billcom'}"
+                />
+            </group>
+        </field>
+    </record>
+
+    <!-- Tree View -->
+    <record id="view_partner_tree_inherit_billcom" model="ir.ui.view">
+        <field name="name">res.partner.tree.inherit.billcom</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_tree" />
+        <field name="arch" type="xml">
+            <field name="display_name" position="after">
+                <field name="is_sync_to_billcom" optional="show" />
+                <field name="billcom" optional="hide" />
+                <field name="last_sync_date" optional="hide" />
+            </field>
+        </field>
+    </record>
+
+</odoo>

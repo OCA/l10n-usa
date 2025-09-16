@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_billcom_config_user,billcom.config user,model_billcom_config,account.group_account_invoice,1,1,0,0
+access_billcom_config_manager,billcom.config manager,model_billcom_config,account.group_account_manager,1,1,1,1
+access_billcom_service_user,billcom.service user,model_billcom_service,account.group_account_invoice,1,1,1,0
+access_billcom_service_manager,billcom.service manager,model_billcom_service,account.group_account_manager,1,1,1,1
+access_res_partner_user,res.partner user,model_res_partner,base.group_user,1,1,0,0
+access_res_partner_manager,res.partner manager,model_res_partner,base.group_user,1,1,1,1
+access_account_payment_user,account.payment user,account.model_account_payment,account.group_account_invoice,1,1,1,0
+access_account_payment_manager,account.payment manager,account.model_account_payment,account.group_account_manager,1,1,1,1
