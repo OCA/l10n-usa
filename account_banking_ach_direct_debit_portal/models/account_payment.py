@@ -108,6 +108,7 @@ class AccountPayment(models.Model):
             partner_bank = partner.bank_ids.filtered("default")[:1]
 
             if not partner_bank:
+                _logger.warning(f"Missing Bank Account for: '{partner.name}'")
                 continue
 
             invoice_date_due_operator = "="
@@ -131,36 +132,24 @@ class AccountPayment(models.Model):
             if not invoices_to_process:
                 continue
 
-            if discount_percent > 0.0:
-                # Calculate total discount amount
-                total_discount_amount = 0.0
-                for invoice in invoices_to_process:
-                    amount_residual = (
-                        -invoice.amount_residual
-                        if invoice.move_type == "out_refund"
-                        else invoice.amount_residual
-                    )
-                    total_discount_amount += amount_residual * discount_percent / 100
-
-                # Round total discount and distribute proportionally
-                if total_discount_amount > 0:
-                    currency = invoices_to_process[0].currency_id
-                    total_discount_amount = currency.round(total_discount_amount)
-                    invoices_to_process = self._distribute_discount_amount_autopay(
-                        invoices_to_process, total_discount_amount, discount_percent
-                    )
-
             succeeded_invoices = []
-
             for invoice in invoices_to_process:
+                discount_amount = invoice.amount_residual * discount_percent / 100.0
+                pay_amount = invoice.amount_residual - discount_amount
                 payment_vals = invoice.prepare_payment_register_vals(partner_bank.id)
+                if not payment_vals:
+                    continue
+                payment_vals.update(
+                    {
+                        "amount": invoice.currency_id.round(pay_amount),
+                    }
+                )
                 register_payment = (
                     self.env["account.payment.register"]
                     .with_context(
                         active_model="account.move",
                         active_ids=[invoice.id],
                     )
-                    .sudo()
                     .create(payment_vals)
                 )
                 is_success = register_payment.with_context(
@@ -172,6 +161,10 @@ class AccountPayment(models.Model):
                     invoice.message_post(
                         body=f"Autopay created successfully for invoice <b>{invoice.name}</b>."
                     )
+                    if discount_percent > 0.0 and discount_amount > 0.0:
+                        invoice._create_discount_entry_and_reconcile(
+                            discount_amount, discount_percent
+                        )
                     succeeded_invoices.append(invoice)
                 else:
                     invoice.message_post(
@@ -244,55 +237,3 @@ class AccountPayment(models.Model):
                 }
 
                 mail_template.with_context(**ctx).send_mail(partner.id, force_send=True)
-
-    def _distribute_discount_amount_autopay(
-        self, invoices_sudo, total_discount_amount, discount_percent
-    ):
-        if not invoices_sudo or total_discount_amount <= 0:
-            return []
-
-        # Calculate base amounts for each invoice
-        invoice_amounts = []
-        total_base_amount = 0.0
-
-        for invoice in invoices_sudo:
-            amount_residual = (
-                -invoice.amount_residual
-                if invoice.move_type == "out_refund"
-                else invoice.amount_residual
-            )
-            invoice_amounts.append(amount_residual)
-            total_base_amount += amount_residual
-
-        # Distribute discount proportionally
-        distributed_amount = 0.0
-        currency = invoices_sudo[0].currency_id
-
-        succeeded_invoices_sudo = []
-
-        for i, invoice in enumerate(invoices_sudo):
-            try:
-                if i == len(invoices_sudo) - 1:
-                    # Last invoice gets the remainder to ensure total matches exactly
-                    invoice_discount = total_discount_amount - distributed_amount
-                else:
-                    # Calculate proportional amount
-                    if total_base_amount > 0:
-                        proportion = invoice_amounts[i] / total_base_amount
-                        invoice_discount = currency.round(
-                            total_discount_amount * proportion
-                        )
-                    else:
-                        invoice_discount = 0.0
-
-                if invoice_discount > 0:
-                    invoice.add_discount_line(discount_percent, invoice_discount)
-
-                distributed_amount += invoice_discount
-                succeeded_invoices_sudo.append(invoice)
-            except Exception as e:
-                _logger.warning(
-                    f"Add failed discount line for invoice '{invoice.name}': {e}"
-                )
-
-        return succeeded_invoices_sudo

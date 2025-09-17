@@ -464,15 +464,17 @@ class PaymentController(CustomerPortal):
             int(kw.get("partner_bank_id")) if kw.get("partner_bank_id") else False
         )
 
-        if discount_percent > 0.0 and amounts["discount_amount"] > 0.0:
-            self._distribute_discount_amount(
-                invoices.sudo(), amounts["discount_amount"], discount_percent
-            )
         for invoice in invoices:
+            discount_amount = invoice.amount_residual * discount_percent / 100.0
+            pay_amount = invoice.amount_residual - discount_amount
             payment_vals = invoice.prepare_payment_register_vals(partner_bank_id)
             if not payment_vals:
                 return request.redirect("/my/invoices")
-
+            payment_vals.update(
+                {
+                    "amount": invoice.currency_id.round(pay_amount),
+                }
+            )
             register_payment = (
                 request.env["account.payment.register"]
                 .with_context(active_model="account.move", active_ids=[invoice.id])
@@ -488,7 +490,10 @@ class PaymentController(CustomerPortal):
                 _logger.info(f"Create successful payment for invoice: '{invoice.name}'")
             else:
                 _logger.info(f"Create failed payment for invoice: '{invoice.name}'")
-
+            if discount_percent > 0.0 and discount_amount > 0.0:
+                invoice.sudo()._create_discount_entry_and_reconcile(
+                    discount_amount, discount_percent
+                )
         return request.redirect("/payment-success")
 
     @http.route(
@@ -711,48 +716,6 @@ class PaymentController(CustomerPortal):
             .get_param("account_banking_ach_direct_debit_portal.plaid_discount")
         )
         return self._cast_as_float(plaid_discount) if plaid_discount else 0.0
-
-    def _distribute_discount_amount(
-        self, invoices_sudo, total_discount_amount, discount_percent
-    ):
-        if not invoices_sudo or total_discount_amount <= 0:
-            return
-
-        # Calculate base amounts for each invoice
-        invoice_amounts = []
-        total_base_amount = 0.0
-
-        for invoice in invoices_sudo:
-            amount_residual = (
-                -invoice.amount_residual
-                if invoice.move_type == "out_refund"
-                else invoice.amount_residual
-            )
-            invoice_amounts.append(amount_residual)
-            total_base_amount += amount_residual
-
-        # Distribute discount proportionally
-        distributed_amount = 0.0
-        currency = invoices_sudo[0].currency_id
-
-        for i, invoice in enumerate(invoices_sudo):
-            if i == len(invoices_sudo) - 1:
-                # Last invoice gets the remainder to ensure total matches exactly
-                invoice_discount = total_discount_amount - distributed_amount
-            else:
-                # Calculate proportional amount
-                if total_base_amount > 0:
-                    proportion = invoice_amounts[i] / total_base_amount
-                    invoice_discount = currency.round(
-                        total_discount_amount * proportion
-                    )
-                else:
-                    invoice_discount = 0.0
-
-            if invoice_discount > 0:
-                invoice.add_discount_line(discount_percent, invoice_discount)
-
-            distributed_amount += invoice_discount
 
     def _get_documents(self, invoice_ids, order_id):
         invoices = order = False
