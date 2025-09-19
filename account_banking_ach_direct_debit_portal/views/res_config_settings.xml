@@ -94,6 +94,21 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="o_setting_left_pane" />
+                        <div class="o_setting_right_pane mt8">
+                            <label for="discount_journal_id" />
+                            <div class="text-muted">
+                                Journal to use for discount.
+                            </div>
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <field
+                                        name="discount_journal_id"
+                                        class="o_light_label"
+                                    />
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <h2>Credit Card</h2>

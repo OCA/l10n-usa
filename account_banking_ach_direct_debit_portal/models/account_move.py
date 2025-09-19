@@ -88,6 +88,13 @@ class AccountMove(models.Model):
             or self.company_id._get_default_surcharge_discount_account()
         )
 
+    def _get_discount_journal(self):
+        self.ensure_one()
+        return (
+            self.env.company.discount_journal_id
+            or self.company_id._get_default_discount_journal()
+        )
+
     def _create_discount_entry_and_reconcile(self, discount_amount, discount_percent):
         self.ensure_one()
         if discount_amount <= 0:
@@ -99,18 +106,8 @@ class AccountMove(models.Model):
             )
             return
 
-        journal = (
-            self.env["account.journal"]
-            .sudo()
-            .search(
-                [
-                    ("company_id", "=", self.company_id.id),
-                    ("type", "=", "general"),
-                ],
-                limit=1,
-            )
-        )
-        if not journal:
+        misc_journal = self._get_discount_journal()
+        if not misc_journal:
             _logger.warning("No general journal found to record discount.")
             return
 
@@ -133,7 +130,7 @@ class AccountMove(models.Model):
             .sudo()
             .create(
                 {
-                    "journal_id": journal.id,
+                    "journal_id": misc_journal.id,
                     "date": fields.Date.today(),
                     "ref": _(
                         f"Discount {discount_percent:.4g}% for invoice: {self.name}"  # noqa: E231,B950

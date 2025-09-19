@@ -1,7 +1,5 @@
 from odoo import fields, models
 
-from odoo.addons.account.models.product import ACCOUNT_DOMAIN
-
 
 class ResConfigSettings(models.TransientModel):
     _inherit = "res.config.settings"
@@ -40,7 +38,7 @@ class ResConfigSettings(models.TransientModel):
     surcharge_account_id = fields.Many2one(
         "account.account",
         string="Surcharge Account",
-        domain=ACCOUNT_DOMAIN,
+        domain="[('deprecated', '=', False), ('company_id', '=', company_id)]",
         help="Account to use for credit card surcharges.",
         related="company_id.surcharge_account_id",
         readonly=False,
@@ -48,7 +46,7 @@ class ResConfigSettings(models.TransientModel):
     discount_account_id = fields.Many2one(
         "account.account",
         string="Discount Account",
-        domain=ACCOUNT_DOMAIN,
+        domain="[('deprecated', '=', False), ('company_id', '=', company_id)]",
         help="Account to use for plaid discount.",
         related="company_id.discount_account_id",
         readonly=False,
@@ -73,4 +71,11 @@ class ResConfigSettings(models.TransientModel):
         "- Disabled: Hide all ACH portal features\n"
         "- Selected Users Only: Show to users with 'Enable ACH Payment Portal' enabled\n"
         "- All Portal Users: Enable ACH features for all portal users",
+    )
+    discount_journal_id = fields.Many2one(
+        "account.journal",
+        string="Discount Journal",
+        help="Journal to use for plaid discount.",
+        related="company_id.discount_journal_id",
+        readonly=False,
     )
