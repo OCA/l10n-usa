@@ -9,7 +9,7 @@ _logger = logging.getLogger(__name__)
 class AccountMove(models.Model):
     _inherit = "account.move"
 
-    def prepare_payment_register_vals(self, partner_bank_id=None):
+    def prepare_payment_register_vals(self, contact_bank_id=None):
         self.ensure_one()
         bank_journal = (
             self.env["account.journal"]
@@ -34,8 +34,8 @@ class AccountMove(models.Model):
             "journal_id": bank_journal.id,
             "payment_method_line_id": payment_method_line.id,
         }
-        if partner_bank_id:
-            vals["partner_bank_id"] = partner_bank_id
+        if contact_bank_id:
+            vals["contact_bank_id"] = contact_bank_id
 
         return vals
 

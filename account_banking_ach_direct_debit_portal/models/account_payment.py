@@ -92,8 +92,8 @@ class AccountPayment(models.Model):
     def _exclude_authorize_invoice_domain(self):
         return [
             "|",
-            ("payment_provider_id", "=", False),
-            ("payment_provider_id.code", "!=", "authorize"),
+            ("payment_mode_id", "=", False),
+            ("payment_mode_id.payment_method_id.code", "!=", "authorize"),
         ]
 
     def _process_autopay_partners(self, partners, date, autopay):
@@ -154,7 +154,6 @@ class AccountPayment(models.Model):
                 )
                 is_success = register_payment.with_context(
                     dont_redirect_to_payments=True,
-                    force_partner_bank_id=partner_bank.id,
                 ).action_create_payments()
 
                 if is_success:

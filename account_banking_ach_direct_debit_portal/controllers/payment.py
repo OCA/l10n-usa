@@ -385,7 +385,9 @@ class PaymentController(CustomerPortal):
                 ("partner_id", "=", request.env.user.partner_id.id),
             ]
         )
-        partner_bank_default = partner_banks.filtered(lambda b: b.default)[:1]
+        partner_bank_default = (
+            partner_banks.filtered(lambda b: b.default)[:1] or partner_banks[:1]
+        )
 
         if selected_provider.code == "ach_bank_account" and not partner_bank_default:
             return request.redirect("/no-bank")
@@ -493,7 +495,6 @@ class PaymentController(CustomerPortal):
 
             is_success = register_payment.with_context(
                 dont_redirect_to_payments=True,
-                force_partner_bank_id=partner_bank_id,
             ).action_create_payments()
             if is_success:
                 _logger.info(f"Create successful payment for invoice: '{invoice.name}'")

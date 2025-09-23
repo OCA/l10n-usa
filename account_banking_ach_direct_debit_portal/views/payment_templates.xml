@@ -727,6 +727,11 @@
                                         </div>
                                     </t>
                                     <t t-else="">
+                                        <input
+                                            name="partner_bank_id"
+                                            t-att-value="partner_bank.id"
+                                            type="hidden"
+                                        />
                                         <div class="mb-2 row">
                                             <label
                                                 class="col-sm-4 fw-bold"

@@ -1,22 +1,33 @@
-from odoo import models
+from odoo import api, fields, models
 
 
 class AccountPaymentRegister(models.TransientModel):
     _inherit = "account.payment.register"
 
-    def _create_payment_vals_from_wizard(self, batch_result):
-        payment_vals = super()._create_payment_vals_from_wizard(
-            batch_result=batch_result
-        )
-        partner_bank_id = self._context.get("force_partner_bank_id")
-        if partner_bank_id:
-            payment_vals["partner_bank_id"] = partner_bank_id
-        return payment_vals
+    contact_bank_id = fields.Many2one(
+        "res.partner.bank",
+        string="Partner Bank Account",
+        readonly=False,
+        store=True,
+        domain="[('id', 'in', available_contact_bank_ids)]",
+        check_company=True,
+    )
 
-    def _get_batches(self):
-        batch_vals = super()._get_batches()
-        partner_bank_id = self._context.get("force_partner_bank_id")
-        if partner_bank_id:
-            for vals in batch_vals:
-                vals["partner_bank_id"] = partner_bank_id
-        return batch_vals
+    available_contact_bank_ids = fields.Many2many(
+        comodel_name="res.partner.bank",
+        compute="_compute_available_contact_bank_ids",
+    )
+
+    @api.depends("partner_id")
+    def _compute_available_contact_bank_ids(self):
+        for wizard in self:
+            wizard.available_contact_bank_ids = wizard.partner_id.bank_ids.filtered(
+                lambda x: x.company_id.id in (False, wizard.company_id.id)
+            )._origin
+
+    def _create_payment_vals_from_wizard(self, batch_result):
+        payment_vals = super()._create_payment_vals_from_wizard(batch_result)
+
+        payment_vals["contact_bank_id"] = self.contact_bank_id.id
+
+        return payment_vals
