@@ -487,8 +487,8 @@
                                         </span>
                                         <span
                                             class="note text-muted ms-md-4 ms-2"
-                                            t-if="provider.note"
-                                            t-esc="provider.note"
+                                            t-if="provider_note.get(provider.id)"
+                                            t-esc="provider_note.get(provider.id)"
                                         />
                                         <t t-call="payment.icon_list" />
                                     </label>

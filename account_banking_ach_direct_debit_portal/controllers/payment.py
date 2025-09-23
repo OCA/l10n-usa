@@ -215,15 +215,23 @@ class PaymentController(CustomerPortal):
         )
         if not providers_sudo:
             return request.redirect("/my/payment_method")
+
+        provider_note = {}
+
         providers_sudo = providers_sudo.sorted(
             key=lambda provider: provider.display_as or provider.name
         )
         for provider in providers_sudo:
-            if not provider.note:
+            if invoices:
                 if provider.code == "authorize":
-                    provider.note = f"{surcharge_percent:.4g}% Surcharge"  # noqa: E231
+                    provider_note[
+                        provider.id
+                    ] = f"{surcharge_percent:.4g}% Surcharge"  # noqa: E231
                 elif provider.code == "ach_bank_account":
-                    provider.note = f"{discount_percent:.4g}% Discount (with plaid verification)"  # noqa: B950,E231
+                    provider_note[
+                        provider.id
+                    ] = f"{discount_percent:.4g}% Discount (with plaid verification)"  # noqa: B950,E231
+
         selected_payment_option_id = kw.get(
             "selected_payment_option_id",
             providers_sudo[0].id if providers_sudo else None,
@@ -281,6 +289,7 @@ class PaymentController(CustomerPortal):
             if selected_provider
             else providers_sudo[0],
             "providers": providers_sudo,
+            "provider_note": provider_note,
             "invisible_button": not user_portal.is_ach_accessible(),
         }
 
@@ -553,32 +562,14 @@ class PaymentController(CustomerPortal):
         )
 
         if account_payment_term_immediate:
-            order_data["payment_term_id"] = (account_payment_term_immediate.id,)
-
-        journal = (
-            request.env["account.journal"]
-            .sudo()
-            .search(
-                [
-                    ("type", "=", "bank"),
-                ],
-                limit=1,
-            )
-        )
-
-        if journal:
-            order_data["payment_method_id"] = (journal.id,)
-
-        order.write(order_data)
+            order_data["payment_term_id"] = account_payment_term_immediate.id
 
         if selected_provider.code == "ach_bank_account":
             partner_bank_id = (
                 int(kw.get("partner_bank_id")) if kw.get("partner_bank_id") else False
             )
 
-            order_data = {
-                "partner_bank_id": partner_bank_id,
-            }
+            order_data["partner_bank_id"] = partner_bank_id
 
             ach_method = request.env.ref(
                 "account_banking_ach_direct_debit.ach_direct_debit",
@@ -659,8 +650,6 @@ class PaymentController(CustomerPortal):
 
         if order:
             base_total += order.amount_total
-            surcharge_amount += order.amount_total * surcharge_percent / 100.0
-            discount_amount += order.amount_total * discount_percent / 100.0
             display_currency = display_currency or order.currency_id
 
         currency = display_currency or request.env.user.company_id.currency_id

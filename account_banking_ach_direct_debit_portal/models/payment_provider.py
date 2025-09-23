@@ -14,7 +14,6 @@ class PaymentProvider(models.Model):
         selection_add=[("ach_bank_account", "ACH Bank Account")],
         ondelete={"ach_bank_account": "set default"},
     )
-    note = fields.Char()
 
     @api.model
     def _get_compatible_providers(self, *args, currency_id=None, **kwargs):
