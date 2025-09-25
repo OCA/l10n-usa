@@ -1,5 +1,3 @@
-import traceback
-
 from plaid.api import plaid_api
 from plaid.api_client import ApiClient
 from plaid.configuration import Configuration
@@ -10,7 +8,7 @@ from plaid.model.item_public_token_exchange_request import (
 )
 
 from odoo import _, http
-from odoo.exceptions import AccessError
+from odoo.exceptions import AccessError, ValidationError
 from odoo.http import request
 
 from odoo.addons.portal.controllers.portal import CustomerPortal
@@ -52,6 +50,39 @@ class BankController(CustomerPortal):
 
         return request.render(
             "account_banking_ach_direct_debit_portal.portal_banks", values
+        )
+
+    def get_partner_bank(self, acc_number, aba_routing, partner_id):
+        unique_bank = (
+            request.env["ir.config_parameter"]
+            .sudo()
+            .get_param("account_banking_ach_direct_debit_portal.unique_bank_account")
+        ) in ["1", "True", "true"]
+
+        if unique_bank:
+            existing_bank_rec = request.env["res.partner.bank"].search(
+                [
+                    ("acc_number", "=", acc_number),
+                    ("partner_id", "!=", partner_id),
+                    ("active", "=", True),
+                ],
+                limit=1,
+            )
+            if existing_bank_rec:
+                raise ValidationError(
+                    _(
+                        f"The bank account number {acc_number} you entered already "
+                        "exists in the system."
+                    )
+                )
+
+        return request.env["res.partner.bank"].search(
+            [
+                ("acc_number", "=", acc_number),
+                ("aba_routing", "=", aba_routing),
+                ("partner_id", "=", partner_id),
+            ],
+            limit=1,
         )
 
     @http.route(
@@ -160,14 +191,7 @@ class BankController(CustomerPortal):
                         acc_holder_name = identity_acc.owners[0].names[0]
                         break
 
-                bank_rec = request.env["res.partner.bank"].search(
-                    [
-                        ("acc_number", "=", acc_number),
-                        ("aba_routing", "=", aba_routing),
-                        ("partner_id", "=", partner_id),
-                    ],
-                    limit=1,
-                )
+                bank_rec = self.get_partner_bank(acc_number, aba_routing, partner_id)
 
                 if not bank_rec:
                     bank_rec = request.env["res.partner.bank"].create(
@@ -189,7 +213,7 @@ class BankController(CustomerPortal):
 
         except Exception as e:
             # Optional: include traceback for debugging
-            error_msg = f"{str(e)}\n{traceback.format_exc()}"
+            error_msg = f"{str(e)}"
             return {"status": "error", "error": error_msg}
 
     @http.route(

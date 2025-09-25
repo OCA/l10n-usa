@@ -22,6 +22,16 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     const tryAgainBtn = document.getElementById("try-again-btn");
+    const errorBox = document.getElementById("error-alert");
+
+    function showError(msg) {
+        if (!errorBox) return;
+        errorBox.textContent = msg || "Something went wrong. Please try again.";
+        errorBox.classList.remove("d-none");
+        if (tryAgainBtn) {
+            tryAgainBtn.classList.remove("d-none");
+        }
+    }
 
     /* global Plaid */
     const handler = Plaid.create({
@@ -45,7 +55,8 @@ document.addEventListener("DOMContentLoaded", async function () {
             if (result.status === "success") {
                 window.location.href = "/my/banks?add_success=1";
             } else {
-                console.error("Verification failed: " + result.error);
+                const msg = (result && result.error) || "Verification failed.";
+                showError(msg);
             }
         },
         onExit: function (err, metadata) {
@@ -58,6 +69,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     tryAgainBtn.onclick = function () {
         tryAgainBtn.classList.add("d-none");
+        errorBox.classList.add("d-none");
         handler.open();
     };
 });

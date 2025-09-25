@@ -79,3 +79,9 @@ class ResConfigSettings(models.TransientModel):
         related="company_id.discount_journal_id",
         readonly=False,
     )
+
+    unique_bank_account = fields.Boolean(
+        help="Unique Bank Account",
+        config_parameter="account_banking_ach_direct_debit_portal.unique_bank_account",
+        default=False,
+    )

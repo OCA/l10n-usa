@@ -261,6 +261,8 @@
                 </a>
             </div>
 
+            <div id="error-alert" class="alert alert-danger d-none mt-3" role="alert" />
+
             <div class="text-center mt-5">
                 <button id="try-again-btn" class="btn btn-blue d-none">
                     Try Again
