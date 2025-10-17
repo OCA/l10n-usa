@@ -1,0 +1,219 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* partner_usps_address_validation
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: partner_usps_address_validation
+#: model_terms:ir.ui.view,arch_db:partner_usps_address_validation.res_config_settings_view_form
+msgid ""
+"<i class=\"fa fa-arrow-right\">\n"
+"                </i> Create USPS API account"
+msgstr ""
+
+#. module: partner_usps_address_validation
+#: model:ir.model.fields,field_description:partner_usps_address_validation.field_res_config_settings__usps_api_url
+#: model_terms:ir.ui.view,arch_db:partner_usps_address_validation.res_config_settings_view_form
+msgid "API URL"
+msgstr ""
+
+#. module: partner_usps_address_validation
+#: model_terms:ir.ui.view,arch_db:partner_usps_address_validation.usps_address_validation_view_form
+msgid "Accept Validate Address"
+msgstr ""
+
+#. module: partner_usps_address_validation
+#: model:ir.model.fields,field_description:partner_usps_address_validation.field_usps_address_validation__address_match
+msgid "Address Match"
+msgstr ""
+
+#. module: partner_usps_address_validation
+#: model:ir.model.fields,field_description:partner_usps_address_validation.field_usps_address_validation__address_result
+msgid "Address Result"
+msgstr ""
+
+#. module: partner_usps_address_validation
+#: model_terms:ir.ui.view,arch_db:partner_usps_address_validation.usps_address_validation_view_form
+msgid "Cancel"
+msgstr ""
+
+#. module: partner_usps_address_validation
+#: model:ir.model.fields,field_description:partner_usps_address_validation.field_usps_address_validation__city
+msgid "City"
+msgstr ""
+
+#. module: partner_usps_address_validation
+#: model:ir.model.fields,field_description:partner_usps_address_validation.field_usps_address_validation__city_state_zip_match
+msgid "City State Zip Match"
+msgstr ""
+
+#. module: partner_usps_address_validation
+#: model:ir.model,name:partner_usps_address_validation.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: partner_usps_address_validation
+#: model:ir.model,name:partner_usps_address_validation.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: partner_usps_address_validation
+#: model:ir.model.fields,field_description:partner_usps_address_validation.field_usps_address_validation__country
+msgid "Country"
+msgstr ""
+
+#. module: partner_usps_address_validation
+#: model:ir.model.fields,field_description:partner_usps_address_validation.field_usps_address_validation__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: partner_usps_address_validation
+#: model:ir.model.fields,field_description:partner_usps_address_validation.field_usps_address_validation__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: partner_usps_address_validation
+#: model:ir.model.fields,field_description:partner_usps_address_validation.field_usps_address_validation__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: partner_usps_address_validation
+#: model:ir.model.fields,field_description:partner_usps_address_validation.field_usps_address_validation__id
+msgid "ID"
+msgstr ""
+
+#. module: partner_usps_address_validation
+#: model:ir.model.fields,field_description:partner_usps_address_validation.field_usps_address_validation____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: partner_usps_address_validation
+#: model:ir.model.fields,field_description:partner_usps_address_validation.field_usps_address_validation__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: partner_usps_address_validation
+#: model:ir.model.fields,field_description:partner_usps_address_validation.field_usps_address_validation__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: partner_usps_address_validation
+#: model:ir.model.fields,field_description:partner_usps_address_validation.field_res_partner__usps_date_validation
+#: model:ir.model.fields,field_description:partner_usps_address_validation.field_res_users__usps_date_validation
+msgid "Last Validation Date"
+msgstr ""
+
+#. module: partner_usps_address_validation
+#: model_terms:ir.ui.view,arch_db:partner_usps_address_validation.usps_address_validation_view_form
+msgid "Original Address"
+msgstr ""
+
+#. module: partner_usps_address_validation
+#: model:ir.model.fields,field_description:partner_usps_address_validation.field_usps_address_validation__original_city
+msgid "Original City"
+msgstr ""
+
+#. module: partner_usps_address_validation
+#: model:ir.model.fields,field_description:partner_usps_address_validation.field_usps_address_validation__original_country
+msgid "Original Country"
+msgstr ""
+
+#. module: partner_usps_address_validation
+#: model:ir.model.fields,field_description:partner_usps_address_validation.field_usps_address_validation__original_state
+msgid "Original State"
+msgstr ""
+
+#. module: partner_usps_address_validation
+#: model:ir.model.fields,field_description:partner_usps_address_validation.field_usps_address_validation__original_street
+msgid "Original Street"
+msgstr ""
+
+#. module: partner_usps_address_validation
+#: model:ir.model.fields,field_description:partner_usps_address_validation.field_usps_address_validation__original_street2
+msgid "Original Street2"
+msgstr ""
+
+#. module: partner_usps_address_validation
+#: model:ir.model.fields,field_description:partner_usps_address_validation.field_usps_address_validation__original_zip
+msgid "Original Zip"
+msgstr ""
+
+#. module: partner_usps_address_validation
+#: model:ir.model.fields,field_description:partner_usps_address_validation.field_res_config_settings__usps_password
+#: model_terms:ir.ui.view,arch_db:partner_usps_address_validation.res_config_settings_view_form
+msgid "Password"
+msgstr ""
+
+#. module: partner_usps_address_validation
+#: model:ir.model.fields,field_description:partner_usps_address_validation.field_usps_address_validation__state
+msgid "State"
+msgstr ""
+
+#. module: partner_usps_address_validation
+#: model:ir.model.fields,field_description:partner_usps_address_validation.field_usps_address_validation__street
+msgid "Street"
+msgstr ""
+
+#. module: partner_usps_address_validation
+#: model:ir.model.fields,field_description:partner_usps_address_validation.field_usps_address_validation__street2
+msgid "Street2"
+msgstr ""
+
+#. module: partner_usps_address_validation
+#: model:ir.model.fields,help:partner_usps_address_validation.field_res_partner__usps_date_validation
+#: model:ir.model.fields,help:partner_usps_address_validation.field_res_users__usps_date_validation
+msgid "The date the address was last validated by USPS and accepted"
+msgstr ""
+
+#. module: partner_usps_address_validation
+#: model:ir.actions.act_window,name:partner_usps_address_validation.usps_address_validation_action
+#: model:ir.model,name:partner_usps_address_validation.model_usps_address_validation
+#: model_terms:ir.ui.view,arch_db:partner_usps_address_validation.usps_address_validation_btn_form_view
+#: model_terms:ir.ui.view,arch_db:partner_usps_address_validation.usps_address_validation_view_form
+msgid "USPS Address Validation"
+msgstr ""
+
+#. module: partner_usps_address_validation
+#: model_terms:ir.ui.view,arch_db:partner_usps_address_validation.res_config_settings_view_form
+msgid "USPS Address Validation Settings"
+msgstr ""
+
+#. module: partner_usps_address_validation
+#: model:ir.model.fields,field_description:partner_usps_address_validation.field_res_config_settings__usps_username
+#: model_terms:ir.ui.view,arch_db:partner_usps_address_validation.res_config_settings_view_form
+msgid "Username"
+msgstr ""
+
+#. module: partner_usps_address_validation
+#: model_terms:ir.ui.view,arch_db:partner_usps_address_validation.usps_address_validation_btn_form_view
+msgid "Validate"
+msgstr ""
+
+#. module: partner_usps_address_validation
+#: model_terms:ir.ui.view,arch_db:partner_usps_address_validation.usps_address_validation_view_form
+msgid "Validated Address"
+msgstr ""
+
+#. module: partner_usps_address_validation
+#. odoo-python
+#: code:addons/partner_usps_address_validation/models/res_partner.py:0
+#, python-format
+msgid ""
+"Your credentials are not configured,                 please ensure you have "
+"a username, password,                 and API URL set under "
+"Contacts/Configuration/USPS                 Credential Configuration"
+msgstr ""
+
+#. module: partner_usps_address_validation
+#: model:ir.model.fields,field_description:partner_usps_address_validation.field_usps_address_validation__zip
+msgid "Zip"
+msgstr ""

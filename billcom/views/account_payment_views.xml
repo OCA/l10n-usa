@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Action para sincronizar pagos con Bill.com -->
+    <record id="action_sync_payment_to_billcom" model="ir.actions.server">
+        <field name="name">Sync to Bill.com</field>
+        <field name="model_id" ref="account.model_account_payment" />
+        <field name="binding_model_id" ref="account.model_account_payment" />
+        <field name="binding_view_types">form</field>
+        <field name="state">code</field>
+        <field name="code">records.button_sync_to_billcom()</field>
+        <field name="groups_id" eval="[(4, ref('account.group_account_invoice'))]" />
+    </record>
+
+    <!-- Action para obtener el estado del pago de Bill.com -->
+    <record id="action_get_payment_status" model="ir.actions.server">
+        <field name="name">Get Bill.com Status</field>
+        <field name="model_id" ref="account.model_account_payment" />
+        <field name="binding_model_id" ref="account.model_account_payment" />
+        <field name="binding_view_types">form</field>
+        <field name="state">code</field>
+        <field name="code">records.action_get_payment_status()</field>
+        <field name="groups_id" eval="[(4, ref('account.group_account_invoice'))]" />
+    </record>
+
+    <!-- Action para cancelar el pago en Bill.com -->
+    <record id="action_cancel_billcom_payment" model="ir.actions.server">
+        <field name="name">Cancel in Bill.com</field>
+        <field name="model_id" ref="account.model_account_payment" />
+        <field name="binding_model_id" ref="account.model_account_payment" />
+        <field name="binding_view_types">form</field>
+        <field name="state">code</field>
+        <field name="code">records.action_cancel_billcom_payment()</field>
+        <field name="groups_id" eval="[(4, ref('account.group_account_invoice'))]" />
+    </record>
+
+    <!-- Action para sincronizar múltiples pagos en bloque a Bill.com -->
+    <record id="action_bulk_sync_to_billcom" model="ir.actions.server">
+        <field name="name">Bulk Sync to Bill.com</field>
+        <field name="model_id" ref="account.model_account_payment" />
+        <field name="binding_model_id" ref="account.model_account_payment" />
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">records.action_bulk_sync_to_billcom()</field>
+        <field name="groups_id" eval="[(4, ref('account.group_account_invoice'))]" />
+    </record>
+
+    <!-- Vendor Payment Form View -->
+    <record id="view_account_payment_form_billcom" model="ir.ui.view">
+        <field name="name">account.payment.form.billcom</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/group[last()]" position="after">
+                <group
+                    string="Bill.com Integration"
+                    name="billcom_id"
+                    attrs="{'invisible': ['|', ('payment_type', '!=', 'outbound'), ('partner_type', '!=', 'supplier')]}"
+                >
+                    <group>
+                        <field name="is_sync_to_billcom" />
+                        <field
+                            name="billcom_id"
+                            readonly="1"
+                            attrs="{'invisible': [('billcom_id', '=', False)]}"
+                        />
+                        <field
+                            name="last_sync_date"
+                            readonly="1"
+                            attrs="{'invisible': [('last_sync_date', '=', False)]}"
+                        />
+                        <field
+                            name="billcom_funding_account_type"
+                            attrs="{'required': [('is_sync_to_billcom', '=', True)]}"
+                        />
+                        <field name="is_process_date_sync" invisible="1" />
+                        <label
+                            for="billcom_process_date"
+                            attrs="{'invisible': [('billcom_funding_account_type', 'not in', ['WALLET', 'AP_CARD']), ('is_process_date_sync', '=', True)]}"
+                        />
+                        <div
+                            attrs="{'invisible': [('billcom_funding_account_type', 'not in', ['WALLET', 'AP_CARD']), ('is_process_date_sync', '=', True)]}"
+                        >
+                            <field
+                                name="billcom_process_date"
+                                class="oe_inline"
+                                attrs="{'required': ['|' , ('billcom_funding_account_type', 'in', ['WALLET', 'AP_CARD']), ('is_process_date_sync', '=', False)]}"
+                            />
+                            <button
+                                name="action_set_process_date_for_new_vendor"
+                                string="Set +2 Business Days"
+                                type="object"
+                                class="btn-link"
+                                icon="fa-calendar-plus-o"
+                                help="Set process date to 2 business days ahead (required for new vendor bank accounts)"
+                            />
+                        </div>
+                        <field name="billcom_pay_faster" />
+                        <field
+                            name="billcom_check_delivery_type"
+                            attrs="{'invisible': [('billcom_pay_faster', '=', False)]}"
+                        />
+                        <field name="is_international_payment" readonly="1" />
+                    </group>
+                    <group attrs="{'invisible': [('billcom_id', '=', False)]}">
+                        <field name="billcom_payment_status" readonly="1" />
+                        <field
+                            name="billcom_sync_status"
+                            readonly="1"
+                            widget="badge"
+                            decoration-success="billcom_sync_status == 'synced'"
+                            decoration-danger="billcom_sync_status == 'sync_failed'"
+                            decoration-info="billcom_sync_status == 'not_synced'"
+                        />
+                        <field
+                            name="billcom_sync_error"
+                            readonly="1"
+                            attrs="{'invisible': [('billcom_sync_error', '=', False)]}"
+                            widget="text"
+                        />
+                        <field
+                            name="billcom_confirmation_number"
+                            readonly="1"
+                            attrs="{'invisible': [('billcom_confirmation_number', '=', False)]}"
+                        />
+                        <field
+                            name="billcom_transaction_number"
+                            readonly="1"
+                            attrs="{'invisible': [('billcom_transaction_number', '=', False)]}"
+                        />
+                        <field
+                            name="billcom_exchange_rate"
+                            readonly="1"
+                            attrs="{'invisible': [('billcom_exchange_rate', '=', 0)]}"
+                        />
+                        <field
+                            name="billcom_funding_amount"
+                            readonly="1"
+                            attrs="{'invisible': [('billcom_funding_amount', '=', 0)]}"
+                        />
+                    </group>
+                </group>
+            </xpath>
+            <xpath expr="//header" position="inside">
+                <button
+                    name="%(action_sync_payment_to_billcom)d"
+                    string="Sync to Bill.com"
+                    type="action"
+                    class="oe_highlight"
+                    attrs="{'invisible': ['|', '|', '|', ('is_sync_to_billcom', '=', False), ('payment_type', '!=', 'outbound'), ('partner_type', '!=', 'supplier'), ('state', '!=', 'posted')]}"
+                    groups="billcom.group_billcom_payment_manager"
+                />
+                <button
+                    name="%(action_get_payment_status)d"
+                    string="Get Bill.com Status"
+                    type="action"
+                    attrs="{'invisible': ['|', ('billcom_id', '=', False), ('billcom_payment_status', 'in', ['processed', 'sent', 'canceled', 'failed'])]}"
+                    groups="billcom.group_billcom_payment_manager"
+                />
+                <button
+                    name="%(action_cancel_billcom_payment)d"
+                    string="Cancel in Bill.com"
+                    type="action"
+                    attrs="{'invisible': ['|', ('billcom_id', '=', False), ('billcom_payment_status', 'not in', ['draft', 'scheduled'])]}"
+                    groups="billcom.group_billcom_payment_manager"
+                />
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_account_payment_search_billcom" model="ir.ui.view">
+        <field name="name">account.payment.search.billcom</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_search" />
+        <field name="arch" type="xml">
+            <filter name="state_draft" position="after">
+                <filter
+                    string="Bill.com Sync Enabled"
+                    name="billcom_sync"
+                    domain="[('is_sync_to_billcom', '=', True)]"
+                />
+                <filter
+                    string="Bill.com Linked"
+                    name="billcom_linked"
+                    domain="[('billcom_id', '!=', False)]"
+                />
+                <filter
+                    string="International Payments"
+                    name="international"
+                    domain="[('is_international_payment', '=', True)]"
+                />
+                <filter
+                    string="Pay Faster"
+                    name="pay_faster"
+                    domain="[('billcom_pay_faster', '=', True)]"
+                />
+                <separator />
+                <filter
+                    string="Sync Failed"
+                    name="sync_failed"
+                    domain="[('billcom_sync_status', '=', 'sync_failed')]"
+                />
+                <filter
+                    string="Synced to Bill.com"
+                    name="synced"
+                    domain="[('billcom_sync_status', '=', 'synced')]"
+                />
+                <filter
+                    string="Not Synced"
+                    name="not_synced"
+                    domain="[('billcom_sync_status', '=', 'not_synced')]"
+                />
+            </filter>
+            <filter name="state" position="after">
+                <filter
+                    string="Bill.com Status"
+                    name="group_billcom_status"
+                    context="{'group_by': 'billcom_payment_status'}"
+                />
+                <filter
+                    string="Funding Account Type"
+                    name="group_funding_type"
+                    context="{'group_by': 'billcom_funding_account_type'}"
+                />
+            </filter>
+        </field>
+    </record>
+
+    <!-- Tree View -->
+    <record id="view_account_payment_tree_inherit_billcom" model="ir.ui.view">
+        <field name="name">account.payment.tree.inherit.billcom</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_tree" />
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="is_sync_to_billcom" optional="hide" />
+                <field name="billcom_id" optional="hide" />
+                <field name="billcom_payment_status" optional="show" />
+                <field name="billcom_funding_account_type" optional="hide" />
+                <field name="billcom_pay_faster" optional="hide" />
+                <field name="is_international_payment" optional="hide" />
+                <field name="last_sync_date" optional="hide" />
+            </field>
+        </field>
+    </record>
+</odoo>

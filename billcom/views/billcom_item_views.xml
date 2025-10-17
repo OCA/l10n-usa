@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Tree View -->
+    <record id="view_billcom_item_tree" model="ir.ui.view">
+        <field name="name">billcom.item.tree</field>
+        <field name="model">billcom.item</field>
+        <field name="arch" type="xml">
+            <tree
+                decoration-success="billcom_sync_status == 'synced'"
+                decoration-danger="billcom_sync_status == 'sync_failed'"
+                decoration-info="billcom_sync_status == 'not_synced'"
+                decoration-muted="archived == True"
+            >
+                <field name="name" />
+                <field name="type" />
+                <field name="tax_ids" widget="many2many_tags" />
+                <field name="percentage" />
+                <field name="billcom_id" optional="show" />
+                <field
+                    name="billcom_sync_status"
+                    widget="badge"
+                    decoration-success="billcom_sync_status == 'synced'"
+                    decoration-danger="billcom_sync_status == 'sync_failed'"
+                    decoration-info="billcom_sync_status == 'not_synced'"
+                />
+                <field name="last_sync_date" optional="hide" />
+                <field name="archived" invisible="1" />
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_billcom_item_form" model="ir.ui.view">
+        <field name="name">billcom.item.form</field>
+        <field name="model">billcom.item</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+                        name="button_sync_to_billcom"
+                        string="Sync to Bill.com"
+                        type="object"
+                        class="oe_highlight"
+                        attrs="{'invisible': [('is_sync_to_billcom', '=', False)]}"
+                        groups="account.group_account_manager"
+                    />
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button
+                            name="toggle_active"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-archive"
+                        >
+                            <field
+                                name="archived"
+                                widget="boolean_button"
+                                options="{'terminology': 'archive'}"
+                            />
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name" />
+                            <field name="short_name" />
+                            <field name="type" />
+                            <field name="is_sync_to_billcom" />
+                        </group>
+                        <group>
+                            <field name="tax_ids" widget="many2many_tags" />
+                            <field
+                                name="percentage"
+                                attrs="{'invisible': [('type', 'not in', ['SALES_TAX', 'DISCOUNT', 'OTHER_CHARGE'])]}"
+                            />
+                            <field name="taxable" />
+                            <field name="parent_id" />
+                        </group>
+                    </group>
+                    <group string="Description">
+                        <field name="description" nolabel="1" />
+                    </group>
+                    <group string="Pricing">
+                        <group>
+                            <field name="price" />
+                            <field name="purchase_cost" />
+                        </group>
+                        <group>
+                            <field name="chart_of_account_id" />
+                            <field name="expense_chart_of_account_id" />
+                        </group>
+                    </group>
+                    <group string="Purchase Details">
+                        <field name="purchase_description" nolabel="1" />
+                    </group>
+                    <group string="Bill.com Synchronization">
+                        <group>
+                            <field name="billcom_id" readonly="1" />
+                            <field name="last_sync_date" readonly="1" />
+                            <field
+                                name="billcom_sync_status"
+                                readonly="1"
+                                widget="badge"
+                                decoration-success="billcom_sync_status == 'synced'"
+                                decoration-danger="billcom_sync_status == 'sync_failed'"
+                                decoration-info="billcom_sync_status == 'not_synced'"
+                            />
+                        </group>
+                        <group>
+                            <field
+                                name="created_time"
+                                readonly="1"
+                                attrs="{'invisible': [('created_time', '=', False)]}"
+                            />
+                            <field
+                                name="updated_time"
+                                readonly="1"
+                                attrs="{'invisible': [('updated_time', '=', False)]}"
+                            />
+                            <field
+                                name="billcom_sync_error"
+                                readonly="1"
+                                attrs="{'invisible': [('billcom_sync_error', '=', False)]}"
+                                widget="text"
+                            />
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" />
+                    <field name="message_ids" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_billcom_item_search" model="ir.ui.view">
+        <field name="name">billcom.item.search</field>
+        <field name="model">billcom.item</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" />
+                <field name="type" />
+                <field name="tax_ids" />
+                <field name="billcom_id" />
+                <filter
+                    string="Sales Tax"
+                    name="sales_tax"
+                    domain="[('type', '=', 'SALES_TAX')]"
+                />
+                <filter
+                    string="Mapped to Odoo Tax"
+                    name="has_tax"
+                    domain="[('tax_ids', '!=', False)]"
+                />
+                <separator />
+                <filter
+                    string="Sync Enabled"
+                    name="sync_enabled"
+                    domain="[('is_sync_to_billcom', '=', True)]"
+                />
+                <filter
+                    string="Synced to Bill.com"
+                    name="synced"
+                    domain="[('billcom_sync_status', '=', 'synced')]"
+                />
+                <filter
+                    string="Sync Failed"
+                    name="sync_failed"
+                    domain="[('billcom_sync_status', '=', 'sync_failed')]"
+                />
+                <separator />
+                <filter
+                    string="Archived"
+                    name="archived"
+                    domain="[('archived', '=', True)]"
+                />
+                <group expand="0" string="Group By">
+                    <filter
+                        string="Type"
+                        name="group_type"
+                        context="{'group_by': 'type'}"
+                    />
+                    <filter
+                        string="Sync Status"
+                        name="group_sync_status"
+                        context="{'group_by': 'billcom_sync_status'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_billcom_item" model="ir.actions.act_window">
+        <field name="name">Bill.com Items</field>
+        <field name="res_model">billcom.item</field>
+        <field name="view_mode">tree,form</field>
+        <field
+            name="context"
+        >{'search_default_sales_tax': 1, 'search_default_has_tax': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a Bill.com Item
+            </p>
+            <p>
+                Bill.com items are used to classify transactions. <br />
+                Items of type "Sales Tax" are automatically mapped to Odoo taxes.
+            </p>
+        </field>
+    </record>
+
+
+
+</odoo>

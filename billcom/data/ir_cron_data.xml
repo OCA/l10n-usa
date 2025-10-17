@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <!--
+        Bill.com → Odoo Backup Synchronization Schedule
+
+        Purpose: Backup mechanism in case webhooks fail or are delayed
+        Direction: Bill.com → Odoo ONLY (one-way sync)
+
+        Note: Odoo → Bill.com sync is ON-DEMAND only (via wizard or automated triggers)
+              Users control when to push data to Bill.com
+
+        Strategy:
+        - Vendors/Customers: Every 2 hours (master data changes infrequently)
+        - Bills/Invoices: Every 30 minutes (important documents)
+        - Payments: Every 15 minutes (critical for cash flow)
+        - Payment Status: Every 30 minutes (status updates for existing payments)
+
+        Time offsetting to prevent server overload:
+        - :00 - Vendors, Payments
+        - :10 - Payment Status Update
+        - :15 - Bills, Payments
+        - :30 - Customers, Payments
+        - :45 - Invoices, Payments
+    -->
+
+    <!-- Sync Vendors from Bill.com (Backup for webhooks) -->
+    <record id="ir_cron_sync_vendors_from_billcom" model="ir.cron">
+        <field name="name">Bill.com: Sync Vendors from Bill.com</field>
+        <field name="model_id" ref="model_billcom_service" />
+        <field name="state">code</field>
+        <field
+            name="code"
+        >model.sync_partners_from_billcom(partner_type='vendor')</field>
+        <field name="interval_number">2</field>
+        <field name="interval_type">hours</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False" />
+        <field name="active" eval="True" />
+        <field name="user_id" ref="base.user_root" />
+        <field name="priority">15</field>
+    </record>
+
+    <!-- Sync Customers from Bill.com (Backup for webhooks) -->
+    <record id="ir_cron_sync_customers_from_billcom" model="ir.cron">
+        <field name="name">Bill.com: Sync Customers from Bill.com</field>
+        <field name="model_id" ref="model_billcom_service" />
+        <field name="state">code</field>
+        <field
+            name="code"
+        >model.sync_partners_from_billcom(partner_type='customer')</field>
+        <field name="interval_number">2</field>
+        <field name="interval_type">hours</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False" />
+        <field name="active" eval="True" />
+        <field name="user_id" ref="base.user_root" />
+        <field name="priority">15</field>
+        <!-- Offset by 30 minutes from vendors -->
+        <field
+            name="nextcall"
+            eval="(datetime.now() + timedelta(minutes=30)).strftime('%Y-%m-%d %H:%M:%S')"
+        />
+    </record>
+
+    <!-- Sync Bills from Bill.com (Backup for webhooks) -->
+    <record id="ir_cron_sync_bills_from_billcom" model="ir.cron">
+        <field name="name">Bill.com: Sync Bills from Bill.com</field>
+        <field name="model_id" ref="model_billcom_service" />
+        <field name="state">code</field>
+        <field name="code">model.sync_bills_from_billcom()</field>
+        <field name="interval_number">30</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False" />
+        <field name="active" eval="True" />
+        <field name="user_id" ref="base.user_root" />
+        <field name="priority">10</field>
+        <!-- Offset by 15 minutes -->
+        <field
+            name="nextcall"
+            eval="(datetime.now() + timedelta(minutes=15)).strftime('%Y-%m-%d %H:%M:%S')"
+        />
+    </record>
+
+    <!-- Sync Invoices from Bill.com (Backup for webhooks) -->
+    <record id="ir_cron_sync_invoices_from_billcom" model="ir.cron">
+        <field name="name">Bill.com: Sync Invoices from Bill.com</field>
+        <field name="model_id" ref="model_billcom_service" />
+        <field name="state">code</field>
+        <field name="code">model.sync_invoices_from_billcom()</field>
+        <field name="interval_number">30</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False" />
+        <field name="active" eval="True" />
+        <field name="user_id" ref="base.user_root" />
+        <field name="priority">10</field>
+        <!-- Offset by 45 minutes -->
+        <field
+            name="nextcall"
+            eval="(datetime.now() + timedelta(minutes=45)).strftime('%Y-%m-%d %H:%M:%S')"
+        />
+    </record>
+
+    <!-- Sync Payments from Bill.com (Backup for webhooks) -->
+    <record id="ir_cron_sync_payments_from_billcom" model="ir.cron">
+        <field name="name">Bill.com: Sync Payments from Bill.com</field>
+        <field name="model_id" ref="model_billcom_service" />
+        <field name="state">code</field>
+        <field name="code">model.sync_payments_from_billcom()</field>
+        <field name="interval_number">15</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False" />
+        <field name="active" eval="True" />
+        <field name="user_id" ref="base.user_root" />
+        <field name="priority">5</field>
+    </record>
+
+    <!-- Update Payment Status (Status check for existing payments) -->
+    <record id="ir_cron_update_payment_status" model="ir.cron">
+        <field name="name">Bill.com: Update Payment Status</field>
+        <field name="model_id" ref="model_account_payment" />
+        <field name="state">code</field>
+        <field name="code">model.sync_payment_status()</field>
+        <field name="interval_number">30</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False" />
+        <field name="active" eval="True" />
+        <field name="user_id" ref="base.user_root" />
+        <field name="priority">8</field>
+        <!-- Offset by 10 minutes -->
+        <field
+            name="nextcall"
+            eval="(datetime.now() + timedelta(minutes=10)).strftime('%Y-%m-%d %H:%M:%S')"
+        />
+    </record>
+</odoo>

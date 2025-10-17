@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Extender el formulario de registro de pagos para incluir campos de Bill.com -->
+    <record id="view_account_payment_register_form_billcom" model="ir.ui.view">
+        <field name="name">account.payment.register.form.billcom</field>
+        <field name="model">account.payment.register</field>
+        <field name="inherit_id" ref="account.view_account_payment_register_form" />
+        <field name="arch" type="xml">
+            <!-- Añadir campos invisibles -->
+            <xpath expr="//field[@name='hide_writeoff_section']" position="after">
+                <field name="is_international_payment" invisible="1" />
+            </xpath>
+
+            <!-- Añadir grupo de Bill.com después del grupo2 -->
+            <xpath expr="//group[@name='group2']" position="after">
+                <group
+                    name="billcom_group"
+                    string="Bill.com Integration"
+                    attrs="{'invisible': ['|', ('payment_type', '!=', 'outbound'), ('partner_type', '!=', 'supplier')]}"
+                    groups="billcom.group_billcom_payment_manager"
+                >
+                    <field name="is_sync_to_billcom" />
+                    <field
+                        name="billcom_funding_account_type"
+                        attrs="{'required': [('is_sync_to_billcom', '=', True)], 'invisible': [('is_sync_to_billcom', '=', False)]}"
+                    />
+                    <field
+                        name="billcom_process_date"
+                        attrs="{'invisible': ['|', ('is_sync_to_billcom', '=', False), ('billcom_funding_account_type', '!=', 'WALLET')]}"
+                    />
+                    <field
+                        name="billcom_pay_faster"
+                        attrs="{'invisible': [('is_sync_to_billcom', '=', False)]}"
+                    />
+                    <field
+                        name="billcom_check_delivery_type"
+                        attrs="{'invisible': ['|', ('is_sync_to_billcom', '=', False), ('billcom_pay_faster', '=', False)]}"
+                    />
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

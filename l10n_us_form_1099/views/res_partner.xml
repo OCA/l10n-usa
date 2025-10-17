@@ -1,0 +1,28 @@
+<odoo>
+    <!-- Copyright (C) 2017 Open Source Integrators
+         Copyright (C) 2019 Brian McMaster
+         License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+    <record id="res_partner_view_form" model="ir.ui.view">
+        <field name="name">res_partner_view_form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//group[2]/field[@name='property_supplier_payment_term_id']"
+                position="before"
+            >
+                <field name="is_1099" />
+                <field
+                    name="type_1099_id"
+                    widget="selection"
+                    attrs="{'invisible': [('is_1099', '=', False)]}"
+                />
+                <field
+                    name="box_1099_misc_id"
+                    widget="selection"
+                    attrs="{'invisible': [('type_1099_id', '!=', %(l10n_us_form_1099.1099_type_misc)d)]}"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>

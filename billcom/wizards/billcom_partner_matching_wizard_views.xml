@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Partner Matching Line Tree View -->
+    <record id="view_billcom_partner_matching_line_tree" model="ir.ui.view">
+        <field name="name">billcom.partner.matching.line.tree</field>
+        <field name="model">billcom.partner.matching.line</field>
+        <field name="arch" type="xml">
+            <tree
+                decoration-success="confidence_level=='high'"
+                decoration-info="confidence_level=='medium'"
+                decoration-warning="confidence_level=='low'"
+                decoration-muted="confidence_level=='none'"
+                decoration-bf="state=='linked'"
+                editable="bottom"
+            >
+                <field name="selected" widget="boolean_toggle" />
+                <field name="state" invisible="1" />
+                <field name="confidence_color" invisible="1" />
+                <field name="confidence_level" optional="hide" />
+                <field name="match_score" optional="hide" />
+                <field name="match_details" optional="hide" />
+                <field name="odoo_partner_id" optional="hide" />
+                <field name="odoo_partner_name" />
+                <field name="odoo_partner_email" />
+                <field name="odoo_partner_phone" />
+                <field name="billcom_partner_name" />
+                <field name="billcom_partner_email" />
+                <field name="billcom_partner_phone" />
+                <field name="action" />
+            </tree>
+        </field>
+    </record>
+
+    <!-- Partner Matching Wizard Form View - Draft State -->
+    <record id="view_billcom_partner_matching_wizard_form" model="ir.ui.view">
+        <field name="name">billcom.partner.matching.wizard.form</field>
+        <field name="model">billcom.partner.matching.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Bill.com Partner Matching">
+                <header>
+                    <button
+                        name="action_find_matches"
+                        string="Find Matches"
+                        type="object"
+                        class="oe_highlight"
+                        attrs="{'invisible': [('state', '!=', 'draft')]}"
+                    />
+                    <button
+                        name="action_apply_selected"
+                        string="Apply Selected"
+                        type="object"
+                        class="oe_highlight"
+                        attrs="{'invisible': [('state', '!=', 'review')]}"
+                    />
+                    <button
+                        name="action_reset"
+                        string="Start Over"
+                        type="object"
+                        attrs="{'invisible': [('state', '=', 'draft')]}"
+                    />
+                    <button
+                        name="action_reset_all_billcom_ids"
+                        string="Reset All Bill.com IDs"
+                        type="object"
+                        class="btn-danger"
+                        confirm="⚠️  WARNING: This will remove ALL Bill.com IDs from ALL partners in the system. This action cannot be undone. Are you absolutely sure you want to continue?"
+                        groups="base.group_system"
+                    />
+                    <field
+                        name="state"
+                        widget="statusbar"
+                        statusbar_visible="draft,review,done"
+                    />
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field
+                                name="partner_type"
+                                widget="radio"
+                                options="{'horizontal': true}"
+                                attrs="{'readonly': [('state', '!=', 'draft')]}"
+                            />
+                        </h1>
+                    </div>
+
+                    <!-- Draft State -->
+                    <group attrs="{'invisible': [('state', '!=', 'draft')]}">
+                        <group>
+                            <label for="auto_link_high_confidence" />
+                            <div>
+                                <field name="auto_link_high_confidence" />
+                                <span class="text-muted">
+                                    Automatically link partners with 100% match (Email + Phone + Name)
+                                </span>
+                            </div>
+                        </group>
+                        <group colspan="2" col="2">
+                            <div class="alert alert-info" role="alert" colspan="2">
+                                <p>
+                                    <strong>How matching works:</strong>
+                                </p>
+                                <ul>
+                                    <li>
+                                        <strong>High Confidence (3/3):</strong>
+                                        Email, Phone, and Name all match
+                                    </li>
+                                    <li>
+                                        <strong>Medium Confidence (2/3):</strong>
+                                        Two of the three criteria match
+                                    </li>
+                                    <li>
+                                        <strong>Low Confidence (1/3):</strong>
+                                        Only one criterion matches
+                                    </li>
+                                </ul>
+                                <p
+                                >Click "Find Matches" to analyze all partners without Bill.com ID.</p>
+                            </div>
+                        </group>
+                    </group>
+
+                    <!-- Review State - Statistics -->
+                    <group attrs="{'invisible': [('state', '!=', 'review')]}">
+                        <group string="Matching Statistics" col="4">
+                            <field name="total_partners" />
+                            <field name="high_confidence_count" />
+                            <field name="medium_confidence_count" />
+                            <field name="low_confidence_count" />
+                            <field name="no_match_count" />
+                            <field
+                                name="duplicate_group_count"
+                                string="Duplicate Groups"
+                            />
+                            <field
+                                name="selected_count"
+                                string="Selected for Bulk Action"
+                            />
+                        </group>
+                    </group>
+
+                    <!-- Review State - Matching Lines -->
+                    <notebook attrs="{'invisible': [('state', '!=', 'review')]}">
+                        <page string="All Matches">
+                            <div class="alert alert-info" role="alert">
+                                <p>
+                                    <strong>Instructions:</strong>
+                                </p>
+                                <ul>
+                                    <li>
+                                        <strong>Duplicate Groups (purple/blue):</strong>
+                                        Multiple Bill.com vendors with same name but different currencies.
+                                        They will be imported as ONE Odoo partner with multiple currency links.
+                                    </li>
+                                    <li>
+                                        <strong>Link:</strong>
+                                        Connect Bill.com vendor to existing Odoo partner.
+                                    </li>
+                                    <li>
+                                        <strong>Create:</strong>
+                                        Create new Odoo partner from Bill.com data.
+                                    </li>
+                                    <li>
+                                        <strong>Ignore:</strong>
+                                        Skip this Bill.com vendor.
+                                    </li>
+                                </ul>
+                            </div>
+                            <field name="line_ids" nolabel="1">
+                                <tree
+                                    decoration-success="confidence_level=='high' and is_duplicate_group==False"
+                                    decoration-info="confidence_level=='medium' and is_duplicate_group==False"
+                                    decoration-warning="confidence_level=='low' and is_duplicate_group==False"
+                                    decoration-muted="confidence_level=='none' and is_duplicate_group==False"
+                                    decoration-bf="state=='linked'"
+                                    decoration-primary="is_duplicate_group==True"
+                                    editable="bottom"
+                                >
+                                    <field name="selected" widget="boolean_toggle" />
+                                    <field name="state" invisible="1" />
+                                    <field name="wizard_id" invisible="1" />
+                                    <field name="is_duplicate_group" invisible="1" />
+                                    <field name="billcom_ids_json" invisible="1" />
+                                    <field name="confidence_level" string="Conf." />
+                                    <field name="match_score" string="Score" />
+                                    <field
+                                        name="billcom_ids_count"
+                                        string="# IDs"
+                                        optional="show"
+                                        attrs="{'invisible': [('is_duplicate_group', '=', False)]}"
+                                    />
+                                    <field
+                                        name="match_details"
+                                        string="Match Details"
+                                    />
+
+                                    <!-- Odoo Partner - Editable for manual selection -->
+                                    <field
+                                        name="odoo_partner_id"
+                                        string="Odoo Partner"
+                                        context="{'default_supplier_rank': 1 if parent.partner_type == 'vendor' else 0, 'default_customer_rank': 1 if parent.partner_type == 'customer' else 0}"
+                                        options="{'no_create': True, 'no_quick_create': True}"
+                                    />
+                                    <field
+                                        name="odoo_partner_email"
+                                        string="Odoo Email"
+                                        optional="hide"
+                                    />
+                                    <field
+                                        name="odoo_partner_phone"
+                                        string="Odoo Phone"
+                                        optional="hide"
+                                    />
+
+                                    <!-- Bill.com Partner - Read-only -->
+                                    <field name="billcom_partner_id" invisible="1" />
+                                    <field
+                                        name="billcom_partner_name"
+                                        string="Bill.com Name"
+                                    />
+                                    <field
+                                        name="billcom_partner_email"
+                                        string="Bill.com Email"
+                                        optional="hide"
+                                    />
+                                    <field
+                                        name="billcom_partner_phone"
+                                        string="Bill.com Phone"
+                                        optional="hide"
+                                    />
+
+                                    <field name="action" />
+                                    <field name="error_message" optional="hide" />
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="High Confidence (3/3)">
+                            <field
+                                name="high_confidence_line_ids"
+                                nolabel="1"
+                                context="{'tree_view_ref': 'billcom.view_billcom_partner_matching_line_tree'}"
+                            />
+                        </page>
+                        <page string="Medium Confidence (2/3)">
+                            <field
+                                name="medium_confidence_line_ids"
+                                nolabel="1"
+                                context="{'tree_view_ref': 'billcom.view_billcom_partner_matching_line_tree'}"
+                            />
+                        </page>
+                        <page string="Low Confidence (1/3)">
+                            <field
+                                name="low_confidence_line_ids"
+                                nolabel="1"
+                                context="{'tree_view_ref': 'billcom.view_billcom_partner_matching_line_tree'}"
+                            />
+                        </page>
+                        <page string="No Matches">
+                            <field
+                                name="no_match_line_ids"
+                                nolabel="1"
+                                context="{'tree_view_ref': 'billcom.view_billcom_partner_matching_line_tree'}"
+                            />
+                        </page>
+                        <page string="Duplicate Groups">
+                            <div class="alert alert-warning" role="alert">
+                                <p>
+                                    <strong>Duplicate Group Management</strong>
+                                </p>
+                                <p>
+                                    These are Bill.com vendors/customers with the same name but different currencies.
+                                    Each group will be imported as a parent-child structure:
+                                </p>
+                                <ul>
+                                    <li>
+                                        <strong>Parent Partner:</strong>
+                                        Contains bank accounts for all currencies
+                                    </li>
+                                    <li>
+                                        <strong>Child Partners:</strong>
+                                        One per currency, each with Bill.com ID
+                                    </li>
+                                    <li>
+                                        <strong>Manual Assignment:</strong>
+                                        Use "Parent Partner" field to assign an existing parent
+                                    </li>
+                                </ul>
+                            </div>
+                            <field name="duplicate_group_line_ids" nolabel="1">
+                                <tree
+                                    decoration-primary="is_duplicate_group==True"
+                                    editable="bottom"
+                                >
+                                    <field name="selected" widget="boolean_toggle" />
+                                    <field name="state" invisible="1" />
+                                    <field name="wizard_id" invisible="1" />
+                                    <field name="is_duplicate_group" invisible="1" />
+                                    <field name="billcom_ids_json" invisible="1" />
+                                    <field name="billcom_ids_count" string="# IDs" />
+                                    <field
+                                        name="match_details"
+                                        string="Group Details"
+                                    />
+                                    <field
+                                        name="billcom_partner_name"
+                                        string="Bill.com Name"
+                                    />
+
+                                    <!-- Manual parent assignment -->
+                                    <field
+                                        name="parent_partner_id"
+                                        string="Assign Parent"
+                                        context="{'default_supplier_rank': 1 if parent.partner_type == 'vendor' else 0, 'default_customer_rank': 1 if parent.partner_type == 'customer' else 0}"
+                                        options="{'no_create': True, 'no_quick_create': True}"
+                                    />
+
+                                    <!-- Matched partner (read-only, for reference) -->
+                                    <field
+                                        name="odoo_partner_id"
+                                        string="Suggested Match"
+                                        readonly="1"
+                                    />
+
+                                    <field name="action" />
+                                    <field name="error_message" optional="hide" />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+
+                    <!-- Done State -->
+                    <group attrs="{'invisible': [('state', '!=', 'done')]}">
+                        <div class="alert alert-success" role="alert">
+                            <h4>✓ Matching Complete!</h4>
+                            <p>Partners have been successfully linked with Bill.com.</p>
+                            <p
+                            >You can close this window or start over to process more partners.</p>
+                        </div>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action for Partner Matching Wizard -->
+    <record id="action_billcom_partner_matching_wizard" model="ir.actions.act_window">
+        <field name="name">Partner Matching</field>
+        <field name="res_model">billcom.partner.matching.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="base.model_res_partner" />
+    </record>
+
+
+</odoo>

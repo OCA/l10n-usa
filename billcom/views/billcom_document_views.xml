@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Tree View -->
+    <record id="view_billcom_document_tree" model="ir.ui.view">
+        <field name="name">billcom.document.tree</field>
+        <field name="model">billcom.document</field>
+        <field name="arch" type="xml">
+            <tree
+                decoration-success="upload_status == 'uploaded'"
+                decoration-danger="upload_status == 'failed'"
+                decoration-warning="upload_status == 'in_progress'"
+            >
+                <field name="name" />
+                <field name="bill_id" />
+                <field name="billcom_bill_id" optional="hide" />
+                <field name="billcom_id" optional="show" />
+                <field name="file_size" optional="show" widget="integer" />
+                <field
+                    name="upload_status"
+                    widget="badge"
+                    decoration-success="upload_status == 'uploaded'"
+                    decoration-danger="upload_status == 'failed'"
+                    decoration-warning="upload_status == 'in_progress'"
+                    decoration-muted="upload_status == 'pending'"
+                />
+                <field name="created_time" optional="show" />
+                <field name="create_date" optional="hide" />
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_billcom_document_form" model="ir.ui.view">
+        <field name="name">billcom.document.form</field>
+        <field name="model">billcom.document</field>
+        <field name="arch" type="xml">
+            <form string="Bill.com Document">
+                <header>
+                    <button
+                        name="button_upload_to_billcom"
+                        type="object"
+                        string="Upload to Bill.com"
+                        class="oe_highlight"
+                        attrs="{'invisible': [('upload_status', 'in', ['uploaded', 'in_progress'])]}"
+                    />
+                    <button
+                        name="button_check_upload_status"
+                        type="object"
+                        string="Check Upload Status"
+                        class="btn-secondary"
+                        attrs="{'invisible': [('upload_status', '!=', 'in_progress')]}"
+                    />
+                    <button
+                        name="button_download_from_billcom"
+                        type="object"
+                        string="Download from Bill.com"
+                        class="btn-secondary"
+                        attrs="{'invisible': [('upload_status', '!=', 'uploaded')]}"
+                    />
+                    <field
+                        name="upload_status"
+                        widget="statusbar"
+                        statusbar_visible="pending,in_progress,uploaded"
+                    />
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button
+                            name="toggle_active"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-archive"
+                            invisible="1"
+                        >
+                            <field
+                                name="active"
+                                widget="boolean_button"
+                                options="{'terminology': 'archive'}"
+                            />
+                        </button>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name" />
+                            <field name="bill_id" />
+                            <field name="billcom_bill_id" readonly="1" />
+                        </group>
+                        <group>
+                            <field name="billcom_id" readonly="1" />
+                            <field
+                                name="billcom_upload_id"
+                                readonly="1"
+                                attrs="{'invisible': [('billcom_upload_id', '=', False)]}"
+                            />
+                            <field name="file_size" widget="integer" readonly="1" />
+                            <field name="created_time" readonly="1" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="File">
+                            <group>
+                                <field
+                                    name="file_data"
+                                    filename="name"
+                                    widget="binary"
+                                />
+                                <field
+                                    name="download_link"
+                                    readonly="1"
+                                    widget="url"
+                                    attrs="{'invisible': [('download_link', '=', False)]}"
+                                />
+                            </group>
+                        </page>
+                        <page
+                            string="Error Details"
+                            attrs="{'invisible': [('error_message', '=', False)]}"
+                        >
+                            <field name="error_message" readonly="1" />
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" />
+                    <field name="message_ids" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_billcom_document_search" model="ir.ui.view">
+        <field name="name">billcom.document.search</field>
+        <field name="model">billcom.document</field>
+        <field name="arch" type="xml">
+            <search string="Bill.com Documents">
+                <field name="name" />
+                <field name="bill_id" />
+                <field name="billcom_id" />
+                <field name="billcom_bill_id" />
+                <separator />
+                <filter
+                    string="Pending Upload"
+                    name="pending"
+                    domain="[('upload_status', '=', 'pending')]"
+                />
+                <filter
+                    string="Uploading"
+                    name="in_progress"
+                    domain="[('upload_status', '=', 'in_progress')]"
+                />
+                <filter
+                    string="Uploaded"
+                    name="uploaded"
+                    domain="[('upload_status', '=', 'uploaded')]"
+                />
+                <filter
+                    string="Failed"
+                    name="failed"
+                    domain="[('upload_status', '=', 'failed')]"
+                />
+                <separator />
+                <group expand="0" string="Group By">
+                    <filter
+                        string="Bill"
+                        name="group_bill"
+                        context="{'group_by': 'bill_id'}"
+                    />
+                    <filter
+                        string="Upload Status"
+                        name="group_status"
+                        context="{'group_by': 'upload_status'}"
+                    />
+                    <filter
+                        string="Created Time"
+                        name="group_created_time"
+                        context="{'group_by': 'created_time'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_billcom_document" model="ir.actions.act_window">
+        <field name="name">Bill.com Documents</field>
+        <field name="res_model">billcom.document</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_uploaded': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Upload documents to Bill.com bills
+            </p>
+            <p>
+                Manage document uploads for your Bill.com bills. Documents can be PDFs, images, or other supported file types.
+            </p>
+        </field>
+    </record>
+</odoo>
