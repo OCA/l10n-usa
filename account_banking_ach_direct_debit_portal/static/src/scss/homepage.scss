@@ -1,95 +1,33 @@
 #wrapwrap.o_portal {
     #account-homepage {
+        font-family: "Myriad Pro";
+
         .header {
-            @media (min-width: 768px) {
-                align-items: center;
-                -webkit-box-pack: start;
-                justify-content: flex-start;
-                display: flex;
-            }
-
-            @media (max-width: 768px) {
-                .header-title {
-                    margin-bottom: 10px;
-                }
-
-                .wrapper-button {
-                    display: flex;
-                    align-items: center;
-                    -webkit-box-pack: center;
-                    justify-content: center;
-
-                    .btn {
-                        width: 100%;
-
-                        @media (max-width: 768px) {
-                            padding: 0.175rem 0.025rem;
-                        }
-                    }
-                }
+            .setting-icon {
+                font-size: 20px;
+                color: #333333;
+                cursor: pointer;
             }
         }
 
         .card-credit {
-            background-color: #f0f8ff;
-            border: 1px solid #dee2e6;
+            border: 1px solid #e0e0e0;
             border-radius: 0.5rem;
             padding: 1rem 1.5rem;
             height: 100%;
 
             .icon {
-                font-size: 30px;
-                color: #174378;
+                font-size: 16px;
+                color: #333333;
             }
 
-            .info-icon {
-                border: 1px solid #00000033;
-                border-radius: 50%;
-                color: #00000033;
-                position: relative;
-                height: 24px;
-                width: 24px;
-                cursor: pointer;
-
-                i {
-                    position: absolute;
-                    left: 50%;
-                    top: 50%;
-                    transform: translate(-50%, -50%) !important;
-                }
-
-                .tooltip-box {
-                    visibility: hidden;
-                    width: 250px;
-                    background-color: white;
-                    color: #6d6d6d;
-                    font-weight: 500;
-                    text-align: left;
-                    border-radius: 8px;
-                    padding: 10px;
-                    position: absolute;
-                    top: 130%;
-                    left: 50%;
-                    transform: translateX(-50%);
-                    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-                    z-index: 1;
-                    opacity: 0;
-                    transition: opacity 0.3s;
-                }
-
-                &:hover .tooltip-box {
-                    visibility: visible;
-                    opacity: 1;
-                }
-            }
-
-            h6 {
-                font-size: 1.25rem;
+            .title {
                 margin-bottom: 0;
+                font-size: 16px;
+                color: #333333;
             }
 
             .amount {
-                font-family: Inter;
                 font-weight: 600;
                 font-size: 2rem;
                 letter-spacing: 0%;

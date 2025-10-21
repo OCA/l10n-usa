@@ -4,6 +4,7 @@
     <record id="payment_provider_ach_portal" model="payment.provider">
         <field name="code">ach_bank_account</field>
         <field name="name">ACH Bank Account</field>
+        <field name="fa_icon">fa fa-university</field>
         <field
             name="image_128"
             type="base64"

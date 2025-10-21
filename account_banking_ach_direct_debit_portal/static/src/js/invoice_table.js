@@ -9,14 +9,20 @@ document.addEventListener("DOMContentLoaded", function () {
         const anyChecked = Array.from(checkboxes).some((cb) => cb.checked);
         if (anyChecked) {
             payButton.classList.remove("d-none");
-            manageBankBtn.classList.add("d-none");
+
+            if (manageBankBtn) {
+                manageBankBtn.classList.add("d-none");
+            }
         } else {
             payButton.classList.add("d-none");
-            manageBankBtn.classList.remove("d-none");
+
+            if (manageBankBtn) {
+                manageBankBtn.classList.remove("d-none");
+            }
         }
     }
 
-    if (checkboxes && payButton && manageBankBtn) {
+    if (checkboxes && payButton) {
         checkboxes.forEach((cb) => {
             cb.addEventListener("change", updateActionVisibility);
         });
@@ -32,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     selectedInvoices.push(checkbox.value);
                 });
 
-            let url = "/payment";
+            let url = "/select-payment-method";
 
             if (selectedInvoices.length > 0) {
                 const query = selectedInvoices

@@ -2,30 +2,48 @@ document.addEventListener("DOMContentLoaded", function () {
     "use strict";
 
     const checkbox = document.getElementById("rule_disabled");
-    const autopayValues = document.getElementById("autopay-values");
-    const autopayEnabledInput = document.getElementById("autopay_enabled");
+    const oldRuleInput = document.querySelector("input[name='old_autopay_rule']");
 
-    if (checkbox && autopayValues && autopayEnabledInput) {
-        checkbox.addEventListener("change", function () {
-            if (this.checked) {
-                autopayValues.classList.remove("d-none");
-                autopayEnabledInput.value = "1";
+    if (checkbox) {
+        checkbox.addEventListener("change", function (event) {
+            const noBankAccounts = document.querySelector("[name='no_bank_accounts']");
+            const warningSpan = document.getElementById("autopay-warning");
+            const termsAndConditions = document.getElementById("terms-and-conditions");
+            const autopayValues = document.getElementById("autopay-values");
+            const radioDisabled = document.querySelector(
+                "input[name='autopay_value'][value='disabled']"
+            );
 
-                const anyChecked = document.querySelector(".autopay-radio:checked");
-                if (!anyChecked) {
-                    const defaultRadio = document.getElementById("rule_1");
-                    if (defaultRadio) {
-                        defaultRadio.checked = true;
-                    }
+            if (noBankAccounts && noBankAccounts.value === "True" && this.checked) {
+                event.preventDefault();
+                this.checked = false;
+
+                if (warningSpan) {
+                    warningSpan.classList.remove("d-none");
                 }
-            } else {
-                autopayValues.classList.add("d-none");
-                autopayEnabledInput.value = "0";
+                return;
+            }
 
-                const radios = document.querySelectorAll(".autopay-radio");
-                radios.forEach((r) => {
-                    r.checked = false;
+            if (warningSpan) {
+                warningSpan.classList.add("d-none");
+            }
+
+            if (this.checked) {
+                termsAndConditions.classList.add("d-none");
+                autopayValues.classList.remove("d-none");
+
+                document.querySelectorAll(".option-card-input").forEach((radio) => {
+                    if (radio.value === oldRuleInput.value) {
+                        radio.checked = true;
+                    }
                 });
+            } else {
+                termsAndConditions.classList.remove("d-none");
+                autopayValues.classList.add("d-none");
+
+                if (radioDisabled) {
+                    radioDisabled.checked = true;
+                }
             }
         });
     }

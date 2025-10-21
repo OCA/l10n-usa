@@ -1,13 +1,14 @@
-from collections import OrderedDict
-
 from odoo import _, http
+from odoo.exceptions import AccessError, MissingError
 from odoo.http import request
 from odoo.osv import expression
 
 from odoo.addons.account.controllers.portal import PortalAccount
 from odoo.addons.portal.controllers.portal import pager as portal_pager
 
+from ..controllers.homepage import HomepageController as homepage_portal
 from ..controllers.user_portal import UserPortalController as user_portal
+from ..utils import get_invoice_due_status
 
 
 class InvoiceController(PortalAccount):
@@ -36,38 +37,34 @@ class InvoiceController(PortalAccount):
         date_begin,
         date_end,
         sortby,
-        filterby,
-        status_filterby,
+        invoice_sortby=None,
+        invoice_status=None,
         domain=None,
         url="/my/invoices",
     ):
         values = self._prepare_portal_layout_values()
         AccountInvoice = request.env["account.move"]
 
+        invoice_searchbar_sortings = homepage_portal._get_invoice_searchbar_sortings()
+        invoice_status_filters = homepage_portal._get_invoice_status_filters()
+
+        invoice_status_domain = invoice_status_filters.get(invoice_status, {}).get(
+            "domain", []
+        )
+
         domain = expression.AND(
             [
                 domain or [],
                 self._get_invoices_domain(),
+                invoice_status_domain,
             ]
         )
 
-        searchbar_sortings = self._get_account_searchbar_sortings()
-        # default sort by order
-        if not sortby:
-            sortby = "date"
-        order = searchbar_sortings[sortby]["order"]
+        if not invoice_sortby:
+            invoice_sortby = "newest"
 
-        searchbar_filters = self._get_account_searchbar_filters()
-        # default filter by value
-        if not filterby:
-            filterby = "all"
-        domain += searchbar_filters[filterby]["domain"]
-
-        status_searchbar_filters = self._get_status_searchbar_filters()
-        # default status filter by value
-        if not status_filterby:
-            status_filterby = "all"
-        domain += status_searchbar_filters[status_filterby]["domain"]
+        if not invoice_status:
+            invoice_status = "all"
 
         if date_begin and date_end:
             domain += [
@@ -84,7 +81,7 @@ class InvoiceController(PortalAccount):
                 "invoices": lambda pager_offset: (
                     AccountInvoice.search(
                         domain,
-                        order=order,
+                        order="date desc" if invoice_sortby == "newest" else "date",
                         limit=self._items_per_page,
                         offset=pager_offset,
                     )
@@ -106,14 +103,11 @@ class InvoiceController(PortalAccount):
                     "step": self._items_per_page,
                 },
                 "default_url": url,
-                "searchbar_sortings": searchbar_sortings,
                 "sortby": sortby,
-                "searchbar_filters": OrderedDict(sorted(searchbar_filters.items())),
-                "filterby": filterby,
-                "status_searchbar_filters": OrderedDict(
-                    sorted(status_searchbar_filters.items())
-                ),
-                "status_filterby": status_filterby,
+                "invoice_searchbar_sortings": invoice_searchbar_sortings,
+                "invoice_status_filters": invoice_status_filters,
+                "invoice_sortby": invoice_sortby,
+                "invoice_status": invoice_status,
             }
         )
         return values
@@ -130,8 +124,8 @@ class InvoiceController(PortalAccount):
         date_begin=None,
         date_end=None,
         sortby=None,
-        filterby=None,
-        status_filterby=None,
+        invoice_sortby=None,
+        invoice_status=None,
         search="",
         search_in="all",
         **kw
@@ -158,7 +152,7 @@ class InvoiceController(PortalAccount):
                 ]
 
         values = self._prepare_my_invoices_values(
-            page, date_begin, date_end, sortby, filterby, status_filterby, domain
+            page, date_begin, date_end, sortby, invoice_sortby, invoice_status, domain
         )
 
         # pager
@@ -168,9 +162,12 @@ class InvoiceController(PortalAccount):
         invoices = values["invoices"](pager["offset"])
         request.session["my_invoices_history"] = invoices.ids[:100]
 
+        invoice_due_status_values = get_invoice_due_status(invoices)
+
         values.update(
             {
                 "invoices": invoices,
+                "invoice_due_status_values": invoice_due_status_values,
                 "pager": pager,
                 "search": search,
                 "search_in": search_in,
@@ -179,8 +176,51 @@ class InvoiceController(PortalAccount):
             }
         )
 
-        values.pop("searchbar_sortings")
-
         return request.render(
             "account_banking_ach_direct_debit_portal.portal_custom_my_invoices", values
+        )
+
+    def _invoice_get_page_view_values(self, invoice, access_token, **kwargs):
+        values = super()._invoice_get_page_view_values(invoice, access_token, **kwargs)
+
+        invoice_due_status_value = get_invoice_due_status(invoice)[invoice.id]
+
+        values["invoice_due_status_value"] = invoice_due_status_value
+
+        payment_date = False
+
+        if invoice.payment_state in ("paid", "in_payment"):
+            dates = invoice.payment_ids.mapped("date")
+
+            payment_date = max(dates) if dates else False
+
+        values["payment_date"] = payment_date
+
+        return values
+
+    @http.route(
+        ["/my/invoices/<int:invoice_id>"], type="http", auth="public", website=True
+    )
+    def portal_my_invoice_detail(
+        self, invoice_id, access_token=None, report_type=None, download=False, **kw
+    ):
+        try:
+            invoice_sudo = self._document_check_access(
+                "account.move", invoice_id, access_token
+            )
+        except (AccessError, MissingError):
+            return request.redirect("/my")
+
+        if report_type in ("html", "pdf", "text"):
+            return self._show_report(
+                model=invoice_sudo,
+                report_type=report_type,
+                report_ref="account.account_invoices",
+                download=download,
+            )
+
+        values = self._invoice_get_page_view_values(invoice_sudo, access_token, **kw)
+
+        return request.render(
+            "account_banking_ach_direct_debit_portal.ach_portal_invoice_page", values
         )

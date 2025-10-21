@@ -220,33 +220,53 @@
                 </div>
 
                 <h3><strong>Auto Pay Options</strong></h3>
-                <div class="row o_settings_container" id="plaid_auto_pay_rules">
-                    <div
-                        class="col-12 col-lg-6 o_setting_box"
-                        id="autopay_enable_end_of_month"
-                    >
-                        <div class="o_setting_left_pane">
-                            <field
-                                name="autopay_enable_end_of_month"
-                                class="o_light_label"
-                            />
+                <div id="plaid_auto_pay_rules">
+                    <div class="row o_settings_container">
+                        <div
+                            class="col-12 col-lg-6 o_setting_box"
+                            id="autopay_enable_end_of_month"
+                        >
+                            <div class="o_setting_left_pane">
+                                <field
+                                    name="autopay_enable_end_of_month"
+                                    class="o_light_label"
+                                />
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="autopay_enable_end_of_month" />
+                            </div>
                         </div>
-                        <div class="o_setting_right_pane">
-                            <label for="autopay_enable_end_of_month" />
+
+                        <div
+                            class="col-12 col-lg-6 o_setting_box"
+                            id="autopay_enable_on_due_date"
+                        >
+                            <div class="o_setting_left_pane">
+                                <field
+                                    name="autopay_enable_on_due_date"
+                                    class="o_light_label"
+                                />
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="autopay_enable_on_due_date" />
+                            </div>
                         </div>
                     </div>
-                    <div
-                        class="col-12 col-lg-6 o_setting_box"
-                        id="autopay_enable_on_due_date"
-                    >
-                        <div class="o_setting_left_pane">
-                            <field
-                                name="autopay_enable_on_due_date"
-                                class="o_light_label"
-                            />
-                        </div>
-                        <div class="o_setting_right_pane">
-                            <label for="autopay_enable_on_due_date" />
+
+                    <div class="row o_settings_container">
+                        <div
+                            class="col-12 col-lg-6 o_setting_box"
+                            id="autopay_enable_specific_date"
+                        >
+                            <div class="o_setting_left_pane">
+                                <field
+                                    name="autopay_enable_specific_date"
+                                    class="o_light_label"
+                                />
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="autopay_enable_specific_date" />
+                            </div>
                         </div>
                     </div>
                 </div>

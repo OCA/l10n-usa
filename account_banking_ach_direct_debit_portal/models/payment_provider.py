@@ -10,6 +10,7 @@ _logger = logging.getLogger(__name__)
 class PaymentProvider(models.Model):
     _inherit = "payment.provider"
 
+    fa_icon = fields.Char()
     code = fields.Selection(
         selection_add=[("ach_bank_account", "ACH Bank Account")],
         ondelete={"ach_bank_account": "set default"},

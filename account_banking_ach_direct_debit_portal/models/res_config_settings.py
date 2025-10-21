@@ -96,6 +96,11 @@ class ResConfigSettings(models.TransientModel):
         "Leave empty to disable sending.",
     )
 
+    autopay_enable_specific_date = fields.Boolean(
+        string="Specific Date",
+        config_parameter="account_banking_ach_direct_debit_portal.autopay_enable_specific_date",
+    )
+
     autopay_enable_end_of_month = fields.Boolean(
         string="End Of Month",
         config_parameter="account_banking_ach_direct_debit_portal.autopay_enable_end_of_month",

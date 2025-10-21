@@ -1,10 +1,55 @@
 #wrapwrap.o_portal {
     background-color: #ffff !important;
 
+    .filter-panel {
+        align-items: center;
+
+        @media (max-width: 768px) {
+            align-items: end !important;
+        }
+
+        .filter-item {
+            @media (max-width: 768px) {
+                width: min-content;
+            }
+        }
+    }
+
+    .search-box {
+        position: relative;
+        width: 174px;
+
+        input {
+            border-radius: 8px;
+            padding-right: 40px;
+            font-size: 14px;
+            border-color: #e0e0e0;
+        }
+
+        button {
+            position: absolute;
+            right: 12px;
+            top: 45%;
+            transform: translateY(-50%) !important;
+            color: #1e5593;
+            font-size: 1rem;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            padding: 0;
+        }
+    }
+
+    .invoice-row {
+        td {
+            vertical-align: top !important;
+        }
+    }
+
     .btn-secondary {
-        border: 1px solid #1e5593;
+        border: 1px solid #e0e0e0;
         background-color: white;
-        color: #1e5593;
+        color: #4f4f4f;
         font-weight: 500;
 
         &:hover {
@@ -13,8 +58,66 @@
         }
     }
 
+    .dropdown-toggle {
+        &::after {
+            color: #005491;
+        }
+
+        &:hover {
+            &::after {
+                color: white;
+            }
+        }
+    }
+
+    .header-title {
+        font-weight: 600;
+        font-size: 24px;
+        letter-spacing: 0%;
+        color: #005491;
+        margin-bottom: 0;
+    }
+
+    .fs-12 {
+        font-size: 12px !important;
+    }
+
+    .fs-16 {
+        font-size: 16px !important;
+    }
+
+    .fs-18 {
+        font-size: 18px !important;
+    }
+
+    .text-gray {
+        color: #333333;
+    }
+
+    .text-accent-gray {
+        color: #808080;
+    }
+
+    .fw-semibold {
+        font-weight: 600;
+    }
+
+    .cursor-pointer {
+        cursor: pointer;
+    }
+
+    .rounded-5 {
+        border-radius: 0.5rem !important;
+    }
+
     .blue-title {
-        color: #1e5593 !important;
+        color: #005491 !important;
+    }
+
+    .btn-outlined-blue {
+        border-color: #1e5593;
+        color: #1e5593;
+        font-weight: 500;
     }
 
     .btn-blue {
@@ -44,16 +147,6 @@
         }
     }
 
-    .header-title {
-        font-family: Inter;
-        font-weight: 700;
-        font-size: 28px;
-        line-height: 100%;
-        letter-spacing: -2%;
-        color: #1e5593;
-        margin-bottom: 0;
-    }
-
     .searchbar-navbar {
         @media (min-width: 993px) {
             align-items: center;
@@ -72,6 +165,76 @@
         }
     }
 
+    .record_pager {
+        .fa {
+            color: #005491;
+        }
+    }
+
+    .bank-dropdown {
+        position: relative;
+        width: 100%;
+        font-size: 14px;
+
+        .bank-dropdown-toggle {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 12px 16px;
+            cursor: pointer;
+            transition: box-shadow 0.2s ease;
+
+            &:hover {
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            }
+        }
+
+        .bank-dropdown-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            margin-top: 4px;
+            z-index: 10;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+
+            .bank-option + .bank-option {
+                border-top: 1px solid #f1f1f1;
+            }
+
+            .bank-option {
+                padding: 10px 16px;
+                cursor: pointer;
+                position: relative;
+
+                &:hover {
+                    background-color: #f7f7f7;
+                }
+
+                .checkmark {
+                    position: absolute;
+                    right: 12px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    display: none;
+                    font-size: 16px;
+                }
+
+                &.selected {
+                    background-color: #f7f7f7;
+
+                    .checkmark {
+                        display: inline-block;
+                    }
+                }
+            }
+        }
+    }
+
     #navbar_content {
         padding: 0.5rem;
         color: #000000;
@@ -84,16 +247,14 @@
         }
 
         .navbar-text {
-            font-family: Inter;
+            font-family: Myriad Pro;
             font-weight: 400;
-            font-size: 14px;
-            line-height: 20px;
-            letter-spacing: 0%;
+            font-size: 16px;
             vertical-align: middle;
-            color: #000000;
+            color: #333333;
 
             @media (max-width: 768px) {
-                font-size: 12px !important;
+                font-size: 14px !important;
             }
         }
 
@@ -121,6 +282,21 @@
         border-collapse: collapse;
         font-family: sans-serif;
 
+        .text-bg-warning {
+            background-color: #fffac8 !important;
+            color: #333333 !important;
+        }
+
+        .text-bg-success {
+            background-color: #e7fde8 !important;
+            color: #333333 !important;
+        }
+
+        .text-bg-danger {
+            background-color: #ffc4c5 !important;
+            color: #333333 !important;
+        }
+
         .label {
             color: #6d6d6d;
             font-weight: 500;
@@ -138,7 +314,6 @@
         }
 
         thead tr {
-            background-color: #fafafa;
             font-weight: 600;
         }
 
@@ -154,8 +329,12 @@
         td {
             text-align: left;
             padding: 10px 12px;
-            border-bottom: 1px solid #e0e0e0;
             overflow: visible;
+            border-bottom-width: 0px !important;
+
+            &:last-child {
+                text-align: right;
+            }
         }
 
         @media (max-width: 768px) {

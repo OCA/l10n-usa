@@ -4,4 +4,23 @@
             padding: 0.375rem 0.75rem;
         }
     }
+
+    #invoice-detail {
+        #sidebar_content {
+            border: none !important;
+            min-width: 210px;
+
+            .card-body {
+                border: none !important;
+            }
+
+            li {
+                border: none !important;
+            }
+
+            .card-footer {
+                border: none !important;
+            }
+        }
+    }
 }

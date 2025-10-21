@@ -13,6 +13,7 @@ from odoo.addons.payment.controllers import portal as payment_portal
 from odoo.addons.portal.controllers.portal import CustomerPortal, pager as portal_pager
 
 from ..controllers.user_portal import UserPortalController as user_portal
+from ..utils import get_invoice_due_status
 
 _logger = logging.getLogger(__name__)
 
@@ -117,87 +118,6 @@ class PaymentController(CustomerPortal):
         )
 
     @http.route(
-        "/payment",
-        type="http",
-        auth="user",
-        website=True,
-        methods=["GET", "POST"],
-    )
-    def payment(self, **kw):
-        try:
-            invoice_ids = list(map(int, request.httprequest.args.getlist("invoice")))
-        except Exception:
-            return request.redirect("/my/invoices")
-
-        invoices = request.env["account.move"].search(
-            [
-                ("id", "in", invoice_ids),
-                *self._get_invoices_domain(),
-            ]
-        )
-
-        if len(invoices) == 0:
-            return request.redirect("/my/invoices")
-
-        earliest_due_date = (
-            min(invoices.mapped("invoice_date_due")) if invoices else None
-        )
-
-        total_amount = sum(
-            -inv.amount_residual
-            if inv.move_type == "out_refund"
-            else inv.amount_residual
-            for inv in invoices
-        )
-
-        display_currency = invoices[0].currency_id if invoices else None
-
-        select_payment_url = "/select-payment-method?" + "&".join(
-            f"invoice={invoice_id}" for invoice_id in invoice_ids
-        )
-
-        values = {
-            "page_name": "payment",
-            "invoices": invoices,
-            "quantity": len(invoices),
-            "earliest_due_date": earliest_due_date,
-            "total_amount": total_amount,
-            "display_currency": display_currency,
-            "select_payment_url": select_payment_url,
-            "invisible_button": not user_portal.is_ach_accessible(),
-        }
-
-        return request.render(
-            "account_banking_ach_direct_debit_portal.portal_payment", values
-        )
-
-    def get_product_note(
-        self, providers, invoices, surcharge_percent, ach_rule, currency
-    ):
-        provider_note = {}
-
-        providers = providers.sorted(
-            key=lambda provider: provider.display_as or provider.name
-        )
-        for provider in providers:
-            if invoices:
-                if provider.code == "authorize":
-                    provider_note[
-                        provider.id
-                    ] = f"{surcharge_percent:.4g}% Surcharge"  # noqa: E231
-                elif provider.code == "ach_bank_account" and ach_rule:
-                    if ach_rule.amount_type == "percent":
-                        unit = "%"
-                    else:
-                        unit = currency.symbol
-
-                    provider_note[
-                        provider.id
-                    ] = f"{ach_rule.amount:.4g}{unit} {ach_rule.discount_or_charge.capitalize()} (with plaid verification)"  # noqa: B950,E231
-
-        return provider_note
-
-    @http.route(
         "/select-payment-method",
         type="http",
         auth="user",
@@ -242,13 +162,23 @@ class PaymentController(CustomerPortal):
         if not providers_sudo:
             return request.redirect("/my/payment_method")
 
-        provider_note = self.get_product_note(
-            providers_sudo,
-            invoices,
-            surcharge_percent,
-            ach_rule,
-            currency,
-        )
+        provider_note = {}
+
+        for provider in providers_sudo:
+            if invoices:
+                if provider.code == "authorize":
+                    provider_note[
+                        provider.id
+                    ] = f"{surcharge_percent:.4g}% Surcharge"  # noqa: E231
+                elif provider.code == "ach_bank_account" and ach_rule:
+                    if ach_rule.amount_type == "percent":
+                        unit = "%"
+                    else:
+                        unit = currency.symbol
+
+                    provider_note[
+                        provider.id
+                    ] = f"{ach_rule.amount:.4g}{unit} {ach_rule.discount_or_charge.capitalize()} (with plaid verification)"  # noqa: B950,E231
 
         selected_payment_option_id = kw.get(
             "selected_payment_option_id",
@@ -270,33 +200,46 @@ class PaymentController(CustomerPortal):
                 total_amount = currency.round(total_amount - ach_discount_amount)
                 total_amount = currency.round(total_amount + ach_charge_amount)
 
+        invoice_due_status_values = get_invoice_due_status(invoices)
+
         if invoices:
             query_params["invoice"] = [inv.id for inv in invoices]
+            make_payment_url = "/make-payment/invoices?"
+
         if order:
             query_params["order"] = order.id
+            make_payment_url = "/make-payment/order?"
 
-        make_payment_url = "/select-payment-method?" + werkzeug.urls.url_encode(
-            query_params
+        make_payment_url = make_payment_url + werkzeug.urls.url_encode(query_params)
+
+        partner_banks = request.env["res.partner.bank"].search(
+            [
+                ("partner_id", "=", request.env.user.partner_id.id),
+            ]
+        )
+        partner_bank_default = (
+            partner_banks.filtered(lambda b: b.default)[:1] or partner_banks[:1]
         )
 
-        if request.params.get("action") == "make_payment":
-            make_payment_url = "/payment-confirmation?" + werkzeug.urls.url_encode(
-                query_params
-            )
-            return request.redirect(make_payment_url)
-
-        earliest_due_date = None
-        if invoices:
-            dues = [d for d in invoices.mapped("invoice_date_due") if d]
-            earliest_due_date = min(dues) if dues else None
+        partner_credit_cards = request.env["payment.token"].search(
+            [
+                ("partner_id", "=", request.env.user.partner_id.id),
+                ("verified", "=", True),
+                ("active", "=", True),
+            ]
+        )
+        credit_card_default = (
+            partner_credit_cards.filtered(lambda b: b.default)[:1]
+            or partner_credit_cards[:1]
+        )
 
         values = {
             "page_name": "select_payment_method",
             "selected_payment_option_id": selected_payment_option_id,
             "surcharge_percent": surcharge_percent,
             "invoices": invoices,
+            "invoice_due_status_values": invoice_due_status_values,
             "order": order,
-            "earliest_due_date": earliest_due_date,
             "base_total_amount": base_total_amount,
             "total_amount": total_amount,
             "surcharge_amount": surcharge_amount,
@@ -310,6 +253,10 @@ class PaymentController(CustomerPortal):
             "providers": providers_sudo,
             "provider_note": provider_note,
             "invisible_button": not user_portal.is_ach_accessible(),
+            "partner_banks": partner_banks,
+            "partner_bank_default": partner_bank_default,
+            "partner_credit_cards": partner_credit_cards,
+            "credit_card_default": credit_card_default,
         }
 
         if ach_rule:
@@ -320,127 +267,6 @@ class PaymentController(CustomerPortal):
 
         return request.render(
             "account_banking_ach_direct_debit_portal.portal_select_payment_method",
-            values,
-        )
-
-    @http.route(
-        "/payment-confirmation",
-        type="http",
-        auth="user",
-        website=True,
-        methods=["GET", "POST"],
-    )
-    def payment_confirmation(self, **kw):
-        invoice_ids = list(map(int, request.httprequest.args.getlist("invoice")))
-        order_id = request.httprequest.args.get("order")
-
-        if not invoice_ids and not order_id:
-            raise ValidationError(_("The provided parameters are invalid."))
-
-        selected_payment_option_id = kw.get("selected_payment_option_id", False)
-        if not selected_payment_option_id:
-            raise ValidationError(_("The provided parameters are invalid."))
-        selected_provider = (
-            request.env["payment.provider"]
-            .sudo()
-            .browse(int(selected_payment_option_id))
-        )
-        if not selected_provider:
-            raise ValidationError(_("The provided parameters are invalid."))
-
-        invoices = False
-        order = False
-
-        if invoice_ids:
-            invoices = request.env["account.move"].search(
-                [
-                    ("id", "in", invoice_ids),
-                    *self._get_invoices_domain(),
-                ]
-            )
-
-            if not invoices:
-                raise ValidationError(_("The provided parameters are invalid."))
-
-        if order_id:
-            order = request.env["sale.order"].search(
-                [
-                    ("id", "=", order_id),
-                ]
-            )
-
-            if not order:
-                raise ValidationError(_("The provided parameters are invalid."))
-
-        surcharge_percent = self._get_surcharge_percent()
-
-        amounts = self._compute_amounts(
-            invoices=invoices,
-            order=order,
-            surcharge_percent=surcharge_percent,
-        )
-        currency = amounts["currency"]
-
-        base_total_amount = currency.round(amounts["base_total_amount"])
-        surcharge_amount = currency.round(amounts["surcharge_amount"])
-        ach_discount_amount = currency.round(amounts["ach_discount_amount"])
-        ach_charge_amount = currency.round(amounts["ach_charge_amount"])
-
-        total_amount = base_total_amount
-        if selected_provider.code == "authorize":
-            total_amount = currency.round(total_amount + surcharge_amount)
-        elif selected_provider.code == "ach_bank_account":
-            total_amount = currency.round(total_amount - ach_discount_amount)
-            total_amount = currency.round(total_amount + ach_charge_amount)
-
-        next_params = {"selected_payment_option_id": selected_provider.id}
-        if invoices:
-            next_params["invoice"] = [inv.id for inv in invoices]
-            make_payment_url = "/make-payment/invoices?" + werkzeug.urls.url_encode(
-                next_params
-            )
-        else:
-            next_params["order"] = order.id
-            make_payment_url = "/make-payment/order?" + werkzeug.urls.url_encode(
-                next_params
-            )
-
-        partner_banks = request.env["res.partner.bank"].search(
-            [
-                ("partner_id", "=", request.env.user.partner_id.id),
-            ]
-        )
-        partner_bank_default = (
-            partner_banks.filtered(lambda b: b.default)[:1] or partner_banks[:1]
-        )
-
-        if selected_provider.code == "ach_bank_account" and not partner_bank_default:
-            return request.redirect("/no-bank")
-
-        earliest_due_date = None
-        if invoices:
-            dues = [d for d in invoices.mapped("invoice_date_due") if d]
-            earliest_due_date = min(dues) if dues else None
-
-        values = {
-            "page_name": "payment_confirmation",
-            "selected_provider": selected_provider,
-            "invoices": invoices or request.env["account.move"],
-            "order": order or request.env["sale.order"],
-            "earliest_due_date": earliest_due_date,
-            "base_total_amount": base_total_amount,
-            "total_amount": total_amount,
-            "surcharge_amount": surcharge_amount,
-            "ach_discount_amount": ach_discount_amount,
-            "ach_charge_amount": ach_charge_amount,
-            "display_currency": currency,
-            "make_payment_url": make_payment_url,
-            "partner_banks": partner_banks,
-            "partner_bank": partner_bank_default,
-            "show_select_bank": len(partner_banks) > 1,
-        }
-        return request.render(
-            "account_banking_ach_direct_debit_portal.portal_payment_confirmation",
             values,
         )
 
@@ -493,11 +319,18 @@ class PaymentController(CustomerPortal):
         if not selected_provider:
             raise ValidationError(_("The provided parameters are invalid."))
         if selected_provider.code != "ach_bank_account":
+            payment_token_id = (
+                int(kw.get("partner_payment_token_id"))
+                if kw.get("partner_payment_token_id")
+                else False
+            )
+
             return self._redirect_to_native_payment(
                 invoices=invoices,
                 order=False,
                 amounts=amounts,
                 provider=selected_provider,
+                default_token_id=payment_token_id,
             )
 
         partner_bank_id = (
@@ -547,14 +380,19 @@ class PaymentController(CustomerPortal):
 
             if is_success:
                 _logger.info(f"Create successful payment for invoice: '{invoice.name}'")
+
+                request.session["payment_successful"] = True
+
+                if rule and discount_amount > 0.0:
+                    invoice.sudo()._create_discount_entry_and_reconcile(
+                        discount_amount, rule
+                    )
             else:
                 _logger.info(f"Create failed payment for invoice: '{invoice.name}'")
 
-            if rule and discount_amount > 0.0:
-                invoice.sudo()._create_discount_entry_and_reconcile(
-                    discount_amount, rule
-                )
-        return request.redirect("/payment-success")
+                request.session["payment_failed"] = True
+
+        return request.redirect("/my/payment-account")
 
     @http.route(
         "/make-payment/order",
@@ -637,13 +475,28 @@ class PaymentController(CustomerPortal):
 
             order.write(order_data)
             order.action_confirm()
-            return request.redirect("/payment-success")
 
-        return self._redirect_to_native_payment(
-            invoices=False, order=order, amounts=amounts, provider=selected_provider
+            request.session["payment_successful"] = True
+
+            return request.redirect("/my/payment-account")
+
+        payment_token_id = (
+            int(kw.get("partner_payment_token_id"))
+            if kw.get("partner_payment_token_id")
+            else False
         )
 
-    def _redirect_to_native_payment(self, invoices, order, amounts, provider):
+        return self._redirect_to_native_payment(
+            invoices=False,
+            order=order,
+            amounts=amounts,
+            provider=selected_provider,
+            default_token_id=payment_token_id,
+        )
+
+    def _redirect_to_native_payment(
+        self, invoices, order, amounts, provider, default_token_id=None
+    ):
         currency = amounts["currency"]
         total_amount = amounts["base_total_amount"]
         if (
@@ -670,6 +523,10 @@ class PaymentController(CustomerPortal):
             "currency_id": currency.id,
             "provider_id": provider.id,
         }
+
+        if default_token_id:
+            params["default_token_id"] = default_token_id
+
         if invoices:
             params["invoice"] = [inv.id for inv in invoices]
         elif order:
@@ -829,9 +686,24 @@ class PaymentPortal(payment_portal.PaymentPortal):
                 {
                     "surcharge_amount": surcharge_amount,
                     "base_total_amount": base_total_amount,
-                    "reference_prefix": ", ".join(references),
                 }
             )
+
+            if references is not None and references[0]:
+                rendering_context_values.update(
+                    {
+                        "reference_prefix": ", ".join(references),
+                    }
+                )
+
+        default_token_id = kwargs.get("default_token_id", None)
+        if default_token_id and default_token_id.isdigit():
+            default_token_id = int(default_token_id)
+        rendering_context_values.update(
+            {
+                "default_token_id": default_token_id,
+            }
+        )
         return rendering_context_values
 
     def _create_transaction(

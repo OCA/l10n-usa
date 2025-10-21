@@ -47,28 +47,100 @@
             <t t-set="breadcrumbs_searchbar" t-value="True" />
 
             <div id="invoices-list">
-                <t
-                    t-call="account_banking_ach_direct_debit_portal.invoice_debit_portal_searchbar"
+                <a
+                    class="d-flex align-items-center justify-content-start text-gray cursor-pointer mt-3"
+                    href="/my/payment-account"
                 >
-                    <t t-set="title">Invoices</t>
-                    <t t-if="not invisible_button">
-                        <div
-                            class="action-wrapper d-flex align-items-center justify-content-end"
-                        >
-                            <a
-                                href="/my/banks"
-                                class="btn btn-secondary manage-bank-btn"
+                    <i class="fa fa-arrow-left" aria-hidden="true" />
+
+                    <span class="ms-1 pt-1">Back</span>
+                </a>
+
+                <div class="filter-panel d-flex justify-content-end mt-1">
+                    <div class="search-box me-2">
+                        <form action="/my/invoices" method="get" role="search">
+                            <input
+                                type="text"
+                                name="search"
+                                t-att-value="invoice_search or ''"
+                                class="form-control"
+                                placeholder="Search Invoices"
+                                aria-label="Search Invoices"
+                            />
+
+                            <button type="submit">
+                                <i class="fa fa-search" />
+                            </button>
+                        </form>
+                    </div>
+
+                    <div t-if="invoice_searchbar_sortings" class="filter-item me-2">
+                        <span class="fs-16 text-gray me-1">Filter By:</span>
+                        <div class="btn-group">
+                            <button
+                                id="portal_searchbar_sortby"
+                                data-bs-toggle="dropdown"
+                                class="btn btn-secondary dropdown-toggle"
                             >
-                                Manage bank accounts
-                            </a>
-                            <a
-                                class="dropdown-item btn btn-blue pay-btn d-none"
-                                href="javascript:void(0);"
+                                <t
+                                    t-esc="invoice_searchbar_sortings[invoice_sortby].get('label', 'Newest')"
+                                />
+                            </button>
+                            <div
+                                class="dropdown-menu"
+                                aria-labelledby="portal_searchbar_sortby"
                             >
-                                <i class="fa fa-exchange me-2" /> Pay </a>
+                                <t t-foreach="invoice_searchbar_sortings" t-as="option">
+                                    <a
+                                        t-att-href="request.httprequest.path + '?' + keep_query('*', invoice_sortby=option)"
+                                        t-attf-class="dropdown-item#{invoice_sortby == option and ' active' or ''}"
+                                    >
+                                        <span
+                                            t-esc="invoice_searchbar_sortings[option].get('label')"
+                                        />
+                                    </a>
+                                </t>
+                            </div>
                         </div>
-                    </t>
-                </t>
+                    </div>
+
+                    <div t-if="invoice_status_filters" class="filter-item me-2">
+                        <span class="fs-16 text-gray me-1">Status:</span>
+                        <div class="btn-group">
+                            <button
+                                id="invoice_status_filter"
+                                data-bs-toggle="dropdown"
+                                class="btn btn-secondary dropdown-toggle"
+                            >
+                                <t
+                                    t-esc="invoice_status_filters[invoice_status].get('label', 'All')"
+                                />
+                            </button>
+                            <div
+                                class="dropdown-menu"
+                                aria-labelledby="invoice_status_filter"
+                            >
+                                <t t-foreach="invoice_status_filters" t-as="option">
+                                    <a
+                                        t-att-href="request.httprequest.path + '?' + keep_query('*', invoice_status=option)"
+                                        t-attf-class="dropdown-item#{invoice_status == option and ' active' or ''}"
+                                    >
+                                        <span
+                                            t-esc="invoice_status_filters[option].get('label')"
+                                        />
+                                    </a>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a
+                        class="btn btn-blue pay-btn rounded-5 d-none"
+                        href="javascript:void(0);"
+                    >
+                        Pay selected
+                    </a>
+                </div>
 
                 <t t-if="not invoices">
                     <p
@@ -76,19 +148,19 @@
                 </t>
                 <t t-if="invoices">
                     <!-- Table desktop/tablet -->
-                    <div class="d-none d-lg-block">
-                        <t t-call="portal.portal_table">
-                            <thead>
-                                <tr class="active">
+                    <div class="table-responsive d-none d-md-block border-0 mt-4">
+                        <table class="table mb-0 bg-white o_portal_my_doc_table">
+                            <thead class="thead-light">
+                                <tr>
                                     <th>
                                         <input type="checkbox" />
                                     </th>
-                                    <th>Invoice no</th>
-                                    <th>Date</th>
-                                    <th class='d-none d-md-table-cell'>Due Date</th>
-                                    <th class="text-end">Amount Due</th>
-                                    <th class="text-center">Status</th>
-                                    <th class="text-center">Action</th>
+                                    <th>Status</th>
+                                    <th>Invoice #</th>
+                                    <th>Due Date</th>
+                                    <th>Amount Due</th>
+                                    <th>Issue Date</th>
+                                    <th />
                                 </tr>
                             </thead>
                             <tbody>
@@ -100,33 +172,15 @@
                                                 name="invoice_ids"
                                                 class="invoice-checkbox"
                                                 t-att-value="invoice.id"
+                                                t-att-disabled="'disabled' if invoice.payment_state == 'paid' else None"
                                             />
                                         </td>
-                                        <td>
-                                            <t
-                                                t-esc="invoice.name"
-                                                t-if="invoice.name != '/'"
-                                            />
-                                            <em t-else="">Draft Invoice</em>
-                                        </td>
-                                        <td>
-                                            <span t-field="invoice.invoice_date" />
-                                        </td>
-                                        <td class='d-none d-md-table-cell'>
-                                            <span t-field="invoice.invoice_date_due" />
-                                        </td>
-                                        <td class="text-end">
-                                            <span
-                                                t-esc="-invoice.amount_residual if invoice.move_type == 'out_refund' else invoice.amount_residual"
-                                                t-options='{"widget": "monetary", "display_currency": invoice.currency_id}'
-                                            />
-                                        </td>
-                                        <td class="tx_status text-center">
+                                        <td class="tx_status">
                                             <t
                                                 t-if="invoice.state == 'posted' and invoice.payment_state not in ('in_payment', 'paid', 'reversed')"
                                             >
                                                 <span
-                                                    class="badge rounded-pill text-bg-info"
+                                                    class="badge rounded-pill text-bg-warning"
                                                 >
                                                     <i
                                                         class="fa fa-fw fa-clock-o"
@@ -136,8 +190,7 @@
                                                     />
                                                     <span
                                                         class="d-none d-md-inline"
-                                                    > Waiting for
-                                                        Payment</span>
+                                                    > Awaiting payment</span>
                                                 </span>
                                             </t>
                                             <t
@@ -176,7 +229,7 @@
                                             </t>
                                             <t t-if="invoice.state == 'cancel'">
                                                 <span
-                                                    class="badge rounded-pill text-bg-warning"
+                                                    class="badge rounded-pill text-bg-danger"
                                                 >
                                                     <i
                                                         class="fa fa-fw fa-remove"
@@ -191,173 +244,228 @@
                                             </t>
                                         </td>
                                         <td>
-                                            <div class="dropdown-wrapper text-center">
-                                                <button
-                                                    class="btn border-0"
-                                                    type="button"
-                                                    data-bs-toggle="dropdown"
-                                                    aria-expanded="false"
-                                                >
-                                                    ⋮
-                                                </button>
-                                                <ul
-                                                    class="dropdown-menu dropdown-menu-end shadow-sm rounded-3"
-                                                >
-                                                    <li>
-                                                        <a
-                                                            class="dropdown-item pay-now"
-                                                            t-att-href="invoice.get_portal_url()"
-                                                        >
-                                                            <i
-                                                                class="fa fa-wpforms me-2"
-                                                            /> View
-                                                            invoice </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
+                                            <a
+                                                t-att-href="invoice.get_portal_url()"
+                                                t-att-title="invoice.name"
+                                                class="blue-title"
+                                            >
+                                                <span t-field="invoice.name" />
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <t
+                                                t-if="'ago' in invoice_due_status_values[invoice.id].lower() and invoice.payment_state != 'paid'"
+                                            >
+                                                <div class="text-danger">
+                                                    <t
+                                                        t-esc="invoice_due_status_values[invoice.id]"
+                                                    />
+                                                </div>
+                                            </t>
+                                            <t t-elif="invoice.payment_state == 'paid'">
+                                                <div class="text-muted">
+                                                    <t
+                                                        t-esc="invoice_due_status_values[invoice.id]"
+                                                    />
+                                                </div>
+                                            </t>
+                                            <t t-else="">
+                                                <div>
+                                                    <t
+                                                        t-esc="invoice_due_status_values[invoice.id]"
+                                                    />
+                                                </div>
+                                            </t>
+                                            <div class="text-muted fs-12">(<t
+                                                    t-esc="invoice.invoice_date_due.strftime('%-m/%-d/%y')"
+                                                />)</div>
+                                        </td>
+                                        <td>
+                                            <span
+                                                t-esc="-invoice.amount_residual if invoice.move_type == 'out_refund' else invoice.amount_residual"
+                                                t-options='{"widget": "monetary", "display_currency": invoice.currency_id}'
+                                            />
+                                        </td>
+                                        <td>
+                                            <span
+                                                t-esc="invoice.invoice_date.strftime('%-m/%-d/%y')"
+                                            />
+                                        </td>
+                                        <td>
+                                            <a
+                                                t-if="invoice.state == 'posted' and invoice.payment_state not in ('paid', 'in_payment')"
+                                                t-attf-href="/select-payment-method?invoice=#{invoice.id}"
+                                                class="btn btn-blue rounded-5"
+                                            >
+                                                Pay
+                                            </a>
                                         </td>
                                     </tr>
                                 </t>
                             </tbody>
-                        </t>
+                        </table>
                     </div>
 
                     <!-- Table mobile -->
-                    <div class="d-lg-none">
-                        <div
-                            t-foreach="invoices"
-                            t-as="invoice"
-                            class="table-responsive d-flex align-items-center justify-content-between p-3 border rounded mb-2"
-                        >
-                            <div class="mx-1">
-                                <input
-                                    type="checkbox"
-                                    name="invoice_ids"
-                                    class="invoice-checkbox"
-                                    t-att-value="invoice.id"
-                                />
-                            </div>
-                            <div class="mx-1">
-                                <strong>Invoice No</strong>
-                                <div>
-                                    <t
-                                        t-esc="invoice.name"
-                                        t-if="invoice.name != '/'"
-                                    />
-                                    <em t-else="">Draft Invoice</em>
-                                </div>
-                            </div>
-                            <div class="mx-1">
-                                <strong>Amount</strong>
-                                <div
-                                    t-esc="-invoice.amount_residual if invoice.move_type == 'out_refund' else invoice.amount_residual"
-                                    t-options='{"widget": "monetary", "display_currency": invoice.currency_id}'
-                                />
-                            </div>
-                            <div class="mx-1">
-                                <strong>Date</strong>
-                                <div t-field="invoice.invoice_date" />
-                            </div>
-                            <div class="mx-1">
-                                <strong>Due Date</strong>
-                                <div t-field="invoice.invoice_date_due" />
-                            </div>
+                    <div
+                        class="table-responsive d-md-none border rounded px-3 py-2 mt-2"
+                    >
+                        <table class="table o_portal_my_doc_table align-middle mb-0">
+                            <tbody>
+                                <t t-foreach="invoices" t-as="invoice">
+                                    <tr class="invoice-row">
+                                        <td>
+                                            <div class="label">Status</div>
+                                            <div class="tx_status">
+                                                <t
+                                                    t-if="invoice.state == 'posted' and invoice.payment_state not in ('in_payment', 'paid', 'reversed')"
+                                                >
+                                                    <span
+                                                        class="badge rounded-pill text-bg-warning"
+                                                    >
+                                                        <i
+                                                            class="fa fa-fw fa-clock-o"
+                                                            aria-label="Opened"
+                                                            title="Opened"
+                                                            role="img"
+                                                        />
+                                                        <span
+                                                            class="d-none d-md-inline"
+                                                        > Awaiting
+                                                            Payment</span>
+                                                    </span>
+                                                </t>
+                                                <t
+                                                    t-if="invoice.state == 'posted' and invoice.payment_state in ('paid', 'in_payment')"
+                                                >
+                                                    <span
+                                                        class="badge rounded-pill text-bg-success"
+                                                    >
+                                                        <i
+                                                            class="fa fa-fw fa-check"
+                                                            aria-label="Paid"
+                                                            title="Paid"
+                                                            role="img"
+                                                        />
+                                                        <span
+                                                            class="d-none d-md-inline"
+                                                        > Paid</span>
+                                                    </span>
+                                                </t>
+                                                <t
+                                                    t-if="invoice.state == 'posted' and invoice.payment_state == 'reversed'"
+                                                >
+                                                    <span
+                                                        class="badge rounded-pill text-bg-success"
+                                                    >
+                                                        <i
+                                                            class="fa fa-fw fa-check"
+                                                            aria-label="Reversed"
+                                                            title="Reversed"
+                                                            role="img"
+                                                        />
+                                                        <span
+                                                            class="d-none d-md-inline"
+                                                        > Reversed</span>
+                                                    </span>
+                                                </t>
+                                                <t t-if="invoice.state == 'cancel'">
+                                                    <span
+                                                        class="badge rounded-pill text-bg-danger"
+                                                    >
+                                                        <i
+                                                            class="fa fa-fw fa-remove"
+                                                            aria-label="Cancelled"
+                                                            title="Cancelled"
+                                                            role="img"
+                                                        />
+                                                        <span
+                                                            class="d-none d-md-inline"
+                                                        > Cancelled</span>
+                                                    </span>
+                                                </t>
+                                            </div>
+                                        </td>
 
+                                        <td>
+                                            <div class="label">Invoice #</div>
+                                            <div class="value">
+                                                <a
+                                                    t-att-href="invoice.get_portal_url()"
+                                                    t-att-title="invoice.name"
+                                                    class="blue-title"
+                                                >
+                                                    <span t-field="invoice.name" />
+                                                </a>
+                                            </div>
+                                        </td>
 
-                            <div class="mx-1">
-                                <strong>Status</strong>
-                                <div class="tx_status">
-                                    <t
-                                        t-if="invoice.state == 'posted' and invoice.payment_state not in ('in_payment', 'paid', 'reversed')"
-                                    >
-                                        <span class="badge rounded-pill text-bg-info">
-                                            <i
-                                                class="fa fa-fw fa-clock-o"
-                                                aria-label="Opened"
-                                                title="Opened"
-                                                role="img"
-                                            />
-                                            <span
-                                                class="d-none d-md-inline"
-                                            >Waiting for Payment</span>
-                                        </span>
-                                    </t>
-                                    <t
-                                        t-if="invoice.state == 'posted' and invoice.payment_state in ('paid', 'in_payment')"
-                                    >
-                                        <span
-                                            class="badge rounded-pill text-bg-success"
-                                        >
-                                            <i
-                                                class="fa fa-fw fa-check"
-                                                aria-label="Paid"
-                                                title="Paid"
-                                                role="img"
-                                            />
-                                            <span
-                                                class="d-none d-md-inline"
-                                            > Paid</span>
-                                        </span>
-                                    </t>
-                                    <t
-                                        t-if="invoice.state == 'posted' and invoice.payment_state == 'reversed'"
-                                    >
-                                        <span
-                                            class="badge rounded-pill text-bg-success"
-                                        >
-                                            <i
-                                                class="fa fa-fw fa-check"
-                                                aria-label="Reversed"
-                                                title="Reversed"
-                                                role="img"
-                                            />
-                                            <span
-                                                class="d-none d-md-inline"
-                                            > Reversed</span>
-                                        </span>
-                                    </t>
-                                    <t t-if="invoice.state == 'cancel'">
-                                        <span
-                                            class="badge rounded-pill text-bg-warning"
-                                        >
-                                            <i
-                                                class="fa fa-fw fa-remove"
-                                                aria-label="Cancelled"
-                                                title="Cancelled"
-                                                role="img"
-                                            />
-                                            <span
-                                                class="d-none d-md-inline"
-                                            > Cancelled</span>
-                                        </span>
-                                    </t>
-                                </div>
-                            </div>
+                                        <td>
+                                            <div class="label">Due Date</div>
+                                            <div class="value">
+                                                <t
+                                                    t-if="'ago' in invoice_due_status_values[invoice.id].lower() and invoice.payment_state != 'paid'"
+                                                >
+                                                    <div class="text-danger">
+                                                        <t
+                                                            t-esc="invoice_due_status_values[invoice.id]"
+                                                        />
+                                                    </div>
+                                                </t>
+                                                <t
+                                                    t-elif="invoice.payment_state == 'paid'"
+                                                >
+                                                    <div class="text-muted">
+                                                        <t
+                                                            t-esc="invoice_due_status_values[invoice.id]"
+                                                        />
+                                                    </div>
+                                                </t>
+                                                <t t-else="">
+                                                    <div>
+                                                        <t
+                                                            t-esc="invoice_due_status_values[invoice.id]"
+                                                        />
+                                                    </div>
+                                                </t>
+                                                <div class="text-muted fs-12">(<t
+                                                        t-esc="invoice.invoice_date_due.strftime('%-m/%-d/%y')"
+                                                    />)</div>
+                                            </div>
+                                        </td>
 
-                            <div class="dropdown-wrapper text-center">
-                                <button
-                                    class="btn border-0"
-                                    type="button"
-                                    data-bs-toggle="dropdown"
-                                    aria-expanded="false"
-                                >
-                                    ⋮
-                                </button>
-                                <ul
-                                    class="dropdown-menu dropdown-menu-end shadow-sm rounded-3"
-                                >
-                                    <li>
-                                        <a
-                                            class="dropdown-item"
-                                            t-att-href="invoice.get_portal_url()"
-                                        >
-                                            <i
-                                                class="fa fa-wpforms me-2"
-                                            /> View invoice </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
+                                        <td>
+                                            <div class="label">Amount Due</div>
+                                            <div class="value">
+                                                <span
+                                                    t-esc="-invoice.amount_residual if invoice.move_type == 'out_refund' else invoice.amount_residual"
+                                                    t-options='{"widget": "monetary", "display_currency": invoice.currency_id}'
+                                                />
+                                            </div>
+                                        </td>
+
+                                        <td>
+                                            <div class="label">Issue Date</div>
+                                            <div class="value">
+                                                <span
+                                                    t-esc="invoice.invoice_date.strftime('%-m/%-d/%y')"
+                                                />
+                                            </div>
+                                        </td>
+
+                                        <td class="text-end">
+                                            <a
+                                                t-if="invoice.state == 'posted' and invoice.payment_state not in ('paid', 'in_payment')"
+                                                t-attf-href="/select-payment-method?invoice=#{invoice.id}"
+                                                class="btn btn-blue rounded-5"
+                                            >
+                                                Pay
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
                     </div>
                 </t>
             </div>
@@ -367,13 +475,182 @@
     </template>
 
     <template
-        id="portal_invoice_page_inherit_payment_custom_href"
-        inherit_id="account_payment.portal_invoice_page_inherit_payment"
+        id="ach_portal_invoice_page"
+        name="ACH Invoice Portal Template"
+        inherit_id="portal.portal_sidebar"
+        primary="True"
     >
-        <xpath expr="//a[@data-bs-target='#pay_with']" position="attributes">
-            <attribute name="t-attf-href">/payment?invoice={{ invoice.id }}</attribute>
-            <attribute name="data-bs-toggle" />
-            <attribute name="data-bs-target" />
+        <xpath expr="//div[hasclass('o_portal_sidebar')]" position="inside">
+            <t t-set="no_breadcrumbs" t-value="True" />
+
+            <t
+                t-set="o_portal_fullwidth_alert"
+                groups="sales_team.group_sale_salesman,account.group_account_invoice,account.group_account_readonly"
+            >
+                <t t-call="portal.portal_back_in_edit_mode">
+                    <t
+                        t-set="backend_url"
+                        t-value="'/web#model=%s&amp;id=%s&amp;action=%s&amp;view_type=form' % (invoice._name, invoice.id, invoice.env.ref('account.action_move_out_invoice_type').id)"
+                    />
+                </t>
+            </t>
+
+            <div id="invoice-detail">
+                <div class="d-flex align-items-center justify-content-between mt-5">
+                    <div
+                        class="d-flex align-items-center justify-content-start text-gray cursor-pointer"
+                        onclick="window.history.back()"
+                    >
+                        <i class="fa fa-arrow-left" aria-hidden="true" />
+
+                        <span class="ms-1 pt-1">Back</span>
+                    </div>
+
+                    <div
+                        t-if="prev_record or next_record"
+                        class="col-2 flex-grow-0 text-center"
+                    >
+                        <t t-call='portal.record_pager' />
+                    </div>
+                </div>
+
+                <div class="row mt16 o_portal_invoice_sidebar">
+                    <div id="invoice_content" class="col-12 col-lg">
+                        <t
+                            t-if="error or warning"
+                            t-call="account.portal_invoice_error"
+                        />
+                        <t
+                            t-if="success and (not error and not warning)"
+                            t-call="account.portal_invoice_success"
+                        />
+
+                        <div class="o_portal_html_view shadow p-3">
+                            <div class="o_portal_html_loader text-center">
+                                <i
+                                    class="fa fa-circle-o-notch fa-spin fa-2x fa-fw text-black-50"
+                                />
+                            </div>
+                            <iframe
+                                id="invoice_html"
+                                class="mt8 mb8"
+                                width="100%"
+                                height="100%"
+                                frameborder="0"
+                                scrolling="no"
+                                t-att-src="invoice.get_portal_url(report_type='html')"
+                            />
+                        </div>
+                        <!-- chatter -->
+                        <div id="invoice_communication" class="mt-4">
+                            <h3>Comments</h3>
+                            <t t-call="portal.message_thread" />
+                        </div>
+                    </div>
+
+                    <!-- Sidebar -->
+                    <t t-call="portal.portal_record_sidebar">
+                        <t t-set="classes" t-value="'col-lg-auto d-print-none'" />
+                        <t t-set="title">
+                            <h2 class="mb-0">
+                                <b
+                                    t-if="invoice.amount_residual > 0"
+                                    t-field="invoice.amount_residual"
+                                />
+                                <b t-else="1" t-field="invoice.amount_total" />
+                            </h2>
+
+                            <div
+                                t-if="invoice.payment_state in ('paid', 'in_payment')"
+                                class="text-success"
+                            >
+                                <i class="fa fa-check" />
+                                Paid
+
+                                <t t-if="payment_date">
+                                    on
+                                    <t t-esc="payment_date.strftime('%-m/%-d/%y')" />
+                                </t>
+                            </div>
+                            <div
+                                t-elif="'ago' in invoice_due_status_value and invoice.payment_state != 'paid'"
+                                class="text-danger"
+                            >
+                                <i class="fa fa-clock-o" />
+                                <t t-esc="invoice_due_status_value" />
+                            </div>
+                            <div
+                                t-elif="invoice.payment_state == 'paid'"
+                                class="text-muted"
+                            >
+                                <i class="fa fa-clock-o" />
+                                <t t-esc="invoice_due_status_value" />
+                            </div>
+                            <div t-else="">
+                                <i class="fa fa-clock-o" />
+                                <t t-esc="invoice_due_status_value" />
+                            </div>
+                        </t>
+
+                        <t t-set="entries">
+                            <ul
+                                class="list-group list-group-flush flex-wrap flex-row flex-lg-column"
+                            >
+                                <li class="list-group-item">
+                                    <a
+                                        class="btn btn-outlined-blue w-100 btn-block o_download_btn"
+                                        t-att-href="invoice.get_portal_url(report_type='pdf', download=True)"
+                                        title="Download"
+                                    ><i class="fa fa-download" /> Download</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a
+                                        class="btn btn-outlined-blue w-100 btn-block o_print_btn o_portal_invoice_print"
+                                        t-att-href="invoice.get_portal_url(report_type='pdf')"
+                                        id="print_invoice_report"
+                                        title="Print"
+                                        target="_blank"
+                                    ><i class="fa fa-print" /> Print</a>
+                                </li>
+                                <li
+                                    t-if="invoice.state == 'posted' and invoice.payment_state in ('not_paid', 'partial') and invoice.amount_total and invoice.move_type == 'out_invoice' and (pending_manual_txs or not tx_ids or invoice.amount_paid &lt; invoice.amount_total)"
+                                    class="list-group-item"
+                                >
+                                    <a
+                                        t-attf-href="/select-payment-method?invoice=#{invoice.id}"
+                                        class="btn btn-blue w-100 mb-2"
+                                    >
+                                        Pay Now
+                                    </a>
+                                </li>
+                                <li
+                                    t-if="invoice.invoice_user_id"
+                                    class="list-group-item flex-grow-1"
+                                >
+                                    <div class="small mb-1"><strong class="text-muted">
+                                        <t t-if="invoice.move_type == 'out_invoice'">
+                                            Salesperson
+                                        </t>
+                                        <t t-if="invoice.move_type == 'in_invoice'">
+                                            Purchase Representative
+                                        </t>
+                                    </strong></div>
+
+                                    <span
+                                        t-field="invoice.invoice_user_id"
+                                        class="mt-1"
+                                        t-options='{"widget": "contact", "fields": ["name"], "no_marker": True}'
+                                    />
+                                    <a
+                                        href="#discussion"
+                                        class="btn btn-outlined-blue w-100 mt-1"
+                                    >Send message</a>
+                                </li>
+                            </ul>
+                        </t>
+                    </t>
+                </div>
+            </div>
         </xpath>
     </template>
 </odoo>

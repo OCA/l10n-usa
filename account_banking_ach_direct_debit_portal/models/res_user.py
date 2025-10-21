@@ -34,6 +34,6 @@ class ResUsers(models.Model):
         elif config_value == "selected_users_only":
             return self.enable_ach_payment_portal
         elif config_value == "for_all_portal_users":
-            return self.has_group("base.group_portal")
+            return self.has_group("base.group_portal") or self.enable_ach_payment_portal
         else:
             return False

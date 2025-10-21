@@ -3,9 +3,7 @@
     <template id="my_payment_account_link" inherit_id="portal.my_account_link">
         <xpath expr="//a[@href='/my/home']" position="after">
             <a href="/my/payment-account" role="menuitem" class="dropdown-item ps-3">
-                <i
-                    class="fa fa-fw fa-credit-card me-1 small text-muted"
-                /> My Payment Account
+                <i class="fa fa-fw fa-credit-card me-1 small text-muted" /> Invoices
             </a>
         </xpath>
     </template>
@@ -71,4 +69,19 @@
             <t />
         </xpath>
     </template>
+
+    <template
+        id="ach_record_pager"
+        inherit_id="portal.record_pager"
+        name="Portal Record Pager with Text"
+    >
+        <xpath expr="//i[@class='fa fa-chevron-left']" position="after">
+            <span class="text-accent-gray ms-1">Previous</span>
+        </xpath>
+
+        <xpath expr="//i[@class='fa fa-chevron-right']" position="before">
+            <span class="text-gray me-1">Next</span>
+        </xpath>
+    </template>
+
 </odoo>

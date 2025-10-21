@@ -315,6 +315,21 @@ class BankController(CustomerPortal):
 
         bank.write({"default": True})
 
-        request.session["set_default_bank_success"] = True
+        return request.redirect("/my/settings")
 
-        return request.redirect("/my/banks")
+    @http.route(
+        "/my/credit_card/set_default/<int:payment_token_id>",
+        type="http",
+        auth="user",
+        methods=["GET"],
+    )
+    def set_default_credit_card(self, payment_token_id):
+        token = request.env["payment.token"].browse(payment_token_id)
+        if not token.exists():
+            return request.redirect("/my/settings")
+        if token.partner_id != request.env.user.partner_id:
+            raise AccessError(_("You do not have permission to modify this bank."))
+
+        token.write({"default": True})
+
+        return request.redirect("/my/settings")

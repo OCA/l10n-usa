@@ -10,14 +10,45 @@
             }
         }
 
-        .card-title {
-            font-family: Inter;
-            font-weight: 500;
-            font-size: 22px;
-            line-height: 23.85px;
-            letter-spacing: 0%;
-            color: #1e5593;
-            margin-bottom: 0;
+        .item-detail {
+            .item-iframe {
+                width: 800px;
+                height: 600px;
+                zoom: 0.3;
+                border: none;
+            }
+
+            .amount {
+                color: #333333;
+                font-size: 24px;
+                font-weight: 600;
+            }
+
+            .name {
+                font-size: 16px;
+                color: #808080;
+            }
+
+            .note {
+                font-size: 14px;
+                color: #808080;
+            }
+        }
+
+        .payment-checked {
+            border-color: #005491;
+        }
+
+        .o_payment_option_card {
+            padding: 0.5em !important;
+            cursor: pointer;
+
+            .payment_option_name {
+                font-size: 16px;
+                color: #333333;
+                font-weight: 600;
+                padding-top: 1.5px;
+            }
         }
 
         .invoice-select {
@@ -31,50 +62,6 @@
             &:focus {
                 border-color: #0d6efd;
                 box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
-            }
-        }
-
-        .payment-method-option {
-            padding: 1.5rem 0.25rem;
-            background-color: #fff;
-            width: 100%;
-
-            @media (max-width: 768px) {
-                padding: 1.5rem 1rem;
-            }
-
-            &:not(:first-child) {
-                border-top: 1px solid #dee2e6;
-            }
-
-            .flex-desktop {
-                -webkit-box-pack: start !important;
-                justify-content: flex-start !important;
-                align-items: center !important;
-
-                @media (min-width: 768px) {
-                    display: flex;
-                }
-
-                .form-check {
-                    min-width: 106px;
-                }
-            }
-
-            .option {
-                font-family: Inter;
-                font-weight: 500;
-                font-size: 20px;
-                letter-spacing: 0%;
-                color: #323232;
-            }
-
-            .note {
-                color: rgba(50, 50, 50, 0.25);
-            }
-
-            .credit_card_img {
-                height: 40px;
             }
         }
 
@@ -119,49 +106,36 @@
 
         .summary {
             .card-title {
-                font-family: Inter;
-                font-weight: 500;
-                font-size: 36px;
-                line-height: 23.85px;
+                font-weight: 400;
+                font-size: 16px;
                 letter-spacing: 0%;
-                color: #323232;
-                margin-bottom: 45px;
-
-                @media (max-width: 768px) {
-                    margin-bottom: 25px;
-                    font-size: 28px;
-                    color: #1e5593;
-                }
+                color: #333333;
+                margin-bottom: 25px;
             }
 
-            @media (max-width: 768px) {
-                border: none;
-
-                .card-body {
-                    padding: 0;
-
-                    .wrapper {
-                        border: 1px solid rgba(0, 0, 0, 0.125);
-                        border-radius: 0.25rem;
-                        padding: 1rem;
-                    }
-                }
+            .card-body {
+                padding: 2.5em 1.14em !important;
             }
 
             .label {
-                font-family: Inter;
                 font-weight: 500;
-                font-size: 16px;
-                line-height: 19.37px;
                 letter-spacing: 0%;
-                color: #a9a9a9;
+                color: #808080;
+            }
+
+            .value {
+                font-size: 16px;
+                color: #333333;
             }
         }
 
         .btn-submit {
-            background-color: #1e5593;
+            background-color: #005491;
             color: white;
             margin-top: 3rem;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 8px;
 
             @media (max-width: 768px) {
                 margin-top: 1rem;

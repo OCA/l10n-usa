@@ -11,11 +11,11 @@
         <field name="active">True</field>
     </record>
 
-    <record id="ir_cron_autopay_end_of_month" model="ir.cron">
+    <record id="ir_cron_autopay_specific_date" model="ir.cron">
         <field name="name">Autopay - End Of Month (D-5)</field>
         <field name="model_id" ref="model_account_payment" />
         <field name="state">code</field>
-        <field name="code">model.run_autopay_with_invoice_end_of_month()</field>
+        <field name="code">model.run_autopay_with_invoice_specific_date()</field>
         <field name="interval_number">1</field>
         <field name="interval_type">days</field>
         <field name="numbercall">-1</field>
