@@ -11,6 +11,7 @@
     "category": "Banking addons",
     "depends": ["account_banking_ach_direct_debit", "account_payment", "sale"],
     "data": [
+        "data/ir_config_parameter.xml",
         "data/ir_crons.xml",
         "data/res_config_settings_data.xml",
         "data/mail_template_data.xml",

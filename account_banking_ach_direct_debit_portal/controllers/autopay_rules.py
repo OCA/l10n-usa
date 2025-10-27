@@ -67,11 +67,29 @@ class AutoPayRulesController(CustomerPortal):
             [("partner_id", "=", partner.id)]
         )
 
+        autopay_enable_end_of_month = (
+            request.env["ir.config_parameter"]
+            .sudo()
+            .get_param(
+                "account_banking_ach_direct_debit_portal.autopay_enable_end_of_month"
+            )
+        ) in ["1", "True", "true"]
+
+        autopay_enable_on_due_date = (
+            request.env["ir.config_parameter"]
+            .sudo()
+            .get_param(
+                "account_banking_ach_direct_debit_portal.autopay_enable_on_due_date"
+            )
+        ) in ["1", "True", "true"]
+
         values = {
             "page_name": "autopay_rules",
             "current_date": current_date,
             "partner": partner,
             "bank_account_total": bank_account_total,
+            "autopay_enable_end_of_month": autopay_enable_end_of_month,
+            "autopay_enable_on_due_date": autopay_enable_on_due_date,
         }
 
         if request.session.get("updated_autopay_rules"):

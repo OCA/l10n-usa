@@ -35,37 +35,51 @@ class AccountPayment(models.Model):
 
     @api.model
     def run_autopay_with_invoice_on_due_date(self):
-        today = fields.Date.today()
-        autopay = "on_due_date"
+        if (
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param(
+                "account_banking_ach_direct_debit_portal.autopay_enable_on_due_date"
+            )
+        ) in ["1", "True", "true"]:
+            today = fields.Date.today()
+            autopay = "on_due_date"
 
-        partners = self.env["res.partner"].search(
-            [
-                ("autopay", "=", autopay),
-            ]
-        )
+            partners = self.env["res.partner"].search(
+                [
+                    ("autopay", "=", autopay),
+                ]
+            )
 
-        self._process_autopay_partners(partners, today, autopay)
+            self._process_autopay_partners(partners, today, autopay)
 
     @api.model
     def run_autopay_with_invoice_end_of_month(self):
-        today = fields.Date.today()
-        end_of_month = today + relativedelta(day=31)
-        days_to_end_of_month = (end_of_month - today).days
-        autopay = "end_of_month"
-
-        if days_to_end_of_month != 5:
-            _logger.info(
-                f"Today is {today}, not 5 days before month end ({end_of_month}), skipping."
+        if (
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param(
+                "account_banking_ach_direct_debit_portal.autopay_enable_end_of_month"
             )
-            return
+        ) in ["1", "True", "true"]:
+            today = fields.Date.today()
+            end_of_month = today + relativedelta(day=31)
+            days_to_end_of_month = (end_of_month - today).days
+            autopay = "end_of_month"
 
-        partners = self.env["res.partner"].search(
-            [
-                ("autopay", "=", autopay),
-            ]
-        )
+            if days_to_end_of_month != 5:
+                _logger.info(
+                    f"Today is {today}, not 5 days before month end ({end_of_month}), skipping."
+                )
+                return
 
-        self._process_autopay_partners(partners, today, autopay)
+            partners = self.env["res.partner"].search(
+                [
+                    ("autopay", "=", autopay),
+                ]
+            )
+
+            self._process_autopay_partners(partners, today, autopay)
 
     @api.model
     def send_email_autopay_reminders(self):
@@ -73,9 +87,22 @@ class AccountPayment(models.Model):
         end_of_month = today + relativedelta(day=31)
         days_to_end_of_month = (end_of_month - today).days
 
-        self._process_autopay_reminders(today, "on_due_date")
+        if (
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param(
+                "account_banking_ach_direct_debit_portal.autopay_enable_on_due_date"
+            )
+        ) in ["1", "True", "true"]:
+            self._process_autopay_reminders(today, "on_due_date")
 
-        if days_to_end_of_month == 10:
+        if (
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param(
+                "account_banking_ach_direct_debit_portal.autopay_enable_end_of_month"
+            )
+        ) in ["1", "True", "true"] and days_to_end_of_month == 10:
             self._process_autopay_reminders(today, "end_of_month")
 
     def _get_plaid_discount_percent(self):

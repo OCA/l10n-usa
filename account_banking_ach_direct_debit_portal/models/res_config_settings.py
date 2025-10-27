@@ -94,3 +94,13 @@ class ResConfigSettings(models.TransientModel):
         help="Email template sent to customers when they enroll for AutoPay. "
         "Leave empty to disable sending.",
     )
+
+    autopay_enable_end_of_month = fields.Boolean(
+        string="End Of Month",
+        config_parameter="account_banking_ach_direct_debit_portal.autopay_enable_end_of_month",
+    )
+
+    autopay_enable_on_due_date = fields.Boolean(
+        string="On Due Date",
+        config_parameter="account_banking_ach_direct_debit_portal.autopay_enable_on_due_date",
+    )
