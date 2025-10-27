@@ -1,4 +1,5 @@
 import logging
+from datetime import date
 
 import werkzeug.urls
 
@@ -475,8 +476,14 @@ class PaymentController(CustomerPortal):
             int(kw.get("partner_bank_id")) if kw.get("partner_bank_id") else False
         )
 
+        today = date.today()
+
         for invoice in invoices:
-            discount_amount = invoice.amount_residual * discount_percent / 100.0
+            if invoice.invoice_date_due > today:
+                discount_amount = invoice.amount_residual * discount_percent / 100.0
+            else:
+                discount_amount = 0
+
             pay_amount = invoice.amount_residual - discount_amount
             payment_vals = invoice.prepare_payment_register_vals(partner_bank_id)
             if not payment_vals:
@@ -635,6 +642,8 @@ class PaymentController(CustomerPortal):
         discount_amount = 0.0
         display_currency = None
 
+        today = date.today()
+
         if invoices:
             for inv in invoices:
                 if float_is_zero(inv.amount_residual, precision_digits=2):
@@ -646,7 +655,10 @@ class PaymentController(CustomerPortal):
                 )
                 base_total += residual
                 surcharge_amount += residual * surcharge_percent / 100.0
-                discount_amount += residual * discount_percent / 100.0
+
+                if inv.invoice_date_due > today:
+                    discount_amount += residual * discount_percent / 100.0
+
             display_currency = invoices[0].currency_id if invoices else None
 
         if order:

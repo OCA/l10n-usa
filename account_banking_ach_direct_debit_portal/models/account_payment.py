@@ -159,9 +159,15 @@ class AccountPayment(models.Model):
             if not invoices_to_process:
                 continue
 
+            today = date.today()
+
             succeeded_invoices = []
             for invoice in invoices_to_process:
-                discount_amount = invoice.amount_residual * discount_percent / 100.0
+                if invoice.invoice_date_due > today:
+                    discount_amount = invoice.amount_residual * discount_percent / 100.0
+                else:
+                    discount_amount = 0
+
                 pay_amount = invoice.amount_residual - discount_amount
                 payment_vals = invoice.prepare_payment_register_vals(partner_bank.id)
                 if not payment_vals:
