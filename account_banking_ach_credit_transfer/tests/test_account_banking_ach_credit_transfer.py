@@ -64,7 +64,7 @@ class TestACHCreditTransfer(BaseCommon):
             )
         )
         line_create_form.date_type = "due"
-        line_create_form.due_date = fields.Date.today()
+        line_create_form.filter_date = fields.Date.today()
         line_create_form.payment_mode = "any"
         line_create_form.target_move = "all"
         line_created_due = line_create_form.save()
