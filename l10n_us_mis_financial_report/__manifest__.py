@@ -2,7 +2,7 @@
 
 {
     "name": "Profit & Loss (US) / Balance sheet (US) MIS templates",
-    "version": "17.0.1.0.0",
+    "version": "18.0.1.0.0",
     "license": "AGPL-3",
     "author": "Binhex,Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/l10n-usa",
