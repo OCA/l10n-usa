@@ -4,7 +4,7 @@ from odoo import api, models
 class File(models.Model):
     _inherit = "dms.file"
 
-    @api.model
+    @api.model_create_multi
     def create(self, vals):
         document = super().create(vals)
         # Find a matching workflow rule

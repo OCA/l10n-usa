@@ -32,8 +32,3 @@ class ResConfigSettings(models.TransientModel):
         readonly=False,
         string="Exemption Tags",
     )
-
-    # @api.onchange("exemption_folder")
-    # def on_exemption_folder_change(self):
-    #     if self.exemption_folder not in self.exemption_tags.mapped("directory_ids"):
-    #         self.exemption_tags = False

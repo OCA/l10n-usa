@@ -1,6 +1,6 @@
 {
     "name": "Avatax Exemptions with OCA Document extension",
-    "version": "16.0.1.0.0",
+    "version": "18.0.1.0.0",
     "category": "Sales",
     "summary": """
         This application allows you to add Avatax exemptions with OCA dms module
