@@ -1,0 +1,11 @@
+## Steps
+
+1.  Install the account_avatax_exemption module.
+2.  Go to **Settings → Documents**:
+    - Check **Exemption**.
+    - Set **Workspace** as *Partner Exemptions*.
+3.  Go to **Documents → Partner Exemptions**:
+    - Create or select a partner directory.
+    - Upload a file.
+
+Then the exemption is created for that partner.
