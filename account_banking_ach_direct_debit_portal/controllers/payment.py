@@ -1,5 +1,4 @@
 import logging
-from datetime import date
 
 import werkzeug.urls
 
@@ -172,6 +171,32 @@ class PaymentController(CustomerPortal):
             "account_banking_ach_direct_debit_portal.portal_payment", values
         )
 
+    def get_product_note(
+        self, providers, invoices, surcharge_percent, ach_rule, currency
+    ):
+        provider_note = {}
+
+        providers = providers.sorted(
+            key=lambda provider: provider.display_as or provider.name
+        )
+        for provider in providers:
+            if invoices:
+                if provider.code == "authorize":
+                    provider_note[
+                        provider.id
+                    ] = f"{surcharge_percent:.4g}% Surcharge"  # noqa: E231
+                elif provider.code == "ach_bank_account" and ach_rule:
+                    if ach_rule.amount_type == "percent":
+                        unit = "%"
+                    else:
+                        unit = currency.symbol
+
+                    provider_note[
+                        provider.id
+                    ] = f"{ach_rule.amount:.4g}{unit} {ach_rule.discount_or_charge.capitalize()} (with plaid verification)"  # noqa: B950,E231
+
+        return provider_note
+
     @http.route(
         "/select-payment-method",
         type="http",
@@ -188,19 +213,19 @@ class PaymentController(CustomerPortal):
             raise ValidationError(_("The provided parameters are invalid."))
 
         surcharge_percent = self._get_surcharge_percent()
-        discount_percent = self._get_plaid_discount_percent()
 
         amounts = self._compute_amounts(
             invoices=invoices,
             order=order,
             surcharge_percent=surcharge_percent,
-            discount_percent=discount_percent,
         )
         currency = amounts["currency"]
+        ach_rule = amounts["ach_rule"]
 
         base_total_amount = currency.round(amounts["base_total_amount"])
         surcharge_amount = currency.round(amounts["surcharge_amount"])
-        discount_amount = currency.round(amounts["discount_amount"])
+        ach_discount_amount = currency.round(amounts["ach_discount_amount"])
+        ach_charge_amount = currency.round(amounts["ach_charge_amount"])
 
         providers_sudo = (
             request.env["payment.provider"]
@@ -217,21 +242,13 @@ class PaymentController(CustomerPortal):
         if not providers_sudo:
             return request.redirect("/my/payment_method")
 
-        provider_note = {}
-
-        providers_sudo = providers_sudo.sorted(
-            key=lambda provider: provider.display_as or provider.name
+        provider_note = self.get_product_note(
+            providers_sudo,
+            invoices,
+            surcharge_percent,
+            ach_rule,
+            currency,
         )
-        for provider in providers_sudo:
-            if invoices:
-                if provider.code == "authorize":
-                    provider_note[
-                        provider.id
-                    ] = f"{surcharge_percent:.4g}% Surcharge"  # noqa: E231
-                elif provider.code == "ach_bank_account":
-                    provider_note[
-                        provider.id
-                    ] = f"{discount_percent:.4g}% Discount (with plaid verification)"  # noqa: B950,E231
 
         selected_payment_option_id = kw.get(
             "selected_payment_option_id",
@@ -250,7 +267,8 @@ class PaymentController(CustomerPortal):
             if selected_provider.code == "authorize":
                 total_amount = currency.round(total_amount + surcharge_amount)
             elif selected_provider.code == "ach_bank_account":
-                total_amount = currency.round(total_amount - discount_amount)
+                total_amount = currency.round(total_amount - ach_discount_amount)
+                total_amount = currency.round(total_amount + ach_charge_amount)
 
         if invoices:
             query_params["invoice"] = [inv.id for inv in invoices]
@@ -276,14 +294,14 @@ class PaymentController(CustomerPortal):
             "page_name": "select_payment_method",
             "selected_payment_option_id": selected_payment_option_id,
             "surcharge_percent": surcharge_percent,
-            "plaid_discount_percent": discount_percent,
             "invoices": invoices,
             "order": order,
             "earliest_due_date": earliest_due_date,
             "base_total_amount": base_total_amount,
             "total_amount": total_amount,
             "surcharge_amount": surcharge_amount,
-            "discount_amount": discount_amount,
+            "ach_discount_amount": ach_discount_amount,
+            "ach_charge_amount": ach_charge_amount,
             "display_currency": currency,
             "make_payment_url": make_payment_url,
             "selected_provider": selected_provider
@@ -293,6 +311,12 @@ class PaymentController(CustomerPortal):
             "provider_note": provider_note,
             "invisible_button": not user_portal.is_ach_accessible(),
         }
+
+        if ach_rule:
+            if ach_rule.amount_type == "percent":
+                values["plaid_discount_percent"] = ach_rule.amount
+            else:
+                values["plaid_discount"] = ach_rule.amount
 
         return request.render(
             "account_banking_ach_direct_debit_portal.portal_select_payment_method",
@@ -349,25 +373,25 @@ class PaymentController(CustomerPortal):
                 raise ValidationError(_("The provided parameters are invalid."))
 
         surcharge_percent = self._get_surcharge_percent()
-        discount_percent = self._get_plaid_discount_percent()
 
         amounts = self._compute_amounts(
             invoices=invoices,
             order=order,
             surcharge_percent=surcharge_percent,
-            discount_percent=discount_percent,
         )
         currency = amounts["currency"]
 
         base_total_amount = currency.round(amounts["base_total_amount"])
         surcharge_amount = currency.round(amounts["surcharge_amount"])
-        discount_amount = currency.round(amounts["discount_amount"])
+        ach_discount_amount = currency.round(amounts["ach_discount_amount"])
+        ach_charge_amount = currency.round(amounts["ach_charge_amount"])
 
         total_amount = base_total_amount
         if selected_provider.code == "authorize":
             total_amount = currency.round(total_amount + surcharge_amount)
         elif selected_provider.code == "ach_bank_account":
-            total_amount = currency.round(total_amount - discount_amount)
+            total_amount = currency.round(total_amount - ach_discount_amount)
+            total_amount = currency.round(total_amount + ach_charge_amount)
 
         next_params = {"selected_payment_option_id": selected_provider.id}
         if invoices:
@@ -407,7 +431,8 @@ class PaymentController(CustomerPortal):
             "base_total_amount": base_total_amount,
             "total_amount": total_amount,
             "surcharge_amount": surcharge_amount,
-            "discount_amount": discount_amount,
+            "ach_discount_amount": ach_discount_amount,
+            "ach_charge_amount": ach_charge_amount,
             "display_currency": currency,
             "make_payment_url": make_payment_url,
             "partner_banks": partner_banks,
@@ -432,23 +457,26 @@ class PaymentController(CustomerPortal):
         if not invoice_ids:
             raise ValidationError(_("No invoice ids provided."))
 
-        invoices = request.env["account.move"].search(
-            [
-                ("id", "in", invoice_ids),
-                *self._get_invoices_domain(),
-            ]
+        invoices = (
+            request.env["account.move"]
+            .sudo()
+            .search(
+                [
+                    ("id", "in", invoice_ids),
+                    *self._get_invoices_domain(),
+                ]
+            )
         )
 
         if not invoices:
             raise ValidationError(_("The provided parameters are invalid."))
 
         surcharge_percent = self._get_surcharge_percent()
-        discount_percent = self._get_plaid_discount_percent()
+
         amounts = self._compute_amounts(
             invoices=invoices,
             order=False,
             surcharge_percent=surcharge_percent,
-            discount_percent=discount_percent,
         )
 
         if float_is_zero(amounts["base_total_amount"], precision_digits=2):
@@ -476,23 +504,33 @@ class PaymentController(CustomerPortal):
             int(kw.get("partner_bank_id")) if kw.get("partner_bank_id") else False
         )
 
-        today = date.today()
+        pay_date = fields.Date.context_today(request.env.user)
 
         for invoice in invoices:
-            if invoice.invoice_date_due > today:
-                discount_amount = invoice.amount_residual * discount_percent / 100.0
-            else:
-                discount_amount = 0
+            discount_amount = 0
+            charge_amount = 0
 
-            pay_amount = invoice.amount_residual - discount_amount
+            adj_amount, rule = invoice._compute_ach_adjustment(pay_date)
+
+            if rule and rule.discount_or_charge == "discount":
+                discount_amount = adj_amount
+                pay_amount = invoice.amount_residual - discount_amount
+            elif rule and rule.discount_or_charge == "charge":
+                charge_amount = adj_amount
+                pay_amount = invoice.amount_residual + charge_amount
+            else:
+                pay_amount = invoice.amount_residual
+
             payment_vals = invoice.prepare_payment_register_vals(partner_bank_id)
             if not payment_vals:
                 return request.redirect("/my/invoices")
+
             payment_vals.update(
                 {
                     "amount": invoice.currency_id.round(pay_amount),
                 }
             )
+
             register_payment = (
                 request.env["account.payment.register"]
                 .with_context(active_model="account.move", active_ids=[invoice.id])
@@ -500,16 +538,21 @@ class PaymentController(CustomerPortal):
                 .create(payment_vals)
             )
 
+            if rule and charge_amount > 0.0:
+                invoice.add_charge_line(charge_amount, rule)
+
             is_success = register_payment.with_context(
                 dont_redirect_to_payments=True,
             ).action_create_payments()
+
             if is_success:
                 _logger.info(f"Create successful payment for invoice: '{invoice.name}'")
             else:
                 _logger.info(f"Create failed payment for invoice: '{invoice.name}'")
-            if discount_percent > 0.0 and discount_amount > 0.0:
+
+            if rule and discount_amount > 0.0:
                 invoice.sudo()._create_discount_entry_and_reconcile(
-                    discount_amount, discount_percent
+                    discount_amount, rule
                 )
         return request.redirect("/payment-success")
 
@@ -540,12 +583,11 @@ class PaymentController(CustomerPortal):
             raise ValidationError(_("The provided parameters are invalid."))
 
         surcharge_percent = self._get_surcharge_percent()
-        discount_percent = self._get_plaid_discount_percent()
+
         amounts = self._compute_amounts(
             invoices=False,
             order=order,
             surcharge_percent=surcharge_percent,
-            discount_percent=discount_percent,
         )
 
         if float_is_zero(amounts["base_total_amount"], precision_digits=2):
@@ -636,18 +678,21 @@ class PaymentController(CustomerPortal):
 
         return request.redirect("/payment/pay?" + werkzeug.urls.url_encode(params))
 
-    def _compute_amounts(self, invoices, order, surcharge_percent, discount_percent):
+    def _compute_amounts(self, invoices, order, surcharge_percent):
         base_total = 0.0
         surcharge_amount = 0.0
-        discount_amount = 0.0
+        ach_discount_amount = 0.0
+        ach_charge_amount = 0.0
         display_currency = None
+        ach_rule = None
 
-        today = date.today()
+        pay_date = fields.Date.context_today(request.env.user)
 
         if invoices:
             for inv in invoices:
                 if float_is_zero(inv.amount_residual, precision_digits=2):
                     continue
+
                 residual = (
                     -inv.amount_residual
                     if inv.move_type == "out_refund"
@@ -656,8 +701,15 @@ class PaymentController(CustomerPortal):
                 base_total += residual
                 surcharge_amount += residual * surcharge_percent / 100.0
 
-                if inv.invoice_date_due > today:
-                    discount_amount += residual * discount_percent / 100.0
+                adj_amount, rule = inv.sudo()._compute_ach_adjustment(pay_date)
+
+                if rule:
+                    ach_rule = rule
+
+                    if rule.discount_or_charge == "discount":
+                        ach_discount_amount += adj_amount
+                    elif rule and rule.discount_or_charge == "charge":
+                        ach_charge_amount += adj_amount
 
             display_currency = invoices[0].currency_id if invoices else None
 
@@ -666,11 +718,14 @@ class PaymentController(CustomerPortal):
             display_currency = display_currency or order.currency_id
 
         currency = display_currency or request.env.user.company_id.currency_id
+
         return {
             "base_total_amount": base_total,
             "surcharge_amount": surcharge_amount,
-            "discount_amount": discount_amount,
+            "ach_discount_amount": ach_discount_amount,
+            "ach_charge_amount": ach_charge_amount,
             "currency": currency,
+            "ach_rule": ach_rule,
         }
 
     @http.route(
@@ -710,14 +765,6 @@ class PaymentController(CustomerPortal):
             .get_param("account_banking_ach_direct_debit_portal.credit_card_surcharge")
         )
         return self._cast_as_float(surcharge_parameter) if surcharge_parameter else 0.0
-
-    def _get_plaid_discount_percent(self):
-        plaid_discount = (
-            request.env["ir.config_parameter"]
-            .sudo()
-            .get_param("account_banking_ach_direct_debit_portal.plaid_discount")
-        )
-        return self._cast_as_float(plaid_discount) if plaid_discount else 0.0
 
     def _get_documents(self, invoice_ids, order_id):
         invoices = order = False

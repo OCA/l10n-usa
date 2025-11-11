@@ -10,9 +10,16 @@ class ResCompany(models.Model):
         help="Account to use for credit card surcharges.",
         default=lambda self: self.env.company._get_default_surcharge_discount_account(),
     )
+
     discount_account_id = fields.Many2one(
         "account.account",
         string="Discount Account",
+        default=lambda self: self.env.company._get_default_surcharge_discount_account(),
+    )
+
+    charge_account_id = fields.Many2one(
+        "account.account",
+        string="Charge Account",
         default=lambda self: self.env.company._get_default_surcharge_discount_account(),
     )
 

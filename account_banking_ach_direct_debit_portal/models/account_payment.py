@@ -105,17 +105,6 @@ class AccountPayment(models.Model):
         ) in ["1", "True", "true"] and days_to_end_of_month == 10:
             self._process_autopay_reminders(today, "end_of_month")
 
-    def _get_plaid_discount_percent(self):
-        try:
-            plaid_discount = (
-                self.env["ir.config_parameter"]
-                .sudo()
-                .get_param("account_banking_ach_direct_debit_portal.plaid_discount")
-            )
-            return float(plaid_discount or 0)
-        except (TypeError, ValueError, OverflowError):
-            return 0
-
     def _exclude_authorize_invoice_domain(self):
         return [
             "|",
@@ -124,8 +113,6 @@ class AccountPayment(models.Model):
         ]
 
     def _process_autopay_partners(self, partners, date, autopay):
-        discount_percent = self._get_plaid_discount_percent()
-
         mail_template = self.env.ref(
             "account_banking_ach_direct_debit_portal.mail_template_autopay_created",
             raise_if_not_found=False,
@@ -163,12 +150,20 @@ class AccountPayment(models.Model):
 
             succeeded_invoices = []
             for invoice in invoices_to_process:
-                if invoice.invoice_date_due > today:
-                    discount_amount = invoice.amount_residual * discount_percent / 100.0
-                else:
-                    discount_amount = 0
+                discount_amount = 0
+                charge_amount = 0
 
-                pay_amount = invoice.amount_residual - discount_amount
+                adj_amount, rule = invoice._compute_ach_adjustment(today)
+
+                if rule and rule.discount_or_charge == "discount":
+                    discount_amount = adj_amount
+                    pay_amount = invoice.amount_residual - discount_amount
+                elif rule and rule.discount_or_charge == "charge":
+                    charge_amount = adj_amount
+                    pay_amount = invoice.amount_residual + charge_amount
+                else:
+                    pay_amount = invoice.amount_residual
+
                 payment_vals = invoice.prepare_payment_register_vals(partner_bank.id)
                 if not payment_vals:
                     continue
@@ -185,6 +180,10 @@ class AccountPayment(models.Model):
                     )
                     .create(payment_vals)
                 )
+
+                if rule and charge_amount > 0.0:
+                    invoice.add_charge_line(charge_amount, rule)
+
                 is_success = register_payment.with_context(
                     dont_redirect_to_payments=True,
                 ).action_create_payments()
@@ -193,9 +192,9 @@ class AccountPayment(models.Model):
                     invoice.message_post(
                         body=f"Autopay created successfully for invoice <b>{invoice.name}</b>."
                     )
-                    if discount_percent > 0.0 and discount_amount > 0.0:
+                    if rule and discount_amount > 0.0:
                         invoice._create_discount_entry_and_reconcile(
-                            discount_amount, discount_percent
+                            discount_amount, rule
                         )
                     succeeded_invoices.append(invoice)
                 else:
@@ -218,8 +217,6 @@ class AccountPayment(models.Model):
                 mail_template.with_context(**ctx).send_mail(partner.id, force_send=True)
 
     def _process_autopay_reminders(self, date, autopay):
-        plaid_discount_percent = self._get_plaid_discount_percent()
-
         invoice_date_due = date + timedelta(days=5)
 
         mail_template = self.env.ref(
@@ -249,11 +246,15 @@ class AccountPayment(models.Model):
                 if invoice._get_reconciled_payments():
                     continue
 
-                amount = invoice.amount_residual
-                discount = invoice.currency_id.round(
-                    amount * plaid_discount_percent / 100
-                )
-                payment_amount = amount - discount
+                adj_amount, rule = invoice._compute_ach_adjustment(invoice_date_due)
+
+                if rule and rule.discount_or_charge == "discount":
+                    discount_amount = adj_amount
+                    payment_amount = invoice.amount_residual - discount_amount
+                elif rule and rule.discount_or_charge == "charge":
+                    charge_amount = adj_amount
+                    payment_amount = invoice.amount_residual + charge_amount
+
                 invoice_map[invoice] = payment_amount
 
             if mail_template and invoice_map:

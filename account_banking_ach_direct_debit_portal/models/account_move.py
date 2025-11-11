@@ -9,6 +9,25 @@ _logger = logging.getLogger(__name__)
 class AccountMove(models.Model):
     _inherit = "account.move"
 
+    def _compute_ach_adjustment(self, pay_date=None):
+        self.ensure_one()
+        pay_date = pay_date or fields.Date.context_today(self)
+
+        term = self.invoice_payment_term_id
+        if not term or not term.ach_rule_ids:
+            return 0.0, None
+
+        rule = term._get_applicable_ach_rule(self, pay_date)
+        if not rule:
+            return 0.0, None
+
+        if rule.amount_type == "percent":
+            amount = self.amount_residual * (rule.amount / 100.0)
+        else:
+            amount = rule.amount
+
+        return amount, rule
+
     def prepare_payment_register_vals(self, contact_bank_id=None):
         self.ensure_one()
         bank_journal = (
@@ -74,10 +93,57 @@ class AccountMove(models.Model):
             }
         )
 
+    def add_charge_line(self, charge_amount, ach_rule):
+        self.ensure_one()
+
+        charge_account = self._get_charge_account()
+
+        if any(
+            [
+                not ach_rule,
+                not charge_account,
+                not charge_amount,
+            ]
+        ):
+            return
+
+        if ach_rule.amount_type == "percent":
+            unit = "%"
+        else:
+            unit = self.currency_id.symbol
+
+        if float_is_zero(charge_amount, precision_rounding=self.currency_id.rounding):
+            return
+
+        self.write(
+            {
+                "invoice_line_ids": [
+                    Command.create(
+                        {
+                            "name": _(
+                                f"Charge {ach_rule.amount:.4g}{unit} for {self.name}",  # noqa: E231,B950
+                            ),
+                            "quantity": 1,
+                            "price_unit": charge_amount,
+                            "account_id": charge_account.id,
+                            "tax_ids": [Command.clear()],
+                        }
+                    )
+                ]
+            }
+        )
+
     def _get_discount_account(self):
         self.ensure_one()
         return (
             self.env.company.discount_account_id
+            or self.company_id._get_default_surcharge_discount_account()
+        )
+
+    def _get_charge_account(self):
+        self.ensure_one()
+        return (
+            self.env.company.charge_account_id
             or self.company_id._get_default_surcharge_discount_account()
         )
 
@@ -95,7 +161,7 @@ class AccountMove(models.Model):
             or self.company_id._get_default_discount_journal()
         )
 
-    def _create_discount_entry_and_reconcile(self, discount_amount, discount_percent):
+    def _create_discount_entry_and_reconcile(self, discount_amount, ach_rule):
         self.ensure_one()
         if discount_amount <= 0:
             return
@@ -125,6 +191,11 @@ class AccountMove(models.Model):
             )
             return
 
+        if ach_rule.amount_type == "percent":
+            unit = "%"
+        else:
+            unit = self.currency_id.symbol
+
         misc_move = (
             self.env["account.move"]
             .sudo()
@@ -133,13 +204,13 @@ class AccountMove(models.Model):
                     "journal_id": misc_journal.id,
                     "date": fields.Date.today(),
                     "ref": _(
-                        f"Discount {discount_percent:.4g}% for invoice: {self.name}"  # noqa: E231,B950
+                        f"Discount {ach_rule.amount:.4g}{unit} for invoice: {self.name}"  # noqa: E231,B950
                     ),
                     "line_ids": [
                         Command.create(
                             {
                                 "name": _(
-                                    f"Discount {discount_percent:.4g}% for {self.name}"  # noqa: E231,B950
+                                    f"Discount {ach_rule.amount:.4g}{unit} for {self.name}"  # noqa: E231,B950
                                 ),
                                 "account_id": discount_account.id,
                                 "debit": discount_amount,
@@ -150,7 +221,7 @@ class AccountMove(models.Model):
                         Command.create(
                             {
                                 "name": _(
-                                    f"Discount {discount_percent:.4g}% adjustment for {self.name}"  # noqa: E231,B950
+                                    f"Discount {ach_rule.amount:.4g}{unit} adjustment for {self.name}"  # noqa: E231,B950
                                 ),
                                 "account_id": receivable_account.id,
                                 "debit": 0.0,

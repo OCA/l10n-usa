@@ -51,12 +51,13 @@ class ResConfigSettings(models.TransientModel):
         related="company_id.discount_account_id",
         readonly=False,
     )
-    plaid_discount = fields.Float(
-        string="Plaid Discount (%)",
-        config_parameter="account_banking_ach_direct_debit_portal.plaid_discount",
-        default=1.0,
-        help="Plaid Discount to apply "
-        "when customers pay with a bank account on the portal.",
+    charge_account_id = fields.Many2one(
+        "account.account",
+        string="Charge Account",
+        domain="[('deprecated', '=', False), ('company_id', '=', company_id)]",
+        help="Account to use for plaid charge.",
+        related="company_id.charge_account_id",
+        readonly=False,
     )
 
     enable_portal = fields.Selection(

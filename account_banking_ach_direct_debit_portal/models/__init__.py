@@ -8,3 +8,5 @@ from . import res_company
 from . import account_move
 from . import sale_order
 from . import payment_provider
+from . import ach_payment_discount_rule
+from . import account_payment_term

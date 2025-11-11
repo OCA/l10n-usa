@@ -549,14 +549,27 @@
                                         </div>
                                     </t>
                                     <t
-                                        t-if="plaid_discount_percent and selected_provider.code == 'ach_bank_account'"
+                                        t-if="ach_charge_amount and selected_provider.code == 'ach_bank_account'"
+                                    >
+                                        <div
+                                            class="d-flex justify-content-between border-top pt-2 pb-4 mb-3"
+                                        >
+                                            <span class="label">Charge</span>
+                                            <span
+                                                t-esc="ach_charge_amount"
+                                                t-options='{"widget": "monetary", "display_currency": display_currency}'
+                                            />
+                                        </div>
+                                    </t>
+                                    <t
+                                        t-if="ach_discount_amount and selected_provider.code == 'ach_bank_account'"
                                     >
                                         <div
                                             class="d-flex justify-content-between border-top pt-2 pb-4 mb-3"
                                         >
                                             <span class="label">Discount</span>
                                             <span
-                                                t-esc="-discount_amount"
+                                                t-esc="-ach_discount_amount"
                                                 t-options='{"widget": "monetary", "display_currency": display_currency}'
                                             />
                                         </div>
@@ -656,7 +669,21 @@
                                     />
                                 </div>
                                 <div
-                                    t-if="discount_amount and selected_provider.code == 'ach_bank_account'"
+                                    t-if="ach_charge_amount and selected_provider.code == 'ach_bank_account'"
+                                    class="mb-2 row"
+                                >
+                                    <label
+                                        class="col-sm-4 fw-bold"
+                                    >Charge amount</label>
+                                    <div class="col-sm-8 fw-bold value">
+                                        <span
+                                            t-esc="ach_charge_amount"
+                                            t-options='{"widget": "monetary", "display_currency": display_currency}'
+                                        />
+                                    </div>
+                                </div>
+                                <div
+                                    t-if="ach_discount_amount and selected_provider.code == 'ach_bank_account'"
                                     class="mb-2 row"
                                 >
                                     <label
@@ -664,7 +691,21 @@
                                     >Discount amount</label>
                                     <div class="col-sm-8 fw-bold value">
                                         <span
-                                            t-esc="-discount_amount"
+                                            t-esc="-ach_discount_amount"
+                                            t-options='{"widget": "monetary", "display_currency": display_currency}'
+                                        />
+                                    </div>
+                                </div>
+                                <div
+                                    t-if="ach_discount_amount and selected_provider.code == 'ach_bank_account'"
+                                    class="mb-2 row"
+                                >
+                                    <label
+                                        class="col-sm-4 fw-bold"
+                                    >Discount amount</label>
+                                    <div class="col-sm-8 fw-bold value">
+                                        <span
+                                            t-esc="-ach_discount_amount"
                                             t-options='{"widget": "monetary", "display_currency": display_currency}'
                                         />
                                     </div>

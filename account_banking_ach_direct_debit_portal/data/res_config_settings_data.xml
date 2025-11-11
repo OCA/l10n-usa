@@ -19,13 +19,4 @@
         <field name="key">account_banking_ach_direct_debit_portal.enable_portal</field>
         <field name="value">selected_users_only</field>
     </record>
-
-    <record
-        id="default_param_plaid_discount"
-        model="ir.config_parameter"
-        forcecreate="0"
-    >
-        <field name="key">account_banking_ach_direct_debit_portal.plaid_discount</field>
-        <field name="value">1</field>
-    </record>
 </odoo>

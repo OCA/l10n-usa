@@ -73,26 +73,6 @@
                 <div class="row mt16 o_settings_container" id="plaid_discount_settings">
                     <div
                         class="col-12 col-lg-6 o_setting_box"
-                        id="plaid_discount_settings"
-                    >
-                        <div class="o_setting_left_pane" />
-                        <div class="o_setting_right_pane">
-                            <label for="plaid_discount" />
-                            <div class="text-muted">
-                                Plaid Discount to apply when customers pay with a bank account on the portal.
-                            </div>
-                            <div class="content-group">
-                                <div class="mt16">
-                                    <field
-                                        name="plaid_discount"
-                                        class="o_light_label"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div
-                        class="col-12 col-lg-6 o_setting_box"
                         id="discount_account_id_setting"
                     >
                         <div class="o_setting_left_pane" />
@@ -120,6 +100,27 @@
                                 <div class="mt16">
                                     <field
                                         name="discount_journal_id"
+                                        class="o_light_label"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="col-12 col-lg-6 o_setting_box"
+                        id="charge_account_id_setting"
+                    >
+                        <div class="o_setting_left_pane" />
+                        <div class="o_setting_right_pane">
+                            <label for="charge_account_id" />
+                            <div class="text-muted">
+                                Account to use for plaid charge.
+                            </div>
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <field
+                                        name="charge_account_id"
                                         class="o_light_label"
                                     />
                                 </div>
