@@ -85,3 +85,12 @@ class ResConfigSettings(models.TransientModel):
         config_parameter="account_banking_ach_direct_debit_portal.unique_bank_account",
         default=False,
     )
+
+    autopay_enrollment_template_id = fields.Many2one(
+        "mail.template",
+        string="Enrollment Email Template",
+        config_parameter="account_banking_ach_direct_debit_portal."
+        "autopay_enrollment_template_id",
+        help="Email template sent to customers when they enroll for AutoPay. "
+        "Leave empty to disable sending.",
+    )

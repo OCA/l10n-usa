@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<odoo>
+<odoo noupdate="1">
     <record id="mail_template_autopay_created" model="mail.template">
         <field name="name">AutoPay: Scheduled Payment Order</field>
         <field name="model_id" ref="base.model_res_partner" />
@@ -71,6 +71,41 @@
 
                 <p>Best regards,<br />
                 The Accounting Team</p>
+            </div>
+        </field>
+    </record>
+
+    <record id="mail_template_autopay_enrollment" model="mail.template">
+        <field name="name">AutoPay: Enrollment Confirmation</field>
+        <field name="model_id" ref="base.model_res_partner" />
+        <field
+            name="subject"
+        >[AutoPay] You have enrolled for {{ ctx.get('autopay_name', 'Auto Pay') }}</field>
+        <field name="email_from">{{ user.email_formatted }}</field>
+        <field name="partner_to">{{ object.id }}</field>
+        <field name="auto_delete" eval="True" />
+        <field name="body_html" type="html">
+            <div>
+                <p>Hello <t t-out="object.name" />!</p>
+
+                <p>
+                    You have successfully enrolled for the
+                    <strong><t t-out="ctx.get('autopay_name', '')" /></strong>
+                    auto pay method.
+                </p>
+
+                <p>
+                    From now on, your invoices will be paid automatically according to the auto pay rule you selected.
+                </p>
+
+                <p>
+                    If this was not you or you want to change the rule, please sign in to the customer portal and update your AutoPay settings.
+                </p>
+
+                <p>
+                    Best regards,<br />
+                    The Accounting Team
+                </p>
             </div>
         </field>
     </record>

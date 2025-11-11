@@ -1,4 +1,3 @@
-import json
 from datetime import date
 
 from odoo import http
@@ -10,6 +9,27 @@ from ..controllers.user_portal import UserPortalController as user_portal
 
 
 class AutoPayRulesController(CustomerPortal):
+    def send_autopay_enrollment_mail(self, partner):
+        template_id = (
+            request.env["ir.config_parameter"]
+            .sudo()
+            .get_param(
+                "account_banking_ach_direct_debit_portal.autopay_enrollment_template_id"
+            )
+        )
+
+        if template_id:
+            template = request.env["mail.template"].sudo().browse(int(template_id))
+
+            if template and template.active:
+                autopay_label = dict(partner._fields["autopay"].selection).get(
+                    partner.autopay
+                )
+
+                template.with_context(autopay_name=autopay_label).send_mail(
+                    partner.id, force_send=True
+                )
+
     @http.route(
         ["/autopay-rules"],
         type="http",
@@ -22,10 +42,20 @@ class AutoPayRulesController(CustomerPortal):
             return user_portal.deny_403()
 
         if request.httprequest.method == "POST":
+            autopay_enabled = kw.get("autopay_enabled") == "1"
             autopay_rule = kw.get("autopay_rule")
 
+            if autopay_enabled:
+                autopay_value = autopay_rule
+            else:
+                autopay_value = "disabled"
+
             partner = request.env.user.partner_id
-            partner.write({"autopay": autopay_rule})
+            partner.write({"autopay": autopay_value})
+
+            if autopay_value != "disabled":
+                self.send_autopay_enrollment_mail(partner)
+
             request.session["updated_autopay_rules"] = True
             return request.redirect("/autopay-rules")
 
@@ -50,25 +80,4 @@ class AutoPayRulesController(CustomerPortal):
 
         return request.render(
             "account_banking_ach_direct_debit_portal.portal_autopay_rules", values
-        )
-
-    # Frontend route: Handles the selection of an autopay rule when a user makes a choice
-    @http.route(
-        "/autopay-rules/change", type="http", auth="user", methods=["POST"], csrf=False
-    )
-    def update_autopay(self, **kwargs):
-        try:
-            data = json.loads(request.httprequest.data)
-            autopay_value = data.get("autopay_rule")
-        except Exception:
-            return request.make_json_response({"error": "Invalid JSON"}, status=400)
-
-        if autopay_value not in ["disabled", "end_of_month", "on_due_date"]:
-            return request.make_json_response({"error": "Invalid value"}, status=400)
-
-        partner = request.env.user.partner_id
-        partner.write({"autopay": autopay_value})
-
-        return request.make_json_response(
-            {"status": "success", "autopay": autopay_value}
         )

@@ -198,6 +198,24 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane" />
+                        <div class="o_setting_right_pane">
+                            <label for="autopay_enrollment_template_id" />
+                            <div class="text-muted">
+                                Email template sent to customers when they enroll for AutoPay. Leave empty to disable sending.
+                            </div>
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <field
+                                        name="autopay_enrollment_template_id"
+                                        class="o_light_label"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </xpath>
         </field>
