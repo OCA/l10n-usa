@@ -1,8 +1,9 @@
 [project]
 name = "odoo-addons-oca-l10n-usa"
-version = "17.0.20250318.1"
+version = "17.0.20251116.0"
 dependencies = [
     "odoo-addon-account_banking_ach_base>=17.0dev,<17.1dev",
+    "odoo-addon-account_banking_ach_credit_transfer>=17.0dev,<17.1dev",
     "odoo-addon-l10n_us_form_1099>=17.0dev,<17.1dev",
     "odoo-addon-l10n_us_gaap>=17.0dev,<17.1dev",
     "odoo-addon-l10n_us_gaap_mis_report>=17.0dev,<17.1dev",
