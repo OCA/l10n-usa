@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <!-- View billcom.payment.purpose View Tree -->
+    <record id="view_billcom_payment_purpose_tree" model="ir.ui.view">
+        <field name="name">view.billcom.payment.purpose.tree</field>
+        <field name="model">billcom.payment.purpose</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="code" />
+                <field name="description" />
+                <field name="country_id" />
+                <field name="currency_id" />
+                <field name="account_type" />
+                <field name="active" widget="boolean_toggle" />
+            </tree>
+        </field>
+    </record>
+
+    <!-- View billcom.payment.purpose form -->
+    <record id="view_billcom_payment_purpose_form" model="ir.ui.view">
+        <field name="name">view.billcom.payment.purpose.form</field>
+        <field name="model">billcom.payment.purpose</field>
+        <field name="arch" type="xml">
+            <form string="Bill.com Payment Purpose">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <widget
+                            name="web_ribbon"
+                            title="Archived"
+                            bg_color="bg-danger"
+                            attrs="{'invisible': [('active', '=', True)]}"
+                        />
+                    </div>
+                    <div class="oe_title">
+                        <label for="code" class="oe_edit_only" />
+                        <h1>
+                            <field name="code" placeholder="Payment Purpose Code..." />
+                        </h1>
+                        <label for="description" class="oe_edit_only" />
+                        <h2>
+                            <field name="description" placeholder="Description..." />
+                        </h2>
+                    </div>
+                    <group>
+                        <group string="Configuration">
+                            <field name="country_id" options="{'no_create': True}" />
+                            <field name="currency_id" options="{'no_create': True}" />
+                            <field name="account_type" />
+                            <field name="active" invisible="1" />
+                        </group>
+                        <group string="Bill.com Data">
+                            <field
+                                name="billcom_data"
+                                widget="ace"
+                                options="{'mode': 'json'}"
+                                readonly="1"
+                            />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- View billcom.payment.purpose search -->
+    <record id="view_billcom_payment_purpose_search" model="ir.ui.view">
+        <field name="name">view.billcom.payment.purpose.search</field>
+        <field name="model">billcom.payment.purpose</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="code" />
+                <field name="description" />
+                <field name="country_id" />
+                <field name="currency_id" />
+                <separator />
+                <filter
+                    string="Active"
+                    name="active"
+                    domain="[('active', '=', True)]"
+                />
+                <filter
+                    string="Archived"
+                    name="archived"
+                    domain="[('active', '=', False)]"
+                />
+                <separator />
+                <group expand="1" string="Group By">
+                    <filter
+                        string="Country"
+                        name="group_country"
+                        domain="[]"
+                        context="{'group_by':'country_id'}"
+                    />
+                    <filter
+                        string="Currency"
+                        name="group_currency"
+                        domain="[]"
+                        context="{'group_by':'currency_id'}"
+                    />
+                    <filter
+                        string="Account Type"
+                        name="group_account_type"
+                        domain="[]"
+                        context="{'group_by':'account_type'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action billcom.payment.purpose -->
+    <record id="action_billcom_payment_purpose" model="ir.actions.act_window">
+        <field name="name">Billcom Payment Purpose</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">billcom.payment.purpose</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                There is no examples click here to add new Billcom Payment Purpose.
+            </p>
+        </field>
+    </record>
+
+</odoo>

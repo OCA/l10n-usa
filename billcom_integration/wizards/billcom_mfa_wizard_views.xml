@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- MFA Wizard Form View -->
+    <record id="view_billcom_mfa_wizard_form" model="ir.ui.view">
+        <field name="name">billcom.mfa.wizard.form</field>
+        <field name="model">billcom.mfa.wizard</field>
+        <field name="arch" type="xml">
+            <form string="MFA Code Entry">
+                <group>
+                    <group>
+                        <field name="config_id" readonly="1" />
+                        <field name="state" invisible="1" />
+                        <field name="challenge_id" invisible="1" />
+                        <field name="session_id" invisible="1" />
+                    </group>
+                    <group>
+                        <field name="phone_number" readonly="1" string="Code sent to" />
+                    </group>
+                </group>
+                <group col="2" colspan="2">
+                    <div class="alert alert-info" role="alert" colspan="2">
+                        <strong>MFA Code Required</strong>
+                        <p
+                        >A 6-digit code has been sent to your registered phone number.</p>
+                        <p>Enter the code below to complete MFA setup.</p>
+                        <p><strong
+                            >Remember Me ID will be valid for 30 days.</strong></p>
+                    </div>
+                </group>
+                <group>
+                    <field
+                        name="mfa_code"
+                        placeholder="000000"
+                        class="oe_inline"
+                        required="1"
+                    />
+                </group>
+                <footer>
+                    <button
+                        name="action_validate_mfa"
+                        type="object"
+                        string="Validate Code"
+                        class="btn-primary"
+                        attrs="{'invisible': [('state', '!=', 'challenge')]}"
+                    />
+                    <button
+                        name="action_resend_code"
+                        type="object"
+                        string="Resend Code"
+                        class="btn-secondary"
+                        attrs="{'invisible': [('state', '!=', 'challenge')]}"
+                    />
+                    <button string="Cancel" class="btn-secondary" special="cancel" />
+                    <div
+                        class="text-muted"
+                        attrs="{'invisible': [('state', '!=', 'validating')]}"
+                    >
+                        Validating code...
+                    </div>
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

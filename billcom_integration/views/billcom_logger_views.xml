@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Bill.com Logger Tree View -->
+    <record id="view_billcom_logger_tree" model="ir.ui.view">
+        <field name="name">billcom.logger.tree</field>
+        <field name="model">billcom.logger</field>
+        <field name="arch" type="xml">
+            <tree
+                decoration-success="status == 'success'"
+                decoration-danger="status == 'error'"
+                decoration-warning="status == 'warning'"
+                decoration-info="status == 'processing'"
+            >
+                <field name="create_date" />
+                <field name="operation_type" />
+                <field name="level" />
+                <field name="status" />
+                <field name="record_name" />
+                <field name="billcom_id" />
+                <field name="duration" />
+                <field name="retry_count" />
+                <field name="message" />
+                <field name="user_id" />
+            </tree>
+        </field>
+    </record>
+
+    <!-- Bill.com Logger Form View -->
+    <record id="view_billcom_logger_form" model="ir.ui.view">
+        <field name="name">billcom.logger.form</field>
+        <field name="model">billcom.logger</field>
+        <field name="arch" type="xml">
+            <form string="Bill.com Log Entry" create="false" edit="false">
+                <header>
+                    <field name="status" widget="statusbar" />
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button
+                            name="action_view_related_record"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-external-link"
+                            attrs="{'invisible': [('record_model', '=', False)]}"
+                        >
+                            <span>View Record</span>
+                        </button>
+                        <button
+                            name="action_retry_operation"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-refresh"
+                            attrs="{'invisible': [('sync_queue_id', '=', False)]}"
+                        >
+                            <span>Retry</span>
+                        </button>
+                    </div>
+
+                    <group>
+                        <group>
+                            <field name="operation_type" />
+                            <field name="level" />
+                            <field name="record_model" />
+                            <field name="record_id" />
+                            <field name="record_name" />
+                            <field name="billcom_id" />
+                            <field name="sync_queue_id" invisible="1" />
+
+                        </group>
+                        <group>
+                            <field name="start_time" />
+                            <field name="end_time" />
+                            <field name="duration" />
+                            <field name="retry_count" />
+                            <field name="max_retries" />
+                            <field name="user_id" />
+                            <field name="company_id" />
+                        </group>
+                    </group>
+
+                    <group
+                        string="API Details"
+                        attrs="{'invisible': [('endpoint', '=', False)]}"
+                    >
+                        <group>
+                            <field name="endpoint" />
+                            <field name="http_method" />
+                            <field name="response_status_code" />
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page
+                            string="Message"
+                            attrs="{'invisible': [('message', '=', False)]}"
+                        >
+                            <field name="message" nolabel="1" />
+                        </page>
+                        <page
+                            string="Error Details"
+                            attrs="{'invisible': [('error_message', '=', False)]}"
+                        >
+                            <group>
+                                <field name="error_message" nolabel="1" />
+                            </group>
+                            <group
+                                string="Traceback"
+                                attrs="{'invisible': [('error_traceback', '=', False)]}"
+                            >
+                                <field
+                                    name="error_traceback"
+                                    nolabel="1"
+                                    widget="text"
+                                />
+                            </group>
+                        </page>
+                        <page
+                            string="Request Data"
+                            attrs="{'invisible': [('request_data', '=', False)]}"
+                        >
+                            <field name="request_data" nolabel="1" widget="text" />
+                        </page>
+                        <page
+                            string="Response Data"
+                            attrs="{'invisible': [('response_data', '=', False)]}"
+                        >
+                            <field name="response_data" nolabel="1" widget="text" />
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Bill.com Logger Search View -->
+    <record id="view_billcom_logger_search" model="ir.ui.view">
+        <field name="name">billcom.logger.search</field>
+        <field name="model">billcom.logger</field>
+        <field name="arch" type="xml">
+            <search string="Bill.com Logs">
+                <field name="operation_type" />
+                <field name="record_name" />
+                <field name="billcom_id" />
+                <field name="message" />
+                <field name="user_id" />
+
+                <filter
+                    string="Success"
+                    name="filter_success"
+                    domain="[('status', '=', 'success')]"
+                />
+                <filter
+                    string="Errors"
+                    name="filter_error"
+                    domain="[('status', '=', 'error')]"
+                />
+                <filter
+                    string="Processing"
+                    name="filter_processing"
+                    domain="[('status', 'in', ['pending', 'processing'])]"
+                />
+
+                <separator />
+                <filter
+                    string="Today"
+                    name="filter_today"
+                    domain="[('create_date', '&gt;=', (context_today()).strftime('%Y-%m-%d'))]"
+                />
+                <filter
+                    string="This Week"
+                    name="filter_week"
+                    domain="[('create_date', '&gt;=', (context_today() - datetime.timedelta(days=7)).strftime('%Y-%m-%d'))]"
+                />
+
+                <group expand="0" string="Group By">
+                    <filter
+                        string="Operation Type"
+                        name="group_operation"
+                        context="{'group_by': 'operation_type'}"
+                    />
+                    <filter
+                        string="Status"
+                        name="group_status"
+                        context="{'group_by': 'status'}"
+                    />
+                    <filter
+                        string="Level"
+                        name="group_level"
+                        context="{'group_by': 'level'}"
+                    />
+                    <filter
+                        string="User"
+                        name="group_user"
+                        context="{'group_by': 'user_id'}"
+                    />
+                    <filter
+                        string="Date"
+                        name="group_date"
+                        context="{'group_by': 'create_date:day'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Bill.com Logger Action -->
+    <record id="action_billcom_logger" model="ir.actions.act_window">
+        <field name="name">Bill.com Logs</field>
+        <field name="res_model">billcom.logger</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_filter_today': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No Bill.com logs found
+            </p>
+            <p>
+                Bill.com integration logs will appear here when operations are performed.
+            </p>
+        </field>
+    </record>
+</odoo>

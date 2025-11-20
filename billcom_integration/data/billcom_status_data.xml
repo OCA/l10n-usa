@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Bill Payment Status Data -->
+    <record id="bill_status_paid" model="billcom.bill.status">
+        <field name="name">Paid</field>
+        <field name="code">PAID</field>
+        <field name="sequence">10</field>
+    </record>
+
+    <record id="bill_status_unpaid" model="billcom.bill.status">
+        <field name="name">Unpaid</field>
+        <field name="code">UNPAID</field>
+        <field name="sequence">20</field>
+    </record>
+
+    <record id="bill_status_partially_paid" model="billcom.bill.status">
+        <field name="name">Partially Paid</field>
+        <field name="code">PARTIALLY_PAID</field>
+        <field name="sequence">30</field>
+    </record>
+
+    <record id="bill_status_scheduled" model="billcom.bill.status">
+        <field name="name">Scheduled</field>
+        <field name="code">SCHEDULED</field>
+        <field name="sequence">40</field>
+    </record>
+
+    <record id="bill_status_in_process" model="billcom.bill.status">
+        <field name="name">In Process</field>
+        <field name="code">IN_PROCESS</field>
+        <field name="sequence">50</field>
+    </record>
+
+    <record id="bill_status_undefined" model="billcom.bill.status">
+        <field name="name">Undefined</field>
+        <field name="code">UNDEFINED</field>
+        <field name="sequence">60</field>
+    </record>
+
+    <!-- Bill Approval Status Data -->
+    <record id="bill_approval_status_unassigned" model="billcom.bill.approval.status">
+        <field name="name">Unassigned</field>
+        <field name="code">UNASSIGNED</field>
+        <field name="sequence">10</field>
+    </record>
+
+    <record id="bill_approval_status_assigned" model="billcom.bill.approval.status">
+        <field name="name">Assigned</field>
+        <field name="code">ASSIGNED</field>
+        <field name="sequence">20</field>
+    </record>
+
+    <record id="bill_approval_status_approved" model="billcom.bill.approval.status">
+        <field name="name">Approved</field>
+        <field name="code">APPROVED</field>
+        <field name="sequence">30</field>
+    </record>
+
+    <record id="bill_approval_status_approving" model="billcom.bill.approval.status">
+        <field name="name">Approving</field>
+        <field name="code">APPROVING</field>
+        <field name="sequence">40</field>
+    </record>
+
+    <record id="bill_approval_status_denied" model="billcom.bill.approval.status">
+        <field name="name">Denied</field>
+        <field name="code">DENIED</field>
+        <field name="sequence">50</field>
+    </record>
+
+    <record id="bill_approval_status_undefined" model="billcom.bill.approval.status">
+        <field name="name">Undefined</field>
+        <field name="code">UNDEFINED</field>
+        <field name="sequence">60</field>
+    </record>
+
+    <!-- Invoice Status Data -->
+    <record id="invoice_status_paid_in_full" model="billcom.invoice.status">
+        <field name="name">Paid in Full</field>
+        <field name="code">PAID_IN_FULL</field>
+        <field name="sequence">10</field>
+    </record>
+
+    <record id="invoice_status_open" model="billcom.invoice.status">
+        <field name="name">Open</field>
+        <field name="code">OPEN</field>
+        <field name="sequence">20</field>
+    </record>
+
+    <record id="invoice_status_partial_payment" model="billcom.invoice.status">
+        <field name="name">Partial Payment</field>
+        <field name="code">PARTIAL_PAYMENT</field>
+        <field name="sequence">30</field>
+    </record>
+
+    <record id="invoice_status_scheduled" model="billcom.invoice.status">
+        <field name="name">Scheduled</field>
+        <field name="code">SCHEDULED</field>
+        <field name="sequence">40</field>
+    </record>
+
+    <record id="invoice_status_undefined" model="billcom.invoice.status">
+        <field name="name">Undefined</field>
+        <field name="code">UNDEFINED</field>
+        <field name="sequence">50</field>
+    </record>
+
+    <!-- Payment Status Data -->
+    <record id="payment_status_paid" model="billcom.payment.status">
+        <field name="name">Paid</field>
+        <field name="code">PAID</field>
+        <field name="sequence">10</field>
+    </record>
+
+    <record id="payment_status_void" model="billcom.payment.status">
+        <field name="name">Void</field>
+        <field name="code">VOID</field>
+        <field name="sequence">20</field>
+    </record>
+
+    <record id="payment_status_scheduled" model="billcom.payment.status">
+        <field name="name">Scheduled</field>
+        <field name="code">SCHEDULED</field>
+        <field name="sequence">30</field>
+    </record>
+
+    <record id="payment_status_canceled" model="billcom.payment.status">
+        <field name="name">Canceled</field>
+        <field name="code">CANCELED</field>
+        <field name="sequence">40</field>
+    </record>
+
+    <record id="payment_status_initiated" model="billcom.payment.status">
+        <field name="name">Initiated</field>
+        <field name="code">INITIATED</field>
+        <field name="sequence">50</field>
+    </record>
+
+    <record id="payment_status_undefined" model="billcom.payment.status">
+        <field name="name">Undefined</field>
+        <field name="code">UNDEFINED</field>
+        <field name="sequence">60</field>
+    </record>
+</odoo>
