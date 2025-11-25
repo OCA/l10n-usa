@@ -1,0 +1,58 @@
+<odoo>
+    <!-- Copyright (C) 2021 Open Source Integrators Copyright (C) 2019 Brian
+        McMaster License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+    <record id="account_move_view_form_l10n_us_1099" model="ir.ui.view">
+        <field name="name">account_move_line_view_form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//field[@name='invoice_line_ids']//field[@name='account_id']"
+                position="after"
+            >
+                <field
+                    name="is_1099"
+                    attrs="{'column_invisible' : [('parent.move_type', '!=', 'in_invoice')]}"
+                />
+                <field
+                    name="type_1099_id"
+                    options="{'no_create': 1, 'no_open':1}"
+                    attrs="{'readonly': [('is_1099', '=', False)], 'column_invisible' : [('parent.move_type', '!=', 'in_invoice')]}"
+                />
+                <field
+                    name="box_1099_misc_id"
+                    options="{'no_create': 1, 'no_open':1}"
+                    attrs="{'readonly': ['|',('is_1099', '=', False),('type_1099_id', '!=', %(l10n_us_form_1099.1099_type_misc)d)],
+                            'column_invisible' : [('parent.move_type', '!=', 'in_invoice')]}"
+                />
+                <field
+                    name="legal_id_number"
+                    attrs="{'column_invisible' : [('parent.move_type', '!=', 'in_invoice')]}"
+                />
+            </xpath>
+
+            <xpath
+                expr="//field[@name='line_ids']//field[@name='account_id']"
+                position="after"
+            >
+                <field name="is_1099" invisible="1" />
+                <field
+                    name="type_1099_id"
+                    options="{'no_create': 1, 'no_open':1}"
+                    attrs="{'readonly': [('is_1099', '=', False)]}"
+                    invisible="1"
+                />
+                <field
+                    name="box_1099_misc_id"
+                    options="{'no_create': 1, 'no_open':1}"
+                    invisible="1"
+                    attrs="{'readonly': ['|', ('is_1099', '=', False),('type_1099_id', '!=', %(l10n_us_form_1099.1099_type_misc)d)]}"
+                />
+                <field name="legal_id_number" invisible="1" />
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>
