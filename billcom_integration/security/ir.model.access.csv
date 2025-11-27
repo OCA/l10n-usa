@@ -1,0 +1,38 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_billcom_config_user,billcom.config user,model_billcom_config,account.group_account_invoice,1,1,1,0
+access_billcom_config_manager,billcom.config manager,model_billcom_config,account.group_account_manager,1,1,1,1
+access_billcom_service_user,billcom.service user,model_billcom_service,account.group_account_invoice,1,1,1,0
+access_billcom_service_manager,billcom.service manager,model_billcom_service,account.group_account_manager,1,1,1,1
+access_res_partner_user,res.partner user,model_res_partner,base.group_user,1,1,0,0
+access_res_partner_manager,res.partner manager,model_res_partner,base.group_user,1,1,1,1
+access_account_payment_user,account.payment user,account.model_account_payment,account.group_account_invoice,1,1,1,0
+access_account_payment_manager,account.payment manager,account.model_account_payment,account.group_account_manager,1,1,1,1
+access_billcom_service_abstract_manager,billcom_service_abstract_manager,model_billcom_service_abstract,,1,1,1,1
+access_billcom_logger_user,billcom.logger user,model_billcom_logger,account.group_account_invoice,1,0,0,0
+access_billcom_logger_manager,billcom.logger manager,model_billcom_logger,account.group_account_manager,1,1,1,1
+access_billcom_sync_queue_user,billcom.sync.queue user,model_billcom_sync_queue,account.group_account_invoice,1,0,0,0
+access_billcom_sync_queue_manager,billcom.sync.queue manager,model_billcom_sync_queue,account.group_account_manager,1,1,1,1
+access_billcom_mfa_wizard_user,billcom.mfa.wizard user,model_billcom_mfa_wizard,account.group_account_invoice,1,1,1,1
+access_billcom_mfa_wizard_manager,billcom.mfa.wizard manager,model_billcom_mfa_wizard,account.group_account_manager,1,1,1,1
+access_billcom_sync_wizard_user,billcom.sync.wizard user,model_billcom_sync_wizard,account.group_account_invoice,1,1,1,0
+access_billcom_sync_wizard_manager,billcom.sync.wizard manager,model_billcom_sync_wizard,account.group_account_manager,1,1,1,1
+access_billcom_funding_account_user,billcom.funding.account user,model_billcom_funding_account,account.group_account_invoice,1,0,0,0
+access_billcom_funding_account_manager,billcom.funding.account manager,model_billcom_funding_account,account.group_account_manager,1,1,1,1
+access_billcom_webhook_log_user,billcom.webhook.log user,model_billcom_webhook_log,account.group_account_invoice,1,0,0,0
+access_billcom_webhook_log_manager,billcom.webhook.log manager,model_billcom_webhook_log,account.group_account_manager,1,1,1,1
+access_billcom_document_user,billcom.document user,model_billcom_document,account.group_account_invoice,1,1,1,0
+access_billcom_document_manager,billcom.document manager,model_billcom_document,account.group_account_manager,1,1,1,1
+access_billcom_item_user,billcom.item user,model_billcom_item,account.group_account_invoice,1,1,1,0
+access_billcom_item_manager,billcom.item manager,model_billcom_item,account.group_account_manager,1,1,1,1
+access_billcom_partner_matching_wizard_user,billcom.partner.matching.wizard user,model_billcom_partner_matching_wizard,account.group_account_invoice,1,1,1,1
+access_billcom_partner_matching_wizard_manager,billcom.partner.matching.wizard manager,model_billcom_partner_matching_wizard,account.group_account_manager,1,1,1,1
+access_billcom_partner_matching_line_user,billcom.partner.matching.line user,model_billcom_partner_matching_line,account.group_account_invoice,1,1,1,1
+access_billcom_partner_matching_line_manager,billcom.partner.matching.line manager,model_billcom_partner_matching_line,account.group_account_manager,1,1,1,1
+access_billcom_payment_purpose_manager,billcom_payment_purpose_manager,model_billcom_payment_purpose,,1,1,1,1
+access_billcom_bill_status_user,billcom.bill.status user,model_billcom_bill_status,base.group_user,1,0,0,0
+access_billcom_bill_approval_status_user,billcom.bill.approval.status user,model_billcom_bill_approval_status,base.group_user,1,0,0,0
+access_billcom_invoice_status_user,billcom.invoice.status user,model_billcom_invoice_status,base.group_user,1,0,0,0
+access_billcom_payment_status_user,billcom.payment.status user,model_billcom_payment_status,base.group_user,1,0,0,0
+access_account_payment_billcom_user,account.payment billcom user,account.model_account_payment,group_billcom_user,1,0,0,0
+access_account_payment_billcom_approver,account.payment billcom approver,account.model_account_payment,group_billcom_approver,1,0,0,0
+access_account_payment_billcom_payment_manager,account.payment billcom manager,account.model_account_payment,group_billcom_payment_manager,1,1,1,0

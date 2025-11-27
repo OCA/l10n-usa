@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Actions for records synced FROM Bill.com -->
+
+    <!-- Vendors from Bill.com -->
+    <record id="action_vendors_from_billcom" model="ir.actions.server">
+        <field name="name">Vendors from Bill.com</field>
+        <field name="model_id" ref="model_billcom_config" />
+        <field name="binding_model_id" ref="model_billcom_config" />
+        <field name="state">code</field>
+        <field name="code">
+action = model.browse(context.get('active_id')).action_open_vendors_from_billcom()
+        </field>
+    </record>
+
+    <!-- Customers from Bill.com -->
+    <record id="action_customers_from_billcom" model="ir.actions.server">
+        <field name="name">Customers from Bill.com</field>
+        <field name="model_id" ref="model_billcom_config" />
+        <field name="binding_model_id" ref="model_billcom_config" />
+        <field name="state">code</field>
+        <field name="code">
+action = model.browse(context.get('active_id')).action_open_customers_from_billcom()
+        </field>
+    </record>
+
+    <!-- Bills from Bill.com -->
+    <record id="action_bills_from_billcom" model="ir.actions.server">
+        <field name="name">Bills from Bill.com</field>
+        <field name="model_id" ref="model_billcom_config" />
+        <field name="binding_model_id" ref="model_billcom_config" />
+        <field name="state">code</field>
+        <field name="code">
+action = model.browse(context.get('active_id')).action_open_bills_from_billcom()
+        </field>
+    </record>
+
+    <!-- Invoices from Bill.com -->
+    <record id="action_invoices_from_billcom" model="ir.actions.server">
+        <field name="name">Invoices from Bill.com</field>
+        <field name="model_id" ref="model_billcom_config" />
+        <field name="binding_model_id" ref="model_billcom_config" />
+        <field name="state">code</field>
+        <field name="code">
+action = model.browse(context.get('active_id')).action_open_invoices_from_billcom()
+        </field>
+    </record>
+
+    <!-- Payments from Bill.com -->
+    <record id="action_payments_from_billcom" model="ir.actions.server">
+        <field name="name">Payments from Bill.com</field>
+        <field name="model_id" ref="model_billcom_config" />
+        <field name="binding_model_id" ref="model_billcom_config" />
+        <field name="state">code</field>
+        <field name="code">
+action = model.browse(context.get('active_id')).action_open_payments_from_billcom()
+        </field>
+    </record>
+
+    <!-- Direct window actions (for menus) -->
+    <record id="action_window_vendors_from_billcom" model="ir.actions.act_window">
+        <field name="name">Vendors from Bill.com</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree,form</field>
+        <field
+            name="domain"
+        >[('supplier_rank', '>', 0), ('billcom_id', '!=', False)]</field>
+        <field name="context">{'default_supplier_rank': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No vendors synced from Bill.com yet
+            </p>
+            <p>
+                Use the Sync Wizard to import vendors from Bill.com.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_window_customers_from_billcom" model="ir.actions.act_window">
+        <field name="name">Customers from Bill.com</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree,form</field>
+        <field
+            name="domain"
+        >[('customer_rank', '>', 0), ('billcom_id', '!=', False)]</field>
+        <field name="context">{'default_customer_rank': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No customers synced from Bill.com yet
+            </p>
+            <p>
+                Use the Sync Wizard to import customers from Bill.com.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_window_bills_from_billcom" model="ir.actions.act_window">
+        <field name="name">Bills from Bill.com</field>
+        <field name="res_model">account.move</field>
+        <field name="view_mode">tree,form</field>
+        <field
+            name="domain"
+        >[('move_type', '=', 'in_invoice'), ('billcom_id', '!=', False)]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No bills synced from Bill.com yet
+            </p>
+            <p>
+                Use the Sync Wizard to import bills from Bill.com.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_window_invoices_from_billcom" model="ir.actions.act_window">
+        <field name="name">Invoices from Bill.com</field>
+        <field name="res_model">account.move</field>
+        <field name="view_mode">tree,form</field>
+        <field
+            name="domain"
+        >[('move_type', '=', 'out_invoice'), ('billcom_id', '!=', False)]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No invoices synced from Bill.com yet
+            </p>
+            <p>
+                Use the Sync Wizard to import invoices from Bill.com.
+            </p>
+        </field>
+    </record>
+
+    <record id="action_window_payments_from_billcom" model="ir.actions.act_window">
+        <field name="name">Payments from Bill.com</field>
+        <field name="res_model">account.payment</field>
+        <field name="view_mode">tree,form</field>
+        <field
+            name="domain"
+        >[('payment_type', '=', 'outbound'), ('billcom_id', '!=', False)]</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No payments synced from Bill.com yet
+            </p>
+            <p>
+                Payments synced from Bill.com will appear here.
+            </p>
+        </field>
+    </record>
+
+</odoo>

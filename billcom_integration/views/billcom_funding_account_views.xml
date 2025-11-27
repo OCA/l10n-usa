@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Tree View -->
+    <record id="view_billcom_funding_account_tree" model="ir.ui.view">
+        <field name="name">billcom.funding.account.tree</field>
+        <field name="model">billcom.funding.account</field>
+        <field name="arch" type="xml">
+            <tree decoration-muted="active">
+                <field name="name" />
+                <field name="bank_name" />
+                <field name="account_type" />
+                <field
+                    name="status"
+                    decoration-success="status=='VERIFIED'"
+                    decoration-warning="status=='PENDING'"
+                    decoration-danger="status in ['FAILED', 'UNVERIFIED']"
+                />
+                <field name="is_default_payables" widget="boolean_toggle" />
+                <field name="is_default_receivables" widget="boolean_toggle" />
+                <field name="last_sync_date" />
+                <field name="active" invisible="1" />
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_billcom_funding_account_form" model="ir.ui.view">
+        <field name="name">billcom.funding.account.form</field>
+        <field name="model">billcom.funding.account</field>
+        <field name="arch" type="xml">
+            <form string="Bill.com Funding Account">
+                <header>
+                    <button
+                        name="action_sync_from_billcom"
+                        string="Sync from Bill.com"
+                        type="object"
+                        class="oe_highlight"
+                    />
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button
+                            name="toggle_active"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-archive"
+                        >
+                            <field
+                                name="active"
+                                widget="boolean_button"
+                                options='{"terminology": "archive"}'
+                            />
+                        </button>
+                    </div>
+                    <widget
+                        name="web_ribbon"
+                        title="Archived"
+                        bg_color="bg-danger"
+                        attrs="{'invisible': [('active', '=', False)]}"
+                    />
+                    <widget
+                        name="web_ribbon"
+                        title="Verified"
+                        bg_color="bg-success"
+                        attrs="{'invisible': [('status', '!=', 'VERIFIED')]}"
+                    />
+
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1" />
+                        </h1>
+                    </div>
+
+                    <group>
+                        <group string="Bank Information">
+                            <field name="bank_name" readonly="1" />
+                            <field name="name_on_account" readonly="1" />
+                            <field name="routing_number" readonly="1" />
+                            <field name="account_number" readonly="1" password="True" />
+                            <field name="account_type" readonly="1" />
+                            <field name="owner_type" readonly="1" />
+                        </group>
+                        <group string="Bill.com Settings">
+                            <field name="billcom_id" readonly="1" />
+                            <field name="status" readonly="1" />
+                            <field name="is_default_payables" readonly="1" />
+                            <field name="is_default_receivables" readonly="1" />
+                            <field name="access_to_admins" readonly="1" />
+                            <field name="created_by" readonly="1" />
+                        </group>
+                    </group>
+
+                    <group>
+                        <group string="Timestamps">
+                            <field name="billcom_created_time" readonly="1" />
+                            <field name="billcom_updated_time" readonly="1" />
+                            <field name="last_sync_date" readonly="1" />
+                        </group>
+                        <group string="Company">
+                            <field
+                                name="company_id"
+                                readonly="1"
+                                groups="base.group_multi_company"
+                            />
+                        </group>
+                    </group>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_billcom_funding_account_search" model="ir.ui.view">
+        <field name="name">billcom.funding.account.search</field>
+        <field name="model">billcom.funding.account</field>
+        <field name="arch" type="xml">
+            <search string="Bill.com Funding Accounts">
+                <field name="name" />
+                <field name="bank_name" />
+                <field name="billcom_id" />
+                <field name="routing_number" />
+                <separator />
+                <filter
+                    string="Verified"
+                    name="verified"
+                    domain="[('status', '=', 'VERIFIED')]"
+                />
+                <filter
+                    string="Default Payables"
+                    name="default_payables"
+                    domain="[('is_default_payables', '=', True)]"
+                />
+                <filter
+                    string="Default Receivables"
+                    name="default_receivables"
+                    domain="[('is_default_receivables', '=', True)]"
+                />
+                <separator />
+                <group expand="0" string="Group By">
+                    <filter
+                        string="Bank"
+                        name="group_bank"
+                        context="{'group_by': 'bank_name'}"
+                    />
+                    <filter
+                        string="Account Type"
+                        name="group_type"
+                        context="{'group_by': 'account_type'}"
+                    />
+                    <filter
+                        string="Status"
+                        name="group_status"
+                        context="{'group_by': 'status'}"
+                    />
+                    <filter
+                        string="Company"
+                        name="group_company"
+                        context="{'group_by': 'company_id'}"
+                        groups="base.group_multi_company"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_billcom_funding_account" model="ir.actions.act_window">
+        <field name="name">Funding Accounts</field>
+        <field name="res_model">billcom.funding.account</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'search_default_verified': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No funding accounts found
+            </p>
+            <p>
+                Funding accounts are your organization's bank accounts in Bill.com.<br
+                />
+                Click the "Sync from Bill.com" button to import them.
+            </p>
+        </field>
+    </record>
+
+
+
+</odoo>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Payment Report Action -->
+    <record id="action_billcom_payment_report" model="ir.actions.act_window">
+        <field name="name">Bill.com Payment Report</field>
+        <field name="res_model">account.payment</field>
+        <field name="view_mode">tree,form,pivot,graph</field>
+        <field name="domain">[('billcom', '!=', False)]</field>
+        <field name="context">{'search_default_group_billcom_status': 1}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No payments synchronized with Bill.com yet
+            </p>
+            <p>
+                This report shows all payments that have been synchronized with Bill.com.
+                You can filter and group by different criteria to analyze your payment data.
+            </p>
+        </field>
+    </record>
+
+    <!-- Payment Report Pivot View -->
+    <record id="view_billcom_payment_pivot" model="ir.ui.view">
+        <field name="name">account.payment.pivot.billcom</field>
+        <field name="model">account.payment</field>
+        <field name="arch" type="xml">
+            <pivot string="Bill.com Payments Analysis" display_quantity="true">
+                <field name="billcom_payment_status" type="row" />
+                <field name="billcom_funding_account_type" type="row" />
+                <field name="date" type="col" />
+                <field name="amount" type="measure" />
+                <field name="billcom_funding_amount" type="measure" />
+            </pivot>
+        </field>
+    </record>
+
+    <!-- Payment Report Graph View -->
+    <record id="view_billcom_payment_graph" model="ir.ui.view">
+        <field name="name">account.payment.graph.billcom</field>
+        <field name="model">account.payment</field>
+        <field name="arch" type="xml">
+            <graph string="Bill.com Payments Analysis" type="bar">
+                <field name="billcom_payment_status" />
+                <field name="amount" type="measure" />
+            </graph>
+        </field>
+    </record>
+
+</odoo>

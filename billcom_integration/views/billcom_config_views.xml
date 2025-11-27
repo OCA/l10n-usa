@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_billcom_config_form" model="ir.ui.view">
+        <field name="name">billcom.config.form</field>
+        <field name="model">billcom.config</field>
+        <field name="arch" type="xml">
+            <form string="Bill.com Configuration">
+                <header>
+                    <field
+                        name="state"
+                        widget="statusbar"
+                        statusbar_visible="draft,connected,error"
+                        readonly="1"
+                    />
+                    <!-- Connection Buttons -->
+                    <button
+                        name="test_connection"
+                        type="object"
+                        string="Test Connection"
+                        class="btn-primary"
+                        attrs="{'invisible': [('state', '=', 'connected')]}"
+                    />
+                    <button
+                        name="test_connection"
+                        type="object"
+                        string="Retest Connection"
+                        class="btn-secondary"
+                        attrs="{'invisible': [('state', '=', 'draft')]}"
+                    />
+                    <!-- Sync Buttons -->
+                    <button
+                        name="button_sync_primary_data"
+                        type="object"
+                        string="Synchronize Master Data"
+                        class="btn-secondary"
+                        attrs="{'invisible': [('state', '!=', 'connected')]}"
+                    />
+                    <button
+                        name="%(action_billcom_sync_wizard)d"
+                        type="action"
+                        string="Sync Wizard"
+                        class="btn-primary"
+                        attrs="{'invisible': [('state', '!=', 'connected')]}"
+                    />
+
+                </header>
+                <sheet>
+                    <widget
+                        name="web_ribbon"
+                        title="Archived"
+                        bg_color="bg-danger"
+                        attrs="{'invisible': [('active', '=', True)]}"
+                    />
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Configuration Name" />
+                        </h1>
+                    </div>
+                    <div
+                        class="alert alert-danger"
+                        role="alert"
+                        attrs="{'invisible': [('state', '!=', 'error')]}"
+                    >
+                        <strong>Connection Error:</strong>
+                        <field name="last_error_message" readonly="1" />
+                    </div>
+                    <group>
+                        <group>
+                            <field name="environment" widget="radio" />
+                            <field name="api_url" readonly="1" />
+                            <field
+                                name="company_id"
+                                groups="base.group_multi_company"
+                            />
+                        </group>
+                        <group>
+                            <field name="active" invisible="1" />
+                            <field name="state" invisible="1" />
+                            <field name="last_connection_test" readonly="1" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <!-- API Credentials Tab -->
+                        <page string="API Credentials" name="credentials">
+                            <group>
+                                <group string="Authentication">
+                                    <field
+                                        name="username"
+                                        placeholder="Bill.com Username"
+                                    />
+                                    <field
+                                        name="password"
+                                        password="True"
+                                        placeholder="Bill.com Password"
+                                    />
+                                    <field
+                                        name="organization_id"
+                                        placeholder="Organization ID"
+                                    />
+                                    <field
+                                        name="dev_key"
+                                        password="True"
+                                        placeholder="Developer Key"
+                                    />
+                                    <field name="user_id" placeholder="User ID" />
+                                </group>
+                                <group string="MFA Configuration">
+                                    <field
+                                        name="mfa_device_id"
+                                        password="True"
+                                        placeholder="Device ID (Option 1)"
+                                    />
+                                    <field
+                                        name="mfa_remember_me_id"
+                                        password="True"
+                                        placeholder="Remember Me ID (Option 2)"
+                                    />
+                                    <field
+                                        name="mfa_device_name"
+                                        placeholder="Odoo Integration"
+                                    />
+
+                                    <!-- Setup MFA button (shown when NOT configured) -->
+                                    <button
+                                        name="action_setup_mfa"
+                                        type="object"
+                                        string="Setup MFA (Automated)"
+                                        class="btn-primary"
+                                        icon="fa-shield"
+                                        attrs="{'invisible': [('mfa_remember_me_id', '!=', False)]}"
+                                    />
+
+                                    <!-- Renew MFA button (shown when configured) -->
+                                    <button
+                                        name="action_setup_mfa"
+                                        type="object"
+                                        string="Renew MFA"
+                                        class="btn-warning"
+                                        icon="fa-refresh"
+                                        attrs="{'invisible': [('mfa_remember_me_id', '=', False)]}"
+                                        help="Generate a new Remember Me ID with updated settings (valid 30 days)"
+                                    />
+
+                                    <div
+                                        class="text-muted"
+                                        attrs="{'invisible': [('mfa_remember_me_id', '=', False)]}"
+                                    >
+                                        <i
+                                            class="fa fa-check-circle text-success"
+                                        /> MFA configured (valid 30 days)
+                                    </div>
+                                    <div
+                                        class="alert alert-info"
+                                        attrs="{'invisible': [('mfa_remember_me_id', '!=', False)]}"
+                                    >
+                                        <strong>MFA Required for Payments:</strong>
+                                        <p><strong
+                                            >Option 1 (Manual):</strong> Obtain Device ID from browser cookies</p>
+                                        <p><strong
+                                            >Option 2 (Automated):</strong> Click 'Setup MFA' button</p>
+                                    </div>
+                                </group>
+                                <group string="API Configuration">
+                                    <field name="api_max_retries" />
+                                    <field name="api_retry_delay" />
+                                    <label for="api_max_retries" string="" />
+                                    <div class="text-muted">
+                                        Configure retry logic for API requests.
+                                        Retries help handle temporary network issues.
+                                    </div>
+                                </group>
+                            </group>
+                        </page>
+
+                        <!-- Synchronization Tab -->
+                        <page string="Synchronization" name="sync_settings">
+                            <group string="What to Sync">
+                                <group string="Partners">
+                                    <field name="sync_vendors" />
+                                    <field name="sync_customers" />
+                                </group>
+                                <group string="Documents">
+                                    <field name="sync_bills" />
+                                    <field name="sync_invoices" />
+                                    <field name="sync_payments" />
+                                    <!-- <field
+                                        name="default_payment_type"
+                                        attrs="{'invisible': [('sync_payments', '=', False)]}"
+                                    /> -->
+                                </group>
+                            </group>
+                            <separator string="Automatic Synchronization" />
+                            <group>
+                                <group>
+                                    <field name="auto_sync_enabled" />
+                                    <field
+                                        name="sync_interval"
+                                        attrs="{'invisible': [('auto_sync_enabled', '=', False)]}"
+                                        string="Sync Interval (minutes)"
+                                    />
+                                </group>
+                                <group>
+                                    <div
+                                        class="alert alert-info"
+                                        colspan="2"
+                                        attrs="{'invisible': [('auto_sync_enabled', '=', False)]}"
+                                    >
+                                        <i
+                                            class="fa fa-info-circle"
+                                        /> Automatic sync will run every
+                                        <field
+                                            name="sync_interval"
+                                            readonly="1"
+                                            class="oe_inline"
+                                        /> minutes
+                                    </div>
+                                </group>
+                            </group>
+                        </page>
+
+                        <!-- Webhooks Tab -->
+                        <page string="Webhooks" name="webhooks">
+                            <group>
+                                <group>
+                                    <field name="enable_webhooks" />
+                                    <field
+                                        name="webhook_url"
+                                        widget="CopyClipboardURL"
+                                        attrs="{'readonly':[('environment', '=', 'production')], 'invisible': [('enable_webhooks', '=', False)]}"
+                                    />
+                                    <field
+                                        name="webhook_subscription_state"
+                                        widget="badge"
+                                        decoration-success="webhook_subscription_state=='subscribed'"
+                                        decoration-danger="webhook_subscription_state=='error'"
+                                        decoration-info="webhook_subscription_state=='not_subscribed'"
+                                        attrs="{'invisible': [('enable_webhooks', '=', False)]}"
+                                    />
+                                    <field
+                                        name="webhook_subscription_id"
+                                        readonly="1"
+                                        attrs="{'invisible': ['|', ('enable_webhooks', '=', False), ('webhook_subscription_id', '=', False)]}"
+                                    />
+                                    <field
+                                        name="webhook_secret"
+                                        password="True"
+                                        attrs="{'invisible': [('enable_webhooks', '=', False)]}"
+                                        readonly="1"
+                                    />
+                                </group>
+                                <group />
+                            </group>
+
+                            <!-- Webhook Actions Section -->
+                            <div
+                                attrs="{'invisible': [('enable_webhooks', '=', False)]}"
+                                class="mt16"
+                            >
+                                <separator string="Webhook Actions" />
+                                <div class="row mt8">
+                                    <div class="col-12">
+                                        <!-- Primary Actions -->
+                                        <div
+                                            class="oe_button_box"
+                                            name="webhook_actions"
+                                        >
+                                            <button
+                                                name="button_subscribe_webhooks"
+                                                type="object"
+                                                string="Subscribe"
+                                                class="oe_stat_button btn-primary"
+                                                icon="fa-plug"
+                                                attrs="{'invisible': [('webhook_subscription_state', '=', 'subscribed')]}"
+                                            />
+                                            <button
+                                                name="button_unsubscribe_webhooks"
+                                                type="object"
+                                                string="Unsubscribe"
+                                                class="oe_stat_button btn-warning"
+                                                icon="fa-unlink"
+                                                attrs="{'invisible': [('webhook_subscription_state', '!=', 'subscribed')]}"
+                                                confirm="Are you sure you want to unsubscribe from webhooks?"
+                                            />
+                                            <button
+                                                name="button_test_webhook"
+                                                type="object"
+                                                string="Test Webhook"
+                                                class="oe_stat_button"
+                                                icon="fa-flask"
+                                                attrs="{'invisible': [('webhook_subscription_state', '!=', 'subscribed')]}"
+                                            />
+                                            <button
+                                                name="button_sync_webhook_status"
+                                                type="object"
+                                                string="Sync Status"
+                                                class="oe_stat_button"
+                                                icon="fa-refresh"
+                                            />
+                                            <button
+                                                name="button_view_all_subscriptions"
+                                                type="object"
+                                                string="View All"
+                                                class="oe_stat_button"
+                                                icon="fa-list"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Webhook Events Section -->
+                            <separator
+                                string="Webhook Events"
+                                attrs="{'invisible': [('enable_webhooks', '=', False)]}"
+                            />
+                            <group
+                                attrs="{'invisible': [('enable_webhooks', '=', False)]}"
+                            >
+                                <group string="Business Events">
+                                    <field
+                                        name="webhook_event_bills"
+                                        string="Bills (Created, Updated, Archived, Restored)"
+                                    />
+                                    <field
+                                        name="webhook_event_vendors"
+                                        string="Vendors (Created, Updated, Archived, Restored)"
+                                    />
+                                </group>
+                                <group string="Financial Events">
+                                    <field
+                                        name="webhook_event_payments"
+                                        string="Payments (Updated, Failed)"
+                                    />
+                                    <field
+                                        name="webhook_event_bank_accounts"
+                                        string="Bank Accounts (Created, Updated, Archived)"
+                                    />
+                                </group>
+                            </group>
+
+                            <!-- Webhook Error Alert -->
+                            <div
+                                class="alert alert-warning"
+                                attrs="{'invisible': ['|', ('enable_webhooks', '=', False), ('webhook_subscription_state', '!=', 'error')]}"
+                            >
+                                <strong>Webhook Error:</strong>
+                                <field name="webhook_last_error" readonly="1" />
+                            </div>
+                        </page>
+
+                        <!-- Advanced Tab -->
+                        <page string="Advanced" name="advanced">
+                            <group string="Scheduled Actions Intervals">
+                                <group>
+                                    <field
+                                        name="full_sync_interval"
+                                        string="Full Sync (minutes)"
+                                    />
+                                    <field
+                                        name="payment_sync_interval"
+                                        string="Payment Sync (minutes)"
+                                    />
+                                    <field
+                                        name="payment_status_check_interval"
+                                        string="Payment Status Check (minutes)"
+                                    />
+                                </group>
+                                <group>
+                                    <button
+                                        name="update_scheduled_actions"
+                                        type="object"
+                                        string="Update Scheduled Actions"
+                                        class="btn-primary"
+                                        icon="fa-refresh"
+                                    />
+                                    <div class="text-muted">
+                                        Click to apply the interval changes above to the scheduled actions.
+                                        Set to 0 to disable a scheduled action.
+                                    </div>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user" />
+                    <field name="activity_ids" />
+                    <field name="message_ids" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Bill.com Configuration Tree View -->
+    <record id="view_billcom_config_tree" model="ir.ui.view">
+        <field name="name">billcom.config.tree</field>
+        <field name="model">billcom.config</field>
+        <field name="arch" type="xml">
+            <tree
+                decoration-danger="state == 'error'"
+                decoration-warning="state == 'draft'"
+                decoration-success="state == 'connected'"
+                decoration-muted="active == False"
+            >
+                <field name="name" />
+                <field
+                    name="environment"
+                    widget="badge"
+                    decoration-info="environment=='sandbox'"
+                    decoration-success="environment=='production'"
+                />
+                <field
+                    name="company_id"
+                    groups="base.group_multi_company"
+                    optional="show"
+                />
+                <field
+                    name="state"
+                    widget="badge"
+                    decoration-success="state=='connected'"
+                    decoration-danger="state=='error'"
+                    decoration-warning="state=='draft'"
+                />
+                <field
+                    name="webhook_subscription_state"
+                    string="Webhooks"
+                    widget="badge"
+                    decoration-success="webhook_subscription_state=='subscribed'"
+                    decoration-info="webhook_subscription_state=='not_subscribed'"
+                    decoration-danger="webhook_subscription_state=='error'"
+                    optional="show"
+                />
+                <field
+                    name="sync_vendors"
+                    string="Vendors"
+                    widget="boolean_toggle"
+                    optional="hide"
+                />
+                <field
+                    name="sync_customers"
+                    string="Customers"
+                    widget="boolean_toggle"
+                    optional="hide"
+                />
+                <field
+                    name="sync_bills"
+                    string="Bills"
+                    widget="boolean_toggle"
+                    optional="hide"
+                />
+                <field
+                    name="sync_payments"
+                    string="Payments"
+                    widget="boolean_toggle"
+                    optional="hide"
+                />
+                <field name="last_connection_test" optional="show" />
+                <field name="active" invisible="1" />
+            </tree>
+        </field>
+    </record>
+
+    <!-- Bill.com Configuration Search View -->
+    <record id="view_billcom_config_search" model="ir.ui.view">
+        <field name="name">billcom.config.search</field>
+        <field name="model">billcom.config</field>
+        <field name="arch" type="xml">
+            <search string="Search Bill.com Configuration">
+                <field name="name" />
+                <field name="environment" />
+                <field name="company_id" groups="base.group_multi_company" />
+                <separator />
+                <filter
+                    string="Connected"
+                    name="connected"
+                    domain="[('state', '=', 'connected')]"
+                />
+                <filter
+                    string="Not Connected"
+                    name="draft"
+                    domain="[('state', '=', 'draft')]"
+                />
+                <filter
+                    string="Connection Error"
+                    name="error"
+                    domain="[('state', '=', 'error')]"
+                />
+                <separator />
+                <filter
+                    string="Webhooks Active"
+                    name="webhooks_active"
+                    domain="[('webhook_subscription_state', '=', 'subscribed')]"
+                />
+                <filter
+                    string="Webhooks Error"
+                    name="webhooks_error"
+                    domain="[('webhook_subscription_state', '=', 'error')]"
+                />
+                <separator />
+                <filter
+                    string="Sandbox"
+                    name="sandbox"
+                    domain="[('environment', '=', 'sandbox')]"
+                />
+                <filter
+                    string="Production"
+                    name="production"
+                    domain="[('environment', '=', 'production')]"
+                />
+                <separator />
+                <filter
+                    string="Archived"
+                    name="inactive"
+                    domain="[('active', '=', False)]"
+                />
+                <group expand="0" string="Group By">
+                    <filter
+                        string="Status"
+                        name="group_by_state"
+                        context="{'group_by': 'state'}"
+                    />
+                    <filter
+                        string="Environment"
+                        name="group_by_environment"
+                        context="{'group_by': 'environment'}"
+                    />
+                    <filter
+                        string="Webhook State"
+                        name="group_by_webhook_state"
+                        context="{'group_by': 'webhook_subscription_state'}"
+                    />
+                    <filter
+                        string="Company"
+                        name="group_by_company"
+                        context="{'group_by': 'company_id'}"
+                        groups="base.group_multi_company"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Bill.com Configuration Action -->
+    <record id="action_billcom_config" model="ir.actions.act_window">
+        <field name="name">Bill.com Configuration</field>
+        <field name="res_model">billcom.config</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="view_billcom_config_search" />
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first Bill.com configuration
+            </p>
+            <p>
+                Configure your Bill.com API credentials to enable synchronization
+                between Odoo and Bill.com.
+            </p>
+        </field>
+    </record>
+
+</odoo>

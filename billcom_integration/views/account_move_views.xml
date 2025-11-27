@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="action_sync_to_billcom" model="ir.actions.server">
+        <field name="name">Sync to Bill.com</field>
+        <field name="model_id" ref="account.model_account_move" />
+        <field name="binding_model_id" ref="account.model_account_move" />
+        <field name="state">code</field>
+        <field name="code">records.button_sync_to_billcom()</field>
+        <field name="groups_id" eval="[(4, ref('account.group_account_invoice'))]" />
+    </record>
+
+    <record id="action_send_payment_reminder" model="ir.actions.server">
+        <field name="name">Send Invoice Payment</field>
+        <field name="model_id" ref="account.model_account_move" />
+        <field name="binding_model_id" ref="account.model_account_move" />
+        <field name="state">code</field>
+        <field name="code">records.button_send_invoice_payment_reminder()</field>
+        <field name="groups_id" eval="[(4, ref('account.group_account_invoice'))]" />
+    </record>
+
+    <!-- Vendor Bill Tree View -->
+    <record id="view_invoice_tree_from_billcom" model="ir.ui.view">
+        <field name="name">account.move.tree.billcom</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_invoice_tree" />
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="billcom_invoice_number" />
+            </field>
+        </field>
+
+    </record>
+
+    <!-- Vendor Bill Form View -->
+    <record id="view_account_move_supplier_form_billcom" model="ir.ui.view">
+        <field name="name">account.move.supplier.form.billcom</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='payment_reference']" position="before">
+                <field name="billcom_invoice_number" />
+            </xpath>
+            <xpath expr="//sheet/notebook" position="inside">
+                <page
+                    string="Bill.com Integration"
+                    name="billcom_id"
+                    attrs="{'invisible': [('move_type', 'not in', ['in_invoice', 'out_invoice'])]}"
+                >
+                    <group>
+                        <group>
+                            <field name="is_sync_to_billcom" />
+                            <field name="billcom_sync_manual" widget="boolean_toggle" />
+                            <field
+                                name="billcom_id"
+                                attrs="{'readonly': [('billcom_sync_manual', '=', False)], 'invisible': [('billcom_id', '=', False),('billcom_sync_manual', '=', False)]}"
+                            />
+                            <field
+                                name="last_sync_date"
+                                readonly="1"
+                                attrs="{'invisible': [('last_sync_date', '=', False)]}"
+                            />
+                            <field
+                                name="billcom_sync_status"
+                                readonly="1"
+                                widget="badge"
+                                decoration-success="billcom_sync_status == 'synced'"
+                                decoration-danger="billcom_sync_status == 'sync_failed'"
+                                decoration-info="billcom_sync_status == 'not_synced'"
+                            />
+                            <field
+                                name="billcom_sync_error"
+                                readonly="1"
+                                attrs="{'invisible': [('billcom_sync_error', '=', False)]}"
+                                widget="text"
+                            />
+                        </group>
+                    </group>
+                    <group attrs="{'invisible': [('move_type', '!=', 'in_invoice')]}">
+                        <group>
+                            <button
+                                name="button_sync_attachments_to_billcom"
+                                string="Create Documents from Attachments"
+                                type="object"
+                                class="btn-secondary"
+                                icon="fa-paperclip"
+                                help="Create Bill.com document records from existing attachments on this bill"
+                            />
+                        </group>
+                    </group>
+                    <separator
+                        string="Bill.com Documents"
+                        attrs="{'invisible': [('move_type', '!=', 'in_invoice')]}"
+                    />
+                    <field
+                        name="billcom_document_ids"
+                        attrs="{'invisible': [('move_type', '!=', 'in_invoice')]}"
+                        context="{'default_bill_id': active_id}"
+                    >
+                        <tree
+                            editable="bottom"
+                            decoration-success="upload_status == 'uploaded'"
+                            decoration-danger="upload_status == 'failed'"
+                            decoration-warning="upload_status == 'in_progress'"
+                        >
+                            <field name="name" />
+                            <field name="file_data" filename="name" widget="binary" />
+                            <field name="file_size" widget="integer" readonly="1" />
+                            <field name="billcom_id" optional="show" readonly="1" />
+                            <field
+                                name="upload_status"
+                                widget="badge"
+                                decoration-success="upload_status == 'uploaded'"
+                                decoration-danger="upload_status == 'failed'"
+                                decoration-warning="upload_status == 'in_progress'"
+                                decoration-muted="upload_status == 'pending'"
+                            />
+                            <button
+                                name="button_upload_to_billcom"
+                                type="object"
+                                string="Upload"
+                                class="btn-primary"
+                                attrs="{'invisible': [('upload_status', 'in', ['uploaded', 'in_progress'])]}"
+                                icon="fa-upload"
+                            />
+                            <button
+                                name="button_check_upload_status"
+                                type="object"
+                                string="Check Status"
+                                class="btn-secondary"
+                                attrs="{'invisible': [('upload_status', '!=', 'in_progress')]}"
+                                icon="fa-refresh"
+                            />
+                            <button
+                                name="button_download_from_billcom"
+                                type="object"
+                                string="Download"
+                                class="btn-secondary"
+                                attrs="{'invisible': [('upload_status', '!=', 'uploaded')]}"
+                                icon="fa-download"
+                            />
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+            <xpath expr="//header" position="inside">
+                <button
+                    name="%(action_sync_to_billcom)d"
+                    string="Sync to Bill.com"
+                    type="action"
+                    class="oe_highlight"
+                    attrs="{'invisible': ['|', '|', ('is_sync_to_billcom', '=', False), ('move_type', '!=', 'in_invoice'), ('state', '!=', 'posted')]}"
+                    groups="billcom_integration.group_billcom_user"
+                />
+            </xpath>
+            <!-- Restrict Post button to Approvers and above -->
+            <xpath expr="//button[@name='action_post']" position="attributes">
+                <attribute
+                    name="groups"
+                >billcom_integration.group_billcom_approver</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Customer Invoice Form View -->
+    <record id="view_account_move_form_billcom" model="ir.ui.view">
+        <field name="name">account.move.form.billcom</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button
+                    name="%(action_sync_to_billcom)d"
+                    string="Sync to Bill.com"
+                    type="action"
+                    class="oe_highlight"
+                    attrs="{'invisible': ['|', '|', ('is_sync_to_billcom', '=', False), ('move_type', '!=', 'out_invoice'), ('state', '!=', 'posted')]}"
+                    groups="billcom_integration.group_billcom_user"
+                />
+                <button
+                    name="%(action_send_payment_reminder)d"
+                    string="Send Invoice Payment"
+                    type="action"
+                    class="btn-primary"
+                    attrs="{'invisible': ['|', '|', ('move_type', '!=', 'out_invoice'), ('state', '!=', 'posted'), ('billcom_id', '=', False)]}"
+                    groups="billcom_integration.group_billcom_user"
+                    help="Send payment reminder email to customer with Bill.com payment link"
+                />
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_account_move_filter_inherit_billcom" model="ir.ui.view">
+        <field name="name">account.move.select.inherit.billcom</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_account_move_filter" />
+        <field name="arch" type="xml">
+            <filter name="posted" position="after">
+                <filter
+                    string="Bill.com Sync Enabled"
+                    name="billcom_sync"
+                    domain="[('is_sync_to_billcom', '=', True)]"
+                />
+                <filter
+                    string="Bill.com Linked"
+                    name="billcom_linked"
+                    domain="[('billcom', '!=', False)]"
+                />
+                <separator />
+                <filter
+                    string="Sync Failed"
+                    name="sync_failed"
+                    domain="[('billcom_sync_status', '=', 'sync_failed')]"
+                />
+                <filter
+                    string="Synced to Bill.com"
+                    name="synced"
+                    domain="[('billcom_sync_status', '=', 'synced')]"
+                />
+            </filter>
+            <group position="inside">
+                <filter
+                    string="Bill.com Status"
+                    name="group_billcom_status"
+                    context="{'group_by': 'is_sync_to_billcom'}"
+                />
+            </group>
+        </field>
+    </record>
+
+    <!-- Tree View -->
+    <record id="view_account_move_tree_inherit_billcom" model="ir.ui.view">
+        <field name="name">account.move.tree.inherit.billcom</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_tree" />
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="is_sync_to_billcom" optional="hide" />
+                <field name="billcom_id" optional="hide" />
+                <field name="last_sync_date" optional="hide" />
+            </field>
+        </field>
+    </record>
+</odoo>
