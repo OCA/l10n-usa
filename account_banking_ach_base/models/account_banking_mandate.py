@@ -56,8 +56,9 @@ class AccountBankingMandate(models.Model):
         if payment_modes:
             self.partner_id.write(payment_modes)
 
-    @api.model
-    def create(self, vals):
-        mandate = super(AccountBankingMandate, self).create(vals)
-        mandate.set_payment_modes_on_partner()
-        return mandate
+    @api.model_create_multi
+    def create(self, vals_list):
+        mandates = super(AccountBankingMandate, self).create(vals_list)
+        for mandate in mandates:
+            mandate.set_payment_modes_on_partner()
+        return mandates
