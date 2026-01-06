@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_county_form" model="ir.ui.view">
+        <field name="model">res.country.state.county</field>
+        <field name="arch" type="xml">
+            <search string="Counties">
+                <field name="name" />
+                <field name="state_id" />
+                <field name="country_id" />
+                <group string="Group By">
+                    <filter
+                        name="group_by_state_id"
+                        string="State"
+                        context="{'group_by': 'state_id'}"
+                    />
+                    <filter
+                        name="group_by_country_id"
+                        string="Country"
+                        context="{'group_by': 'country_id'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_counties_list" model="ir.ui.view">
+        <field name="model">res.country.state.county</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name" />
+                <field name="state_id" />
+                <field name="country_id" />
+            </list>
+        </field>
+    </record>
+
+    <record id="action_counties" model="ir.actions.act_window">
+        <field name="name">Counties</field>
+        <field name="res_model">res.country.state.county</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem
+        name="Counties"
+        id="menu_counties"
+        parent="contacts.menu_localisation"
+        action="action_counties"
+        sequence="80"
+    />
+</odoo>
