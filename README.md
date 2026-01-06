@@ -24,6 +24,8 @@ addon | version | maintainers | summary
 [account_banking_ach_base](account_banking_ach_base/) | 18.0.1.0.0 |  | Add fields required for North American Banking & Financials
 [account_banking_ach_credit_transfer](account_banking_ach_credit_transfer/) | 18.0.1.0.0 |  | Create ACH files for Credit Transfers
 [l10n_us_account_routing](l10n_us_account_routing/) | 18.0.1.0.0 |  | Add the routing numbers to the banks
+[l10n_us_base_county](l10n_us_base_county/) | 18.0.0.0.0 |  | Add United States counties.
+[l10n_us_crm_county](l10n_us_crm_county/) | 18.0.0.0.0 |  | Add United States counties to leads.
 [l10n_us_mis_financial_report](l10n_us_mis_financial_report/) | 18.0.1.0.0 | <a href='https://github.com/Christian-RB'><img src='https://github.com/Christian-RB.png' width='32' height='32' style='border-radius:50%;' alt='Christian-RB'/></a> | Profit & Loss (US) / Balance sheet (US) MIS templates
 [l10n_us_partner_legal_number](l10n_us_partner_legal_number/) | 18.0.1.0.0 |  | Add Legal Number for North American Banking & Financials
 
