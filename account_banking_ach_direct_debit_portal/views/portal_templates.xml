@@ -5,6 +5,14 @@
             <a href="/my/payment-account" role="menuitem" class="dropdown-item ps-3">
                 <i class="fa fa-fw fa-credit-card me-1 small text-muted" /> Invoices
             </a>
+            <a
+                href="/stats"
+                role="menuitem"
+                class="dropdown-item ps-3"
+                groups="base.group_system"
+            >
+                <i class="fa fa-bar-chart me-1 small text-muted" /> Stats
+            </a>
         </xpath>
     </template>
 

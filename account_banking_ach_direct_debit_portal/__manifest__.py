@@ -33,6 +33,7 @@
         "views/alert_portal_templates.xml",
         "views/res_config_settings.xml",
         "views/res_user_views.xml",
+        "views/statistics_templates.xml",
     ],
     "assets": {
         "web.assets_frontend": [

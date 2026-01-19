@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="statistics_page" name="Statistics Page">
+        <t t-call="portal.portal_layout">
+            <t t-set="page_title" t-value="'Statistics'" />
+            <t t-set="additional_title">
+                <t t-esc="page_title" />
+            </t>
+            <t t-set="breadcrumbs_searchbar" t-value="True" />
+
+            <div id="statistics-page" class="mt-3">
+                <div class="header mb-4">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h2
+                            class="header-title me-2"
+                            style="font-size: 26px;"
+                        >Statistics</h2>
+                    </div>
+                </div>
+
+                <!-- Invoice Stats Table -->
+                <div class="mb-5">
+                    <h4 class="blue-title mb-3" style="font-size: 20px;">
+                        <i class="fa fa-file-text-o me-2" />Invoices
+                    </h4>
+                    <div class="card-credit" style="padding: 1.5rem;">
+                        <table class="table table-borderless mb-0">
+                            <thead>
+                                <tr>
+                                    <th
+                                        class="text-gray"
+                                        style="font-size: 15px; padding: 0.75rem;"
+                                    >Metric</th>
+                                    <th
+                                        class="text-end text-gray"
+                                        style="font-size: 15px; padding: 0.75rem;"
+                                    >
+                                        <t t-esc="last_year" />
+                                    </th>
+                                    <th
+                                        class="text-end text-gray"
+                                        style="font-size: 15px; padding: 0.75rem;"
+                                    >
+                                        <t t-esc="this_year" />
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="font-size: 15px; padding: 1rem 0.75rem;">
+                                        <i
+                                            class="fa fa-files-o me-2 blue-title"
+                                            style="font-size: 16px;"
+                                        />
+                                        Number of invoices
+                                    </td>
+                                    <td class="text-end" style="padding: 1rem 0.75rem;">
+                                        <span
+                                            class="blue-title"
+                                            style="font-size: 26px; font-weight: 600;"
+                                        >
+                                            <t t-esc="last_year_stats['total']" />
+                                        </span>
+                                    </td>
+                                    <td class="text-end" style="padding: 1rem 0.75rem;">
+                                        <span
+                                            class="blue-title"
+                                            style="font-size: 26px; font-weight: 600;"
+                                        >
+                                            <t t-esc="this_year_stats['total']" />
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="font-size: 15px; padding: 1rem 0.75rem;">
+                                        <i
+                                            class="fa fa-credit-card me-2 blue-title"
+                                            style="font-size: 16px;"
+                                        />
+                                        Number of invoices paid by CC
+                                    </td>
+                                    <td class="text-end" style="padding: 1rem 0.75rem;">
+                                        <span
+                                            class="blue-title"
+                                            style="font-size: 26px; font-weight: 600;"
+                                        >
+                                            <t t-esc="last_year_stats['paid_by_cc']" />
+                                        </span>
+                                    </td>
+                                    <td class="text-end" style="padding: 1rem 0.75rem;">
+                                        <span
+                                            class="blue-title"
+                                            style="font-size: 26px; font-weight: 600;"
+                                        >
+                                            <t t-esc="this_year_stats['paid_by_cc']" />
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="font-size: 15px; padding: 1rem 0.75rem;">
+                                        <i
+                                            class="fa fa-university me-2 blue-title"
+                                            style="font-size: 16px;"
+                                        />
+                                        Number of invoices paid by ACH Payment
+                                    </td>
+                                    <td class="text-end" style="padding: 1rem 0.75rem;">
+                                        <span
+                                            class="blue-title"
+                                            style="font-size: 26px; font-weight: 600;"
+                                        >
+                                            <t t-esc="last_year_stats['paid_by_ach']" />
+                                        </span>
+                                    </td>
+                                    <td class="text-end" style="padding: 1rem 0.75rem;">
+                                        <span
+                                            class="blue-title"
+                                            style="font-size: 26px; font-weight: 600;"
+                                        >
+                                            <t t-esc="this_year_stats['paid_by_ach']" />
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Portal Users Stats Cards -->
+                <div class="mb-4">
+                    <h4 class="blue-title mb-3" style="font-size: 20px;">
+                        <i class="fa fa-users me-2" />Portal Users
+                    </h4>
+                    <div class="row g-3">
+                        <div class="col-lg-3 col-md-6 col-sm-12">
+                            <div class="card-credit h-100" style="padding: 1.25rem;">
+                                <div
+                                    class="d-flex justify-content-start align-items-center mb-2"
+                                >
+                                    <i
+                                        class="fa fa-user"
+                                        style="font-size: 20px; color: #333;"
+                                    />
+                                    <div
+                                        class="ms-2"
+                                        style="font-size: 15px; color: #333;"
+                                    >With portal account</div>
+                                </div>
+                                <div
+                                    class="blue-title"
+                                    style="font-size: 38px; font-weight: 600;"
+                                >
+                                    <t t-esc="portal_user_stats['total']" />
+                                </div>
+                                <div
+                                    class="text-muted"
+                                    style="font-size: 14px;"
+                                >customers</div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-6 col-sm-12">
+                            <div class="card-credit h-100" style="padding: 1.25rem;">
+                                <div
+                                    class="d-flex justify-content-start align-items-center mb-2"
+                                >
+                                    <i
+                                        class="fa fa-check-circle"
+                                        style="font-size: 20px; color: #333;"
+                                    />
+                                    <div
+                                        class="ms-2"
+                                        style="font-size: 15px; color: #333;"
+                                    >Used portal payment</div>
+                                </div>
+                                <div
+                                    class="blue-title"
+                                    style="font-size: 38px; font-weight: 600;"
+                                >
+                                    <t
+                                        t-esc="portal_user_stats['used_portal_payment']"
+                                    />
+                                </div>
+                                <div
+                                    class="text-muted"
+                                    style="font-size: 14px;"
+                                >at least one invoice</div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-6 col-sm-12">
+                            <div class="card-credit h-100" style="padding: 1.25rem;">
+                                <div
+                                    class="d-flex justify-content-start align-items-center mb-2"
+                                >
+                                    <i
+                                        class="fa fa-bank"
+                                        style="font-size: 20px; color: #333;"
+                                    />
+                                    <div
+                                        class="ms-2"
+                                        style="font-size: 15px; color: #333;"
+                                    >Bank account linked</div>
+                                </div>
+                                <div
+                                    class="blue-title"
+                                    style="font-size: 38px; font-weight: 600;"
+                                >
+                                    <t t-esc="portal_user_stats['with_bank_account']" />
+                                </div>
+                                <div
+                                    class="text-muted"
+                                    style="font-size: 14px;"
+                                >customers</div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-6 col-sm-12">
+                            <div class="card-credit h-100" style="padding: 1.25rem;">
+                                <div
+                                    class="d-flex justify-content-start align-items-center mb-2"
+                                >
+                                    <i
+                                        class="fa fa-refresh"
+                                        style="font-size: 20px; color: #333;"
+                                    />
+                                    <div
+                                        class="ms-2"
+                                        style="font-size: 15px; color: #333;"
+                                    >Autopay enabled</div>
+                                </div>
+                                <div
+                                    class="blue-title"
+                                    style="font-size: 38px; font-weight: 600;"
+                                >
+                                    <t t-esc="portal_user_stats['with_autopay']" />
+                                </div>
+                                <div
+                                    class="text-muted"
+                                    style="font-size: 14px;"
+                                >customers</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="statistics_access_denied" name="Statistics Access Denied">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True" />
+            <div class="container my-5">
+                <div
+                    class="alert alert-danger shadow-sm position-relative"
+                    role="alert"
+                >
+                    <h4 class="alert-heading">Access Denied</h4>
+                    <p>
+                        Sorry, you are not allowed to access this page.<br />
+                        The Statistics page is only accessible to users with Administration/Settings permissions.
+                    </p>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>
