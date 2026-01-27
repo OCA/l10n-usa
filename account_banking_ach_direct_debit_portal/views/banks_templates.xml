@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="portal_banks">
+        <t t-call="portal.portal_layout">
+            <t t-set="page_title" t-value="'My Banks'" />
+            <t t-set="additional_title"><t t-esc="page_title" /></t>
+            <t t-set="breadcrumbs_searchbar" t-value="True" />
+
+            <div class="d-none d-lg-block">
+                <t
+                    t-call="account_banking_ach_direct_debit_portal.debit_portal_searchbar"
+                >
+                    <t t-set="title">Bank Accounts</t>
+                </t>
+            </div>
+
+            <div id="bank_accounts" class="mt-3 mt-lg-0">
+                <div t-if="add_success" class="alert alert-success" role="alert">
+                    <strong
+                    >Bank Account Added</strong> — Your bank information has been securely saved.
+                </div>
+
+                <div t-if="edit_bank_success" class="alert alert-success" role="alert">
+                    <strong
+                    >Bank Saved</strong> — Your bank account has been successfully saved to the portal.
+                </div>
+
+                <div
+                    t-if="delete_bank_success"
+                    class="alert alert-success"
+                    role="alert"
+                >
+                    <strong
+                    >Bank Deleted</strong> — Your bank account has been successfully removed.
+                </div>
+
+                <div
+                    t-if="set_default_bank_success"
+                    class="alert alert-success"
+                    role="alert"
+                >
+                    <strong
+                    >Bank Saved</strong> — Your default bank account has been successfully changed.
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center w-100">
+                    <h3 class="header-title mb-0">Bank Accounts</h3>
+
+                    <a href="/my/banks/add" class="btn btn-blue">
+                        Add new
+                    </a>
+                </div>
+
+                <t t-if="not bank_accounts">
+                    <p>There are currently no bank accounts for your account.</p>
+                </t>
+                <t t-if="bank_accounts">
+                    <t t-foreach="bank_accounts" t-as="bank">
+                        <div class="bank-account">
+                            <div
+                                class="d-md-none d-flex justify-content-between align-items-center mb-3"
+                            >
+                                <a
+                                    t-if="not bank.default"
+                                    t-att-href="'/my/bank/set_default/%s' % bank.id"
+                                    class="mark-default-btn btn"
+                                >
+                                    Mark as default
+                                </a>
+                                <div t-else="" />
+
+                                <div
+                                    t-if="bank.verified"
+                                    class="verified d-flex align-items-center"
+                                >
+                                    <span>Verified with plaid</span>
+
+                                    <i class="fa fa-check-circle ms-1" />
+                                </div>
+                            </div>
+                            <div
+                                class="d-flex justify-content-between align-items-center"
+                            >
+                                <div class="bank-info">
+                                    <div><t t-esc="bank.acc_holder_name" /></div>
+                                    <div><t t-esc="bank.bank_name" /></div>
+                                    <div><t t-esc="bank.acc_number" /></div>
+                                </div>
+
+                                <div
+                                    t-if="bank.verified"
+                                    class="verified d-none d-md-block d-flex align-items-center"
+                                >
+                                    <span>Verified with plaid</span>
+
+                                    <i class="fa fa-check-circle ms-1" />
+                                </div>
+
+                                <div
+                                    class="d-flex justify-content-end align-items-center"
+                                >
+                                    <a
+                                        t-if="not bank.default"
+                                        t-att-href="'/my/bank/set_default/%s' % bank.id"
+                                        class="mark-default-btn d-none d-md-block btn me-4"
+                                    >
+                                        Mark as default
+                                    </a>
+                                    <div t-else="" style="width: 155.017px;" />
+
+                                    <a
+                                        t-if="not bank.verified"
+                                        t-att-href="'/my/banks/edit/%s' % bank.id"
+                                        class="edit-btn d-flex cursor-pointer me-4"
+                                    >
+                                        <div class="mobile-circle">
+                                            <i class="fa fa-pencil me-1" />
+                                        </div>
+                                        <span class="d-none d-md-block">Edit</span>
+                                    </a>
+                                    <div t-else="" style="width: 70.9333px;" />
+
+                                    <a
+                                        t-att-href="'/my/banks/delete/%s' % bank.id"
+                                        class="edit-btn d-flex cursor-pointer"
+                                    >
+                                        <div class="mobile-circle">
+                                            <i class="fa fa-trash me-1" />
+                                        </div>
+                                        <span class="d-none d-md-block">Delete</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+
+                <div class="d-flex justify-content-end align-items-center w-100 mt-10">
+                    <a href="javascript:history.back()" class="btn btn-back">
+                        <i class="fa fa-angle-left me-2" /> Back
+                    </a>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="portal_bank_form">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True" />
+
+            <div class="d-none d-md-block">
+                <t
+                    t-call="account_banking_ach_direct_debit_portal.debit_portal_searchbar"
+                >
+                    <t t-set="title">Add bank account</t>
+                </t>
+            </div>
+
+            <div id="bank_accounts" class="mt-3 mt-lg-0">
+                <div class="d-flex justify-content-between align-items-center w-100">
+                    <h3 class="title mb-0">Bank details</h3>
+                </div>
+
+                <form
+                    class="mt-3"
+                    method="post"
+                    t-att-action="edit_mode and ('/my/banks/edit/%s' % bank.id) or '/my/banks/add'"
+                >
+                    <input
+                        type="hidden"
+                        name="csrf_token"
+                        t-att-value="request.csrf_token()"
+                    />
+                    <div class="form-grid">
+                      <div>
+                        <label>Account Holder Name</label>
+                        <input
+                                type="text"
+                                name="acc_holder_name"
+                                t-att-value="edit_mode and bank.acc_holder_name or ''"
+                            />
+                      </div>
+                      <div>
+                        <label>Account Type</label>
+                        <select name="acc_type">
+                            <t t-foreach="acc_type_choices" t-as="choice">
+                                <option
+                                        t-att-value="choice[0]"
+                                        t-att-selected="'selected' if edit_mode and choice[0] == bank.acc_type else None"
+                                    >
+                                  <t t-esc="choice[1]" />
+                                </option>
+                              </t>
+                        </select>
+                      </div>
+
+                      <div>
+                        <label>Routing Number</label>
+                        <input
+                                type="text"
+                                name="routing_number"
+                                t-att-value="edit_mode and bank.aba_routing or ''"
+                            />
+                      </div>
+                      <div>
+                        <label>Account Number</label>
+                        <input
+                                type="text"
+                                name="acc_number"
+                                t-att-value="edit_mode and bank.acc_number or ''"
+                            />
+                      </div>
+
+                      <div>
+                        <label>Bank Name</label>
+                        <input
+                                type="text"
+                                name="bank_name"
+                                t-att-value="edit_mode and bank.bank_name or ''"
+                            />
+                      </div>
+                      <div>
+                        <label>Bank Address</label>
+                        <input
+                                type="text"
+                                name="bank_address"
+                                t-att-value="edit_mode and bank.bank_address or ''"
+                            />
+                      </div>
+                    </div>
+
+                    <div
+                        class="d-flex justify-content-end align-items-center w-100 mt-3"
+                    >
+                        <a href="javascript:history.back()" class="btn btn-back me-2">
+                            Discard
+                        </a>
+
+                        <button class="btn btn-blue">
+                            Save
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </t>
+    </template>
+
+    <template id="add_bank">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True" />
+
+            <t t-call="account_banking_ach_direct_debit_portal.debit_portal_searchbar">
+                <t t-set="title">Add Bank Account</t>
+            </t>
+
+            <div class="d-flex justify-content-between align-items-center w-100">
+                <h3 class="header-title mb-0">Add Account</h3>
+
+                <a href="javascript:history.back()" class="btn btn-back">
+                    <i class="fa fa-angle-left me-2" /> Back
+                </a>
+            </div>
+
+            <div id="error-alert" class="alert alert-danger d-none mt-3" role="alert" />
+
+            <div class="text-center mt-5">
+                <button id="try-again-btn" class="btn btn-blue d-none">
+                    Try Again
+                </button>
+            </div>
+
+            <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js" />
+
+            <t t-call-assets="web.plaid_public" />
+        </t>
+    </template>
+</odoo>

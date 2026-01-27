@@ -1,0 +1,27 @@
+<odoo>
+    <record id="view_account_payment_term_form_ach" model="ir.ui.view">
+        <field name="name">account.payment.term.form.ach</field>
+        <field name="model">account.payment.term</field>
+        <field name="inherit_id" ref="account.view_payment_term_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <separator string="ACH Payment Discount Rule" />
+                <field name="ach_rule_ids">
+                    <tree
+                        editable="bottom"
+                        no_open="True"
+                        default_order="sequence asc, id asc"
+                    >
+                        <field name="sequence" widget="handle" />
+                        <field name="before_or_after" widget="selection" />
+                        <field name="no_days" />
+                        <field name="based_on" />
+                        <field name="discount_or_charge" />
+                        <field name="amount_type" />
+                        <field name="amount" />
+                    </tree>
+                </field>
+            </xpath>
+        </field>
+    </record>
+</odoo>

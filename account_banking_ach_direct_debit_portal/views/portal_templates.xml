@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="my_payment_account_link" inherit_id="portal.my_account_link">
+        <xpath expr="//a[@href='/my/home']" position="after">
+            <a href="/my/payment-account" role="menuitem" class="dropdown-item ps-3">
+                <i class="fa fa-fw fa-credit-card me-1 small text-muted" /> Invoices
+            </a>
+            <a
+                href="/stats"
+                role="menuitem"
+                class="dropdown-item ps-3"
+                groups="base.group_system"
+            >
+                <i class="fa fa-bar-chart me-1 small text-muted" /> Stats
+            </a>
+        </xpath>
+    </template>
+
+    <template
+        id="portal_my_home_invoice_custom_url"
+        inherit_id="account.portal_my_home_invoice"
+        name="Show Payment Account"
+        priority="10"
+    >
+        <xpath
+            expr="//t[@t-set='title' and normalize-space(text())='Invoices &amp; Bills']/following-sibling::t[@t-set='url']"
+            position="attributes"
+        >
+            <attribute name="t-value">'/my/payment-account'</attribute>
+        </xpath>
+    </template>
+
+    <template id="checkout_inherit" inherit_id="payment.checkout">
+        <xpath expr="//form/t[@t-call='{{footer_template_id}}']" position="before">
+            <t t-if="request.httprequest.path == '/payment/pay'">
+                <div class="float-start mt-2">
+                    <button
+                        t-if="request.httprequest.path == '/payment/pay'"
+                        type="button"
+                        class="btn btn-light border btn-lg mb8 mt8"
+                        onclick="window.history.back()"
+                    >
+                        <i class="fa fa-angle-left me-1" />Back
+                    </button>
+                </div>
+            </t>
+        </xpath>
+    </template>
+
+    <template
+        id="sale_order_portal_template__make_invoice_pay_inherit"
+        inherit_id="sale.sale_order_portal_template"
+        name="SO portal: replace checkout with Make Invoice &amp; Pay form"
+        priority="110"
+    >
+
+        <xpath expr="//div[@id='payment_method']" position="attributes">
+            <attribute name="t-if">False</attribute>
+        </xpath>
+
+
+        <xpath expr="//div[@id='payment_method']" position="after">
+            <div class="text-center">
+                <a
+                    t-attf-href="/select-payment-method?order=#{sale_order.id}"
+                    class="btn btn-primary"
+                >
+                    <i class="fa fa-credit-card" /> Pay
+                </a>
+            </div>
+        </xpath>
+
+        <xpath
+            expr="//div[@id='modalaccept']//div[contains(@class,'alert') and contains(@class,'alert-warning')]"
+            position="replace"
+        >
+            <t />
+        </xpath>
+    </template>
+
+    <template
+        id="ach_record_pager"
+        inherit_id="portal.record_pager"
+        name="Portal Record Pager with Text"
+    >
+        <xpath expr="//i[@class='fa fa-chevron-left']" position="after">
+            <span class="text-accent-gray ms-1">Previous</span>
+        </xpath>
+
+        <xpath expr="//i[@class='fa fa-chevron-right']" position="before">
+            <span class="text-gray me-1">Next</span>
+        </xpath>
+    </template>
+
+</odoo>

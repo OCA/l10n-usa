@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+
+    <record id="payment_provider_ach_portal" model="payment.provider">
+        <field name="code">ach_bank_account</field>
+        <field name="name">ACH Bank Account</field>
+        <field name="fa_icon">fa fa-university</field>
+        <field
+            name="image_128"
+            type="base64"
+            file="account_banking_ach_direct_debit_portal/static/description/icon.png"
+        />
+        <field
+            name="module_id"
+            ref="base.module_account_banking_ach_direct_debit_portal"
+        />
+        <field name="state">enabled</field>
+    </record>
+
+</odoo>

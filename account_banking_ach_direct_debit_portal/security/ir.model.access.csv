@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ach_payment_discount_rule,access_ach_payment_discount_rule,model_ach_payment_discount_rule,base.group_user,1,1,1,1

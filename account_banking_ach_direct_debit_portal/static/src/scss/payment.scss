@@ -1,0 +1,163 @@
+#wrapwrap.o_portal {
+    #payment {
+        .card-header {
+            border-bottom: 1px solid #d9d9d9;
+            padding: 12px 24px;
+            background-color: white;
+
+            @media (max-width: 768px) {
+                border-bottom: none;
+            }
+        }
+
+        .item-detail {
+            .item-iframe {
+                width: 800px;
+                height: 600px;
+                zoom: 0.3;
+                border: none;
+            }
+
+            .amount {
+                color: #333333;
+                font-size: 24px;
+                font-weight: 600;
+            }
+
+            .name {
+                font-size: 16px;
+                color: #808080;
+            }
+
+            .note {
+                font-size: 14px;
+                color: #808080;
+            }
+        }
+
+        .payment-checked {
+            border-color: #005491;
+        }
+
+        .o_payment_option_card {
+            padding: 0.5em !important;
+            cursor: pointer;
+
+            .payment_option_name {
+                font-size: 16px;
+                color: #333333;
+                font-weight: 600;
+                padding-top: 1.5px;
+            }
+        }
+
+        .invoice-select {
+            border-radius: 0.4rem;
+            border: 1px solid #ced4da;
+            font-size: 0.95rem;
+            color: #333;
+            padding: 0.5rem 0.75rem;
+            background-color: white;
+
+            &:focus {
+                border-color: #0d6efd;
+                box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+            }
+        }
+
+        .o_portal_my_doc_table {
+            th {
+                background-color: white;
+                font-family: Inter;
+                font-weight: 500;
+                font-size: 13.84px;
+                line-height: 19.37px;
+                letter-spacing: 0%;
+                color: #ababab;
+            }
+
+            td:first-child,
+            th:first-child {
+                padding-left: 24px;
+            }
+        }
+
+        .left {
+            @media (max-width: 768px) {
+                order: 2;
+            }
+        }
+
+        .right {
+            @media (max-width: 768px) {
+                order: 1;
+            }
+        }
+
+        .detail {
+            @media (max-width: 768px) {
+                border: none;
+
+                .card-header {
+                    padding: 12px 0;
+                }
+            }
+        }
+
+        .summary {
+            .card-title {
+                font-weight: 400;
+                font-size: 16px;
+                letter-spacing: 0%;
+                color: #333333;
+                margin-bottom: 25px;
+            }
+
+            .card-body {
+                padding: 2.5em 1.14em !important;
+            }
+
+            .label {
+                font-weight: 500;
+                letter-spacing: 0%;
+                color: #808080;
+            }
+
+            .value {
+                font-size: 16px;
+                color: #333333;
+            }
+        }
+
+        .btn-submit {
+            background-color: #005491;
+            color: white;
+            margin-top: 3rem;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 8px;
+
+            @media (max-width: 768px) {
+                margin-top: 1rem;
+            }
+        }
+    }
+
+    #payment-confirmation {
+        .card-title {
+            border-bottom: 1px solid #d9d9d9;
+        }
+
+        label {
+            color: #6d6d6d96;
+        }
+
+        .value {
+            color: #323232;
+        }
+
+        .alert {
+            border-top: 1px solid #d9d9d9;
+        }
+    }
+}

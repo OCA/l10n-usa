@@ -1,0 +1,132 @@
+#wrapwrap.o_portal {
+    #autopay-settings {
+        .left-header {
+            align-items: center;
+            -webkit-box-pack: start;
+            justify-content: flex-start;
+
+            @media (min-width: 768px) {
+                display: flex !important;
+            }
+        }
+
+        .btn-toggle {
+            position: relative;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+
+            input[type="checkbox"] {
+                display: none;
+            }
+
+            .slider {
+                margin-left: 10px;
+                width: 30px;
+                height: 16px;
+                background-color: white;
+                border-radius: 10px;
+                position: relative;
+                border: 1px solid #1e60a1;
+            }
+
+            .slider::before {
+                content: "";
+                width: 12px;
+                height: 12px;
+                background: #1e60a1;
+                position: absolute;
+                left: 2px;
+                top: 1px;
+                border-radius: 50%;
+                transition: 0.3s;
+            }
+
+            input:checked + .slider::before {
+                transform: translateX(12px);
+            }
+
+            input:checked + .slider {
+                background-color: white;
+            }
+        }
+
+        .autopay-options {
+            @media (max-width: 768px) {
+                margin-bottom: 5px;
+            }
+
+            .option-card {
+                gap: 12px;
+                padding: 14px 16px;
+                border: 1px solid #e0e0e0;
+                border-radius: 8px;
+                cursor: pointer;
+                user-select: none;
+                transition: border-color 0.15s ease, box-shadow 0.15s ease,
+                    background-color 0.15s ease;
+
+                &:hover {
+                    border-color: #d6d6d6;
+                    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+                }
+
+                .option-card-input {
+                    position: absolute;
+                    opacity: 0;
+                    pointer-events: none;
+                }
+
+                .option-radio {
+                    position: relative;
+                    flex: 0 0 18px;
+                    height: 18px;
+                    width: 18px;
+                    margin-top: 2px;
+                    border: 1.5px solid #c9c9c9;
+                    border-radius: 50%;
+                    background: #fff;
+                    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+                }
+
+                .option-card-input:focus-visible + .option-radio {
+                    outline: none;
+                    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+                    border-color: #005491;
+                }
+
+                .option-card-input:checked + .option-radio {
+                    border-color: #e0e0e0;
+                }
+
+                .option-card-input:checked + .option-radio::after {
+                    content: "";
+                    position: absolute;
+                    inset: 3px;
+                    border-radius: 50%;
+                    background: #3b82f6;
+                }
+
+                .option-card-input:checked + .option-title {
+                    font-weight: 600;
+                }
+
+                .option-content {
+                    display: grid;
+                    gap: 2px;
+
+                    .option-title {
+                        font-size: 16px;
+                        color: #4f4f4f;
+                    }
+
+                    .option-desc {
+                        font-size: 14px;
+                        color: #808080;
+                    }
+                }
+            }
+        }
+    }
+}

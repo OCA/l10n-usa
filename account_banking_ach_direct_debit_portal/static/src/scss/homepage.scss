@@ -1,0 +1,39 @@
+#wrapwrap.o_portal {
+    #account-homepage {
+        font-family: "Myriad Pro";
+
+        .header {
+            .setting-icon {
+                font-size: 20px;
+                color: #333333;
+                cursor: pointer;
+            }
+        }
+
+        .card-credit {
+            border: 1px solid #e0e0e0;
+            border-radius: 0.5rem;
+            padding: 1rem 1.5rem;
+            height: 100%;
+
+            .icon {
+                font-size: 16px;
+                color: #333333;
+            }
+
+            .title {
+                margin-bottom: 0;
+                font-size: 16px;
+                color: #333333;
+            }
+
+            .amount {
+                font-weight: 600;
+                font-size: 2rem;
+                letter-spacing: 0%;
+                color: #174378;
+                margin-top: 5px;
+            }
+        }
+    }
+}

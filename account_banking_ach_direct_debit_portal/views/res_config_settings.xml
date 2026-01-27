@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.payment</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='analytic']" position="after">
+                <h2>Plaid</h2>
+                <div class="row mt16 o_settings_container" id="transfer_journal">
+                    <div class="col-xs-12 col-md-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label
+                                        for="plaid_env"
+                                        class="col-md-6 o_light_label"
+                                    />
+                                    <field name="plaid_env" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-md-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label
+                                        for="plaid_client_id"
+                                        class="col-md-6 o_light_label"
+                                    />
+                                    <field name="plaid_client_id" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt16 o_settings_container">
+                    <div id="plaid_secret" class="col-xs-12 col-md-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label
+                                        for="plaid_secret"
+                                        class="col-md-6 o_light_label"
+                                    />
+                                    <field name="plaid_secret" password="True" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        id="unique_bank_account_setting"
+                        class="col-12 col-lg-6 o_setting_box"
+                    >
+                        <div class="o_setting_left_pane">
+                            <field name="unique_bank_account" class="o_light_label" />
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="unique_bank_account" />
+                            <div class="text-muted">
+                                Control how bank account uniqueness is enforced (module-specific usage).
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2>Bank account</h2>
+                <div class="row mt16 o_settings_container" id="plaid_discount_settings">
+                    <div
+                        class="col-12 col-lg-6 o_setting_box"
+                        id="discount_account_id_setting"
+                    >
+                        <div class="o_setting_left_pane" />
+                        <div class="o_setting_right_pane">
+                            <label for="discount_account_id" />
+                            <div class="text-muted">
+                                Account to use for plaid discount.
+                            </div>
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <field
+                                        name="discount_account_id"
+                                        class="o_light_label"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="o_setting_left_pane" />
+                        <div class="o_setting_right_pane mt8">
+                            <label for="discount_journal_id" />
+                            <div class="text-muted">
+                                Journal to use for discount.
+                            </div>
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <field
+                                        name="discount_journal_id"
+                                        class="o_light_label"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="col-12 col-lg-6 o_setting_box"
+                        id="charge_account_id_setting"
+                    >
+                        <div class="o_setting_left_pane" />
+                        <div class="o_setting_right_pane">
+                            <label for="charge_account_id" />
+                            <div class="text-muted">
+                                Account to use for plaid charge.
+                            </div>
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <field
+                                        name="charge_account_id"
+                                        class="o_light_label"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h2>Credit Card</h2>
+                <div
+                    class="row mt16 o_settings_container"
+                    id="credit_card_general_settings"
+                >
+                    <div
+                        class="col-12 col-lg-6 o_setting_box"
+                        id="credit_card_surcharge_settings"
+                    >
+                        <div class="o_setting_left_pane" />
+                        <div class="o_setting_right_pane">
+                            <label for="credit_card_surcharge" />
+                            <div class="text-muted">
+                                Surcharge percentage to apply when customers pay with a credit card on the portal.
+                            </div>
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <field
+                                        name="credit_card_surcharge"
+                                        class="o_light_label"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="col-12 col-lg-6 o_setting_box"
+                        id="surcharge_account_id_setting"
+                    >
+                        <div class="o_setting_left_pane" />
+                        <div class="o_setting_right_pane">
+                            <label for="surcharge_account_id" />
+                            <div class="text-muted">
+                                Account to use for credit card surcharges.
+                            </div>
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <field
+                                        name="surcharge_account_id"
+                                        class="o_light_label"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h2>ACH Payment Portal Activation</h2>
+                <div
+                    class="row mt16 mb-2 o_settings_container"
+                    id="payment_portal_activation_settings"
+                >
+                    <div class="col-12 col-lg-12 o_setting_box">
+                        <div class="text-muted">
+                            <p
+                                class="mb-0"
+                            >Controls who can access the ACH Payment Portal features:</p>
+                            <ul class="">
+                                <li>Disabled: Hide all ACH portal features</li>
+                                <li
+                                >Selected Users Only: Show to users with 'Enable ACH Payment Portal' enabled</li>
+                                <li
+                                >All Portal Users: Enable ACH features for all portal users</li>
+                            </ul>
+                        </div>
+                        <div class="o_setting_right_pane mt16">
+                            <label for="enable_portal" />
+                            <div>
+                                <field name="enable_portal" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane" />
+                        <div class="o_setting_right_pane">
+                            <label for="autopay_enrollment_template_id" />
+                            <div class="text-muted">
+                                Email template sent to customers when they enroll for AutoPay. Leave empty to disable sending.
+                            </div>
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <field
+                                        name="autopay_enrollment_template_id"
+                                        class="o_light_label"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3><strong>Auto Pay Options</strong></h3>
+                <div id="plaid_auto_pay_rules">
+                    <div class="row o_settings_container">
+                        <div
+                            class="col-12 col-lg-6 o_setting_box"
+                            id="autopay_enable_end_of_month"
+                        >
+                            <div class="o_setting_left_pane">
+                                <field
+                                    name="autopay_enable_end_of_month"
+                                    class="o_light_label"
+                                />
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="autopay_enable_end_of_month" />
+                            </div>
+                        </div>
+
+                        <div
+                            class="col-12 col-lg-6 o_setting_box"
+                            id="autopay_enable_on_due_date"
+                        >
+                            <div class="o_setting_left_pane">
+                                <field
+                                    name="autopay_enable_on_due_date"
+                                    class="o_light_label"
+                                />
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="autopay_enable_on_due_date" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row o_settings_container">
+                        <div
+                            class="col-12 col-lg-6 o_setting_box"
+                            id="autopay_enable_specific_date"
+                        >
+                            <div class="o_setting_left_pane">
+                                <field
+                                    name="autopay_enable_specific_date"
+                                    class="o_light_label"
+                                />
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="autopay_enable_specific_date" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

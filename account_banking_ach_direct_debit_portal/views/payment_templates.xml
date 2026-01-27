@@ -1,0 +1,849 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="portal_scheduled_payments">
+        <t t-call="portal.portal_layout">
+            <t t-set="page_title" t-value="'Schedules Payments'" />
+            <t t-set="additional_title"><t t-esc="page_title" /></t>
+            <t t-set="breadcrumbs_searchbar" t-value="True" />
+
+            <t t-call="account_banking_ach_direct_debit_portal.debit_portal_searchbar">
+                <t t-set="title">Schedule Payments</t>
+            </t>
+
+            <t t-if="not payments">
+                <p>There are currently no schedule payments for your account.</p>
+            </t>
+            <t t-if="payments">
+                <!-- Table desktop/tablet -->
+                <div class="d-none d-lg-block">
+                    <t t-call="portal.portal_table">
+                        <thead>
+                            <tr class="active">
+                                <th>Linked invoices</th>
+                                <th>Schedule Date</th>
+                                <th>Bank account</th>
+                                <th class="text-center">Amount</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="payments" t-as="payment">
+                                <tr>
+                                    <td> #<span t-field="payment.move_id.name" />
+                                    </td>
+                                    <td>
+                                        <span t-field="payment.date" />
+                                    </td>
+                                    <td>
+                                        <span
+                                            t-field="payment.bank_partner_id.display_name"
+                                        />
+                                    </td>
+                                    <td class="text-center">
+                                        <span t-field="payment.amount_total" />
+                                    </td>
+                                    <td>
+                                        <div class="dropdown-wrapper text-center">
+                                            <button
+                                                class="btn border-0"
+                                                type="button"
+                                                data-bs-toggle="dropdown"
+                                                aria-expanded="false"
+                                            >
+                                                ⋮
+                                            </button>
+                                            <ul
+                                                class="dropdown-menu dropdown-menu-end shadow-sm rounded-3"
+                                            >
+                                                <li>
+                                                    <a class="dropdown-item" href="#"><i
+                                                            class="fa fa-edit me-2"
+                                                        />Edit</a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item" href="#"><i
+                                                            class="fa fa-times me-2"
+                                                        /> Cancel</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </t>
+                </div>
+
+                <!-- Table mobile -->
+                <div class="d-md-none">
+                    <div
+                        t-foreach="payments"
+                        t-as="payment"
+                        class="table-responsive d-flex align-items-center justify-content-between p-3 border rounded mb-2"
+                    >
+                        <div class="mx-1">
+                            <strong>Linked invoices</strong> #<span
+                                t-field="payment.move_id.name"
+                            />
+                        </div>
+                        <div class="mx-1">
+                            <strong>Schedule Date</strong>
+                            <span t-field="payment.date" />
+                        </div>
+                        <div class="mx-1">
+                            <strong>Bank account</strong>
+                            <span t-field="payment.bank_partner_id.display_name" />
+                        </div>
+                        <div class="mx-1">
+                            <strong>Amount</strong>
+                            <span t-field="payment.amount_total" />
+                        </div>
+
+                        <div class="dropdown-wrapper text-center">
+                            <button
+                                class="btn border-0"
+                                type="button"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                            >
+                                ⋮
+                            </button>
+                            <ul
+                                class="dropdown-menu dropdown-menu-end shadow-sm rounded-3"
+                            >
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="fa fa-edit me-2" /> Edit </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        <i class="fa fa-times me-2" /> Cancel </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <template id="portal_select_payment_method">
+        <t t-call="portal.portal_layout">
+            <t t-set="page_title" t-value="'Select Payment Method'" />
+            <t t-set="additional_title"><t t-esc="page_title" /></t>
+            <t t-set="breadcrumbs_searchbar" t-value="True" />
+
+            <div id="payment" class="container my-0 my-lg-4">
+                <form
+                    t-att-action="make_payment_url"
+                    method="post"
+                    class="o_payment_form mt-3 clearfix"
+                >
+                    <input
+                        type="hidden"
+                        name="csrf_token"
+                        t-att-value="request.csrf_token()"
+                    />
+                    <t t-foreach="invoices" t-as="invoice">
+                        <input type="hidden" name="invoice" t-att-value="invoice.id" />
+                    </t>
+                    <input
+                        t-if="order"
+                        type="hidden"
+                        name="order"
+                        t-att-value="order.id"
+                    />
+                    <div class="row">
+                        <div class="col-md-8 mb-3">
+                            <a
+                                class="d-flex align-items-center justify-content-start text-gray cursor-pointer"
+                                href="/my/payment-account"
+                            >
+                                <i class="fa fa-arrow-left" aria-hidden="true" />
+
+                                <span class="ms-1 pt-1">Back</span>
+                            </a>
+
+                            <h5 class="header-title mt-3">Payment</h5>
+
+                            <div
+                                t-if="invoices"
+                                class="text-gray fs-16 mt-3"
+                            >Invoices</div>
+
+                            <div class="mt-3">
+                                <t t-foreach="invoices" t-as="invoice">
+                                    <div
+                                        class="d-flex align-items-center justify-content-between"
+                                    >
+                                        <div
+                                            class="item-detail d-flex align-items-center justify-content-start"
+                                        >
+                                            <iframe
+                                                class="item-iframe"
+                                                frameborder="0"
+                                                scrolling="no"
+                                                t-att-src="invoice.get_portal_url(report_type='html')"
+                                            />
+
+                                            <div class="ms-2">
+                                                <div
+                                                    class="amount"
+                                                    t-esc="-invoice.amount_residual if invoice.move_type == 'out_refund' else invoice.amount_residual"
+                                                    t-options='{"widget": "monetary", "display_currency": invoice.currency_id}'
+                                                />
+                                                <div
+                                                    class="name mt-4"
+                                                    t-field="invoice.name"
+                                                />
+                                                <div
+                                                    class="note mt-1"
+                                                    t-esc="invoice_due_status_values[invoice.id]"
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div
+                                            class="d-flex align-items-center justify-content-start cursor-pointer js-delete-invoice"
+                                            t-att-data-invoice-id="invoice.id"
+                                        >
+                                            <i
+                                                class="fa fa-trash-o text-danger"
+                                                aria-hidden="true"
+                                            />
+                                            <span class="text-gray ms-1">Delete</span>
+                                        </div>
+                                    </div>
+                                </t>
+                            </div>
+
+
+                            <div t-if="order" class="text-gray fs-16 mt-3">Order</div>
+                            <div
+                                t-if="order"
+                                class="d-flex align-items-center justify-content-between mt-3"
+                            >
+                                <div
+                                    class="item-detail d-flex align-items-center justify-content-start"
+                                >
+                                    <iframe
+                                        class="item-iframe"
+                                        frameborder="0"
+                                        scrolling="no"
+                                        t-att-src="order.get_portal_url(report_type='html')"
+                                    />
+
+                                    <div class="ms-2">
+                                        <div
+                                            class="amount"
+                                            t-esc="order.amount_total"
+                                            t-options='{"widget": "monetary", "display_currency": order.currency_id}'
+                                        />
+                                        <div class="name mt-4" t-field="order.name" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="text-gray fs-16 mt-5">Payment Method</div>
+                            <input
+                                name="selected_provider"
+                                type="hidden"
+                                t-att-value="selected_provider.id"
+                            />
+
+                            <div class="card rounded-5 overflow-visible p-3 mt-2">
+                                <div class="row row-cols-3 g-3">
+                                    <t t-foreach="providers" t-as="provider">
+                                        <div>
+                                            <div
+                                                t-attf-class="card rounded-5 h-100 mt-0 {{ 'payment-checked' if provider.id == selected_payment_option_id else '' }}"
+                                            >
+                                                <label
+                                                    name="o_payment_option_card"
+                                                    class="o_payment_option_card"
+                                                    t-att-for="provider.id"
+                                                >
+                                                    <input
+                                                        type="radio"
+                                                        class="d-none js-payment-option"
+                                                        name="selected_payment_option_id"
+                                                        t-att-value="provider.id"
+                                                        t-att-checked="provider.id == selected_payment_option_id"
+                                                        t-att-id="provider.id"
+                                                    />
+
+                                                    <table class="border-0">
+                                                        <tr>
+                                                            <td><i
+                                                                    t-att-class="provider.fa_icon"
+                                                                    aria-hidden="true"
+                                                                /></td>
+                                                            <td>
+                                                                <div
+                                                                    class="payment_option_name"
+                                                                    t-esc="provider.display_as or provider.name"
+                                                                />
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td />
+                                                            <td>
+                                                                <div
+                                                                    class="note text-muted"
+                                                                    t-if="provider_note.get(provider.id)"
+                                                                    t-esc="provider_note.get(provider.id)"
+                                                                />
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </div>
+
+                                <t t-if="selected_provider.code == 'ach_bank_account'">
+                                    <div
+                                        class="text-gray fs-16 mt-4"
+                                    >Added account</div>
+
+                                    <div
+                                        id="bankPaymentDropdown"
+                                        class="bank-dropdown mt-2"
+                                    >
+                                        <input
+                                            name="partner_bank_id"
+                                            type="hidden"
+                                            t-att-value="partner_bank_default and partner_bank_default.id"
+                                        />
+                                        <div
+                                            class="bank-dropdown-toggle d-flex justify-content-between align-items-center"
+                                        >
+                                            <div class="bank-info">
+                                            <div
+                                                    t-if="partner_bank_default"
+                                                    class="fw-semibold text-dark"
+                                                >Bank Account ************<t
+                                                        t-esc="partner_bank_default.acc_number and partner_bank_default.acc_number[-4:] or ''"
+                                                    /></div>
+                                            <div
+                                                    t-if="partner_bank_default"
+                                                    class="text-gray fs-12"
+                                                ><t
+                                                        t-esc="partner_bank_default.acc_holder_name"
+                                                    /> | <t
+                                                        t-esc="partner_bank_default.bank_name"
+                                                    /></div>
+                                            </div>
+                                            <i class="fa fa-chevron-down text-muted" />
+                                        </div>
+
+                                        <div class="bank-dropdown-menu d-none">
+                                            <t t-foreach="partner_banks" t-as="bank">
+                                                <div
+                                                    t-att-id="bank.id"
+                                                    class="bank-option"
+                                                >
+                                                    <div
+                                                        class="fw-semibold text-dark"
+                                                    >Bank Account ************<t
+                                                            t-esc="bank.acc_number and bank.acc_number[-4:] or ''"
+                                                        /></div>
+
+                                                    <div class="text-gray fs-12"><t
+                                                            t-esc="bank.acc_holder_name"
+                                                        /> | <t
+                                                            t-esc="bank.bank_name"
+                                                        /></div>
+
+                                                    <i
+                                                        class="fa fa-check checkmark text-muted"
+                                                    />
+                                                </div>
+                                            </t>
+                                        </div>
+                                    </div>
+
+                                    <a
+                                        href="/my/banks/add"
+                                        class="fs-16 blue-title text-decoration-underline mt-2"
+                                    >
+                                        Use a different account
+                                    </a>
+                                </t>
+
+                                <t t-if="selected_provider.code == 'authorize'">
+                                    <div
+                                        class="text-gray fs-16 mt-4"
+                                    >Added account</div>
+
+                                    <div
+                                        id="bankPaymentDropdown"
+                                        class="bank-dropdown mt-2"
+                                    >
+                                        <input
+                                            name="partner_payment_token_id"
+                                            type="hidden"
+                                            t-att-value="credit_card_default and credit_card_default.id"
+                                        />
+                                        <div
+                                            class="bank-dropdown-toggle d-flex justify-content-between align-items-center"
+                                        >
+                                            <div class="bank-info">
+                                                <div
+                                                    class="text-gray fs-12"
+                                                >************<t
+                                                        t-esc="credit_card_default.display_name and credit_card_default.display_name[-4:] or ''"
+                                                    /></div>
+                                            </div>
+                                            <i class="fa fa-chevron-down text-muted" />
+                                        </div>
+
+                                        <div class="bank-dropdown-menu d-none">
+                                            <t
+                                                t-foreach="partner_credit_cards"
+                                                t-as="credit_card"
+                                            >
+                                                <div
+                                                    t-att-id="credit_card.id"
+                                                    class="bank-option"
+                                                >
+                                                    <div
+                                                        class="text-gray fs-12"
+                                                    >************<t
+                                                            t-esc="credit_card.display_name and credit_card.display_name[-4:] or ''"
+                                                        /></div>
+
+                                                    <i
+                                                        class="fa fa-check checkmark text-muted"
+                                                    />
+                                                </div>
+                                            </t>
+                                        </div>
+                                    </div>
+
+                                    <a
+                                        href="/my/payment_method"
+                                        class="fs-16 blue-title text-decoration-underline mt-2"
+                                    >
+                                        Use a different account
+                                    </a>
+                                </t>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="card summary rounded-5 ">
+                                <div class="card-body">
+                                    <h5 class="card-title">Summary</h5>
+                                    <div
+                                        t-if="invoices"
+                                        class="d-flex justify-content-between mb-2"
+                                    >
+                                        <span class="label">Invoice quantity</span>
+                                        <span class="value" t-esc="len(invoices)" />
+                                    </div>
+                                    <div
+                                        class="d-flex justify-content-between pt-2 mb-2"
+                                    >
+                                        <span class="label">Subtotal</span>
+                                        <span
+                                            class="value"
+                                            t-esc="base_total_amount"
+                                            t-options='{"widget": "monetary", "display_currency": display_currency}'
+                                        />
+                                    </div>
+                                    <t
+                                        t-if="surcharge_percent and selected_provider.code == 'authorize'"
+                                    >
+                                        <div
+                                            class="d-flex justify-content-between pt-2 pb-4 mb-3"
+                                        >
+                                            <span class="label">Surcharge</span>
+                                            <span
+                                                class="value"
+                                                t-esc="surcharge_amount"
+                                                t-options='{"widget": "monetary", "display_currency": display_currency}'
+                                            />
+                                        </div>
+                                    </t>
+                                    <t
+                                        t-if="ach_charge_amount and selected_provider.code == 'ach_bank_account'"
+                                    >
+                                        <div
+                                            class="d-flex justify-content-between pt-2 pb-3"
+                                        >
+                                            <span class="label">Charge</span>
+                                            <span
+                                                class="text-danger value"
+                                                t-esc="ach_charge_amount"
+                                                t-options='{"widget": "monetary", "display_currency": display_currency}'
+                                            />
+                                        </div>
+                                    </t>
+                                    <t
+                                        t-if="ach_discount_amount and selected_provider.code == 'ach_bank_account'"
+                                    >
+                                        <div
+                                            class="d-flex justify-content-between pt-2 pb-3"
+                                        >
+                                            <span class="label">Discount</span>
+                                            <span
+                                                class="text-danger value"
+                                                t-esc="-ach_discount_amount"
+                                                t-options='{"widget": "monetary", "display_currency": display_currency}'
+                                            />
+                                        </div>
+                                    </t>
+                                    <div
+                                        class="d-flex justify-content-between border-top pt-3 fw-bold"
+                                    >
+                                        <span class="label">Total</span>
+                                        <span
+                                            t-esc="total_amount"
+                                            t-options='{"widget": "monetary", "display_currency": display_currency}'
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <t t-if="not invisible_button">
+                                <button type="submit" class="btn btn-submit w-100 mt-2">
+                                    Submit Payment
+                                </button>
+                            </t>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <t t-call-assets="web.account_banking_ach_direct_debit_portal" />
+
+            <script>
+                document.addEventListener('change', function (e) {
+                    const el = e.target;
+                    if (!el.classList.contains('js-payment-option')) return;
+
+                    const url = new URL(window.location.href);
+
+                    url.searchParams.set('selected_payment_option_id', el.value);
+
+                    window.location.assign(url.toString());
+                });
+
+                document.querySelectorAll('.js-delete-invoice').forEach(btn => {
+                    btn.addEventListener('click', function () {
+                        const invoiceId = this.dataset.invoiceId;
+                        const url = new URL(window.location.href);
+                        const params = url.searchParams;
+
+                        const invoices = params.getAll('invoice');
+
+                        params.delete('invoice');
+                        invoices
+                            .filter(id => id !== invoiceId)
+                            .forEach(id => params.append('invoice', id));
+
+                        if (params.getAll('invoice').length === 0) {
+                            window.location.assign('/my/invoices');
+                            return;
+                        }
+
+                        window.location.assign(url.toString());
+                    });
+                });
+            </script>
+
+        </t>
+    </template>
+
+    <template id="portal_payment_confirmation">
+        <t t-call="portal.portal_layout">
+            <t t-set="page_title" t-value="'Payment Confirmation'" />
+            <t t-set="additional_title"><t t-esc="page_title" /></t>
+            <t t-set="breadcrumbs_searchbar" t-value="True" />
+
+            <t t-call="account_banking_ach_direct_debit_portal.debit_portal_searchbar">
+                <t t-set="title">Payment confirmation</t>
+            </t>
+
+            <div id="payment-confirmation">
+                <form t-att-action="make_payment_url" method="post">
+                    <input
+                        type="hidden"
+                        name="csrf_token"
+                        t-att-value="request.csrf_token()"
+                    />
+
+                    <div class="container">
+                        <div class="card shadow-sm">
+                            <div class="card-body mx-5 my-4">
+                                <h3
+                                    class="card-title text-primary blue-title fw-bold pb-4 mb-4"
+                                >Please
+                                    Confirm Your Payment Details</h3>
+
+                                <div t-if="invoices" class="mb-2 row">
+                                    <label class="col-sm-4 fw-bold">Invoice no#</label>
+                                    <div class="col-sm-8 fw-bold value">
+                                        <t t-foreach="invoices" t-as="invoice">
+                                            <span class="me-1" t-field="invoice.name" />
+                                        </t>
+                                    </div>
+                                </div>
+                                <div t-if="order" class="mb-2 row">
+                                    <label class="col-sm-4 fw-bold">Order no#</label>
+                                    <div class="col-sm-8 fw-bold value">
+                                        <span class="me-1" t-esc="order.name" />
+                                    </div>
+                                </div>
+                                <div class="mb-2 row">
+                                    <label class="col-sm-4 fw-bold">Amount due</label>
+                                    <div class="col-sm-8 fw-bold value">
+                                        <span
+                                            t-esc="base_total_amount"
+                                            t-options='{"widget": "monetary", "display_currency": display_currency}'
+                                        />
+                                    </div>
+                                </div>
+                                <div t-if="earliest_due_date" class="mb-2 row">
+                                    <label class="col-sm-4 fw-bold">Due date</label>
+                                    <div
+                                        class="col-sm-8 fw-bold value"
+                                        t-esc="earliest_due_date"
+                                    />
+                                </div>
+                                <div
+                                    t-if="ach_charge_amount and selected_provider.code == 'ach_bank_account'"
+                                    class="mb-2 row"
+                                >
+                                    <label
+                                        class="col-sm-4 fw-bold"
+                                    >Charge amount</label>
+                                    <div class="col-sm-8 fw-bold value">
+                                        <span
+                                            t-esc="ach_charge_amount"
+                                            t-options='{"widget": "monetary", "display_currency": display_currency}'
+                                        />
+                                    </div>
+                                </div>
+                                <div
+                                    t-if="ach_discount_amount and selected_provider.code == 'ach_bank_account'"
+                                    class="mb-2 row"
+                                >
+                                    <label
+                                        class="col-sm-4 fw-bold"
+                                    >Discount amount</label>
+                                    <div class="col-sm-8 fw-bold value">
+                                        <span
+                                            t-esc="-ach_discount_amount"
+                                            t-options='{"widget": "monetary", "display_currency": display_currency}'
+                                        />
+                                    </div>
+                                </div>
+                                <div
+                                    t-if="ach_discount_amount and selected_provider.code == 'ach_bank_account'"
+                                    class="mb-2 row"
+                                >
+                                    <label
+                                        class="col-sm-4 fw-bold"
+                                    >Discount amount</label>
+                                    <div class="col-sm-8 fw-bold value">
+                                        <span
+                                            t-esc="-ach_discount_amount"
+                                            t-options='{"widget": "monetary", "display_currency": display_currency}'
+                                        />
+                                    </div>
+                                </div>
+                                <div
+                                    t-if="surcharge_amount and selected_provider.code == 'authorize'"
+                                    class="mb-2 row"
+                                >
+                                    <label
+                                        class="col-sm-4 fw-bold"
+                                    >Surcharge amount</label>
+                                    <div class="col-sm-8 fw-bold value">
+                                        <span
+                                            t-esc="surcharge_amount"
+                                            t-options='{"widget": "monetary", "display_currency": display_currency}'
+                                        />
+                                    </div>
+                                </div>
+                                <div class="mb-2 row">
+                                    <label class="col-sm-4 fw-bold">Total amount</label>
+                                    <div class="col-sm-8 fw-bold value">
+                                        <span
+                                            t-esc="total_amount"
+                                            t-options='{"widget": "monetary", "display_currency": display_currency}'
+                                        />
+                                    </div>
+                                </div>
+                                <t t-if="selected_provider.code == 'ach_bank_account'">
+                                    <t t-if="show_select_bank">
+                                        <div class="mb-2 row">
+                                            <label
+                                                class="col-sm-3 fw-bold"
+                                            >Select Bank</label>
+                                            <div class="col-sm-4 fw-bold value">
+                                                <select
+                                                    name="partner_bank_id"
+                                                    class="form-select"
+                                                >
+                                                    <t
+                                                        t-foreach="partner_banks"
+                                                        t-as="bank"
+                                                    >
+                                                        <option
+                                                            t-att-value="bank.id"
+                                                            t-att-selected="bank.id == partner_bank.id and 'selected' or None"
+                                                        >
+                                                            <t
+                                                                t-esc="bank.bank_id.name"
+                                                            /> -
+                                                            <t
+                                                                t-esc="bank.acc_number"
+                                                            />
+                                                            (<t
+                                                                t-esc="bank.acc_holder_name"
+                                                            />)
+                                                        </option>
+                                                    </t>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </t>
+                                    <t t-else="">
+                                        <input
+                                            name="partner_bank_id"
+                                            t-att-value="partner_bank.id"
+                                            type="hidden"
+                                        />
+                                        <div class="mb-2 row">
+                                            <label
+                                                class="col-sm-4 fw-bold"
+                                            >Bank name</label>
+                                            <div
+                                                class="col-sm-8 fw-bold value"
+                                                t-esc="partner_bank.bank_id.name"
+                                            />
+                                        </div>
+                                        <div class="mb-2 row">
+                                            <label
+                                                class="col-sm-4 fw-bold"
+                                            >Account name</label>
+                                            <div
+                                                class="col-sm-8 fw-bold value"
+                                                t-esc="partner_bank.acc_holder_name"
+                                            />
+                                        </div>
+                                        <div class="mb-4 row">
+                                            <label
+                                                class="col-sm-4 fw-bold"
+                                            >Account number</label>
+                                            <div
+                                                class="col-sm-8 fw-bold value"
+                                                t-esc="partner_bank.acc_number"
+                                            />
+                                        </div>
+                                    </t>
+                                </t>
+
+                                <div class="alert">
+                                    <i
+                                        class="fa fa-exclamation-triangle text-warning me-2"
+                                    /> Please
+                                    double-check all the information above before proceeding. </div>
+
+                                <div class="d-flex justify-content-center">
+                                    <a
+                                        href="javascript:history.back()"
+                                        class="btn btn-light me-2 border"
+                                    >
+                                        <i class="fa fa-angle-left me-1" /> Back </a>
+                                    <button
+                                        type="submit"
+                                        class="btn btn-primary btn-blue"
+                                    >Proceed to Pay</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </t>
+    </template>
+
+    <template id="portal_no_bank_account">
+        <t t-call="portal.portal_layout">
+            <t t-set="page_title" t-value="'No Bank Account Configured'" />
+            <t t-set="additional_title"><t t-esc="page_title" /></t>
+            <t t-set="breadcrumbs_searchbar" t-value="True" />
+
+            <t t-call="account_banking_ach_direct_debit_portal.debit_portal_searchbar">
+                <t t-set="title">No Bank Account Configured</t>
+            </t>
+
+            <div id="no-bank-account">
+                <div class="container">
+                    <div class="card px-5 py-4 shadow-sm">
+                        <h2 class="text-danger fw-bold mb-3">No Bank Account Found!</h2>
+                        <p class="mb-2">
+                            You have not configured any bank account yet.
+                        </p>
+
+                        <p class="mb-2">
+                            Please add your bank account information to proceed with transactions.
+                        </p>
+
+                        <p class="mb-4">
+                            You can manage your bank accounts in the Bank Accounts section.
+                        </p>
+
+                        <a
+                            href="/my/banks"
+                            class="btn btn-primary w-fit btn-blue"
+                        >Go to Bank Accounts</a>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+
+    <template id="portal_payment_success">
+        <t t-call="portal.portal_layout">
+            <t t-set="page_title" t-value="'Payment Success'" />
+            <t t-set="additional_title"><t t-esc="page_title" /></t>
+            <t t-set="breadcrumbs_searchbar" t-value="True" />
+
+            <t t-call="account_banking_ach_direct_debit_portal.debit_portal_searchbar">
+                <t t-set="title">Payment Success</t>
+            </t>
+
+            <div id="payment-success">
+                <div class="container">
+                    <div class="card px-5 py-4 shadow-sm">
+                        <h2 class="text-primary blue-title fw-bold mb-3">Thank You!</h2>
+                        <p
+                            class="mb-2"
+                        >Your payment has been successfully processed.</p>
+
+                        <p class="mb-2">
+                            We appreciate your business and look forward to serving you again.
+                            A confirmation email with your invoice details has been sent to
+                            your registered email address.
+                        </p>
+
+                        <p class="mb-4">
+                            If you have any questions, feel free to contact our support team.
+                        </p>
+
+                        <a
+                            href="/my/invoices"
+                            class="btn btn-primary w-fit btn-blue"
+                        >Return to Invoices</a>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>
