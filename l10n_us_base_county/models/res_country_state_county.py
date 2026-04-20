@@ -12,7 +12,7 @@ class County(models.Model):
     _description = "United States County"
 
     _name_uniq = models.Constraint(
-        'unique (name)',
+        'unique (name, state_id)',
         "County name must be unique per state!",
     )
 
