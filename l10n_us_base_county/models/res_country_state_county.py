@@ -10,13 +10,11 @@ _logger = logging.getLogger(__name__)
 class County(models.Model):
     _name = "res.country.state.county"
     _description = "United States County"
-    _sql_constraints = [
-        (
-            "name_uniq",
-            "unique(name, state_id)",
-            "County name must be unique per state!",
-        ),
-    ]
+
+    _name_uniq = models.Constraint(
+        'unique (name)',
+        "County name must be unique per state!",
+    )
 
     name = fields.Char()
     country_id = fields.Many2one(

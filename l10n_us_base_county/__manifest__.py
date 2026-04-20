@@ -1,6 +1,6 @@
 {
     "name": "United States - Counties",
-    "version": "18.0.0.0.0",
+    "version": "19.0.0.0.0",
     "category": "Localization",
     "summary": "Add United States counties.",
     "author": "MetricWise, Odoo Community Association (OCA)",
