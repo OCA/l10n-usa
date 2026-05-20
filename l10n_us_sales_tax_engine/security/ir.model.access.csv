@@ -1,0 +1,21 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_us_tax_jurisdiction_user,us.tax.jurisdiction user,model_us_tax_jurisdiction,group_us_tax_user,1,0,0,0
+access_us_tax_jurisdiction_manager,us.tax.jurisdiction manager,model_us_tax_jurisdiction,group_us_tax_manager,1,1,1,1
+access_us_tax_zip_mapping_user,us.tax.zip.mapping user,model_us_tax_zip_mapping,group_us_tax_user,1,0,0,0
+access_us_tax_zip_mapping_manager,us.tax.zip.mapping manager,model_us_tax_zip_mapping,group_us_tax_manager,1,1,1,1
+access_us_tax_rate_user,us.tax.rate user,model_us_tax_rate,group_us_tax_user,1,0,0,0
+access_us_tax_rate_manager,us.tax.rate manager,model_us_tax_rate,group_us_tax_manager,1,1,1,1
+access_us_tax_product_category_user,us.tax.product.category user,model_us_tax_product_category,group_us_tax_user,1,0,0,0
+access_us_tax_product_category_manager,us.tax.product.category manager,model_us_tax_product_category,group_us_tax_manager,1,1,1,1
+access_us_tax_rule_user,us.tax.rule user,model_us_tax_rule,group_us_tax_user,1,0,0,0
+access_us_tax_rule_manager,us.tax.rule manager,model_us_tax_rule,group_us_tax_manager,1,1,1,1
+access_us_tax_nexus_user,us.tax.nexus user,model_us_tax_nexus,group_us_tax_user,1,0,0,0
+access_us_tax_nexus_manager,us.tax.nexus manager,model_us_tax_nexus,group_us_tax_manager,1,1,1,1
+access_us_tax_provider_technical,us.tax.provider technical,model_us_tax_provider,group_us_tax_technical,1,1,1,1
+access_us_tax_provider_manager,us.tax.provider manager,model_us_tax_provider,group_us_tax_manager,1,1,0,0
+access_us_tax_api_cache_technical,us.tax.api.cache technical,model_us_tax_api_cache,group_us_tax_technical,1,1,1,1
+access_us_tax_api_cache_manager,us.tax.api.cache manager,model_us_tax_api_cache,group_us_tax_manager,1,0,0,0
+access_us_tax_calculation_log_user,us.tax.calculation.log user,model_us_tax_calculation_log,group_us_tax_user,1,0,0,0
+access_us_tax_import_batch_manager,us.tax.import.batch manager,model_us_tax_import_batch,group_us_tax_manager,1,1,1,0
+access_us_tax_engine_service,us.tax.engine.service,model_us_tax_engine_service,group_us_tax_user,1,0,0,0
+access_us_tax_import_wizard,access_us_tax_import_wizard,l10n_us_sales_tax_engine.model_us_tax_import_wizard,l10n_us_sales_tax_engine.group_us_tax_manager,1,1,1,0

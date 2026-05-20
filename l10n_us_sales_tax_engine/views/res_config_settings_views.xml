@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_us_tax" model="ir.ui.view">
+        <field name="name">res.config.settings.us.tax</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <block title="US Sales Tax Engine" id="us_tax_engine_block">
+                    <setting id="us_tax_engine_active"
+                             help="Activate hybrid US Sales Tax calculation for US customer addresses.">
+                        <field name="us_tax_engine_active" string="Enable US Sales Tax Engine"/>
+                    </setting>
+                    <setting id="us_tax_engine_mode"
+                             invisible="not us_tax_engine_active"
+                             help="How the engine selects the tax rate source.">
+                        <label for="us_tax_engine_mode" string="Engine Mode"/>
+                        <field name="us_tax_engine_mode"/>
+                    </setting>
+                    <setting id="us_tax_fail_policy"
+                             invisible="not us_tax_engine_active"
+                             help="What happens when all providers fail.">
+                        <label for="us_tax_fail_policy" string="API Failure Policy"/>
+                        <field name="us_tax_fail_policy"/>
+                    </setting>
+                    <setting id="us_tax_cache_ttl"
+                             invisible="not us_tax_engine_active"
+                             help="Hours to keep API responses in cache. Default: 720 (30 days).">
+                        <label for="us_tax_cache_ttl_hours" string="Cache TTL (hours)"/>
+                        <field name="us_tax_cache_ttl_hours"/>
+                    </setting>
+                    <setting id="us_tax_confidence"
+                             invisible="not us_tax_engine_active"
+                             help="Minimum ZIP-to-jurisdiction confidence (0.0-1.0).">
+                        <label for="us_tax_confidence_threshold" string="ZIP Confidence Threshold"/>
+                        <field name="us_tax_confidence_threshold"/>
+                    </setting>
+                </block>
+
+                <block title="US Tax API Providers" id="us_tax_providers_block">
+                    <setting id="us_tax_ziptax_setting"
+                             invisible="not us_tax_engine_active or us_tax_engine_mode == 'local'"
+                             help="ZIP-level lookup. Free: 100 calls/month. Register at zip.tax/register">
+                        <field name="us_tax_enable_ziptax" string="Enable ZipTax (zip.tax)"/>
+                        <div invisible="not us_tax_enable_ziptax" class="mt8">
+                            <label for="us_tax_ziptax_api_key" string="ZipTax API Key"/>
+                            <field name="us_tax_ziptax_api_key" password="True"
+                                   placeholder="API Key from zip.tax dashboard"/>
+                        </div>
+                    </setting>
+                    <setting id="us_tax_api_ninjas_setting"
+                             invisible="not us_tax_engine_active or us_tax_engine_mode == 'local'"
+                             help="Free tier returns state rate only. Register at api-ninjas.com">
+                        <field name="us_tax_enable_api_ninjas" string="Enable API Ninjas"/>
+                        <div invisible="not us_tax_enable_api_ninjas" class="mt8">
+                            <label for="us_tax_api_ninjas_key" string="API Ninjas Key"/>
+                            <field name="us_tax_api_ninjas_key" password="True"
+                                   placeholder="X-Api-Key from api-ninjas.com"/>
+                        </div>
+                    </setting>
+                    <setting id="us_tax_taxjar_setting"
+                             invisible="not us_tax_engine_active or us_tax_engine_mode == 'local'"
+                             help="Address-level accuracy. Paid plan required. Register at taxjar.com">
+                        <field name="us_tax_enable_taxjar" string="Enable TaxJar (Paid)"/>
+                        <div invisible="not us_tax_enable_taxjar" class="mt8">
+                            <label for="us_tax_taxjar_token" string="TaxJar API Token"/>
+                            <field name="us_tax_taxjar_token" password="True"
+                                   placeholder="Bearer token from app.taxjar.com"/>
+                        </div>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+</odoo>
