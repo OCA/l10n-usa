@@ -26,34 +26,34 @@ class TestResBank(TransactionCase):
         )
 
     def test_routing_number_us_bank(self):
-        number = self.us_bank.routing_number = 310033974
+        number = self.us_bank.routing_number = "310033974"
         bank_name = self.us_bank.name
         self.assertEqual(
             number,
-            310033974,
+            "310033974",
             f"You should have the routing number {number} for the bank {bank_name}",
         )
         # We want to test the exception
         with self.assertRaises(ValidationError):
-            self.us_bank.routing_number = 1
+            self.us_bank.routing_number = "1"
 
     def test_routing_number_canadian_bank(self):
-        number = self.canadian_bank.routing_number = 12162004
+        number = self.canadian_bank.routing_number = "12162004"
         bank_name = self.canadian_bank.name
         self.assertEqual(
             number,
-            12162004,
+            "12162004",
             f"You should have the routing number 12162004 for the bank {bank_name}",
         )
         # We want to test the exception
         with self.assertRaises(ValidationError):
-            self.canadian_bank.routing_number = 1
+            self.canadian_bank.routing_number = "1"
 
     def test_routing_number_belgium_bank(self):
-        number = self.belgium_bank.routing_number = 5
+        number = self.belgium_bank.routing_number = "5"
         bank_name = self.belgium_bank.name
         self.assertEqual(
             number,
-            5,
+            "5",
             f"You should have the routing number 5 for the bank {bank_name}",
         )

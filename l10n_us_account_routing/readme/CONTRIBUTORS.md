@@ -1,2 +1,3 @@
 - Thiago Mulero \<<thiago.mulero@forgeflow.com>\>
 - Do Anh Duy \<<duyda@trobz.com>\>
+- Don Kendall \<<dkendall@ledoweb.com>\>
