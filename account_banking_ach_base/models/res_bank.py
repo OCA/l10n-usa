@@ -19,12 +19,16 @@ class ResBank(models.Model):
                 rtn.validate(self.routing_number)
             except Exception:
                 raise ValidationError(  # noqa: B904
-                    self.env._("%s is not a valid US routing number!")
-                    % self.routing_number
+                    self.env._(
+                        "%(routing_number)s is not a valid US routing number!",
+                        routing_number=self.routing_number,
+                    )
                 )
         elif country_code == "CA":
-            if len(self.routing_number) != 8 or not self.routing_number.is_digit():
+            if len(self.routing_number) != 8 or not self.routing_number.isdigit():
                 raise ValidationError(
-                    self.env._("%s is not a valid Canadian routing number!")
-                    % self.routing_number
+                    self.env._(
+                        "%(routing_number)s is not a valid Canadian routing number!",
+                        routing_number=self.routing_number,
+                    )
                 )

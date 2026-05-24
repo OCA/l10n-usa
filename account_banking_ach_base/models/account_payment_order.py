@@ -41,13 +41,18 @@ class AccountPaymentOrder(models.Model):
         legal_id_number = self.company_id.legal_id_number
         if not legal_id_number:
             raise UserError(
-                self.env._("%s does not have an EIN / SSN / BN assigned!")
-                % self.company_id.name
+                self.env._(
+                    "%(name)s does not have an EIN / SSN / BN assigned!",
+                    name=self.company_id.name,
+                )
             )
 
         if not routing_number:
             raise UserError(
-                self.env._("%s does not have a Routing Number assigned!") % bank.name
+                self.env._(
+                    "%(name)s does not have a Routing Number assigned!",
+                    name=bank.name,
+                )
             )
         return {
             "immediate_dest": self.company_partner_bank_id.acc_number,
@@ -60,14 +65,18 @@ class AccountPaymentOrder(models.Model):
     def validate_banking(self, line):
         if not line.partner_bank_id.bank_id:
             raise UserError(
-                self.env._("%s account number has no Bank assigned")
-                % line.partner_bank_id.acc_number
+                self.env._(
+                    "%(acc_number)s account number has no Bank assigned",
+                    acc_number=line.partner_bank_id.acc_number,
+                )
             )
 
         if not line.partner_bank_id.bank_id.routing_number:
             raise UserError(
-                self.env._("%s has no routing number specified")
-                % line.partner_bank_id.bank_id.name
+                self.env._(
+                    "%(name)s has no routing number specified",
+                    name=line.partner_bank_id.bank_id.name,
+                )
             )
 
     def validate_mandates(self, line):
@@ -83,7 +92,7 @@ class AccountPaymentOrder(models.Model):
                 )
             )
         if line.mandate_id.state != "valid":
-            raise Warning(
+            raise UserError(
                 self.env._(
                     "The ACH Direct Debit mandate with "
                     "reference %(unique_mandate_reference)s "
@@ -93,7 +102,7 @@ class AccountPaymentOrder(models.Model):
                 name=line.mandate_id.partner_id.name,
             )
         if line.mandate_id.type == "oneoff" and line.mandate_id.last_debit_date:
-            raise Warning(
+            raise UserError(
                 self.env._(
                     "The mandate with reference %(unique_mandate_reference)s "
                     "for partner %(name)s has type set to 'One-Off' and it has a "

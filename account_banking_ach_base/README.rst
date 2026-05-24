@@ -76,6 +76,7 @@ Contributors
 - Maxime Chambreuil <mchambreuil@opensourceintegrators.com>
 - Serpent Consulting Services Pvt. Ltd. <support@serpentcs.com>
 - Murtaza Mithaiwala <mmithaiwala@opensourceintegrators.com>
+- Don Kendall dkendall@ledoweb.com
 
 Maintainers
 -----------
