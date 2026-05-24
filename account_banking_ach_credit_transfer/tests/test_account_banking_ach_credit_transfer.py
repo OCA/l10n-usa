@@ -44,10 +44,67 @@ class TestACHCreditTransfer(BaseCommon):
                 "bank_account_id": bank_account.id,
             }
         )
-        cls.payment_mode = cls.env.ref(
-            "account_banking_ach_credit_transfer.payment_mode_outbound_ach_ct1"
+        cls.payment_mode = cls.env["account.payment.mode"].create(
+            {
+                "name": "ACH",
+                "company_id": cls.company.id,
+                "bank_account_link": "variable",
+                "payment_method_id": cls.env.ref(
+                    "account_banking_ach_credit_transfer.ach_credit_transfer"
+                ).id,
+            }
         )
         cls.payment_mode.variable_journal_ids += cls.bank_journal
+        # Provide an open payable move line for the payment order to pull.
+        # (Previously this came from demo data, which is not loaded under tests.)
+        payable_account = cls.env["account.account"].create(
+            {
+                "name": "ACH Payable",
+                "code": "ACHPAY",
+                "account_type": "liability_payable",
+                "reconcile": True,
+            }
+        )
+        expense_account = cls.env["account.account"].create(
+            {
+                "name": "ACH Expense",
+                "code": "ACHEXP",
+                "account_type": "expense",
+            }
+        )
+        cls.partner.property_account_payable_id = payable_account
+        purchase_journal = cls.env["account.journal"].create(
+            {
+                "name": "ACH Purchases",
+                "code": "ACHPU",
+                "type": "purchase",
+                "company_id": cls.company.id,
+            }
+        )
+        cls.bill = cls.env["account.move"].create(
+            {
+                "move_type": "in_invoice",
+                "partner_id": cls.partner.id,
+                "invoice_date": fields.Date.today(),
+                "date": fields.Date.today(),
+                "journal_id": purchase_journal.id,
+                "payment_mode_id": cls.payment_mode.id,
+                "payment_reference": "TEST-ACH-001",
+                "invoice_line_ids": [
+                    (
+                        0,
+                        0,
+                        {
+                            "name": "ACH test line",
+                            "quantity": 1,
+                            "price_unit": 100.0,
+                            "account_id": expense_account.id,
+                        },
+                    )
+                ],
+            }
+        )
+        cls.bill.action_post()
 
     def test_account_payment_order(self):
         self.payment_order = self.env["account.payment.order"].create(
@@ -72,7 +129,7 @@ class TestACHCreditTransfer(BaseCommon):
         line_created_due.create_payment_lines()
         self.assertEqual(len(line_created_due.move_line_ids), 1)
         line_created_due.move_line_ids.partner_id.bank_ids.bank_id.routing_number = (
-            35645
+            "35645"
         )
         self.assertEqual(self.payment_order.state, "draft")
         self.payment_order.draft2open()

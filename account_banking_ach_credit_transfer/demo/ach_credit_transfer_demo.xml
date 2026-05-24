@@ -6,7 +6,7 @@
         <field name="bank_account_link">variable</field>
         <field name="payment_method_id" ref="ach_credit_transfer" />
         <field
-            name="default_journal_ids"
+            name="variable_journal_ids"
             search="[('type', 'in', ('purchase', 'purchase_refund'))]"
         />
     </record>
