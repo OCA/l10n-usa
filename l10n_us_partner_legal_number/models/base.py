@@ -1,7 +1,7 @@
 from stdnum.ca import bn
 from stdnum.us import ein, ssn
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import UserError
 
 
@@ -38,6 +38,8 @@ class LegalIDNumber(models.AbstractModel):
                 continue
         if not valid:
             raise UserError(
-                _("%s is not a valid EIN / SSN / Canadian Business Number")
-                % self.legal_id_number
+                self.env._(
+                    "%s is not a valid EIN / SSN / Canadian Business Number",
+                    self.legal_id_number,
+                )
             )
