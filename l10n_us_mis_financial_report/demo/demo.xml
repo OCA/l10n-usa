@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <!--
+    Demo accounts that exercise all US GAAP differentiators:
+    Cost of Revenue (COGS), Other Income, Depreciation,
+    Fixed/Non-current assets, Long-term liabilities.
+    Account codes use USDMO prefix to avoid CoA conflicts.
+    -->
+
+    <!-- ── Accounts ──────────────────────────────────────────────── -->
+    <record id="demo_acc_cash" model="account.account">
+        <field name="name">Demo Cash</field>
+        <field name="code">USDMO100</field>
+        <field name="account_type">asset_cash</field>
+    </record>
+    <record id="demo_acc_ar" model="account.account">
+        <field name="name">Demo Accounts Receivable</field>
+        <field name="code">USDMO130</field>
+        <field name="account_type">asset_receivable</field>
+        <field name="reconcile" eval="True"/>
+    </record>
+    <record id="demo_acc_equipment" model="account.account">
+        <field name="name">Demo Equipment</field>
+        <field name="code">USDMO180</field>
+        <field name="account_type">asset_fixed</field>
+    </record>
+    <record id="demo_acc_accum_dep" model="account.account">
+        <field name="name">Demo Accumulated Depreciation</field>
+        <field name="code">USDMO181</field>
+        <field name="account_type">asset_fixed</field>
+    </record>
+    <record id="demo_acc_loan" model="account.account">
+        <field name="name">Demo Long-term Loan</field>
+        <field name="code">USDMO270</field>
+        <field name="account_type">liability_non_current</field>
+    </record>
+    <record id="demo_acc_equity" model="account.account">
+        <field name="name">Demo Owner's Equity</field>
+        <field name="code">USDMO310</field>
+        <field name="account_type">equity</field>
+    </record>
+    <record id="demo_acc_revenue" model="account.account">
+        <field name="name">Demo Product Revenue</field>
+        <field name="code">USDMO400</field>
+        <field name="account_type">income</field>
+    </record>
+    <record id="demo_acc_interest_income" model="account.account">
+        <field name="name">Demo Interest Income</field>
+        <field name="code">USDMO401</field>
+        <field name="account_type">income_other</field>
+    </record>
+    <record id="demo_acc_cogs" model="account.account">
+        <field name="name">Demo Cost of Goods Sold</field>
+        <field name="code">USDMO500</field>
+        <field name="account_type">expense_direct_cost</field>
+    </record>
+    <record id="demo_acc_opex" model="account.account">
+        <field name="name">Demo Operating Expenses</field>
+        <field name="code">USDMO600</field>
+        <field name="account_type">expense</field>
+    </record>
+    <record id="demo_acc_dep_expense" model="account.account">
+        <field name="name">Demo Depreciation Expense</field>
+        <field name="code">USDMO610</field>
+        <field name="account_type">expense_depreciation</field>
+    </record>
+
+    <!-- ── Entry 1: Opening equity ─────────────────────────────── -->
+    <record id="demo_entry_opening" model="account.move">
+        <field name="name">US Demo – Opening Balance</field>
+        <field
+            name="date"
+            eval="time.strftime('%Y') + '-01-01'"
+        />
+        <field
+            name="journal_id"
+            model="account.journal"
+            eval="obj().search([('type', '=', 'general')], limit=1).id"
+        />
+        <field name="line_ids" eval="[
+            (0, 0, {
+                'account_id': ref('demo_acc_cash'),
+                'name': 'Opening balance',
+                'debit': 20000.0,
+                'credit': 0.0,
+            }),
+            (0, 0, {
+                'account_id': ref('demo_acc_equity'),
+                'name': 'Opening balance',
+                'debit': 0.0,
+                'credit': 20000.0,
+            }),
+        ]"/>
+    </record>
+
+    <!-- ── Entry 2: Sale + COGS + Interest income ───────────────── -->
+    <!-- Revenue $10,000; COGS $6,000; Interest income $500 -->
+    <record id="demo_entry_operations" model="account.move">
+        <field name="name">US Demo – Revenue, COGS, Interest</field>
+        <field
+            name="date"
+            eval="time.strftime('%Y') + '-03-15'"
+        />
+        <field
+            name="journal_id"
+            model="account.journal"
+            eval="obj().search([('type', '=', 'general')], limit=1).id"
+        />
+        <field name="line_ids" eval="[
+            (0, 0, {
+                'account_id': ref('demo_acc_ar'),
+                'name': 'Customer invoice',
+                'debit': 10000.0,
+                'credit': 0.0,
+            }),
+            (0, 0, {
+                'account_id': ref('demo_acc_revenue'),
+                'name': 'Product revenue',
+                'debit': 0.0,
+                'credit': 10000.0,
+            }),
+            (0, 0, {
+                'account_id': ref('demo_acc_cogs'),
+                'name': 'Cost of goods sold',
+                'debit': 6000.0,
+                'credit': 0.0,
+            }),
+            (0, 0, {
+                'account_id': ref('demo_acc_cash'),
+                'name': 'COGS cash out',
+                'debit': 0.0,
+                'credit': 6000.0,
+            }),
+            (0, 0, {
+                'account_id': ref('demo_acc_cash'),
+                'name': 'Interest received',
+                'debit': 500.0,
+                'credit': 0.0,
+            }),
+            (0, 0, {
+                'account_id': ref('demo_acc_interest_income'),
+                'name': 'Interest income',
+                'debit': 0.0,
+                'credit': 500.0,
+            }),
+        ]"/>
+    </record>
+
+    <!-- ── Entry 3: Equipment purchase, OpEx, Depreciation ─────── -->
+    <!-- Equipment $20,000 financed by loan $15,000 + cash $5,000  -->
+    <!-- OpEx $2,000; Depreciation $1,000                          -->
+    <record id="demo_entry_capex" model="account.move">
+        <field name="name">US Demo – Equipment, Expenses, Depreciation</field>
+        <field
+            name="date"
+            eval="time.strftime('%Y') + '-06-30'"
+        />
+        <field
+            name="journal_id"
+            model="account.journal"
+            eval="obj().search([('type', '=', 'general')], limit=1).id"
+        />
+        <field name="line_ids" eval="[
+            (0, 0, {
+                'account_id': ref('demo_acc_equipment'),
+                'name': 'Equipment purchase',
+                'debit': 20000.0,
+                'credit': 0.0,
+            }),
+            (0, 0, {
+                'account_id': ref('demo_acc_loan'),
+                'name': 'Long-term loan',
+                'debit': 0.0,
+                'credit': 15000.0,
+            }),
+            (0, 0, {
+                'account_id': ref('demo_acc_cash'),
+                'name': 'Down payment',
+                'debit': 0.0,
+                'credit': 5000.0,
+            }),
+            (0, 0, {
+                'account_id': ref('demo_acc_opex'),
+                'name': 'Operating expenses',
+                'debit': 2000.0,
+                'credit': 0.0,
+            }),
+            (0, 0, {
+                'account_id': ref('demo_acc_cash'),
+                'name': 'Expenses paid',
+                'debit': 0.0,
+                'credit': 2000.0,
+            }),
+            (0, 0, {
+                'account_id': ref('demo_acc_dep_expense'),
+                'name': 'Depreciation charge',
+                'debit': 1000.0,
+                'credit': 0.0,
+            }),
+            (0, 0, {
+                'account_id': ref('demo_acc_accum_dep'),
+                'name': 'Accumulated depreciation',
+                'debit': 0.0,
+                'credit': 1000.0,
+            }),
+        ]"/>
+    </record>
+
+    <!-- ── Post all demo entries ─────────────────────────────────── -->
+    <function model="account.move" name="action_post">
+        <value
+            eval="[ref('demo_entry_opening'), ref('demo_entry_operations'), ref('demo_entry_capex')]"
+        />
+    </function>
+</odoo>

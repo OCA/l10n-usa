@@ -14,5 +14,8 @@
         "data/mis_report_kpi.xml",
         "data/mis_report_subreport.xml",
     ],
+    "demo": [
+        "demo/demo.xml",
+    ],
     "maintainers": ["Christian-RB"],
 }
