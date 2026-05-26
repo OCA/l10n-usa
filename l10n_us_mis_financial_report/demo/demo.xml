@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo noupdate="1">
     <!--
     Demo accounts that exercise all US GAAP differentiators:
@@ -17,7 +17,7 @@
         <field name="name">Demo Accounts Receivable</field>
         <field name="code">USDMO130</field>
         <field name="account_type">asset_receivable</field>
-        <field name="reconcile" eval="True"/>
+        <field name="reconcile" eval="True" />
     </record>
     <record id="demo_acc_equipment" model="account.account">
         <field name="name">Demo Equipment</field>
@@ -68,16 +68,15 @@
     <!-- ── Entry 1: Opening equity ─────────────────────────────── -->
     <record id="demo_entry_opening" model="account.move">
         <field name="name">US Demo – Opening Balance</field>
-        <field
-            name="date"
-            eval="time.strftime('%Y') + '-01-01'"
-        />
+        <field name="date" eval="time.strftime('%Y') + '-01-01'" />
         <field
             name="journal_id"
             model="account.journal"
             eval="obj().search([('type', '=', 'general')], limit=1).id"
         />
-        <field name="line_ids" eval="[
+        <field
+            name="line_ids"
+            eval="[
             (0, 0, {
                 'account_id': ref('demo_acc_cash'),
                 'name': 'Opening balance',
@@ -90,23 +89,23 @@
                 'debit': 0.0,
                 'credit': 20000.0,
             }),
-        ]"/>
+        ]"
+        />
     </record>
 
     <!-- ── Entry 2: Sale + COGS + Interest income ───────────────── -->
     <!-- Revenue $10,000; COGS $6,000; Interest income $500 -->
     <record id="demo_entry_operations" model="account.move">
         <field name="name">US Demo – Revenue, COGS, Interest</field>
-        <field
-            name="date"
-            eval="time.strftime('%Y') + '-03-15'"
-        />
+        <field name="date" eval="time.strftime('%Y') + '-03-15'" />
         <field
             name="journal_id"
             model="account.journal"
             eval="obj().search([('type', '=', 'general')], limit=1).id"
         />
-        <field name="line_ids" eval="[
+        <field
+            name="line_ids"
+            eval="[
             (0, 0, {
                 'account_id': ref('demo_acc_ar'),
                 'name': 'Customer invoice',
@@ -143,7 +142,8 @@
                 'debit': 0.0,
                 'credit': 500.0,
             }),
-        ]"/>
+        ]"
+        />
     </record>
 
     <!-- ── Entry 3: Equipment purchase, OpEx, Depreciation ─────── -->
@@ -151,16 +151,15 @@
     <!-- OpEx $2,000; Depreciation $1,000                          -->
     <record id="demo_entry_capex" model="account.move">
         <field name="name">US Demo – Equipment, Expenses, Depreciation</field>
-        <field
-            name="date"
-            eval="time.strftime('%Y') + '-06-30'"
-        />
+        <field name="date" eval="time.strftime('%Y') + '-06-30'" />
         <field
             name="journal_id"
             model="account.journal"
             eval="obj().search([('type', '=', 'general')], limit=1).id"
         />
-        <field name="line_ids" eval="[
+        <field
+            name="line_ids"
+            eval="[
             (0, 0, {
                 'account_id': ref('demo_acc_equipment'),
                 'name': 'Equipment purchase',
@@ -203,7 +202,8 @@
                 'debit': 0.0,
                 'credit': 1000.0,
             }),
-        ]"/>
+        ]"
+        />
     </record>
 
     <!-- ── Post all demo entries ─────────────────────────────────── -->

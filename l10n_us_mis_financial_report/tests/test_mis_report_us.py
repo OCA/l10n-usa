@@ -15,12 +15,8 @@ class TestMisReportUs(TransactionCase):
             "TMUS130", "Test AR", "asset_receivable", reconcile=True
         )
         cls.acc_equipment = cls._account("TMUS180", "Test Equipment", "asset_fixed")
-        cls.acc_accum_dep = cls._account(
-            "TMUS181", "Test Accum Dep", "asset_fixed"
-        )
-        cls.acc_loan = cls._account(
-            "TMUS270", "Test LT Loan", "liability_non_current"
-        )
+        cls.acc_accum_dep = cls._account("TMUS181", "Test Accum Dep", "asset_fixed")
+        cls.acc_loan = cls._account("TMUS270", "Test LT Loan", "liability_non_current")
         cls.acc_equity = cls._account("TMUS310", "Test Equity", "equity")
         cls.acc_revenue = cls._account("TMUS400", "Test Revenue", "income")
         cls.acc_other_inc = cls._account(
@@ -117,15 +113,49 @@ class TestMisReportUs(TransactionCase):
             }
         )
 
-    def _body(self, report_xmlid):
-        result = self._instance(report_xmlid).compute()
-        return {r["row_id"]: r for r in result["body"]}
+    def _kpi_value(self, report_xmlid, kpi_name):
+        """Compute the report and return the value of the named KPI.
 
-    def _val(self, body, row_id):
-        row = body.get(row_id)
-        if not row or not row.get("cells"):
+        mis_builder's compute() returns body rows keyed by KPI *description*
+        (human-readable label), not technical name. `kpi_expenses` and
+        `kpi_expenses_total` both have description "Expenses", and
+        auto_expand_accounts adds extra account-detail rows under each
+        parent KPI — so neither label-keyed lookup nor sequence-indexing
+        is reliable.
+
+        Walk body rows and count, per description, which occurrence we
+        want. For each KPI in sequence order, count earlier KPIs with the
+        SAME description; that's the occurrence index in body's
+        description-grouped rows.
+        """
+        instance = self._instance(report_xmlid)
+        result = instance.compute()
+        report = self.env.ref(report_xmlid)
+        target = report.kpi_ids.filtered(lambda k: k.name == kpi_name)
+        if not target:
             return None
-        return row["cells"][0].get("val")
+        target_description = target.description
+        ordered_kpis = report.kpi_ids.sorted(key=lambda k: (k.sequence, k.id))
+        # How many earlier KPIs share this description?
+        earlier_same_description = sum(
+            1
+            for k in ordered_kpis
+            if k.id != target.id
+            and k.description == target_description
+            and (k.sequence, k.id) < (target.sequence, target.id)
+        )
+        # Find the (earlier_same_description + 1)-th body row whose label
+        # matches the KPI's description.
+        match_count = 0
+        for row in result.get("body", []):
+            if row.get("label") == target_description:
+                if match_count == earlier_same_description:
+                    cells = row.get("cells") or []
+                    if not cells:
+                        return None
+                    return cells[0].get("val")
+                match_count += 1
+        return None
 
     # ── structure tests ───────────────────────────────────────────────
 
@@ -155,31 +185,31 @@ class TestMisReportUs(TransactionCase):
 
     def test_gross_profit(self):
         """Gross Profit = Operating Income − Cost of Revenue = 4 000."""
-        body = self._body("l10n_us_mis_financial_report.report_pl_us")
-        self.assertAlmostEqual(self._val(body, "op_inc"), 10000.0)
-        self.assertAlmostEqual(self._val(body, "cost_of_reven"), 6000.0)
-        self.assertAlmostEqual(self._val(body, "gross_profit"), 4000.0)
+        pl = "l10n_us_mis_financial_report.report_pl_us"
+        self.assertAlmostEqual(self._kpi_value(pl, "op_inc"), 10000.0)
+        self.assertAlmostEqual(self._kpi_value(pl, "cost_of_reven"), 6000.0)
+        self.assertAlmostEqual(self._kpi_value(pl, "gross_profit"), 4000.0)
 
     def test_net_profit(self):
         """Net Profit = 10 000 + 500 − 6 000 − 2 000 − 1 000 = 1 500."""
-        body = self._body("l10n_us_mis_financial_report.report_pl_us")
-        self.assertAlmostEqual(self._val(body, "net_profit"), 1500.0)
+        pl = "l10n_us_mis_financial_report.report_pl_us"
+        self.assertAlmostEqual(self._kpi_value(pl, "net_profit"), 1500.0)
 
     def test_other_income(self):
         """Other Income (interest) is captured as a distinct GAAP line."""
-        body = self._body("l10n_us_mis_financial_report.report_pl_us")
-        self.assertAlmostEqual(self._val(body, "other_inc"), 500.0)
+        pl = "l10n_us_mis_financial_report.report_pl_us"
+        self.assertAlmostEqual(self._kpi_value(pl, "other_inc"), 500.0)
 
     def test_depreciation(self):
         """Depreciation is separated from general Expenses."""
-        body = self._body("l10n_us_mis_financial_report.report_pl_us")
-        self.assertAlmostEqual(self._val(body, "depreciation"), 1000.0)
-        self.assertAlmostEqual(self._val(body, "expenses"), 2000.0)
+        pl = "l10n_us_mis_financial_report.report_pl_us"
+        self.assertAlmostEqual(self._kpi_value(pl, "depreciation"), 1000.0)
+        self.assertAlmostEqual(self._kpi_value(pl, "expenses"), 2000.0)
 
     def test_bs_fixed_assets_and_noncurrent_liabilities(self):
         """Fixed assets and non-current liabilities render non-zero."""
-        body = self._body("l10n_us_mis_financial_report.report_bs_us")
+        bs = "l10n_us_mis_financial_report.report_bs_us"
         # Equipment 20 000 − accum dep 1 000 = 19 000
-        self.assertAlmostEqual(self._val(body, "fixed_assets"), 19000.0)
+        self.assertAlmostEqual(self._kpi_value(bs, "fixed_assets"), 19000.0)
         # Long-term loan 15 000
-        self.assertAlmostEqual(self._val(body, "non_current_liabilities"), 15000.0)
+        self.assertAlmostEqual(self._kpi_value(bs, "non_current_liabilities"), 15000.0)
