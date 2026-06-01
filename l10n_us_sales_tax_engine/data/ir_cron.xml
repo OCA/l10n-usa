@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <record id="cron_purge_tax_cache" model="ir.cron">
+        <field name="name">US Tax: Purge Expired Cache</field>
+        <field name="model_id" ref="model_us_tax_api_cache" />
+        <field name="state">code</field>
+        <field name="code">model.purge_expired()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="active">True</field>
+        <field name="user_id" ref="base.user_root" />
+    </record>
+
+    <record id="cron_reset_provider_counters" model="ir.cron">
+        <field name="name">US Tax: Reset Monthly API Call Counters</field>
+        <field name="model_id" ref="model_us_tax_provider" />
+        <field name="state">code</field>
+        <field name="code">model.search([]).action_reset_monthly_counter()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">months</field>
+        <field name="active">True</field>
+        <field name="user_id" ref="base.user_root" />
+    </record>
+</odoo>

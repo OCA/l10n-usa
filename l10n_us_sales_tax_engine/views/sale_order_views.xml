@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Add Calculate US Tax button + Tax Source field to Sale Order -->
+    <record id="view_sale_order_us_tax" model="ir.ui.view">
+        <field name="name">sale.order.us.tax.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <!-- Add button next to Send by Email -->
+            <xpath expr="//button[@name='action_quotation_send']" position="before">
+                <button
+                    name="action_calculate_us_tax"
+                    type="object"
+                    string="Calculate US Tax"
+                    class="btn-secondary"
+                    title="Calculate US Sales Tax based on customer shipping address"
+                />
+            </xpath>
+            <!-- Add Tax Source info below payment terms -->
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field
+                    name="us_tax_source"
+                    string="Tax Source"
+                    readonly="1"
+                    invisible="not us_tax_source"
+                />
+                <field
+                    name="us_tax_calculated_at"
+                    string="Tax Calculated"
+                    readonly="1"
+                    invisible="not us_tax_calculated_at"
+                />
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Add US Tax info to Sale Order list view -->
+    <record id="view_sale_order_us_tax_list" model="ir.ui.view">
+        <field name="name">sale.order.us.tax.list</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree_with_onboarding" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='amount_total']" position="after">
+                <field name="us_tax_source" string="Tax Source" optional="show" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

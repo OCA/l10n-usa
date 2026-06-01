@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_us_tax_product_category_list" model="ir.ui.view">
+        <field name="name">us.tax.product.category.list</field>
+        <field name="model">us.tax.product.category</field>
+        <field name="arch" type="xml">
+            <list string="Product Tax Categories">
+                <field name="name" />
+                <field name="code" />
+                <field name="default_taxable" />
+                <field name="description" optional="show" />
+            </list>
+        </field>
+    </record>
+    <record id="view_us_tax_product_category_form" model="ir.ui.view">
+        <field name="name">us.tax.product.category.form</field>
+        <field name="model">us.tax.product.category</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" />
+                            <field name="code" />
+                            <field name="default_taxable" />
+                        </group>
+                    </group>
+                    <field
+                        name="description"
+                        placeholder="Description for accountants..."
+                    />
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_us_tax_product_category" model="ir.actions.act_window">
+        <field name="name">Product Tax Categories</field>
+        <field name="res_model">us.tax.product.category</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

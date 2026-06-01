@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Root menu inside Accounting > Configuration (not top-level) -->
+    <menuitem
+        id="menu_us_tax_root"
+        name="US Sales Tax"
+        parent="account.menu_finance_configuration"
+        sequence="50"
+        groups="l10n_us_sales_tax_engine.group_us_tax_user"
+    />
+
+    <!-- Configuration sub-items -->
+    <menuitem
+        id="menu_us_tax_config"
+        name="Configuration"
+        parent="menu_us_tax_root"
+        sequence="10"
+    />
+    <menuitem
+        id="menu_us_tax_nexus"
+        name="Nexus"
+        parent="menu_us_tax_config"
+        action="action_us_tax_nexus"
+        sequence="10"
+    />
+    <menuitem
+        id="menu_us_tax_product_categories"
+        name="Product Tax Categories"
+        parent="menu_us_tax_config"
+        action="action_us_tax_product_category"
+        sequence="20"
+    />
+    <menuitem
+        id="menu_us_tax_rules"
+        name="Tax Rules"
+        parent="menu_us_tax_config"
+        action="action_us_tax_rule"
+        sequence="30"
+    />
+    <menuitem
+        id="menu_us_tax_providers"
+        name="Providers"
+        parent="menu_us_tax_config"
+        action="action_us_tax_provider"
+        sequence="40"
+        groups="l10n_us_sales_tax_engine.group_us_tax_manager"
+    />
+
+    <!-- Rate Database -->
+    <menuitem
+        id="menu_us_tax_rates_root"
+        name="Rate Database"
+        parent="menu_us_tax_root"
+        sequence="20"
+    />
+    <menuitem
+        id="menu_us_tax_jurisdiction"
+        name="Jurisdictions"
+        parent="menu_us_tax_rates_root"
+        action="action_us_tax_jurisdiction"
+        sequence="10"
+    />
+    <menuitem
+        id="menu_us_tax_rates"
+        name="Tax Rates"
+        parent="menu_us_tax_rates_root"
+        action="action_us_tax_rate"
+        sequence="20"
+    />
+    <menuitem
+        id="menu_us_tax_zip_mapping"
+        name="ZIP Mappings"
+        parent="menu_us_tax_rates_root"
+        action="action_us_tax_zip_mapping"
+        sequence="30"
+    />
+    <menuitem
+        id="menu_us_tax_import"
+        name="Import Rates"
+        parent="menu_us_tax_rates_root"
+        action="action_us_tax_import_wizard"
+        sequence="40"
+        groups="l10n_us_sales_tax_engine.group_us_tax_manager"
+    />
+    <menuitem
+        id="menu_us_tax_import_batches"
+        name="Import History"
+        parent="menu_us_tax_rates_root"
+        action="action_us_tax_import_batch"
+        sequence="50"
+        groups="l10n_us_sales_tax_engine.group_us_tax_manager"
+    />
+
+    <!-- Audit -->
+    <menuitem
+        id="menu_us_tax_audit"
+        name="Audit"
+        parent="menu_us_tax_root"
+        sequence="30"
+    />
+    <menuitem
+        id="menu_us_tax_logs"
+        name="Calculation Logs"
+        parent="menu_us_tax_audit"
+        action="action_us_tax_calculation_log"
+        sequence="10"
+    />
+    <menuitem
+        id="menu_us_tax_cache"
+        name="Cache"
+        parent="menu_us_tax_audit"
+        action="action_us_tax_api_cache"
+        sequence="20"
+        groups="l10n_us_sales_tax_engine.group_us_tax_technical"
+    />
+</odoo>
