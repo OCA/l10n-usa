@@ -22,7 +22,7 @@ class ResBank(models.Model):
                     _("%s is not a valid US routing number!" % self.routing_number)
                 ) from err
         elif country_code == "CA":
-            if len(self.routing_number) != 8 or not self.routing_number.is_digit():
+            if len(self.routing_number) != 8 or not self.routing_number.isdigit():
                 raise ValidationError(
                     _(
                         "%s is not a valid Canadian routing number!"
