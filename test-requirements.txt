@@ -1,0 +1,3 @@
+# Test-only dependency: tests/test_res_country_state_county.py builds a
+# spreadsheet fixture with xlwt. Not needed to run the module.
+xlwt

@@ -10,19 +10,18 @@ _logger = logging.getLogger(__name__)
 class County(models.Model):
     _name = "res.country.state.county"
     _description = "United States County"
-    _sql_constraints = [
-        (
-            "name_uniq",
-            "unique(name, state_id)",
-            "County name must be unique per state!",
-        ),
-    ]
+    _order = "state_id, name"
+
+    _name_uniq = models.Constraint(
+        "unique (name, state_id)",
+        "County name must be unique per state!",
+    )
 
     name = fields.Char()
     country_id = fields.Many2one(
         "res.country", related="state_id.country_id", readonly=True
     )
-    state_id = fields.Many2one("res.country.state")
+    state_id = fields.Many2one("res.country.state", ondelete="restrict")
 
     def _import_counties(self, file_contents):
         """Import Excel spreadsheet from U.S. Census Bureau.
@@ -77,7 +76,7 @@ class County(models.Model):
             county = self.create(
                 {
                     "name": county_name,
-                    "state_id": get_state_id(state_code),
+                    "state_id": state_id,
                 }
             )
             self.env["ir.model.data"].create(
