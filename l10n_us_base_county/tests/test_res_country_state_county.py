@@ -8,6 +8,11 @@ from odoo.tools import file_open, mute_logger
 
 
 class TestCountryStateCounty(TransactionCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
+
     def test_counties(self):
         self.assertEqual(3141, self.env["res.country.state.county"].search_count([]))
 
