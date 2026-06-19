@@ -1,3 +1,2 @@
 # DO NOT MERGE — temporary pins until OCA 19.0 wheels are published.
-odoo-addon-mis_builder @ git+https://github.com/OCA/mis-builder.git@refs/pull/752/head#subdirectory=mis_builder
 odoo-addon-mis_template_financial_report @ git+https://github.com/OCA/account-financial-reporting.git@refs/pull/1485/head#subdirectory=mis_template_financial_report
