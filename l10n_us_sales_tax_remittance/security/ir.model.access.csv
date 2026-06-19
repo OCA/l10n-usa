@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_us_tax_authority_user,us.tax.authority user,model_us_tax_authority,l10n_us_sales_tax_engine.group_us_tax_user,1,0,0,0
+access_us_tax_authority_manager,us.tax.authority manager,model_us_tax_authority,l10n_us_sales_tax_engine.group_us_tax_manager,1,1,1,1
