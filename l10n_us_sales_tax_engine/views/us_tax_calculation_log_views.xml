@@ -45,6 +45,10 @@
                         </group>
                         <group string="Result">
                             <field name="source" />
+                            <field
+                                name="exemption_reason"
+                                invisible="source != 'exempt_customer'"
+                            />
                             <field name="provider_id" />
                             <field name="total_rate" widget="percentage" />
                             <field name="taxable_amount" />

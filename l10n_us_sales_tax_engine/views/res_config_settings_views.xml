@@ -54,6 +54,17 @@
                         />
                         <field name="us_tax_confidence_threshold" />
                     </setting>
+                    <setting
+                        id="us_tax_payable_account"
+                        invisible="not us_tax_engine_active"
+                        help="Liability account collected sales tax books to (auto-created if empty)."
+                    >
+                        <label
+                            for="us_tax_payable_account_id"
+                            string="Sales Tax Payable Account"
+                        />
+                        <field name="us_tax_payable_account_id" />
+                    </setting>
                 </block>
 
                 <block title="US Tax API Providers" id="us_tax_providers_block">
