@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="res_config_settings_view_us_tax_ziptax" model="ir.ui.view">
+        <field name="name">res.config.settings.us.tax.ziptax</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//block[@id='us_tax_providers_block']" position="inside">
+                <setting
+                    id="us_tax_ziptax_setting"
+                    invisible="not us_tax_engine_active or us_tax_engine_mode == 'local'"
+                    help="ZIP-level lookup. Free: 100 calls/month. Register at zip.tax/register"
+                >
+                    <field
+                        name="us_tax_enable_ziptax"
+                        string="Enable ZipTax (zip.tax)"
+                    />
+                    <div invisible="not us_tax_enable_ziptax" class="mt8">
+                        <label for="us_tax_ziptax_api_key" string="ZipTax API Key" />
+                        <field
+                            name="us_tax_ziptax_api_key"
+                            password="True"
+                            placeholder="API Key from zip.tax dashboard"
+                        />
+                    </div>
+                </setting>
+            </xpath>
+        </field>
+    </record>
+</odoo>
