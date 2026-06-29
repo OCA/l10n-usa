@@ -38,25 +38,8 @@ msgid "%s has no routing number specified"
 msgstr ""
 
 #. module: account_banking_ach_base
-#. odoo-python
-#: code:addons/account_banking_ach_base/models/res_bank.py:0
-msgid "%s is not a valid Canadian routing number!"
-msgstr ""
-
-#. module: account_banking_ach_base
-#. odoo-python
-#: code:addons/account_banking_ach_base/models/res_bank.py:0
-msgid "%s is not a valid US routing number!"
-msgstr ""
-
-#. module: account_banking_ach_base
 #: model:ir.model,name:account_banking_ach_base.model_account_banking_mandate
 msgid "A generic banking mandate"
-msgstr ""
-
-#. module: account_banking_ach_base
-#: model:ir.model,name:account_banking_ach_base.model_res_bank
-msgid "Bank"
 msgstr ""
 
 #. module: account_banking_ach_base
@@ -141,11 +124,6 @@ msgstr ""
 #. module: account_banking_ach_base
 #: model_terms:ir.ui.view,arch_db:account_banking_ach_base.view_account_invoice_filter_valid_mandate_id
 msgid "Ready for Payment Order"
-msgstr ""
-
-#. module: account_banking_ach_base
-#: model:ir.model.fields,field_description:account_banking_ach_base.field_res_bank__routing_number
-msgid "Routing Number"
 msgstr ""
 
 #. module: account_banking_ach_base
