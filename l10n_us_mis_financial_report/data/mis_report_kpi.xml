@@ -529,4 +529,296 @@
         <field name="report_id" ref="report_bs_us" />
         <field name="split_after" eval="True" />
     </record>
+
+    <!-- Cash basis (US) -->
+    <record id="kpi_balance_assets" model="mis.report.kpi">
+        <field name="name">balance_assets</field>
+        <field name="description">ASSETS</field>
+        <field name="expression">bale[('account_type', 'like', 'asset%')][] or 0</field>
+        <field name="auto_expand_accounts">false</field>
+        <field name="style_id" ref="style_header_cash_basis" />
+        <field name="type">num</field>
+        <field name="compare_method">diff</field>
+        <field name="accumulation_method">sum</field>
+        <field name="sequence">1</field>
+        <field name="report_id" ref="report_cash_basis_us" />
+        <field name="split_after" eval="True" />
+    </record>
+
+    <record id="kpi_balance_assets_current" model="mis.report.kpi">
+        <field name="name">balance_assets_current</field>
+        <field name="description">Current assets</field>
+        <field
+            name="expression"
+        >bale['|',('account_type', '=', 'asset_current'),('account_type', '=', 'asset_cash')][] or 0
+        </field>
+        <field name="auto_expand_accounts">false</field>
+        <field name="style_id" ref="style_header_indent_cash_basis" />
+        <field name="type">num</field>
+        <field name="compare_method">diff</field>
+        <field name="accumulation_method">sum</field>
+        <field name="sequence">2</field>
+        <field name="report_id" ref="report_cash_basis_us" />
+        <field name="split_after" eval="True" />
+    </record>
+
+    <record id="kpi_balance_bank_cash_accounts" model="mis.report.kpi">
+        <field name="name">balance_bank_cash_accounts</field>
+        <field name="description">Bank and cash accounts</field>
+        <field
+            name="expression"
+        >bale[('account_type', '=', 'asset_cash')][] or 0</field>
+        <field name="auto_expand_accounts">true</field>
+        <field
+            name="auto_expand_accounts_style_id"
+            ref="style_details_triple_indent_cash_basis"
+        />
+        <field name="style_id" ref="style_double_header_indent_cash_basis" />
+        <field name="type">num</field>
+        <field name="compare_method">diff</field>
+        <field name="accumulation_method">sum</field>
+        <field name="sequence">3</field>
+        <field name="report_id" ref="report_cash_basis_us" />
+        <field name="split_after" eval="True" />
+    </record>
+
+    <record id="kpi_balance_asset_receivable" model="mis.report.kpi">
+        <field name="name">balance_asset_receivable</field>
+        <field name="description">Receivable</field>
+        <field
+            name="expression"
+        >bale[('account_type', '=', 'asset_receivable')][] or 0</field>
+        <field name="auto_expand_accounts">true</field>
+        <field
+            name="auto_expand_accounts_style_id"
+            ref="style_details_triple_indent_cash_basis"
+        />
+        <field name="style_id" ref="style_double_header_indent_cash_basis" />
+        <field name="type">num</field>
+        <field name="compare_method">diff</field>
+        <field name="accumulation_method">sum</field>
+        <field name="sequence">4</field>
+        <field name="report_id" ref="report_cash_basis_us" />
+        <field name="split_after" eval="True" />
+    </record>
+
+    <record id="kpi_balance_assets_current_accounts" model="mis.report.kpi">
+        <field name="name">balance_assets_current_accounts</field>
+        <field name="description">Current assets</field>
+        <field
+            name="expression"
+        >bale[('account_type', '=', 'asset_current')][] or 0</field>
+        <field name="auto_expand_accounts">true</field>
+        <field
+            name="auto_expand_accounts_style_id"
+            ref="style_details_triple_indent_cash_basis"
+        />
+        <field name="style_id" ref="style_double_header_indent_cash_basis" />
+        <field name="type">num</field>
+        <field name="compare_method">diff</field>
+        <field name="accumulation_method">sum</field>
+        <field name="sequence">5</field>
+        <field name="report_id" ref="report_cash_basis_us" />
+        <field name="split_after" eval="True" />
+    </record>
+
+    <record id="kpi_balance_asset_prepayments" model="mis.report.kpi">
+        <field name="name">balance_asset_prepayments</field>
+        <field name="description">Pre-payments</field>
+        <field
+            name="expression"
+        >bale[('account_type', '=', 'asset_prepayments')][] or 0</field>
+        <field name="auto_expand_accounts">true</field>
+        <field
+            name="auto_expand_accounts_style_id"
+            ref="style_details_triple_indent_cash_basis"
+        />
+        <field name="style_id" ref="style_double_header_indent_cash_basis" />
+        <field name="type">num</field>
+        <field name="compare_method">diff</field>
+        <field name="accumulation_method">sum</field>
+        <field name="sequence">6</field>
+        <field name="report_id" ref="report_cash_basis_us" />
+        <field name="split_after" eval="True" />
+    </record>
+
+    <record id="kpi_balance_asset_fixed" model="mis.report.kpi">
+        <field name="name">balance_asset_fixed</field>
+        <field name="description">Extra fixed assets</field>
+        <field
+            name="expression"
+        >bale[('account_type', '=', 'asset_fixed')][] or 0</field>
+        <field name="auto_expand_accounts">true</field>
+        <field
+            name="auto_expand_accounts_style_id"
+            ref="style_details_triple_indent_cash_basis"
+        />
+        <field name="style_id" ref="style_double_header_indent_cash_basis" />
+        <field name="type">num</field>
+        <field name="compare_method">diff</field>
+        <field name="accumulation_method">sum</field>
+        <field name="sequence">7</field>
+        <field name="report_id" ref="report_cash_basis_us" />
+        <field name="split_after" eval="True" />
+    </record>
+
+    <record id="kpi_balance_asset_non_current" model="mis.report.kpi">
+        <field name="name">balance_asset_non_current</field>
+        <field name="description">Extra non-current assets</field>
+        <field
+            name="expression"
+        >bale[('account_type', '=', 'asset_non_current')][] or 0</field>
+        <field name="auto_expand_accounts">true</field>
+        <field
+            name="auto_expand_accounts_style_id"
+            ref="style_details_triple_indent_cash_basis"
+        />
+        <field name="style_id" ref="style_double_header_indent_cash_basis" />
+        <field name="type">num</field>
+        <field name="compare_method">diff</field>
+        <field name="accumulation_method">sum</field>
+        <field name="sequence">8</field>
+        <field name="report_id" ref="report_cash_basis_us" />
+        <field name="split_after" eval="True" />
+    </record>
+
+    <record id="kpi_balance_liability" model="mis.report.kpi">
+        <field name="name">balance_liability</field>
+        <field name="description">LIABILITY</field>
+        <field name="expression">-bale[('account_type', 'like', 'liability%')][]</field>
+        <field name="auto_expand_accounts">false</field>
+        <field name="style_id" ref="style_header_cash_basis" />
+        <field name="type">num</field>
+        <field name="compare_method">diff</field>
+        <field name="accumulation_method">sum</field>
+        <field name="sequence">9</field>
+        <field name="report_id" ref="report_cash_basis_us" />
+        <field name="split_after" eval="True" />
+    </record>
+
+    <record id="kpi_balance_current_liabilities" model="mis.report.kpi">
+        <field name="name">balance_current_liabilities</field>
+        <field name="description">Current liabilities</field>
+        <field
+            name="expression"
+        >(balance_current_liabilities_accounts + balance_liability_payable) or 0</field>
+        <field name="auto_expand_accounts">false</field>
+        <field name="style_id" ref="style_header_indent_cash_basis" />
+        <field name="type">num</field>
+        <field name="compare_method">diff</field>
+        <field name="accumulation_method">sum</field>
+        <field name="sequence">10</field>
+        <field name="report_id" ref="report_cash_basis_us" />
+        <field name="split_after" eval="True" />
+    </record>
+
+    <record id="kpi_balance_current_liabilities_accounts" model="mis.report.kpi">
+        <field name="name">balance_current_liabilities_accounts</field>
+        <field name="description">Current liabilities</field>
+        <field
+            name="expression"
+        >-bale['|', ('account_type', 'in', ('liability_current', 'liability_credit_card')), '&amp;',('account_type', '=', 'liability_payable'), ('non_trade', '=', True)][] or 0</field>
+        <field name="auto_expand_accounts">true</field>
+        <field
+            name="auto_expand_accounts_style_id"
+            ref="style_details_triple_indent_cash_basis"
+        />
+        <field name="style_id" ref="style_double_header_indent_cash_basis" />
+        <field name="type">num</field>
+        <field name="compare_method">diff</field>
+        <field name="accumulation_method">sum</field>
+        <field name="sequence">11</field>
+        <field name="report_id" ref="report_cash_basis_us" />
+        <field name="split_after" eval="True" />
+    </record>
+
+    <record id="kpi_balance_liability_payable" model="mis.report.kpi">
+        <field name="name">balance_liability_payable</field>
+        <field name="description">Payable</field>
+        <field
+            name="expression"
+        >-bale[('account_type', '=', 'liability_payable'), ('non_trade', '=', False)][] or 0</field>
+        <field name="auto_expand_accounts">true</field>
+        <field
+            name="auto_expand_accounts_style_id"
+            ref="style_details_triple_indent_cash_basis"
+        />
+        <field name="style_id" ref="style_double_header_indent_cash_basis" />
+        <field name="type">num</field>
+        <field name="compare_method">diff</field>
+        <field name="accumulation_method">sum</field>
+        <field name="sequence">12</field>
+        <field name="report_id" ref="report_cash_basis_us" />
+        <field name="split_after" eval="True" />
+    </record>
+
+    <record id="kpi_balance_liability_non_current" model="mis.report.kpi">
+        <field name="name">balance_liability_non_current</field>
+        <field name="description">Extra non-current liability</field>
+        <field
+            name="expression"
+        >bale[('account_type', '=', 'liability_non_current')][] or 0</field>
+        <field name="auto_expand_accounts">true</field>
+        <field
+            name="auto_expand_accounts_style_id"
+            ref="style_details_triple_indent_cash_basis"
+        />
+        <field name="style_id" ref="style_double_header_indent_cash_basis" />
+        <field name="type">num</field>
+        <field name="compare_method">diff</field>
+        <field name="accumulation_method">sum</field>
+        <field name="sequence">13</field>
+        <field name="report_id" ref="report_cash_basis_us" />
+        <field name="split_after" eval="True" />
+    </record>
+
+    <record id="kpi_balance_capital" model="mis.report.kpi">
+        <field name="name">balance_capital</field>
+        <field name="description">CAPITAL</field>
+        <field
+            name="expression"
+        >bale[('account_type', 'like', 'equity%')][] or 0</field>
+        <field name="auto_expand_accounts">false</field>
+        <field name="style_id" ref="style_header_cash_basis" />
+        <field name="type">num</field>
+        <field name="compare_method">diff</field>
+        <field name="accumulation_method">sum</field>
+        <field name="sequence">14</field>
+        <field name="report_id" ref="report_cash_basis_us" />
+        <field name="split_after" eval="True" />
+    </record>
+
+    <record id="kpi_balance_current_year_earnings" model="mis.report.kpi">
+        <field name="name">balance_current_year_earnings</field>
+        <field name="description">Current year earnings</field>
+        <field
+            name="expression"
+        >bale[('account_type','=','equity_unaffected')][] or 0</field>
+        <field name="auto_expand_accounts">true</field>
+        <field
+            name="auto_expand_accounts_style_id"
+            ref="style_details_triple_indent_cash_basis"
+        />
+        <field name="style_id" ref="style_double_header_indent_cash_basis" />
+        <field name="type">num</field>
+        <field name="compare_method">diff</field>
+        <field name="accumulation_method">sum</field>
+        <field name="sequence">15</field>
+        <field name="report_id" ref="report_cash_basis_us" />
+        <field name="split_after" eval="True" />
+    </record>
+
+    <record id="kpi_balance_liability_capital" model="mis.report.kpi">
+        <field name="name">balance_liability_capital</field>
+        <field name="description">LIABILITY + CAPITAL</field>
+        <field name="expression">(balance_liability + balance_capital) or 0</field>
+        <field name="auto_expand_accounts">false</field>
+        <field name="style_id" ref="style_header_cash_basis" />
+        <field name="type">num</field>
+        <field name="compare_method">diff</field>
+        <field name="accumulation_method">sum</field>
+        <field name="sequence">16</field>
+        <field name="report_id" ref="report_cash_basis_us" />
+        <field name="split_after" eval="True" />
+    </record>
 </odoo>

@@ -1,6 +1,6 @@
-=====================================================
-Profit & Loss (US) / Balance sheet (US) MIS templates
-=====================================================
+=======================================================================
+Profit & Loss (US) / Balance sheet (US) / Cash Basis (US) MIS templates
+=======================================================================
 
 .. 
    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -29,7 +29,8 @@ Profit & Loss (US) / Balance sheet (US) MIS templates
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
 This addon provides MIS builder templates to generate generic (US)
-Profit & Loss and Balance Sheet reports based on account types.
+Profit & Loss, Balance Sheet and Cash basis reports based on account
+types.
 
 **Table of contents**
 
@@ -44,6 +45,22 @@ a new MIS report.
 
 For details, refer to the `MIS Builder
 documentation <https://github.com/OCA/mis-builder/tree/16.0/mis_builder#usage>`__
+
+Allow filtering by journals.
+
+- Go to *Invoicing* > Reporting > MIS Reports
+- Create a new or edit an existing MIS Report
+- Find the Accounting Journals field and select the journals.
+- Save and the report will take into account those selected journals.
+- If you want to select all of them, just leave the aforementioned field
+  empty.
+
+Hide lines empty or with value 0.
+
+- Go to *Invoicing* > Reporting > MIS Reports
+- Create a new or edit an existing MIS Report
+- Find the Hide line value 0 field and check it to hide the values.
+- Uncheck to show empty or 0 values.
 
 Bug Tracker
 ===========
@@ -66,7 +83,8 @@ Authors
 Contributors
 ------------
 
--  Christian Ramos <c.ramos@binhex.cloud> (https://binhex.cloud)
+- Christian Ramos <c.ramos@binhex.cloud> (https://binhex.cloud)
+- Edilio Escalona <e.escalona@binhex.cloud> (https://binhex.cloud)
 
 Maintainers
 -----------

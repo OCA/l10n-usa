@@ -7,4 +7,13 @@
         <field name="name">Balance Sheet (US)</field>
         <field name="style_id" ref="mis_template_financial_report.style_default" />
     </record>
+    <record id="report_cash_basis_us" model="mis.report">
+        <field name="name">Cash Basis (US)</field>
+        <field
+            name="description"
+        >Cash accounting report broken down by account and without accounts with a balance of
+            0.
+        </field>
+        <field name="style_id" ref="mis_template_financial_report.style_default" />
+    </record>
 </odoo>
