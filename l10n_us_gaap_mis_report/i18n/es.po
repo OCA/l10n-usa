@@ -1,0 +1,645 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_us_gaap_mis_report
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2020-04-17 16:19+0000\n"
+"Last-Translator: Jordi Ballester Alomar <jordi.ballester@eficent.com>\n"
+"Language-Team: none\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.10\n"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_2_1_1
+msgid "Accounts Payable"
+msgstr "Cuentas a Pagar"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_2_1
+msgid "Accounts Payable And Accrued Liabilities"
+msgstr "Cuentas a Pagar y Pasivos Acumulados"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_1_2_1
+msgid "Accounts, Notes And Loans"
+msgstr "Cuentas, pagarés y préstamos"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_2_1_2
+msgid "Accrued Liabilities"
+msgstr "Obligaciones acumuladas"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_1_4_3
+msgid "Accrued Revenue"
+msgstr "Ingresos Devengados"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_1_4
+msgid "Accrued, Deferred And Other Assets"
+msgstr "Devengados, Diferidos y Otros Activos"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_3_3
+msgid "Accumulated Other Comprehensive Income"
+msgstr "Otros Ingresos Integrales Acumulados"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_1_6_3
+msgid "Acquisitions In Progress"
+msgstr "Adquisiciones En Progreso"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_income_statement_6_1_11
+msgid "Additional Itemized Gains And Losses"
+msgstr "Ganancias Y Pérdidas Detalladas Adicionales"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_3_4_8
+msgid "Additional Items"
+msgstr "Artículos Adicionales"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_3_1_3
+msgid "Additional Paid-In Capital"
+msgstr "Pago Adicional En Capital"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_1_3_7
+msgid "Allowances And Adjustments"
+msgstr "Subsidios Y Ajustes"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_income_statement_4_1_2
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_income_statement_4_2_2
+msgid "Allowances, Discounts"
+msgstr "Subsidios, Descuentos"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_3_2_1
+msgid "Appropriated"
+msgstr "Apropiados"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_income_statement_6_1_9
+msgid "Asset Retirement Obligation"
+msgstr "Obligación De Retiro De Activos"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_1
+msgid "Assets"
+msgstr "Activos"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_9999
+msgid "Assets - (Liabilities + Equity)"
+msgstr "Activos - (Pasivos + Patrimonio)"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_1_5_4
+msgid "Assets Under Construction"
+msgstr "Activos En Construcción"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_3_3_2
+msgid "Available For Sale Securities Gain (Loss)"
+msgstr "Valores Disponibles Para la Venta Ganancia (Pérdida)"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_2_4_1
+msgid "Billings In Excess Of Cost"
+msgstr "Facturaciones En Exceso Del Coste"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_income_statement_6_1_7
+msgid "Business Combination, Acquisition Related Costs"
+msgstr "Combinación De Negocios, Costes Relacionados Con La Adquisición"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_2_2_5
+msgid "Capital Lease Obligations"
+msgstr "Obligaciones De Arrendamiento De Capital"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_1_1_4
+msgid "Capital Leases, Lessor"
+msgstr "Arrendamientos de Capitales, Arrendador"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_1_3_4
+msgid "Capitalized Contract Cost"
+msgstr "Costo del Contrato Capitalizado"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_1_1_1
+msgid "Cash And Cash Equivalents"
+msgstr "Efectivo Y Equivalentes De Efectivo"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_1_1
+msgid "Cash And Investments"
+msgstr "Efectivo E Inversiones"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_3_3_4
+msgid "Cash Flow Hedges Gain (Loss)"
+msgstr "Ganancia (Pérdida) de Cobertura de Flujo de Efectivo"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_3_1_1
+msgid "Common Stock"
+msgstr "Acciones Comunes"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_1_2_4
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_2_4
+msgid "Contracts Or Programs"
+msgstr "Contratos O Programas"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_income_statement_5_1_1
+msgid "Cost Of Revenue"
+msgstr "Coste De Los Ingresos"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_2_2
+msgid "Debt And Capital Lease Obligations"
+msgstr "Obligaciones De Deuda Y Arrendamiento De Capital"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_2_2_1
+msgid "Debts"
+msgstr "Deudas"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_1_4_4
+msgid "Deferred Costs"
+msgstr "Costes Diferidos"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_2_3
+msgid "Deferred Revenue And Credits"
+msgstr "Ingresos Diferidos y Créditos"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_3_3_5
+msgid "Defined Benefit Plan Income (Loss)"
+msgstr "Ingresos (Pérdidas) Del Plan De Beneficios Definidos"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_1_1_3
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_2_5
+msgid "Derivative Instruments And Hedges"
+msgstr "Instrumentos Derivados Y Coberturas"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_2_5_1
+msgid "Derivative Liability"
+msgstr "Responsabilidad Derivada"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_income_statement_5_1_3
+msgid "Doubtful Accounts"
+msgstr "Cuentas Dudosas"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_2_7_5
+msgid "Due To Affiliate"
+msgstr "Deudas A Afiliadas"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_2_7_3
+msgid "Due To Employees"
+msgstr "Deudas a Empleados"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_2_7_4
+msgid "Due To Officers Or Stockholders"
+msgstr "Deudas a Oficiales O Accionistas"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_2_7_6
+msgid "Due To Other Related Parties"
+msgstr "Deudas Con Otras Partes Relacionadas"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_income_statement_earnings_before_income_taxes
+msgid "Earnings Before Income Taxes"
+msgstr "Ganancias Antes De Impuestos Sobre La Renta"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_2_1_3
+msgid "Employee-Related Liabilities"
+msgstr "Pasivos Relacionados Con Empleados"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_2_5_3
+msgid "Energy Marketing Contract Liabilities"
+msgstr "Responsabilidades del contrato de comercialización de energía"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_3
+msgid "Equity"
+msgstr "Capital"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_3_5
+msgid "Equity Attributable To Non-Controlling Interest"
+msgstr "Patrimonio atribuible a la participación no controladora"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_income_statement_6_1_6
+msgid "Extinguishment Of Debt"
+msgstr "Extinción de deuda"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_1_3_3
+msgid "Finished Goods"
+msgstr "Productos terminados"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_income_statement_6_1_1
+msgid "Foreign Currency"
+msgstr "Moneda Extranjera"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_3_3_1
+msgid "Foreign Currency Translation Gain (Loss)"
+msgstr "Ganancia (pérdida) de conversión de moneda extranjera"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_income_statement_6_1_8
+msgid "Gain (Loss) Related To Litigation Settlement"
+msgstr "Ganancia (pérdida) relacionada con la resolución de litigios"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_income_statement_6_1
+msgid "Gains And Losses"
+msgstr "Ganancias y Pérdidas"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_income_statement_4_2_1
+msgid "General Services"
+msgstr "Servicios Generales"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_1_6_2
+msgid "Goodwill"
+msgstr "Fondo de Comercio"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_income_statement_gross_profit
+msgid "Gross Profit"
+msgstr "Beneficio Bruto"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_2_5_2
+msgid "Hedging Liabilities"
+msgstr "Pasivos de cobertura"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_income_statement_6_1_5
+msgid "Impairment Charge"
+msgstr "Cargo por deterioro"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_3_3_3
+msgid "Impairment Debt Securities"
+msgstr "Deuda Valores de Deuda"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_income_statement_7
+msgid "Income Tax (Benefit)"
+msgstr "Impuesto a las ganancias (beneficio)"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_1_6
+msgid "Intangible Assets"
+msgstr "Activos intangibles"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_1_6_1
+msgid "Intangible Assets Excluding Goodwill"
+msgstr "Activos intangibles que excluyen el fondo de comercio"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_1_1_6
+msgid "Intercompany Investments"
+msgstr "Inversiones intercompañías"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_2_1_5
+msgid "Interest And Dividends Payable"
+msgstr "Intereses y dividendos por pagar"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_1_3_6
+msgid "Inventory For Long-Term Contracts Or Programs"
+msgstr "Inventario para contratos o programas a largo plazo"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_income_statement_6_1_4
+msgid "Inventory Write-Downs (Not Recognized In Cost Of Sales)"
+msgstr "Bajas de inventario (no reconocidas en el costo de ventas)"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_1_4_6
+msgid "Investments And Other Assets"
+msgstr "Inversiones y otros activos"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_1_1_2
+msgid "Investments And Securities"
+msgstr "Inversiones y valores"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_income_statement_4_2_3
+msgid "Itemized Services"
+msgstr "Servicios detallados"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_1_5_1
+msgid "Land, Buildings And Improvements"
+msgstr "Terrenos, edificios y mejoras"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_3_1_4
+msgid "Legal Equity (Statutory Capital)"
+msgstr "Capital Legal (Capital Estatutario)"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_2
+msgid "Liabilities"
+msgstr "Pasivo"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_2_6
+msgid "Liabilities Other Than Debt"
+msgstr "Pasivos distintos a la deuda"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_2_2_4
+msgid "Long-Term Federal Home Loan Bank Advances"
+msgstr "Anticipos federales a largo plazo del Banco de préstamos hipotecarios"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_1_5_2
+msgid "Machinery And Equipment"
+msgstr "Maquinaria y equipamiento"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_1_3_1
+msgid "Merchandise, Material And Supplies"
+msgstr "Mercancía, material y suministros"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_income_statement_net_income
+msgid "Net Income"
+msgstr "Lngresos netos"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_income_statement_6_3
+msgid "Non-Monetary Transactions"
+msgstr "Transacciones no monetarias"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_income_statement_6_2_2
+msgid "Non-Operating Expenses"
+msgstr "Gastos no operativos"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_income_statement_6_2_1
+msgid "Non-Operating Revenues"
+msgstr "Ingresos no operativos"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_income_statement_6_2
+msgid "Non-Operating Revenues, Expenses"
+msgstr "Ingresos, gastos no operativos"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_2_2_2
+msgid "Notes And Loans Payable"
+msgstr "Notas y préstamos por pagar"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_1_2_2
+msgid "Notes And Loans Receivable"
+msgstr "Notas y préstamos por cobrar"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_income_statement_operating_expenses
+msgid "Operating Expenses"
+msgstr "Gastos de explotación"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_1_4_5
+msgid "Other Accrued And Deferred Assets"
+msgstr "Otros activos acumulados y diferidos"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_3_4_6
+msgid "Other Additional Capital"
+msgstr "Otro capital adicional"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_3_4
+msgid "Other Equity"
+msgstr "Otro Capital"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_1_3_5
+msgid "Other Inventory"
+msgstr "Otro Inventario"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_2_8
+msgid "Other Liabilities"
+msgstr "Otros Pasivos"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_income_statement_6_1_2
+msgid "Other Non-Operating Income Or Loss"
+msgstr "Otros ingresos o pérdidas no operacionales"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_1_5_3
+msgid "Other Property, Plant And Equipment"
+msgstr "Otra propiedad, planta y equipo"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_1_2_5
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_1_3
+msgid "Other Receivables"
+msgstr "Otras Cuentas a Cobrar"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_income_statement_4_3_1
+msgid "Other Recurring Income"
+msgstr "Otros Ingresos Recurrentes"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_income_statement_6
+msgid "Other Revenue, Expenses, Gains And Losses"
+msgstr "Otros ingresos, gastos, ganancias y pérdidas"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_3_1
+msgid "Paid-In Capital"
+msgstr "Pagado en capital"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_3_1_2
+msgid "Preferred Stock"
+msgstr "Acciones preferentes"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_1_4_1
+msgid "Prepaid Expense"
+msgstr "Gasto pagado por anticipado"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_income_statement_4_1_1
+msgid "Products And Merchandise"
+msgstr "Productos y mercadería"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_1_5
+msgid "Property, Plant And Equipment"
+msgstr "Propiedad, planta y equipo"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_3_4_2
+msgid "Receivable From Officers, Directors For Issuance Of Capital Stock"
+msgstr ""
+"Cuentas por cobrar a funcionarios, directores por emisión de capital social"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_3_4_3
+msgid ""
+"Receivable From Shareholders Or Affiliates For Issuance Of Capital Stock"
+msgstr ""
+"Cuentas por cobrar a accionistas o afiliados por emisión de capital social"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_1_2
+msgid "Receivables"
+msgstr "Cuentas por Cobrar"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_1_2_3
+msgid "Receivables With Imputed Interest"
+msgstr "Cuentas por cobrar con intereses imputados"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_2_7
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_2_7_1
+msgid "Related Party Liabilities"
+msgstr "Pasivos de partes relacionadas"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_2_7_2
+msgid "Related Party Notes Payable"
+msgstr "Notas de partes relacionadas a pagar"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_1_1_5
+msgid "Restricted Assets"
+msgstr "Activos restringidos"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_income_statement_6_1_3
+msgid "Restructuring Charge"
+msgstr "Cargo de reestructuración"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_3_2
+msgid "Retained Earnings"
+msgstr "Ganancias retenidas"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_3_2_3
+msgid "Retained Earnings Deficit"
+msgstr "Déficit de ganancias retenidas"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_1_4_2
+msgid "Returnable Deposits"
+msgstr "Depósitos retornables"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_income_statement_4
+msgid "Revenue"
+msgstr "Ingresos"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_income_statement_5_1_2
+msgid "Selling, General, Administrative"
+msgstr "Venta, General, Administrativo"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_2_2_3
+msgid "Special Assessment Bond"
+msgstr "Bono de evaluación especial"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_3_4_4
+msgid "Stockholders' Equity Note, Subscriptions Receivable"
+msgstr "Nota del capital contable, suscripciones por cobrar"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_3_2_4
+msgid "Suspense Account"
+msgstr "Cuenta transitoria"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_2_1_4
+msgid "Taxes Payable"
+msgstr "Impuestos a pagar"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_3_4_7
+msgid "Treasury Stock"
+msgstr "Acciones del Tesoro"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report,name:l10n_us_gaap_mis_report.mis_report_l10n_us_gaap_balance_sheet
+msgid "US Balance Sheet"
+msgstr "Balance de Situación US"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report,name:l10n_us_gaap_mis_report.mis_report_l10n_us_gaap_income_statement
+msgid "US Income Statement"
+msgstr "Pérdidas y Ganancias US"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_3_2_2
+msgid "Unappropriated"
+msgstr "No apropiado"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_3_4_1
+msgid "Unearned Sop Shares"
+msgstr "Acciones Sop no ganadas"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_income_statement_6_1_10
+msgid "Unusual And/Or Infrequent Items"
+msgstr "Artículos inusuales y / o poco frecuentes"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_3_4_5
+msgid "Warrants, Rights Outstanding"
+msgstr "Warrants, derechos pendientes"
+
+#. module: l10n_us_gaap_mis_report
+#: model:mis.report.kpi,description:l10n_us_gaap_mis_report.mis_report_kpi_l10n_us_gaap_balance_sheet_1_3_2
+msgid "Work In Process"
+msgstr "Trabajo en proceso"
