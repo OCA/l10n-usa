@@ -17,6 +17,11 @@ msgstr ""
 "X-Generator: Weblate 5.10.4\n"
 
 #. module: l10n_us_mis_financial_report
+#: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_balance_assets
+msgid "ASSETS"
+msgstr ""
+
+#. module: l10n_us_mis_financial_report
 #: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_allocated_earnings
 msgid "Allocated earnings"
 msgstr "Ganancias asignadas"
@@ -40,6 +45,30 @@ msgstr "Balance general (EE.UU.)"
 #: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_bank_and_cash_accounts
 msgid "Bank and Cash Accounts"
 msgstr "Cuentas de banco y caja"
+
+#. module: l10n_us_mis_financial_report
+#: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_balance_bank_cash_accounts
+msgid "Bank and cash accounts"
+msgstr ""
+
+#. module: l10n_us_mis_financial_report
+#: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_balance_capital
+msgid "CAPITAL"
+msgstr ""
+
+#. module: l10n_us_mis_financial_report
+#: model:mis.report,name:l10n_us_mis_financial_report.report_cash_basis_us
+msgid "Cash Basis (US)"
+msgstr ""
+
+#. module: l10n_us_mis_financial_report
+#: model:mis.report,description:l10n_us_mis_financial_report.report_cash_basis_us
+msgid ""
+"Cash accounting report broken down by account and without accounts with a "
+"balance of\n"
+"            0.\n"
+"        "
+msgstr ""
 
 #. module: l10n_us_mis_financial_report
 #: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_cost_of_reven
@@ -74,6 +103,23 @@ msgid "Current Year Unallocated Earnings"
 msgstr "Ganancias no asignadas del año en curso"
 
 #. module: l10n_us_mis_financial_report
+#: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_balance_assets_current
+#: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_balance_assets_current_accounts
+msgid "Current assets"
+msgstr ""
+
+#. module: l10n_us_mis_financial_report
+#: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_balance_current_liabilities
+#: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_balance_current_liabilities_accounts
+msgid "Current liabilities"
+msgstr ""
+
+#. module: l10n_us_mis_financial_report
+#: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_balance_current_year_earnings
+msgid "Current year earnings"
+msgstr ""
+
+#. module: l10n_us_mis_financial_report
 #: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_depreciation
 msgid "Depreciation"
 msgstr "Depreciación"
@@ -90,9 +136,34 @@ msgid "Expenses"
 msgstr "Gastos"
 
 #. module: l10n_us_mis_financial_report
+#: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_balance_asset_fixed
+msgid "Extra fixed assets"
+msgstr ""
+
+#. module: l10n_us_mis_financial_report
+#: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_balance_asset_non_current
+msgid "Extra non-current assets"
+msgstr ""
+
+#. module: l10n_us_mis_financial_report
+#: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_balance_liability_non_current
+msgid "Extra non-current liability"
+msgstr ""
+
+#. module: l10n_us_mis_financial_report
 #: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_gross_profit
 msgid "Gross Profit"
 msgstr "Beneficio bruto"
+
+#. module: l10n_us_mis_financial_report
+#: model:ir.model.fields,help:l10n_us_mis_financial_report.field_mis_report_instance__hide_all_lines_0
+msgid "Hide empty lines or lines with value 0."
+msgstr ""
+
+#. module: l10n_us_mis_financial_report
+#: model:ir.model.fields,field_description:l10n_us_mis_financial_report.field_mis_report_instance__hide_all_lines_0
+msgid "Hide line value 0"
+msgstr ""
 
 #. module: l10n_us_mis_financial_report
 #: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_income
@@ -100,14 +171,30 @@ msgid "Income"
 msgstr "Ingresos"
 
 #. module: l10n_us_mis_financial_report
+#: model:ir.model.fields,field_description:l10n_us_mis_financial_report.field_mis_report_instance__journal_ids
+msgid "Journals"
+msgstr ""
+
+#. module: l10n_us_mis_financial_report
 #: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_liabilities_equity
 msgid "LIABILITIES + EQUITY"
 msgstr "PASIVO + PATRIMONIO"
 
 #. module: l10n_us_mis_financial_report
+#: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_balance_liability
 #: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_liability_header
 msgid "LIABILITY"
 msgstr "RESPONSABILIDAD"
+
+#. module: l10n_us_mis_financial_report
+#: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_balance_liability_capital
+msgid "LIABILITY + CAPITAL"
+msgstr ""
+
+#. module: l10n_us_mis_financial_report
+#: model:ir.model,name:l10n_us_mis_financial_report.model_mis_report_instance
+msgid "MIS Report Instance"
+msgstr ""
 
 #. module: l10n_us_mis_financial_report
 #: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_net_profit
@@ -130,6 +217,11 @@ msgid "Other Income"
 msgstr "Otros ingresos"
 
 #. module: l10n_us_mis_financial_report
+#: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_balance_liability_payable
+msgid "Payable"
+msgstr ""
+
+#. module: l10n_us_mis_financial_report
 #: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_payables
 msgid "Payables"
 msgstr "Por pagar"
@@ -150,6 +242,11 @@ msgid "Plus Non-current Liabilities"
 msgstr "Más pasivos no corrientes"
 
 #. module: l10n_us_mis_financial_report
+#: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_balance_asset_prepayments
+msgid "Pre-payments"
+msgstr ""
+
+#. module: l10n_us_mis_financial_report
 #: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_prepayments
 msgid "Prepayments"
 msgstr "Pagos anticipados"
@@ -163,6 +260,11 @@ msgstr "Beneficios no asignados de años anteriores"
 #: model:mis.report,name:l10n_us_mis_financial_report.report_pl_us
 msgid "Profit & Loss (US)"
 msgstr "Pérdidas y ganancias (EE.UU.)"
+
+#. module: l10n_us_mis_financial_report
+#: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_balance_asset_receivable
+msgid "Receivable"
+msgstr ""
 
 #. module: l10n_us_mis_financial_report
 #: model:mis.report.kpi,description:l10n_us_mis_financial_report.kpi_receivables
