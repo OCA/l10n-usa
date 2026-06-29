@@ -1,0 +1,32 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="partner_demo_company_us_gaap" model="res.partner" forcecreate="1">
+        <field name="name">My US Demo Company</field>
+        <field name="country_id" ref="base.us" />
+    </record>
+
+    <record id="demo_company_us_gaap" model="res.company" forcecreate="1">
+        <field name="name">USA Demo Company</field>
+        <field name="currency_id" ref="base.USD" />
+        <field name="partner_id" ref="l10n_us_gaap.partner_demo_company_us_gaap" />
+    </record>
+
+    <record id="base.user_admin" model="res.users">
+        <field
+            name="company_ids"
+            eval="[(4, ref('l10n_us_gaap.demo_company_us_gaap'))]"
+        />
+    </record>
+
+    <data noupdate="1">
+        <function model="account.chart.template" name="try_loading">
+            <value eval="[]" />
+            <value>us_gaap</value>
+            <value
+                model="res.company"
+                eval="obj().env.ref('l10n_us_gaap.demo_company_us_gaap')"
+            />
+            <value name="install_demo" eval="True" />
+        </function>
+    </data>
+</odoo>
