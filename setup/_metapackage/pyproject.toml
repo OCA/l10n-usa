@@ -1,6 +1,6 @@
 [project]
 name = "odoo-addons-oca-l10n-usa"
-version = "18.0.20260629.0"
+version = "18.0.20260629.1"
 dependencies = [
     "odoo-addon-account_banking_ach_base==18.0.*",
     "odoo-addon-account_banking_ach_credit_transfer==18.0.*",
@@ -8,6 +8,7 @@ dependencies = [
     "odoo-addon-l10n_us_base_county==18.0.*",
     "odoo-addon-l10n_us_crm_county==18.0.*",
     "odoo-addon-l10n_us_gaap==18.0.*",
+    "odoo-addon-l10n_us_gaap_mis_report==18.0.*",
     "odoo-addon-l10n_us_mis_financial_report==18.0.*",
     "odoo-addon-l10n_us_partner_legal_number==18.0.*",
 ]

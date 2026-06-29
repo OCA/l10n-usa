@@ -27,6 +27,7 @@ addon | version | maintainers | summary
 [l10n_us_base_county](l10n_us_base_county/) | 18.0.0.0.0 |  | Add United States counties.
 [l10n_us_crm_county](l10n_us_crm_county/) | 18.0.0.0.0 |  | Add United States counties to leads.
 [l10n_us_gaap](l10n_us_gaap/) | 18.0.1.0.0 | <a href='https://github.com/JordiBForgeFlow'><img src='https://github.com/JordiBForgeFlow.png' width='32' height='32' style='border-radius:50%;' alt='JordiBForgeFlow'/></a> | United States Sample GAAP Chart of Accounts
+[l10n_us_gaap_mis_report](l10n_us_gaap_mis_report/) | 18.0.1.0.0 | <a href='https://github.com/JordiBForgeFlow'><img src='https://github.com/JordiBForgeFlow.png' width='32' height='32' style='border-radius:50%;' alt='JordiBForgeFlow'/></a> | MIS Builder Templates for US Chart of Accounts
 [l10n_us_mis_financial_report](l10n_us_mis_financial_report/) | 18.0.1.0.0 | <a href='https://github.com/Christian-RB'><img src='https://github.com/Christian-RB.png' width='32' height='32' style='border-radius:50%;' alt='Christian-RB'/></a> | Profit & Loss (US) / Balance sheet (US) MIS templates
 [l10n_us_partner_legal_number](l10n_us_partner_legal_number/) | 18.0.1.0.0 |  | Add Legal Number for North American Banking & Financials
 
