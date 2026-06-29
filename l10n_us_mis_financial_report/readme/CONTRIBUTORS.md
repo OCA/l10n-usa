@@ -1,1 +1,2 @@
 - Christian Ramos \<<c.ramos@binhex.cloud>\> (<https://binhex.cloud>)
+- Edilio Escalona \<<e.escalona@binhex.cloud>\> (<https://binhex.cloud>)

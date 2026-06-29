@@ -29,4 +29,33 @@
         <field name="hide_always_inherit">false</field>
         <field name="hide_always">true</field>
     </record>
+
+    <!-- Styles Cash Basis -->
+    <record id="style_header_cash_basis" model="mis.report.style">
+        <field name="name">PL/BS header cash basis</field>
+        <field name="font_weight_inherit">false</field>
+        <field name="font_weight">bold</field>
+    </record>
+
+    <record id="style_header_indent_cash_basis" model="mis.report.style">
+        <field name="name">PL/BS indented header cash basis</field>
+        <field name="font_weight_inherit">false</field>
+        <field name="font_weight">bold</field>
+        <field name="indent_level_inherit">false</field>
+        <field name="indent_level">1</field>
+    </record>
+
+    <record id="style_double_header_indent_cash_basis" model="mis.report.style">
+        <field name="name">PL/BS double indented header cash basis</field>
+        <field name="font_weight_inherit">false</field>
+        <field name="font_weight">bold</field>
+        <field name="indent_level_inherit">false</field>
+        <field name="indent_level">2</field>
+    </record>
+
+    <record id="style_details_triple_indent_cash_basis" model="mis.report.style">
+        <field name="name">PL/BS triple indented details cash basis</field>
+        <field name="indent_level_inherit">false</field>
+        <field name="indent_level">3</field>
+    </record>
 </odoo>

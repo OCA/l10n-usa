@@ -1,7 +1,7 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 {
-    "name": "Profit & Loss (US) / Balance sheet (US) MIS templates",
+    "name": "Profit & Loss (US) / Balance sheet (US) / Cash Basis (US) MIS templates",
     "version": "17.0.1.0.0",
     "license": "AGPL-3",
     "author": "Binhex,Odoo Community Association (OCA)",
@@ -13,6 +13,7 @@
         "data/mis_report.xml",
         "data/mis_report_kpi.xml",
         "data/mis_report_subreport.xml",
+        "views/mis_report_instance.xml",
     ],
     "maintainers": ["Christian-RB"],
 }
