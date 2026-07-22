@@ -1,0 +1,1776 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_us_sales_tax_engine
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_us_sales_tax_engine
+#. odoo-python
+#: code:addons/l10n_us_sales_tax_engine/models/us_tax_provider.py:0
+msgid "%s: credentials invalid."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_import_wizard_form
+msgid ""
+"(select a county and\n"
+"                    effective date there, then download). This creates the\n"
+"                    jurisdiction, rate, and ZIP mapping together — full\n"
+"                    ZIP-level resolution. A Nexus record alone does not load\n"
+"                    any rate data."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_provider_form
+msgid "0 = unlimited. Set to your plan's monthly limit."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_provider_form
+msgid ""
+"<strong>Approaching Monthly Limit</strong> —\n"
+"                        You are using more than 80% of this provider's monthly quota.\n"
+"                        Consider upgrading your plan or enabling a secondary provider."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_provider_form
+msgid ""
+"<strong>Monthly Limit Reached</strong> —\n"
+"                        This provider will be automatically skipped until the counter is reset\n"
+"                        (first day of next month) or you upgrade your plan."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_provider_form
+msgid ""
+"<strong>Paid Provider</strong> —\n"
+"                        This provider requires a paid subscription after the trial period.\n"
+"                        It is kept optional for clients who need its features.\n"
+"                        The system works without it using free providers."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_import_wizard_form
+msgid ""
+"A file is always required — upload the official Master\n"
+"                    Address List CSV from"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.constraint,message:l10n_us_sales_tax_engine.constraint_us_tax_jurisdiction_unique_jurisdiction
+msgid "A jurisdiction with these parameters already exists."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.constraint,message:l10n_us_sales_tax_engine.constraint_us_tax_nexus_company_state_unique
+msgid "A nexus record for this company and state already exists."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_log_search
+msgid "API"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_api_cache_list
+msgid "API Cache"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_res_config_settings__us_tax_fail_policy
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.res_config_settings_view_us_tax
+msgid "API Failure Policy"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_us_tax_provider__timeout
+msgid "API request timeout in seconds."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_provider__account_id_param
+msgid "Account Id Param"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_res_config_settings__us_tax_engine_active
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.res_config_settings_view_us_tax
+msgid "Activate hybrid US Sales Tax calculation for US customer addresses."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_api_cache__active
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_jurisdiction__active
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_nexus__active
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_product_category__active
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_provider__active
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_rate__active
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_rule__active
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_api_cache_search
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_provider_search
+msgid "Active"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_log_form
+msgid "Address"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_api_cache__address_hash
+msgid "Address Hash"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:us.tax.product.category,description:l10n_us_sales_tax_engine.cat_exempt
+msgid "Always exempt — no tax applied regardless of jurisdiction."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_provider__api_key_param
+msgid "Api Key Param"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_rule_form
+msgid "Applicability"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_jurisdiction_search
+msgid "Archived"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.ui.menu,name:l10n_us_sales_tax_engine.menu_us_tax_audit
+msgid "Audit"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields.selection,name:l10n_us_sales_tax_engine.selection__res_config_settings__us_tax_fail_policy__block
+msgid "Block — prevent document confirmation"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.actions.act_window,name:l10n_us_sales_tax_engine.action_us_tax_api_cache
+#: model:ir.ui.menu,name:l10n_us_sales_tax_engine.menu_us_tax_cache
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_log_search
+msgid "Cache"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_res_config_settings__us_tax_cache_ttl_hours
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.res_config_settings_view_us_tax
+msgid "Cache TTL (hours)"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.constraint,message:l10n_us_sales_tax_engine.constraint_us_tax_api_cache_address_provider_unique
+msgid "Cache entry for this address+provider already exists."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_api_cache__cached_at
+msgid "Cached At"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields.selection,name:l10n_us_sales_tax_engine.selection__us_tax_calculation_log__source__cache
+msgid "Cached Result"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_account_move_us_tax
+msgid "Calculate US Sales Tax based on customer address"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_sale_order_us_tax
+msgid "Calculate US Sales Tax based on customer shipping address"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_account_move_us_tax
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_sale_order_us_tax
+msgid "Calculate US Tax"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_calculation_log__calculated_at
+msgid "Calculated At"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_calculation_log__calculated_by
+msgid "Calculated By"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.actions.act_window,name:l10n_us_sales_tax_engine.action_us_tax_calculation_log
+#: model:ir.ui.menu,name:l10n_us_sales_tax_engine.menu_us_tax_logs
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_log_list
+msgid "Calculation Logs"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#. odoo-python
+#: code:addons/l10n_us_sales_tax_engine/models/us_tax_calculation_log.py:0
+msgid "Calculation log records are immutable."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#. odoo-python
+#: code:addons/l10n_us_sales_tax_engine/models/us_tax_calculation_log.py:0
+msgid "Calculation log records cannot be deleted."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_provider__calls_this_month
+msgid "Calls This Month"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_us_tax_provider__calls_this_month
+msgid "Calls made this month. Reset by monthly cron."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_provider_list
+msgid "Calls/Mo"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_import_batch__can_rollback
+msgid "Can Rollback"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:res.groups,comment:l10n_us_sales_tax_engine.group_us_tax_manager
+msgid "Can configure providers, import rates and manage nexus."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:res.groups,comment:l10n_us_sales_tax_engine.group_us_tax_technical
+msgid "Can view API payloads, cache and manage provider credentials."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:res.groups,comment:l10n_us_sales_tax_engine.group_us_tax_user
+msgid "Can view US tax rates, nexus and calculation logs."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_import_wizard_form
+msgid "Cancel"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_provider_form
+msgid "Capabilities"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_jurisdiction__child_ids
+msgid "Child"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_jurisdiction__city
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_zip_mapping__city
+#: model:ir.model.fields.selection,name:l10n_us_sales_tax_engine.selection__us_tax_jurisdiction__type__city
+msgid "City"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_rate_list
+msgid "City %"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_api_cache__city_rate
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_calculation_log__city_rate
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_rate__city_rate
+msgid "City Rate"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_product_category__code
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_provider__code
+msgid "Code"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_nexus__company_id
+msgid "Company"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_jurisdiction__complete_name
+msgid "Complete Name"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_zip_mapping__confidence
+msgid "Confidence"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_us_tax_zip_mapping__confidence
+msgid "Confidence 0.0-1.0. Highest wins when ZIP has multiple jurisdictions."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model,name:l10n_us_sales_tax_engine.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.ui.menu,name:l10n_us_sales_tax_engine.menu_us_tax_config
+msgid "Configuration"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_jurisdiction_search
+msgid "Counties"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_jurisdiction__county
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_zip_mapping__county
+#: model:ir.model.fields.selection,name:l10n_us_sales_tax_engine.selection__us_tax_jurisdiction__type__county
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_zip_mapping_search
+msgid "County"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_rate_list
+msgid "County %"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_api_cache__county_rate
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_calculation_log__county_rate
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_rate__county_rate
+msgid "County Rate"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_import_batch_list
+msgid "Created"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_api_cache__create_uid
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_calculation_log__create_uid
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_import_batch__create_uid
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_import_wizard__create_uid
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_jurisdiction__create_uid
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_nexus__create_uid
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_product_category__create_uid
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_provider__create_uid
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_rate__create_uid
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_rule__create_uid
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_zip_mapping__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_api_cache__create_date
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_calculation_log__create_date
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_import_batch__create_date
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_import_wizard__create_date
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_jurisdiction__create_date
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_nexus__create_date
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_product_category__create_date
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_provider__create_date
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_rate__create_date
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_rule__create_date
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_zip_mapping__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_provider_form
+msgid "Credentials (stored in System Parameters — never shown in plain text)"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_calculation_log__currency_id
+msgid "Currency"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_us_tax_zip_mapping__source
+msgid "Data origin: florida_dor, texas_open_data, api_ziptax, manual"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_log_search
+msgid "Date"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_us_tax_nexus__start_date
+msgid "Date when economic nexus was established in this state."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_product_category__default_taxable
+msgid "Default Taxable"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_import_wizard__delimiter
+msgid "Delimiter"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:us.tax.product.category,description:l10n_us_sales_tax_engine.cat_shipping
+msgid "Delivery charges (taxability varies by state)."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_product_category__description
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_provider__description
+msgid "Description"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_product_category_form
+msgid "Description for accountants..."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:us.tax.product.category,name:l10n_us_sales_tax_engine.cat_digital
+msgid "Digital Goods"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_api_cache__display_name
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_calculation_log__display_name
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_import_batch__display_name
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_import_wizard__display_name
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_jurisdiction__display_name
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_nexus__display_name
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_product_category__display_name
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_provider__display_name
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_rate__display_name
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_rule__display_name
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_zip_mapping__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_jurisdiction__district_code
+msgid "District Code"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_api_cache__district_rate
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_calculation_log__district_rate
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_rate__district_rate
+msgid "District Rate"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_log_form
+msgid "Document"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_calculation_log__document_ref
+msgid "Document Ref"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields.selection,name:l10n_us_sales_tax_engine.selection__us_tax_import_batch__status__done
+msgid "Done"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_us_tax_nexus__threshold_amount
+msgid "Economic nexus threshold in USD (informational for MVP)."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_import_batch__effective_date
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_import_wizard__effective_date
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_rate__effective_date
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_rule__effective_date
+msgid "Effective Date"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#. odoo-python
+#: code:addons/l10n_us_sales_tax_engine/models/us_tax_rule.py:0
+msgid "Effective date must be before end date."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#. odoo-python
+#: code:addons/l10n_us_sales_tax_engine/models/us_tax_rate.py:0
+msgid "Effective date must be before or equal to end date."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_res_config_settings__us_tax_engine_active
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.res_config_settings_view_us_tax
+msgid "Enable US Sales Tax Engine"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_rate__end_date
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_rule__end_date
+msgid "End Date"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_res_config_settings__us_tax_engine_mode
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.res_config_settings_view_us_tax
+msgid "Engine Mode"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields.selection,name:l10n_us_sales_tax_engine.selection__us_tax_calculation_log__source__error
+#: model:ir.model.fields.selection,name:l10n_us_sales_tax_engine.selection__us_tax_calculation_log__status__error
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_log_form
+msgid "Error"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_import_batch__error_log
+msgid "Error Log"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_calculation_log__error_message
+msgid "Error Message"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_log_search
+msgid "Errors"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:us.tax.product.category,name:l10n_us_sales_tax_engine.cat_exempt
+msgid "Exempt"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields.selection,name:l10n_us_sales_tax_engine.selection__us_tax_calculation_log__source__exempt_nexus
+msgid "Exempt — No Nexus"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields.selection,name:l10n_us_sales_tax_engine.selection__us_tax_calculation_log__source__exempt_rule
+msgid "Exempt — Tax Rule"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_rule__exemption_reason
+msgid "Exemption Reason"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_api_cache_search
+msgid "Expired"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_api_cache__expires_at
+msgid "Expires At"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields.selection,name:l10n_us_sales_tax_engine.selection__us_tax_calculation_log__source__api
+msgid "External API"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields.selection,name:l10n_us_sales_tax_engine.selection__res_config_settings__us_tax_engine_mode__api
+msgid "External API Only"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields.selection,name:l10n_us_sales_tax_engine.selection__us_tax_import_batch__status__failed
+msgid "Failed"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_import_wizard__file_data
+msgid "File"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_import_batch__file_name
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_import_wizard__file_name
+msgid "File Name"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_import_wizard_form
+msgid "File Preview (first 5 rows)"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_import_batch__finished_at
+msgid "Finished At"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_product_product__us_tax_category_id
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_product_template__us_tax_category_id
+msgid ""
+"Fiscal classification for US Sales Tax calculation. If empty, defaults to "
+"TANGIBLE GOODS."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_product_template_us_tax
+msgid ""
+"Fiscal classification for US Sales Tax. Defaults to TANGIBLE GOODS if not "
+"set."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields.selection,name:l10n_us_sales_tax_engine.selection__us_tax_import_wizard__source__florida_dor
+msgid "Florida DOR (Master Address List)"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:us.tax.product.category,name:l10n_us_sales_tax_engine.cat_food
+msgid "Food & Grocery"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_provider_search
+msgid "Free (no payment required)"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_calculation_log__full_address
+msgid "Full Address"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields.selection,name:l10n_us_sales_tax_engine.selection__us_tax_import_wizard__source__generic_csv
+msgid "Generic CSV (any state)"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_jurisdiction_search
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_zip_mapping_search
+msgid "Group By"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_zip_mapping_search
+msgid "High Confidence"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_res_config_settings__us_tax_cache_ttl_hours
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.res_config_settings_view_us_tax
+msgid "Hours to keep API responses in cache. Default: 720 (30 days)."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_res_config_settings__us_tax_engine_mode
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.res_config_settings_view_us_tax
+msgid "How the engine selects the tax rate source."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_us_tax_calculation_log__document_ref
+msgid "Human-readable reference."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields.selection,name:l10n_us_sales_tax_engine.selection__res_config_settings__us_tax_engine_mode__hybrid
+msgid "Hybrid (Local First, API Fallback)"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_api_cache__id
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_calculation_log__id
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_import_batch__id
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_import_wizard__id
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_jurisdiction__id
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_nexus__id
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_product_category__id
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_provider__id
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_rate__id
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_rule__id
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_zip_mapping__id
+msgid "ID"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_provider_form
+msgid "Identity"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_us_tax_rule__rate_override
+msgid "If set, use this rate instead of the standard jurisdiction rate."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_import_batch_form
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_import_wizard_form
+msgid "Import"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_rate__import_batch_id
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_zip_mapping__import_batch_id
+msgid "Import Batch"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.actions.act_window,name:l10n_us_sales_tax_engine.action_us_tax_import_batch
+#: model:ir.ui.menu,name:l10n_us_sales_tax_engine.menu_us_tax_import_batches
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_import_batch_list
+msgid "Import History"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.ui.menu,name:l10n_us_sales_tax_engine.menu_us_tax_import
+msgid "Import Rates"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.actions.act_window,name:l10n_us_sales_tax_engine.action_us_tax_import_wizard
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_import_wizard_form
+msgid "Import Tax Rates"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#. odoo-python
+#: code:addons/l10n_us_sales_tax_engine/wizards/us_tax_import_wizard.py:0
+msgid "Import failed: %s"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_zip_mapping__imported_at
+msgid "Imported At"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_import_batch__imported_by
+msgid "Imported By"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_provider__is_paid
+msgid "Is Paid"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_us_tax_rule__taxable
+msgid "Is this category taxable in this state?"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model,name:l10n_us_sales_tax_engine.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_rate__jurisdiction_id
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_zip_mapping__jurisdiction_id
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_rate_form
+msgid "Jurisdiction"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.actions.act_window,name:l10n_us_sales_tax_engine.action_us_tax_jurisdiction
+#: model:ir.ui.menu,name:l10n_us_sales_tax_engine.menu_us_tax_jurisdiction
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_jurisdiction_list
+msgid "Jurisdictions"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_api_cache__write_uid
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_calculation_log__write_uid
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_import_batch__write_uid
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_import_wizard__write_uid
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_jurisdiction__write_uid
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_nexus__write_uid
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_product_category__write_uid
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_provider__write_uid
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_rate__write_uid
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_rule__write_uid
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_zip_mapping__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_api_cache__write_date
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_calculation_log__write_date
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_import_batch__write_date
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_import_wizard__write_date
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_jurisdiction__write_date
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_nexus__write_date
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_product_category__write_date
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_provider__write_date
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_rate__write_date
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_rule__write_date
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_zip_mapping__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_us_tax_rate__end_date
+msgid "Leave empty if this rate is currently in effect."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_us_tax_rule__state_id
+msgid "Leave empty to apply to all US states."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_us_tax_rate__product_tax_category_id
+msgid "Leave empty to apply to all categories."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_us_tax_rule__exemption_reason
+msgid "Legal or regulatory basis for exemption."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_nexus_form
+msgid "Legal reference or notes..."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_provider_list
+msgid "Limit"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_provider__limit_alert_sent
+msgid "Limit Alert Sent"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields.selection,name:l10n_us_sales_tax_engine.selection__us_tax_provider__limit_status__exceeded
+msgid "Limit Exceeded"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_provider__limit_status
+msgid "Limit Status"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_provider__limit_usage_pct
+msgid "Limit Usage Pct"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_log_search
+msgid "Local"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields.selection,name:l10n_us_sales_tax_engine.selection__us_tax_calculation_log__source__local
+msgid "Local Database"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields.selection,name:l10n_us_sales_tax_engine.selection__res_config_settings__us_tax_engine_mode__local
+msgid "Local Database Only"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_provider_form
+msgid "Lower = higher priority. Engine tries providers in this order."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_us_tax_provider__priority
+msgid ""
+"Lower number = higher priority in fallback chain. Engine tries providers in "
+"ascending priority order."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields.selection,name:l10n_us_sales_tax_engine.selection__us_tax_calculation_log__source__manual
+msgid "Manual Rate"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields.selection,name:l10n_us_sales_tax_engine.selection__res_config_settings__us_tax_fail_policy__manual
+msgid "Manual — let user enter rate"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_us_tax_provider__is_paid
+msgid "Mark if this provider requires payment after trial/free tier ends."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:us.tax.product.category,name:l10n_us_sales_tax_engine.cat_medicine
+msgid "Medicine & Pharmaceuticals"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.res_config_settings_view_us_tax
+msgid "Minimum ZIP-to-jurisdiction confidence (0.0-1.0)."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_res_config_settings__us_tax_confidence_threshold
+msgid "Minimum ZIP-to-jurisdiction confidence to use local data (0.0–1.0)."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_us_tax_provider__monthly_call_limit
+msgid "Monthly API call limit. 0 = unlimited (paid/enterprise plans)."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_provider__monthly_call_limit
+msgid "Monthly Call Limit"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_provider_form
+msgid "Monthly Usage"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_import_batch__name
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_jurisdiction__name
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_product_category__name
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_provider__name
+msgid "Name"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.ui.menu,name:l10n_us_sales_tax_engine.menu_us_tax_nexus
+msgid "Nexus"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_calculation_log__nexus_applied
+msgid "Nexus Applied"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.actions.act_window,name:l10n_us_sales_tax_engine.action_us_tax_nexus
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_nexus_list
+msgid "Nexus Configuration"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#. odoo-python
+#: code:addons/l10n_us_sales_tax_engine/models/us_tax_provider.py:0
+msgid "No service class found for provider code \"%s\"."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_nexus__notes
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_rate__notes
+msgid "Notes"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_rate_form
+msgid "Notes..."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields.selection,name:l10n_us_sales_tax_engine.selection__us_tax_provider__limit_status__ok
+msgid "OK"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_us_tax_rate__source
+msgid ""
+"Origin: e.g. florida_dor, manual, or the code of an external provider "
+"module."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_provider_search
+msgid "Over Monthly Limit"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_provider_list
+msgid "Paid"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_jurisdiction__parent_id
+msgid "Parent Jurisdiction"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_jurisdiction__parent_path
+msgid "Parent Path"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#. odoo-python
+#: code:addons/l10n_us_sales_tax_engine/models/us_tax_jurisdiction.py:0
+msgid "Parent type \"%(parent)s\" must be higher in hierarchy than \"%(child)s\"."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_calculation_log__partner_id
+msgid "Partner"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_log_form
+msgid "Payloads"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields.selection,name:l10n_us_sales_tax_engine.selection__us_tax_import_batch__status__pending
+msgid "Pending"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_us_tax_provider__limit_usage_pct
+msgid "Percentage of monthly limit used."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:us.tax.product.category,description:l10n_us_sales_tax_engine.cat_tangible
+msgid "Physical goods subject to standard sales tax."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#. odoo-python
+#: code:addons/l10n_us_sales_tax_engine/wizards/us_tax_import_wizard.py:0
+msgid "Please upload a file first."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:us.tax.product.category,description:l10n_us_sales_tax_engine.cat_medicine
+msgid "Prescription and OTC medicines (generally exempt)."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_import_wizard_form
+msgid "Preview"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_import_wizard__preview_html
+msgid "Preview Html"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_provider_list
+msgid "Prio."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_provider__priority
+msgid "Priority"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model,name:l10n_us_sales_tax_engine.model_product_template
+msgid "Product"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_calculation_log__product_category_id
+msgid "Product Category"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.actions.act_window,name:l10n_us_sales_tax_engine.action_us_tax_product_category
+#: model:ir.ui.menu,name:l10n_us_sales_tax_engine.menu_us_tax_product_categories
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_product_category_list
+msgid "Product Tax Categories"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_rate__product_tax_category_id
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_rule__product_tax_category_id
+msgid "Product Tax Category"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.constraint,message:l10n_us_sales_tax_engine.constraint_us_tax_product_category_code_unique
+msgid "Product category code must be unique."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_api_cache__provider_id
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_calculation_log__provider_id
+msgid "Provider"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_us_tax_provider__supports_zip_level
+msgid "Provider can resolve by ZIP code."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_us_tax_provider__supports_address_level
+msgid "Provider can resolve by full address (not just ZIP)."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.constraint,message:l10n_us_sales_tax_engine.constraint_us_tax_provider_code_unique
+msgid "Provider code must be unique."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_provider_form
+msgid "Provider description..."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.actions.act_window,name:l10n_us_sales_tax_engine.action_us_tax_provider
+#: model:ir.ui.menu,name:l10n_us_sales_tax_engine.menu_us_tax_providers
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_provider_list
+msgid "Providers"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_jurisdiction__rate_ids
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_api_cache_list
+msgid "Rate"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_log_form
+msgid "Rate Breakdown"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.ui.menu,name:l10n_us_sales_tax_engine.menu_us_tax_rates_root
+msgid "Rate Database"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_rule__rate_override
+msgid "Rate Override"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_us_tax_api_cache__source_date
+msgid "Rate effective date reported by provider."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_rate_form
+msgid "Rates"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_us_tax_import_batch__effective_date
+msgid "Rates effective date from the imported source."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_import_batch__records_created
+msgid "Records Created"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_import_batch__records_skipped
+msgid "Records Skipped"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_import_batch__records_updated
+msgid "Records Updated"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_api_cache__request_payload
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_calculation_log__request_payload
+msgid "Request Payload"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_calculation_log__res_id
+msgid "Res"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_calculation_log__res_model
+msgid "Res Model"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_provider_form
+msgid "Reset Monthly Counter"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_api_cache__response_payload
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_calculation_log__response_payload
+msgid "Response Payload"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_log_form
+msgid "Result"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_import_batch_form
+msgid "Results"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_rule_form
+msgid "Rule"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields.selection,name:l10n_us_sales_tax_engine.selection__us_tax_import_batch__status__running
+msgid "Running"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model,name:l10n_us_sales_tax_engine.model_sale_order
+msgid "Sales Order"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_provider_list
+msgid "Sandbox"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_provider__sandbox_mode
+msgid "Sandbox Mode"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_us_tax_calculation_log__response_payload
+msgid "Sanitized — no API keys stored."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:us.tax.product.category,name:l10n_us_sales_tax_engine.cat_service
+msgid "Services"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:us.tax.product.category,description:l10n_us_sales_tax_engine.cat_service
+msgid "Services (taxability varies widely by state)."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:us.tax.product.category,name:l10n_us_sales_tax_engine.cat_shipping
+msgid "Shipping & Freight"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_calculation_log__shipping_city
+msgid "Shipping City"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_calculation_log__shipping_county
+msgid "Shipping County"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_calculation_log__shipping_state_id
+msgid "Shipping State"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_calculation_log__shipping_zip
+msgid "Shipping Zip"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields.selection,name:l10n_us_sales_tax_engine.selection__us_tax_calculation_log__status__skipped
+msgid "Skipped"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:us.tax.product.category,description:l10n_us_sales_tax_engine.cat_digital
+msgid "Software, digital downloads, SaaS (taxability varies)."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_calculation_log__source
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_import_batch__source
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_import_wizard__source
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_rate__source
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_zip_mapping__source
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_log_search
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_rate_form
+msgid "Source"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_api_cache__source_date
+msgid "Source Date"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_rate__source_url
+msgid "Source URL"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_account_bank_statement_line__us_tax_source
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_account_move__us_tax_source
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_sale_order__us_tax_source
+msgid "Source used for the last US tax calculation."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields.selection,name:l10n_us_sales_tax_engine.selection__us_tax_jurisdiction__type__district
+msgid "Special District"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_nexus__start_date
+msgid "Start Date"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_import_batch__started_at
+msgid "Started At"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_api_cache__state_id
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_import_wizard__state_id
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_jurisdiction__state_id
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_nexus__state_id
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_rate__state_id
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_rule__state_id
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_zip_mapping__state_id
+#: model:ir.model.fields.selection,name:l10n_us_sales_tax_engine.selection__us_tax_jurisdiction__type__state
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_jurisdiction_search
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_log_search
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_zip_mapping_search
+msgid "State"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_rate_list
+msgid "State %"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_import_batch__state_id
+msgid "State Covered"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_api_cache__state_rate
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_calculation_log__state_rate
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_rate__state_rate
+msgid "State Rate"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_jurisdiction_search
+msgid "States"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_calculation_log__status
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_import_batch__status
+msgid "Status"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields.selection,name:l10n_us_sales_tax_engine.selection__us_tax_calculation_log__status__success
+msgid "Success"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_us_tax_rate__total_rate
+msgid "Sum of all rate components."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_provider__supports_address_level
+msgid "Supports Address Level"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_provider__supports_zip_level
+msgid "Supports Zip Level"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:us.tax.product.category,name:l10n_us_sales_tax_engine.cat_tangible
+msgid "Tangible Goods"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_calculation_log__tax_amount
+msgid "Tax Amount"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_account_move_us_tax
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_sale_order_us_tax
+msgid "Tax Calculated"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_account_bank_statement_line__us_tax_calculated_at
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_account_move__us_tax_calculated_at
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_sale_order__us_tax_calculated_at
+msgid "Tax Calculated At"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.actions.act_window,name:l10n_us_sales_tax_engine.action_us_tax_rate
+#: model:ir.ui.menu,name:l10n_us_sales_tax_engine.menu_us_tax_rates
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_rate_list
+msgid "Tax Rates"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.actions.act_window,name:l10n_us_sales_tax_engine.action_us_tax_rule
+#: model:ir.ui.menu,name:l10n_us_sales_tax_engine.menu_us_tax_rules
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_rule_list
+msgid "Tax Rules"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_account_bank_statement_line__us_tax_source
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_account_move__us_tax_source
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_sale_order__us_tax_source
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_account_move_us_tax
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_sale_order_us_tax
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_sale_order_us_tax_list
+msgid "Tax Source"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_rule__taxable
+msgid "Taxable"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_calculation_log__taxable_amount
+msgid "Taxable Amount"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_us_tax_product_category__default_taxable
+msgid "Taxable by default. Override per state via Tax Rules."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_us_tax_product_category__code
+msgid ""
+"Technical code: TANGIBLE, SERVICE, FOOD, MEDICINE, DIGITAL, SHIPPING, EXEMPT"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_provider_form
+msgid "Test Credentials"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields.selection,name:l10n_us_sales_tax_engine.selection__us_tax_import_wizard__source__texas_open_data
+msgid "Texas Open Data"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.constraint,message:l10n_us_sales_tax_engine.constraint_us_tax_zip_mapping_zip_jurisdiction_unique
+msgid "This ZIP + Jurisdiction combination already exists."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_nexus__threshold_amount
+msgid "Threshold Amount"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_nexus__threshold_transactions
+msgid "Threshold Transactions"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_provider__timeout
+msgid "Timeout"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_rate_list
+msgid "Total %"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_api_cache__total_rate
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_calculation_log__total_rate
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_rate__total_rate
+msgid "Total Rate"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_us_tax_nexus__threshold_transactions
+msgid "Transaction count threshold (informational for MVP)."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_jurisdiction__type
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_jurisdiction_search
+msgid "Type"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.module.category,name:l10n_us_sales_tax_engine.module_category_us_sales_tax
+#: model:ir.ui.menu,name:l10n_us_sales_tax_engine.menu_us_tax_root
+msgid "US Sales Tax"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.res_config_settings_view_us_tax
+msgid "US Sales Tax Engine"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.res_config_settings_view_us_tax
+msgid "US Tax API Providers"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model,name:l10n_us_sales_tax_engine.model_us_tax_api_cache
+msgid "US Tax API Response Cache"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model,name:l10n_us_sales_tax_engine.model_us_tax_calculation_log
+msgid "US Tax Calculation Audit Log"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_product_product__us_tax_category_id
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_product_template__us_tax_category_id
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_product_template_us_tax
+msgid "US Tax Category"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model,name:l10n_us_sales_tax_engine.model_us_tax_engine_service
+msgid "US Tax Engine Service"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model,name:l10n_us_sales_tax_engine.model_us_tax_provider
+msgid "US Tax External Provider"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model,name:l10n_us_sales_tax_engine.model_us_tax_jurisdiction
+msgid "US Tax Jurisdiction"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:res.groups,name:l10n_us_sales_tax_engine.group_us_tax_manager
+msgid "US Tax Manager"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model,name:l10n_us_sales_tax_engine.model_us_tax_nexus
+msgid "US Tax Nexus Configuration"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model,name:l10n_us_sales_tax_engine.model_us_tax_product_category
+msgid "US Tax Product Category"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model,name:l10n_us_sales_tax_engine.model_us_tax_rate
+msgid "US Tax Rate (Versioned)"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model,name:l10n_us_sales_tax_engine.model_us_tax_import_batch
+msgid "US Tax Rate Import Batch"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model,name:l10n_us_sales_tax_engine.model_us_tax_import_wizard
+msgid "US Tax Rate Import Wizard"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model,name:l10n_us_sales_tax_engine.model_us_tax_rule
+msgid "US Tax Rule (State/Category Taxability)"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:res.groups,name:l10n_us_sales_tax_engine.group_us_tax_technical
+msgid "US Tax Technical"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:res.groups,name:l10n_us_sales_tax_engine.group_us_tax_user
+msgid "US Tax User"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model,name:l10n_us_sales_tax_engine.model_us_tax_zip_mapping
+msgid "US Tax ZIP to Jurisdiction Mapping"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.actions.server,name:l10n_us_sales_tax_engine.cron_purge_tax_cache_ir_actions_server
+msgid "US Tax: Purge Expired Cache"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.actions.server,name:l10n_us_sales_tax_engine.cron_reset_provider_counters_ir_actions_server
+msgid "US Tax: Reset Monthly API Call Counters"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_us_tax_provider__code
+msgid ""
+"Unique provider code (e.g. 'local'; external providers define their own code"
+" in their own addon)."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields.selection,name:l10n_us_sales_tax_engine.selection__us_tax_provider__limit_status__unlimited
+msgid "Unlimited"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:us.tax.product.category,description:l10n_us_sales_tax_engine.cat_food
+msgid "Unprepared food and grocery items (often exempt)."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_import_batch_list
+msgid "Updated"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_provider_form
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_provider_list
+msgid "Usage %"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields.selection,name:l10n_us_sales_tax_engine.selection__res_config_settings__us_tax_fail_policy__last_cache
+msgid "Use Last Cache — use expired cache if available"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_us_tax_provider__sandbox_mode
+msgid "Use sandbox/test endpoints. Disable for production."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_rate_form
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_rule_form
+msgid "Validity"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields.selection,name:l10n_us_sales_tax_engine.selection__res_config_settings__us_tax_fail_policy__warn
+msgid "Warn — proceed with $0 tax + warning"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields.selection,name:l10n_us_sales_tax_engine.selection__us_tax_provider__limit_status__warning
+msgid "Warning (>80%)"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_res_config_settings__us_tax_fail_policy
+msgid "What happens when all configured API providers fail."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.res_config_settings_view_us_tax
+msgid "What happens when all providers fail."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_us_tax_provider__limit_alert_sent
+msgid "Whether the 80% warning has been sent this month."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_zip_mapping__zip
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_zip_mapping_search
+msgid "ZIP Code"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_res_config_settings__us_tax_confidence_threshold
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.res_config_settings_view_us_tax
+msgid "ZIP Confidence Threshold"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.actions.act_window,name:l10n_us_sales_tax_engine.action_us_tax_zip_mapping
+#: model:ir.ui.menu,name:l10n_us_sales_tax_engine.menu_us_tax_zip_mapping
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_zip_mapping_list
+msgid "ZIP Mappings"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_zip_mapping__zip4
+msgid "ZIP+4"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_api_cache__zip
+msgid "Zip"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_jurisdiction__zip_mapping_ids
+msgid "Zip Mapping"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_us_tax_import_batch__source
+msgid "florida_dor, texas_open_data, manual_csv, api_ziptax"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_us_tax_provider__api_key_param
+msgid "ir.config_parameter key for API Key."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_us_tax_provider__account_id_param
+msgid "ir.config_parameter key for Account ID (if required)."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_import_wizard_form
+msgid "pointmatch.floridarevenue.com"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_us_tax_calculation_log__res_model
+msgid "sale.order or account.move"
+msgstr ""
