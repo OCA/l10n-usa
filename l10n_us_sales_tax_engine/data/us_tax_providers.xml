@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <!-- Local provider — always present, highest priority -->
+    <record id="provider_local" model="us.tax.provider">
+        <field name="code">local</field>
+        <field name="name">Local Database</field>
+        <field name="active">True</field>
+        <field name="priority">1</field>
+        <field name="sandbox_mode">False</field>
+        <field name="timeout">2</field>
+        <field name="supports_zip_level">True</field>
+        <field name="supports_address_level">False</field>
+        <field
+            name="description"
+        >Local rate database — no external calls. Always active.</field>
+    </record>
+</odoo>

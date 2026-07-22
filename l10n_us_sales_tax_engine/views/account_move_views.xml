@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Add Calculate US Tax button to customer invoice form -->
+    <record id="view_account_move_us_tax" model="ir.ui.view">
+        <field name="name">account.move.us.tax.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <!-- Button in header, only for customer invoices -->
+            <xpath expr="(//button[@name='action_post'])[1]" position="before">
+                <button
+                    name="action_calculate_us_tax"
+                    type="object"
+                    string="Calculate US Tax"
+                    class="btn-secondary"
+                    invisible="move_type not in ('out_invoice', 'out_refund')"
+                    title="Calculate US Sales Tax based on customer address"
+                />
+            </xpath>
+            <!-- Tax source info, injected after first invoice_date field only -->
+            <xpath expr="(//field[@name='invoice_date'])[1]" position="after">
+                <field
+                    name="us_tax_source"
+                    string="Tax Source"
+                    readonly="1"
+                    invisible="not us_tax_source"
+                />
+                <field
+                    name="us_tax_calculated_at"
+                    string="Tax Calculated"
+                    readonly="1"
+                    invisible="not us_tax_calculated_at"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>

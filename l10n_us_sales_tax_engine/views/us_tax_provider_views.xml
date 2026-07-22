@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_us_tax_provider_list" model="ir.ui.view">
+        <field name="name">us.tax.provider.list</field>
+        <field name="model">us.tax.provider</field>
+        <field name="arch" type="xml">
+            <list
+                string="Providers"
+                decoration-muted="not active"
+                decoration-danger="limit_status == 'exceeded'"
+                decoration-warning="limit_status == 'warning'"
+            >
+                <field name="priority" string="Prio." />
+                <field name="name" />
+                <field name="code" />
+                <field name="active" />
+                <field name="is_paid" string="Paid" />
+                <field name="sandbox_mode" string="Sandbox" />
+                <field name="calls_this_month" string="Calls/Mo" />
+                <field name="monthly_call_limit" string="Limit" />
+                <field name="limit_usage_pct" string="Usage %" widget="percentage" />
+                <field
+                    name="limit_status"
+                    widget="badge"
+                    decoration-success="limit_status == 'ok' or limit_status == 'unlimited'"
+                    decoration-warning="limit_status == 'warning'"
+                    decoration-danger="limit_status == 'exceeded'"
+                />
+            </list>
+        </field>
+    </record>
+
+    <record id="view_us_tax_provider_form" model="ir.ui.view">
+        <field name="name">us.tax.provider.form</field>
+        <field name="model">us.tax.provider</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+                        name="action_validate_credentials"
+                        type="object"
+                        string="Test Credentials"
+                        class="btn-secondary"
+                        invisible="code == 'local'"
+                    />
+                    <button
+                        name="action_reset_monthly_counter"
+                        type="object"
+                        string="Reset Monthly Counter"
+                        class="btn-secondary"
+                    />
+                </header>
+                <sheet>
+                    <!-- Limit exceeded banner -->
+                    <div
+                        class="alert alert-danger"
+                        role="alert"
+                        invisible="limit_status != 'exceeded'"
+                    >
+                        <strong>Monthly Limit Reached</strong> —
+                        This provider will be automatically skipped until the counter is reset
+                        (first day of next month) or you upgrade your plan.
+                    </div>
+                    <!-- Limit warning banner -->
+                    <div
+                        class="alert alert-warning"
+                        role="alert"
+                        invisible="limit_status != 'warning'"
+                    >
+                        <strong>Approaching Monthly Limit</strong> —
+                        You are using more than 80% of this provider's monthly quota.
+                        Consider upgrading your plan or enabling a secondary provider.
+                    </div>
+                    <!-- Paid provider notice -->
+                    <div class="alert alert-info" role="alert" invisible="not is_paid">
+                        <strong>Paid Provider</strong> —
+                        This provider requires a paid subscription after the trial period.
+                        It is kept optional for clients who need its features.
+                        The system works without it using free providers.
+                    </div>
+                    <group>
+                        <group string="Identity">
+                            <field name="code" />
+                            <field name="name" />
+                            <field name="active" />
+                            <field name="is_paid" />
+                            <field
+                                name="priority"
+                                help="Lower = higher priority. Engine tries providers in this order."
+                            />
+                        </group>
+                        <group string="Capabilities">
+                            <field name="supports_zip_level" />
+                            <field name="supports_address_level" />
+                            <field name="sandbox_mode" />
+                            <field name="timeout" />
+                        </group>
+                        <group
+                            string="Credentials (stored in System Parameters — never shown in plain text)"
+                        >
+                            <field name="api_key_param" />
+                            <field name="account_id_param" />
+                        </group>
+                        <group string="Monthly Usage">
+                            <field
+                                name="monthly_call_limit"
+                                help="0 = unlimited. Set to your plan's monthly limit."
+                            />
+                            <field name="calls_this_month" readonly="1" />
+                            <field
+                                name="limit_usage_pct"
+                                readonly="1"
+                                string="Usage %"
+                            />
+                            <field name="limit_status" readonly="1" />
+                        </group>
+                    </group>
+                    <field name="description" placeholder="Provider description..." />
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_us_tax_provider_search" model="ir.ui.view">
+        <field name="name">us.tax.provider.search</field>
+        <field name="model">us.tax.provider</field>
+        <field name="arch" type="xml">
+            <search>
+                <filter name="active" string="Active" domain="[('active','=',True)]" />
+                <filter
+                    name="free_only"
+                    string="Free (no payment required)"
+                    domain="[('is_paid','=',False)]"
+                />
+                <filter
+                    name="over_limit"
+                    string="Over Monthly Limit"
+                    domain="[('monthly_call_limit','&gt;',0),('calls_this_month','&gt;=','monthly_call_limit')]"
+                />
+            </search>
+        </field>
+    </record>
+
+    <record id="action_us_tax_provider" model="ir.actions.act_window">
+        <field name="name">Providers</field>
+        <field name="res_model">us.tax.provider</field>
+        <field name="view_mode">list,form</field>
+        <field name="context">{'search_default_active': 1}</field>
+    </record>
+</odoo>

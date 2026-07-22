@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_us_tax_zip_mapping_list" model="ir.ui.view">
+        <field name="name">us.tax.zip.mapping.list</field>
+        <field name="model">us.tax.zip.mapping</field>
+        <field name="arch" type="xml">
+            <list string="ZIP Mappings" default_order="zip">
+                <field name="zip" />
+                <field name="state_id" />
+                <field name="county" />
+                <field name="city" optional="show" />
+                <field name="jurisdiction_id" />
+                <field name="confidence" widget="progressbar" />
+                <field name="source" optional="show" />
+            </list>
+        </field>
+    </record>
+    <record id="view_us_tax_zip_mapping_search" model="ir.ui.view">
+        <field name="name">us.tax.zip.mapping.search</field>
+        <field name="model">us.tax.zip.mapping</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="zip" string="ZIP Code" />
+                <field name="state_id" />
+                <field name="county" />
+                <field name="jurisdiction_id" />
+                <filter
+                    name="high_confidence"
+                    string="High Confidence"
+                    domain="[('confidence', '>=', 0.8)]"
+                />
+                <group expand="1" string="Group By">
+                    <filter
+                        name="group_state"
+                        string="State"
+                        context="{'group_by': 'state_id'}"
+                    />
+                    <filter
+                        name="group_county"
+                        string="County"
+                        context="{'group_by': 'county'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+    <record id="action_us_tax_zip_mapping" model="ir.actions.act_window">
+        <field name="name">ZIP Mappings</field>
+        <field name="res_model">us.tax.zip.mapping</field>
+        <field name="view_mode">list</field>
+        <field name="context">{'search_default_high_confidence': 0}</field>
+    </record>
+</odoo>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <!-- ── Category ───────────────────────────────────────────────────────── -->
+    <!-- Dedicated category so these groups show as independent checkboxes on
+    the user form, instead of competing as an exclusive option inside Odoo's
+    core Invoicing access-level selector (base.module_category_accounting_accounting). -->
+    <record id="module_category_us_sales_tax" model="ir.module.category">
+        <field name="name">US Sales Tax</field>
+        <field name="sequence">50</field>
+    </record>
+
+    <!-- ── Groups ─────────────────────────────────────────────────────────── -->
+    <record id="group_us_tax_user" model="res.groups">
+        <field name="name">US Tax User</field>
+        <field name="category_id" ref="module_category_us_sales_tax" />
+        <field name="comment">Can view US tax rates, nexus and calculation logs.</field>
+    </record>
+
+    <record id="group_us_tax_manager" model="res.groups">
+        <field name="name">US Tax Manager</field>
+        <field name="category_id" ref="module_category_us_sales_tax" />
+        <field name="implied_ids" eval="[(4, ref('group_us_tax_user'))]" />
+        <field
+            name="comment"
+        >Can configure providers, import rates and manage nexus.</field>
+    </record>
+
+    <record id="group_us_tax_technical" model="res.groups">
+        <field name="name">US Tax Technical</field>
+        <field name="category_id" ref="module_category_us_sales_tax" />
+        <field name="implied_ids" eval="[(4, ref('group_us_tax_manager'))]" />
+        <field
+            name="comment"
+        >Can view API payloads, cache and manage provider credentials.</field>
+    </record>
+
+    <!-- ── Multi-company Record Rules ────────────────────────────────────── -->
+
+    <!-- Nexus: each company sees only its own nexus records -->
+    <record id="rule_us_tax_nexus_company" model="ir.rule">
+        <field name="name">US Tax Nexus: Multi-Company</field>
+        <field name="model_id" ref="model_us_tax_nexus" />
+        <field name="domain_force">
+            ['|', ('company_id', '=', False),
+                  ('company_id', 'in', company_ids)]
+        </field>
+        <field name="global" eval="True" />
+    </record>
+
+    <!-- Calculation Log: users see logs for their allowed companies -->
+    <record id="rule_us_tax_calculation_log_company" model="ir.rule">
+        <field name="name">US Tax Calculation Log: Multi-Company</field>
+        <field name="model_id" ref="model_us_tax_calculation_log" />
+        <field name="domain_force">[('id', '!=', 0)]</field>
+        <field name="global" eval="True" />
+        <field name="perm_read" eval="True" />
+        <field name="perm_write" eval="False" />
+        <field name="perm_create" eval="False" />
+        <field name="perm_unlink" eval="False" />
+    </record>
+</odoo>

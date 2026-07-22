@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_us_tax_nexus_list" model="ir.ui.view">
+        <field name="name">us.tax.nexus.list</field>
+        <field name="model">us.tax.nexus</field>
+        <field name="arch" type="xml">
+            <list string="Nexus Configuration" decoration-muted="not active">
+                <field name="company_id" groups="base.group_multi_company" />
+                <field name="state_id" />
+                <field name="start_date" />
+                <field name="threshold_amount" />
+                <field name="active" />
+            </list>
+        </field>
+    </record>
+    <record id="view_us_tax_nexus_form" model="ir.ui.view">
+        <field name="name">us.tax.nexus.form</field>
+        <field name="model">us.tax.nexus</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="company_id" groups="base.group_multi_company" />
+                        <field name="state_id" />
+                        <field name="active" />
+                        <field name="start_date" />
+                        <field name="threshold_amount" />
+                        <field name="threshold_transactions" />
+                    </group>
+                    <field name="notes" placeholder="Legal reference or notes..." />
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_us_tax_nexus" model="ir.actions.act_window">
+        <field name="name">Nexus Configuration</field>
+        <field name="res_model">us.tax.nexus</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_us_tax_log_list" model="ir.ui.view">
+        <field name="name">us.tax.calculation.log.list</field>
+        <field name="model">us.tax.calculation.log</field>
+        <field name="arch" type="xml">
+            <list string="Calculation Logs" create="0" delete="0" edit="0">
+                <field name="calculated_at" />
+                <field name="res_model" />
+                <field name="partner_id" />
+                <field name="shipping_zip" />
+                <field name="shipping_state_id" />
+                <field
+                    name="source"
+                    decoration-success="source=='local'"
+                    decoration-info="source=='cache'"
+                    decoration-warning="source=='error'"
+                />
+                <field name="total_rate" widget="percentage" />
+                <field name="taxable_amount" />
+                <field name="tax_amount" />
+                <field name="status" />
+            </list>
+        </field>
+    </record>
+    <record id="view_us_tax_log_form" model="ir.ui.view">
+        <field name="name">us.tax.calculation.log.form</field>
+        <field name="model">us.tax.calculation.log</field>
+        <field name="arch" type="xml">
+            <form create="0" delete="0" edit="0">
+                <sheet>
+                    <group>
+                        <group string="Document">
+                            <field name="res_model" />
+                            <field name="res_id" />
+                            <field name="partner_id" />
+                            <field name="calculated_at" />
+                            <field name="calculated_by" />
+                        </group>
+                        <group string="Address">
+                            <field name="full_address" />
+                            <field name="shipping_zip" />
+                            <field name="shipping_state_id" />
+                            <field name="shipping_city" />
+                        </group>
+                        <group string="Result">
+                            <field name="source" />
+                            <field name="provider_id" />
+                            <field name="total_rate" widget="percentage" />
+                            <field name="taxable_amount" />
+                            <field name="tax_amount" />
+                            <field name="nexus_applied" />
+                            <field name="status" />
+                        </group>
+                        <group string="Rate Breakdown">
+                            <field name="state_rate" widget="percentage" />
+                            <field name="county_rate" widget="percentage" />
+                            <field name="city_rate" widget="percentage" />
+                            <field name="district_rate" widget="percentage" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Error" invisible="status != 'error'">
+                            <field name="error_message" />
+                        </page>
+                        <page
+                            string="Payloads"
+                            groups="l10n_us_sales_tax_engine.group_us_tax_technical"
+                        >
+                            <field name="request_payload" />
+                            <field name="response_payload" />
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="view_us_tax_log_search" model="ir.ui.view">
+        <field name="name">us.tax.calculation.log.search</field>
+        <field name="model">us.tax.calculation.log</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="partner_id" />
+                <field name="shipping_zip" />
+                <filter name="local" string="Local" domain="[('source','=','local')]" />
+                <filter name="api" string="API" domain="[('source','=','api')]" />
+                <filter name="cache" string="Cache" domain="[('source','=','cache')]" />
+                <filter
+                    name="errors"
+                    string="Errors"
+                    domain="[('status','=','error')]"
+                />
+                <separator />
+                <filter
+                    name="group_source"
+                    string="Source"
+                    context="{'group_by': 'source'}"
+                />
+                <filter
+                    name="group_state"
+                    string="State"
+                    context="{'group_by': 'shipping_state_id'}"
+                />
+                <filter
+                    name="group_date"
+                    string="Date"
+                    context="{'group_by': 'calculated_at:month'}"
+                />
+            </search>
+        </field>
+    </record>
+    <record id="action_us_tax_calculation_log" model="ir.actions.act_window">
+        <field name="name">Calculation Logs</field>
+        <field name="res_model">us.tax.calculation.log</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

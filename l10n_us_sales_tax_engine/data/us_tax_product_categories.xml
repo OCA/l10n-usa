@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <record id="cat_tangible" model="us.tax.product.category">
+        <field name="name">Tangible Goods</field>
+        <field name="code">TANGIBLE</field>
+        <field name="description">Physical goods subject to standard sales tax.</field>
+        <field name="default_taxable">True</field>
+    </record>
+    <record id="cat_service" model="us.tax.product.category">
+        <field name="name">Services</field>
+        <field name="code">SERVICE</field>
+        <field name="description">Services (taxability varies widely by state).</field>
+        <field name="default_taxable">False</field>
+    </record>
+    <record id="cat_food" model="us.tax.product.category">
+        <field name="name">Food &amp; Grocery</field>
+        <field name="code">FOOD</field>
+        <field
+            name="description"
+        >Unprepared food and grocery items (often exempt).</field>
+        <field name="default_taxable">False</field>
+    </record>
+    <record id="cat_medicine" model="us.tax.product.category">
+        <field name="name">Medicine &amp; Pharmaceuticals</field>
+        <field name="code">MEDICINE</field>
+        <field
+            name="description"
+        >Prescription and OTC medicines (generally exempt).</field>
+        <field name="default_taxable">False</field>
+    </record>
+    <record id="cat_digital" model="us.tax.product.category">
+        <field name="name">Digital Goods</field>
+        <field name="code">DIGITAL</field>
+        <field
+            name="description"
+        >Software, digital downloads, SaaS (taxability varies).</field>
+        <field name="default_taxable">True</field>
+    </record>
+    <record id="cat_shipping" model="us.tax.product.category">
+        <field name="name">Shipping &amp; Freight</field>
+        <field name="code">SHIPPING</field>
+        <field name="description">Delivery charges (taxability varies by state).</field>
+        <field name="default_taxable">False</field>
+    </record>
+    <record id="cat_exempt" model="us.tax.product.category">
+        <field name="name">Exempt</field>
+        <field name="code">EXEMPT</field>
+        <field
+            name="description"
+        >Always exempt — no tax applied regardless of jurisdiction.</field>
+        <field name="default_taxable">False</field>
+    </record>
+</odoo>

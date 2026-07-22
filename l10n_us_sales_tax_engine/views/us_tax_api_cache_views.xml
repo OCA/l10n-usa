@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_us_tax_api_cache_list" model="ir.ui.view">
+        <field name="name">us.tax.api.cache.list</field>
+        <field name="model">us.tax.api.cache</field>
+        <field name="arch" type="xml">
+            <list string="API Cache" decoration-muted="not active">
+                <field name="zip" />
+                <field name="state_id" />
+                <field name="provider_id" />
+                <field name="total_rate" widget="percentage" string="Rate" />
+                <field name="cached_at" />
+                <field name="expires_at" />
+                <field name="active" optional="show" />
+            </list>
+        </field>
+    </record>
+    <record id="view_us_tax_api_cache_search" model="ir.ui.view">
+        <field name="name">us.tax.api.cache.search</field>
+        <field name="model">us.tax.api.cache</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="zip" />
+                <field name="state_id" />
+                <field name="provider_id" />
+                <filter name="active" string="Active" domain="[('active','=',True)]" />
+                <filter
+                    name="expired"
+                    string="Expired"
+                    domain="[('active','=',False)]"
+                />
+            </search>
+        </field>
+    </record>
+    <record id="action_us_tax_api_cache" model="ir.actions.act_window">
+        <field name="name">Cache</field>
+        <field name="res_model">us.tax.api.cache</field>
+        <field name="view_mode">list</field>
+        <field name="context">{'search_default_active': 1}</field>
+    </record>
+</odoo>

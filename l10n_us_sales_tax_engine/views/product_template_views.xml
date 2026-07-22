@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Add US Tax Category field to product form — General Information tab -->
+    <record id="view_product_template_us_tax" model="ir.ui.view">
+        <field name="name">product.template.us.tax.form</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view" />
+        <field name="arch" type="xml">
+            <!-- Insert after Sales Price group in General Information -->
+            <xpath expr="//field[@name='list_price']" position="after">
+                <field
+                    name="us_tax_category_id"
+                    string="US Tax Category"
+                    options="{'no_create': True}"
+                    help="Fiscal classification for US Sales Tax. Defaults to TANGIBLE GOODS if not set."
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>

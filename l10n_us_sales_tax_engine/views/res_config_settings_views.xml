@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="res_config_settings_view_us_tax" model="ir.ui.view">
+        <field name="name">res.config.settings.us.tax</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//app[@name='account']" position="inside">
+                <block title="US Sales Tax Engine" id="us_tax_engine_block">
+                    <setting
+                        id="us_tax_engine_active"
+                        help="Activate hybrid US Sales Tax calculation for US customer addresses."
+                    >
+                        <field
+                            name="us_tax_engine_active"
+                            string="Enable US Sales Tax Engine"
+                        />
+                    </setting>
+                    <setting
+                        id="us_tax_engine_mode"
+                        invisible="not us_tax_engine_active"
+                        help="How the engine selects the tax rate source."
+                    >
+                        <label for="us_tax_engine_mode" string="Engine Mode" />
+                        <field name="us_tax_engine_mode" />
+                    </setting>
+                    <setting
+                        id="us_tax_fail_policy"
+                        invisible="not us_tax_engine_active"
+                        help="What happens when all providers fail."
+                    >
+                        <label for="us_tax_fail_policy" string="API Failure Policy" />
+                        <field name="us_tax_fail_policy" />
+                    </setting>
+                    <setting
+                        id="us_tax_cache_ttl"
+                        invisible="not us_tax_engine_active"
+                        help="Hours to keep API responses in cache. Default: 720 (30 days)."
+                    >
+                        <label
+                            for="us_tax_cache_ttl_hours"
+                            string="Cache TTL (hours)"
+                        />
+                        <field name="us_tax_cache_ttl_hours" />
+                    </setting>
+                    <setting
+                        id="us_tax_confidence"
+                        invisible="not us_tax_engine_active"
+                        help="Minimum ZIP-to-jurisdiction confidence (0.0-1.0)."
+                    >
+                        <label
+                            for="us_tax_confidence_threshold"
+                            string="ZIP Confidence Threshold"
+                        />
+                        <field name="us_tax_confidence_threshold" />
+                    </setting>
+                </block>
+
+                <block title="US Tax API Providers" id="us_tax_providers_block">
+                    <!-- Populated by provider addons (l10n_us_sales_tax_provider_*),
+                         each adding its own <setting> here via xpath. -->
+                </block>
+            </xpath>
+        </field>
+    </record>
+</odoo>
