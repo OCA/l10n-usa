@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <!-- ZipTax — register at zip.tax, free 100 calls/month -->
+    <record id="provider_ziptax" model="us.tax.provider">
+        <field name="code">ziptax</field>
+        <field name="name">ZipTax (zip.tax) — Free 100/mo</field>
+        <field name="active">False</field>
+        <field name="priority">10</field>
+        <field name="sandbox_mode">False</field>
+        <field name="timeout">5</field>
+        <field name="supports_zip_level">True</field>
+        <field name="supports_address_level">False</field>
+        <field name="monthly_call_limit">100</field>
+        <field name="api_key_param">l10n_us_tax.ziptax_api_key</field>
+        <field
+            name="description"
+        >ZIP-level lookup. Free 100 calls/month. Register: https://www.zip.tax/register</field>
+    </record>
+</odoo>
