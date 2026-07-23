@@ -1,0 +1,60 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_us_sales_tax_provider_ziptax
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_us_sales_tax_provider_ziptax
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_provider_ziptax.res_config_settings_view_us_tax_ziptax
+msgid "API Key from zip.tax dashboard"
+msgstr ""
+
+#. module: l10n_us_sales_tax_provider_ziptax
+#: model:ir.model,name:l10n_us_sales_tax_provider_ziptax.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: l10n_us_sales_tax_provider_ziptax
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_provider_ziptax.field_res_config_settings__us_tax_enable_ziptax
+msgid "Enable ZipTax"
+msgstr ""
+
+#. module: l10n_us_sales_tax_provider_ziptax
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_provider_ziptax.res_config_settings_view_us_tax_ziptax
+msgid "Enable ZipTax (zip.tax)"
+msgstr ""
+
+#. module: l10n_us_sales_tax_provider_ziptax
+#: model:ir.model.fields,help:l10n_us_sales_tax_provider_ziptax.field_res_config_settings__us_tax_ziptax_api_key
+msgid "Register free at https://www.zip.tax/register — 100 calls/month free."
+msgstr ""
+
+#. module: l10n_us_sales_tax_provider_ziptax
+#: model:ir.model,name:l10n_us_sales_tax_provider_ziptax.model_us_tax_provider
+msgid "US Tax External Provider"
+msgstr ""
+
+#. module: l10n_us_sales_tax_provider_ziptax
+#: model:ir.model.fields,help:l10n_us_sales_tax_provider_ziptax.field_res_config_settings__us_tax_enable_ziptax
+msgid "Use ZipTax (zip.tax) as an external fallback provider."
+msgstr ""
+
+#. module: l10n_us_sales_tax_provider_ziptax
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_provider_ziptax.res_config_settings_view_us_tax_ziptax
+msgid "ZIP-level lookup. Free: 100 calls/month. Register at zip.tax/register"
+msgstr ""
+
+#. module: l10n_us_sales_tax_provider_ziptax
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_provider_ziptax.field_res_config_settings__us_tax_ziptax_api_key
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_provider_ziptax.res_config_settings_view_us_tax_ziptax
+msgid "ZipTax API Key"
+msgstr ""
