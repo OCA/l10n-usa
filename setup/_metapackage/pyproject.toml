@@ -1,6 +1,6 @@
 [project]
 name = "odoo-addons-oca-l10n-usa"
-version = "18.0.20260722.0"
+version = "18.0.20260723.0"
 dependencies = [
     "odoo-addon-account_banking_ach_base==18.0.*",
     "odoo-addon-account_banking_ach_credit_transfer==18.0.*",
@@ -14,6 +14,7 @@ dependencies = [
     "odoo-addon-l10n_us_mis_financial_report==18.0.*",
     "odoo-addon-l10n_us_partner_legal_number==18.0.*",
     "odoo-addon-l10n_us_sales_tax_engine==18.0.*",
+    "odoo-addon-l10n_us_sales_tax_provider_ziptax==18.0.*",
 ]
 classifiers=[
     "Programming Language :: Python",

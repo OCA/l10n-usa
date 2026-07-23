@@ -33,6 +33,7 @@ addon | version | maintainers | summary
 [l10n_us_mis_financial_report](l10n_us_mis_financial_report/) | 18.0.1.0.0 | <a href='https://github.com/Christian-RB'><img src='https://github.com/Christian-RB.png' width='32' height='32' style='border-radius:50%;' alt='Christian-RB'/></a> | Profit & Loss (US) / Balance sheet (US) MIS templates
 [l10n_us_partner_legal_number](l10n_us_partner_legal_number/) | 18.0.1.0.0 |  | Add Legal Number for North American Banking & Financials
 [l10n_us_sales_tax_engine](l10n_us_sales_tax_engine/) | 18.0.1.0.12 | <a href='https://github.com/crrodrigueztrujillo'><img src='https://github.com/crrodrigueztrujillo.png' width='32' height='32' style='border-radius:50%;' alt='crrodrigueztrujillo'/></a> | Hybrid USA Sales Tax engine: local DB first, external API fallback, full audit trail.
+[l10n_us_sales_tax_provider_ziptax](l10n_us_sales_tax_provider_ziptax/) | 18.0.1.0.1 | <a href='https://github.com/crrodrigueztrujillo'><img src='https://github.com/crrodrigueztrujillo.png' width='32' height='32' style='border-radius:50%;' alt='crrodrigueztrujillo'/></a> | ZipTax (zip.tax) provider plugin for the US Sales Tax Engine.
 
 [//]: # (end addons)
 
