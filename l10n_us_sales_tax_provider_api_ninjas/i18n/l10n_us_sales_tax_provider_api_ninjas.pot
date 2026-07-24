@@ -1,0 +1,56 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_us_sales_tax_provider_api_ninjas
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_us_sales_tax_provider_api_ninjas
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_provider_api_ninjas.field_res_config_settings__us_tax_api_ninjas_key
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_provider_api_ninjas.res_config_settings_view_us_tax_api_ninjas
+msgid "API Ninjas Key"
+msgstr ""
+
+#. module: l10n_us_sales_tax_provider_api_ninjas
+#: model:ir.model,name:l10n_us_sales_tax_provider_api_ninjas.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: l10n_us_sales_tax_provider_api_ninjas
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_provider_api_ninjas.field_res_config_settings__us_tax_enable_api_ninjas
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_provider_api_ninjas.res_config_settings_view_us_tax_api_ninjas
+msgid "Enable API Ninjas"
+msgstr ""
+
+#. module: l10n_us_sales_tax_provider_api_ninjas
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_provider_api_ninjas.res_config_settings_view_us_tax_api_ninjas
+msgid "Free tier returns state rate only. Register at api-ninjas.com"
+msgstr ""
+
+#. module: l10n_us_sales_tax_provider_api_ninjas
+#: model:ir.model,name:l10n_us_sales_tax_provider_api_ninjas.model_us_tax_provider
+msgid "US Tax External Provider"
+msgstr ""
+
+#. module: l10n_us_sales_tax_provider_api_ninjas
+#: model:ir.model.fields,help:l10n_us_sales_tax_provider_api_ninjas.field_res_config_settings__us_tax_enable_api_ninjas
+msgid "Use API Ninjas as a secondary fallback provider (free tier available)."
+msgstr ""
+
+#. module: l10n_us_sales_tax_provider_api_ninjas
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_provider_api_ninjas.res_config_settings_view_us_tax_api_ninjas
+msgid "X-Api-Key from api-ninjas.com"
+msgstr ""
+
+#. module: l10n_us_sales_tax_provider_api_ninjas
+#: model:ir.model.fields,help:l10n_us_sales_tax_provider_api_ninjas.field_res_config_settings__us_tax_api_ninjas_key
+msgid "X-Api-Key from your api-ninjas.com profile page."
+msgstr ""
