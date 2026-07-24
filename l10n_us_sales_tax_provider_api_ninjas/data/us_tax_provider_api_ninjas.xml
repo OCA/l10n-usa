@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <!-- API Ninjas — register at api-ninjas.com, free tier -->
+    <record id="provider_api_ninjas" model="us.tax.provider">
+        <field name="code">api_ninjas</field>
+        <field name="name">API Ninjas — Free tier</field>
+        <field name="active">False</field>
+        <field name="priority">20</field>
+        <field name="sandbox_mode">False</field>
+        <field name="timeout">5</field>
+        <field name="supports_zip_level">True</field>
+        <field name="supports_address_level">False</field>
+        <field name="api_key_param">l10n_us_tax.api_ninjas_key</field>
+        <field
+            name="description"
+        >ZIP-level lookup. Free tier available. Register: https://api-ninjas.com/register</field>
+    </record>
+</odoo>
