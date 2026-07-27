@@ -17,6 +17,14 @@ class SaleOrder(models.Model):
     us_tax_calculated_at = fields.Datetime(
         string="Tax Calculated At",
     )
+    us_tax_based_on_shipping = fields.Boolean(
+        string="Tax Based on Shipping Address",
+        default=True,
+        help=(
+            "When checked (default), US Sales Tax is calculated using the shipping "
+            "address. Uncheck to use the billing/invoice address instead."
+        ),
+    )
 
     def action_calculate_us_tax(self):
         """Manual trigger — recalculate US tax for this order."""

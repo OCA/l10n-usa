@@ -37,6 +37,7 @@ class UsTaxCalculationLog(models.Model):
             ("manual", "Manual Rate"),
             ("exempt_nexus", "Exempt — No Nexus"),
             ("exempt_rule", "Exempt — Tax Rule"),
+            ("exempt_partner", "Exempt — Partner Certificate"),
             ("error", "Error"),
         ],
         required=True,

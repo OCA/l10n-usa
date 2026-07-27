@@ -16,8 +16,12 @@
                     title="Calculate US Sales Tax based on customer shipping address"
                 />
             </xpath>
-            <!-- Add Tax Source info below payment terms -->
+            <!-- Add Tax Source info + shipping toggle below payment terms -->
             <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field
+                    name="us_tax_based_on_shipping"
+                    string="Tax Based on Shipping Address"
+                />
                 <field
                     name="us_tax_source"
                     string="Tax Source"
