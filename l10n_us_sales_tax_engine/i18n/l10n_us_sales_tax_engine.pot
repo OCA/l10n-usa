@@ -280,6 +280,13 @@ msgid "Capabilities"
 msgstr ""
 
 #. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_res_partner__us_tax_exemption_code
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_res_users__us_tax_exemption_code
+msgid ""
+"Category of exemption (e.g. RESALE, AGRICULTURE, GOVERNMENT, NONPROFIT)."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
 #: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_jurisdiction__child_ids
 msgid "Child"
 msgstr ""
@@ -337,6 +344,11 @@ msgstr ""
 #. module: l10n_us_sales_tax_engine
 #: model:ir.ui.menu,name:l10n_us_sales_tax_engine.menu_us_tax_config
 msgid "Configuration"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model,name:l10n_us_sales_tax_engine.model_res_partner
+msgid "Contact"
 msgstr ""
 
 #. module: l10n_us_sales_tax_engine
@@ -573,8 +585,25 @@ msgid "Exempt — No Nexus"
 msgstr ""
 
 #. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields.selection,name:l10n_us_sales_tax_engine.selection__us_tax_calculation_log__source__exempt_partner
+msgid "Exempt — Partner Certificate"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
 #: model:ir.model.fields.selection,name:l10n_us_sales_tax_engine.selection__us_tax_calculation_log__source__exempt_rule
 msgid "Exempt — Tax Rule"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_res_partner__us_tax_exemption_number
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_res_users__us_tax_exemption_number
+msgid "Exemption Certificate #"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_res_partner__us_tax_exemption_code
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_res_users__us_tax_exemption_code
+msgid "Exemption Code"
 msgstr ""
 
 #. module: l10n_us_sales_tax_engine
@@ -997,6 +1026,12 @@ msgstr ""
 #. module: l10n_us_sales_tax_engine
 #: model:ir.model.fields.selection,name:l10n_us_sales_tax_engine.selection__us_tax_provider__limit_status__ok
 msgid "OK"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_res_partner__us_tax_exemption_number
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_res_users__us_tax_exemption_number
+msgid "Official exemption certificate number issued by the state authority."
 msgstr ""
 
 #. module: l10n_us_sales_tax_engine
@@ -1429,6 +1464,12 @@ msgid "Tax Amount"
 msgstr ""
 
 #. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_sale_order__us_tax_based_on_shipping
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_sale_order_us_tax
+msgid "Tax Based on Shipping Address"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
 #: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_account_move_us_tax
 #: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_sale_order_us_tax
 msgid "Tax Calculated"
@@ -1578,6 +1619,17 @@ msgid "US Tax Engine Service"
 msgstr ""
 
 #. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_res_partner__us_tax_exempt
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_res_users__us_tax_exempt
+msgid "US Tax Exempt"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_res_partner_us_tax_form
+msgid "US Tax Exemption"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
 #: model:ir.model,name:l10n_us_sales_tax_engine.model_us_tax_provider
 msgid "US Tax External Provider"
 msgstr ""
@@ -1709,6 +1761,21 @@ msgstr ""
 #. module: l10n_us_sales_tax_engine
 #: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.res_config_settings_view_us_tax
 msgid "What happens when all providers fail."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_sale_order__us_tax_based_on_shipping
+msgid ""
+"When checked (default), US Sales Tax is calculated using the shipping "
+"address. Uncheck to use the billing/invoice address instead."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_res_partner__us_tax_exempt
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_res_users__us_tax_exempt
+msgid ""
+"When checked, this partner is exempt from US Sales Tax on all orders. Attach"
+" the exemption certificate document to this record."
 msgstr ""
 
 #. module: l10n_us_sales_tax_engine
