@@ -11,6 +11,7 @@ from . import us_tax_provider  # noqa: F401
 from . import us_tax_api_cache  # noqa: F401
 from . import us_tax_calculation_log  # noqa: F401
 from . import us_tax_import_batch  # noqa: F401
+from . import res_partner  # noqa: F401
 from . import product_template  # noqa: F401
 from . import sale_order  # noqa: F401
 from . import account_move  # noqa: F401

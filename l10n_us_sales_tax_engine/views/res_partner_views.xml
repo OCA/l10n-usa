@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- US Tax Exemption section in partner form (Sales &amp; Purchase tab) -->
+    <record id="view_res_partner_us_tax_form" model="ir.ui.view">
+        <field name="name">res.partner.us.tax.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='sales_purchases']" position="inside">
+                <group string="US Tax Exemption" name="us_tax_exemption">
+                    <field name="us_tax_exempt" />
+                    <field name="us_tax_exemption_code" invisible="not us_tax_exempt" />
+                    <field
+                        name="us_tax_exemption_number"
+                        invisible="not us_tax_exempt"
+                    />
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -2,7 +2,7 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
 {
     "name": "US Sales Tax Engine",
-    "version": "18.0.1.0.12",
+    "version": "18.0.1.1.0",
     "category": "Accounting/Localizations",
     "summary": (
         "Hybrid USA Sales Tax engine: local DB first, "
@@ -35,6 +35,7 @@
         "views/us_tax_api_cache_views.xml",
         "views/us_tax_calculation_log_views.xml",
         "views/us_tax_import_batch_views.xml",
+        "views/res_partner_views.xml",
         "views/product_template_views.xml",
         "views/sale_order_views.xml",
         "views/account_move_views.xml",

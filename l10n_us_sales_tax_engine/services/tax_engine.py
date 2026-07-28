@@ -6,7 +6,11 @@ from datetime import date as date_type
 from odoo import api, models
 from odoo.fields import Command
 
-from .address_resolver import is_us_address, resolve_shipping_address
+from .address_resolver import (
+    is_us_address,
+    resolve_invoice_address,
+    resolve_shipping_address,
+)
 from .cache_manager import CacheManager
 from .provider_base import ProviderError
 
@@ -36,7 +40,10 @@ class UsTaxEngineService(models.AbstractModel):
     def calculate_for_sale_order(self, order):
         """Calculate and apply US Sales Tax for a sale.order record."""
         doc_date = order.date_order.date() if order.date_order else date_type.today()
-        address = resolve_shipping_address(order)
+        if order.us_tax_based_on_shipping:
+            address = resolve_shipping_address(order)
+        else:
+            address = resolve_invoice_address(order)
         return self._process(
             res_model="sale.order",
             res_id=order.id,
@@ -46,6 +53,7 @@ class UsTaxEngineService(models.AbstractModel):
             company_id=order.company_id.id,
             currency_id=order.currency_id.id,
             apply_fn=lambda result: self._apply_to_sale_order(order, result),
+            partner=order.partner_id,
         )
 
     @api.model
@@ -62,6 +70,7 @@ class UsTaxEngineService(models.AbstractModel):
             company_id=move.company_id.id,
             currency_id=move.currency_id.id,
             apply_fn=lambda result: self._apply_to_invoice(move, result),
+            partner=move.partner_id,
         )
 
     # ── Core calculation flow ─────────────────────────────────────────────────
@@ -77,6 +86,7 @@ class UsTaxEngineService(models.AbstractModel):
         company_id,
         currency_id,
         apply_fn,
+        partner=None,
     ):
         """Orchestrate the full calculation flow.
 
@@ -129,6 +139,26 @@ class UsTaxEngineService(models.AbstractModel):
             # Apply too — an order may already carry a tax from an earlier
             # calculation; losing nexus afterward must clear/replace it
             # with the explicit exempt tax, not leave it stale.
+            try:
+                apply_fn(final_result)
+            except Exception as exc:
+                _logger.error("Tax apply error on %s %s: %s", res_model, res_id, exc)
+            return final_result
+
+        # Step 3.5: Partner-level exemption certificate
+        if partner and partner.sudo().us_tax_exempt:
+            self._log(
+                res_model,
+                res_id,
+                address,
+                "exempt_partner",
+                taxable_amount=0,
+                tax_amount=0,
+                state_id=state.id if state else False,
+                nexus_applied=has_nexus,
+                partner_id=partner.id,
+            )
+            final_result = {"source": "exempt_partner", "tax_amount": 0.0, "lines": []}
             try:
                 apply_fn(final_result)
             except Exception as exc:
@@ -430,9 +460,9 @@ class UsTaxEngineService(models.AbstractModel):
                 line.tax_id = [Command.clear()]
             return
 
-        # Order-wide exempt_nexus: no nexus in this state — a real, evaluated
-        # exemption, so assign the explicit 0% exempt tax on every line.
-        if order_source == "exempt_nexus":
+        # Order-wide exemption (no nexus or partner certificate) — assign the
+        # explicit 0% exempt tax on every line so "evaluated, no tax" is visible.
+        if order_source in ("exempt_nexus", "exempt_partner"):
             exempt_tax = self._get_or_create_exempt_tax(order.company_id)
             for line in order.order_line:
                 line.tax_id = (
@@ -445,7 +475,7 @@ class UsTaxEngineService(models.AbstractModel):
             source = line_result.get("source", order_source)
             rate = line_result.get("rate", 0.0)
 
-            if source in ("exempt_rule", "exempt_nexus"):
+            if source in ("exempt_rule", "exempt_nexus", "exempt_partner"):
                 exempt_tax = self._get_or_create_exempt_tax(order.company_id)
                 line.tax_id = (
                     [Command.set([exempt_tax.id])] if exempt_tax else [Command.clear()]
@@ -479,7 +509,7 @@ class UsTaxEngineService(models.AbstractModel):
             rate = line_result.get("rate", 0.0)
             source = line_result.get("source", result.get("source", ""))
 
-            if source in ("exempt_rule", "exempt_nexus"):
+            if source in ("exempt_rule", "exempt_nexus", "exempt_partner"):
                 exempt_tax = self._get_or_create_exempt_tax(move.company_id)
                 line.tax_ids = (
                     [Command.set([exempt_tax.id])] if exempt_tax else [Command.clear()]

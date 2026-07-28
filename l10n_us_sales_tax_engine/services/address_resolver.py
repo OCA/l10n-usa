@@ -11,6 +11,23 @@ def normalize_zip(zip_code: str) -> str:
     return cleaned[:5] if len(cleaned) >= 5 else ""
 
 
+def _partner_to_address(partner: object) -> dict:
+    """Extract address dict from a res.partner record."""
+    zip_code = normalize_zip(partner.zip or "")
+    state_code = partner.state_id.code if partner.state_id else ""
+    country_code = partner.country_id.code if partner.country_id else ""
+    return {
+        "zip": zip_code,
+        "state": state_code,
+        "city": (partner.city or "").strip().upper(),
+        "county": "",
+        "address": f'{partner.street or ""}, {partner.city or ""}, '
+        f"{state_code} {zip_code}",
+        "country_code": country_code,
+        "partner_id": partner.id,
+    }
+
+
 def resolve_shipping_address(record):
     """Extract shipping address from sale.order or account.move.
 
@@ -29,20 +46,26 @@ def resolve_shipping_address(record):
     if not partner:
         return {}
 
-    zip_code = normalize_zip(partner.zip or "")
-    state_code = partner.state_id.code if partner.state_id else ""
-    country_code = partner.country_id.code if partner.country_id else ""
+    return _partner_to_address(partner)
 
-    return {
-        "zip": zip_code,
-        "state": state_code,
-        "city": (partner.city or "").strip().upper(),
-        "county": "",  # Not stored on partner by default
-        "address": f'{partner.street or ""}, {partner.city or ""}, '
-        f'{state_code} {zip_code}',
-        "country_code": country_code,
-        "partner_id": partner.id,
-    }
+
+def resolve_invoice_address(record):
+    """Extract billing/invoice address from sale.order or account.move.
+
+    Used when us_tax_based_on_shipping is False on the sale order.
+    Priority: partner_invoice_id > partner_id
+    """
+    partner = None
+
+    if hasattr(record, "partner_invoice_id") and record.partner_invoice_id:
+        partner = record.partner_invoice_id
+    elif hasattr(record, "partner_id") and record.partner_id:
+        partner = record.partner_id
+
+    if not partner:
+        return {}
+
+    return _partner_to_address(partner)
 
 
 def is_us_address(address_dict: dict) -> bool:
