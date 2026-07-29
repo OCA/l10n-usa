@@ -164,3 +164,44 @@ class TestPartnerExemption(UsTaxBaseTest):
         self.assertEqual(addr["zip"], "33101")
         self.assertEqual(addr["state"], "FL")
         self.assertEqual(addr["partner_id"], self.partner_fl.id)
+
+    def test_child_contact_inherits_the_commercial_exemption(self):
+        """A delivery contact of an exempt customer must not be taxed."""
+        contact = self.env["res.partner"].create(
+            {
+                "name": "Exempt Customer FL — Receiving Dock",
+                "parent_id": self.partner_exempt.id,
+                "type": "delivery",
+                "zip": "33101",
+                "state_id": self.fl.id,
+                "country_id": self.us.id,
+            }
+        )
+        self.assertTrue(contact.us_tax_exempt)
+        self.assertEqual(contact.us_tax_exemption_number, "FL-RESALE-99999")
+
+        order = self._make_order(contact)
+        order.action_confirm()
+        self.assertEqual(order.amount_tax, 0.0)
+
+    def test_a_subsidiary_company_keeps_its_own_certificate(self):
+        """Delegation must stop at the next legal entity.
+
+        _compute_commercial_partner returns self when is_company, so a company
+        under a parent holds its own certificate — which is also why the form
+        keys readonly on commercial_partner_id rather than parent_id.
+        """
+        subsidiary = self.env["res.partner"].create(
+            {
+                "name": "Exempt Customer FL — Subsidiary Inc",
+                "parent_id": self.partner_exempt.id,
+                "is_company": True,
+            }
+        )
+        self.assertEqual(subsidiary.commercial_partner_id, subsidiary)
+        self.assertFalse(subsidiary.us_tax_exempt)
+
+        subsidiary.us_tax_exemption_number = "FL-SUB-1"
+        self.partner_exempt.write({"us_tax_exemption_number": "FL-RESALE-CHANGED"})
+        subsidiary.invalidate_recordset()
+        self.assertEqual(subsidiary.us_tax_exemption_number, "FL-SUB-1")
