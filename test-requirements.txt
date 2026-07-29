@@ -1,0 +1,2 @@
+# DO NOT MERGE — temporary pin until OCA/l10n-usa#174 lands.
+odoo-addon-l10n_us_base_county @ git+https://github.com/OCA/l10n-usa.git@refs/pull/174/head#subdirectory=l10n_us_base_county
