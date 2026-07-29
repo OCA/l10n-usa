@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 Ledo Enterprises
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). -->
+<odoo>
+    <record id="view_move_form_marketplace" model="ir.ui.view">
+        <field name="name">account.move.form.us.tax.marketplace</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <field name="fiscal_position_id" position="after">
+                <field
+                    name="us_tax_marketplace_id"
+                    invisible="move_type not in ('out_invoice','out_refund')"
+                />
+            </field>
+        </field>
+    </record>
+</odoo>

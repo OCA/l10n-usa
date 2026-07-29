@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 Ledo Enterprises
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). -->
+<odoo>
+    <!-- A WY order Amazon collects for → no tax even though we have WY nexus. -->
+    <record id="demo_so_marketplace" model="sale.order">
+        <field name="partner_id" ref="l10n_us_sales_tax_engine.demo_partner_wy" />
+        <field name="us_tax_marketplace_id" ref="marketplace_amazon" />
+        <field
+            name="order_line"
+            eval="[(0, 0, {'product_id': ref('l10n_us_sales_tax_engine.demo_product_tile'), 'product_uom_qty': 4})]"
+        />
+    </record>
+</odoo>

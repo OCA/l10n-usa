@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 Ledo Enterprises
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). -->
+<odoo>
+    <record id="view_us_tax_marketplace_list" model="ir.ui.view">
+        <field name="name">us.tax.marketplace.list</field>
+        <field name="model">us.tax.marketplace</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="name" />
+                <field name="code" />
+                <field name="active" widget="boolean_toggle" />
+            </list>
+        </field>
+    </record>
+
+    <record id="action_us_tax_marketplace" model="ir.actions.act_window">
+        <field name="name">Marketplace Facilitators</field>
+        <field name="res_model">us.tax.marketplace</field>
+        <field name="view_mode">list</field>
+    </record>
+</odoo>

@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_us_tax_marketplace_user,us.tax.marketplace user,model_us_tax_marketplace,l10n_us_sales_tax_engine.group_us_tax_user,1,0,0,0
+access_us_tax_marketplace_manager,us.tax.marketplace manager,model_us_tax_marketplace,l10n_us_sales_tax_engine.group_us_tax_manager,1,1,1,1
+access_us_tax_marketplace_sale,us.tax.marketplace sale,model_us_tax_marketplace,base.group_user,1,0,0,0
