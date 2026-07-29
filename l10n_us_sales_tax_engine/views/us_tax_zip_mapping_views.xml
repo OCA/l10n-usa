@@ -11,6 +11,8 @@
                 <field name="city" optional="show" />
                 <field name="jurisdiction_id" />
                 <field name="confidence" widget="progressbar" />
+                <field name="verified" optional="show" widget="boolean_toggle" />
+                <field name="address_key" optional="hide" />
                 <field name="source" optional="show" />
             </list>
         </field>
