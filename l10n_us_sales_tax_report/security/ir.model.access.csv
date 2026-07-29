@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_us_tax_return_user,us.tax.return user,model_us_tax_return,l10n_us_sales_tax_engine.group_us_tax_user,1,0,0,0
+access_us_tax_return_manager,us.tax.return manager,model_us_tax_return,l10n_us_sales_tax_engine.group_us_tax_manager,1,1,1,1
+access_us_tax_return_line_user,us.tax.return.line user,model_us_tax_return_line,l10n_us_sales_tax_engine.group_us_tax_user,1,0,0,0
+access_us_tax_return_line_manager,us.tax.return.line manager,model_us_tax_return_line,l10n_us_sales_tax_engine.group_us_tax_manager,1,1,1,1

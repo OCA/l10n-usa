@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 Ledo Enterprises
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). -->
+<odoo>
+    <record id="view_us_tax_return_list" model="ir.ui.view">
+        <field name="name">us.tax.return.list</field>
+        <field name="model">us.tax.return</field>
+        <field name="arch" type="xml">
+            <list decoration-muted="state == 'filed'">
+                <field name="name" string="Return" />
+                <field name="state_id" />
+                <field name="date_from" />
+                <field name="date_to" />
+                <field name="total_taxable" sum="Taxable" />
+                <field name="total_tax" sum="Tax Collected" />
+                <field name="currency_id" column_invisible="1" />
+                <field
+                    name="state"
+                    widget="badge"
+                    decoration-info="state == 'generated'"
+                    decoration-success="state == 'filed'"
+                />
+                <field name="company_id" groups="base.group_multi_company" />
+            </list>
+        </field>
+    </record>
+
+    <record id="view_us_tax_return_form" model="ir.ui.view">
+        <field name="name">us.tax.return.form</field>
+        <field name="model">us.tax.return</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+                        name="action_generate"
+                        type="object"
+                        string="Generate"
+                        class="oe_highlight"
+                        invisible="state == 'filed'"
+                    />
+                    <button
+                        name="action_file"
+                        type="object"
+                        string="Mark Filed"
+                        class="oe_highlight"
+                        invisible="state != 'generated'"
+                    />
+                    <button
+                        name="action_export_worksheet"
+                        type="object"
+                        string="Export Worksheet"
+                        invisible="state == 'draft'"
+                    />
+                    <button
+                        name="action_reset_to_draft"
+                        type="object"
+                        string="Reset to Draft"
+                        invisible="state == 'draft'"
+                    />
+                    <field
+                        name="state"
+                        widget="statusbar"
+                        statusbar_visible="draft,generated,filed"
+                    />
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button
+                            name="action_view_moves"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-file-text-o"
+                        >
+                            <field
+                                name="move_count"
+                                widget="statinfo"
+                                string="Invoices"
+                            />
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field
+                                name="company_id"
+                                groups="base.group_multi_company"
+                            />
+                            <field name="state_id" readonly="state != 'draft'" />
+                            <field name="period_type" readonly="state != 'draft'" />
+                        </group>
+                        <group>
+                            <field name="date_from" readonly="state != 'draft'" />
+                            <field name="date_to" readonly="state != 'draft'" />
+                            <field name="filed_date" invisible="state != 'filed'" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Jurisdiction Breakdown" name="lines">
+                            <field name="line_ids" readonly="1">
+                                <list editable="bottom" create="0">
+                                    <field name="sequence" column_invisible="1" />
+                                    <field name="level" />
+                                    <field name="jurisdiction_id" />
+                                    <field name="taxable_base" />
+                                    <field name="tax_amount" sum="Tax Collected" />
+                                    <field name="currency_id" column_invisible="1" />
+                                </list>
+                            </field>
+                            <group class="oe_subtotal_footer oe_right">
+                                <field name="total_sales" />
+                                <field name="exempt_sales" />
+                                <field name="total_taxable" />
+                                <field name="total_tax" />
+                            </group>
+                        </page>
+                        <page string="Notes" name="notes">
+                            <field
+                                name="note"
+                                placeholder="Filing notes, confirmation numbers, adjustments…"
+                            />
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter />
+            </form>
+        </field>
+    </record>
+
+    <record id="view_us_tax_return_search" model="ir.ui.view">
+        <field name="name">us.tax.return.search</field>
+        <field name="model">us.tax.return</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="state_id" />
+                <field name="name" />
+                <filter
+                    name="draft"
+                    string="Draft"
+                    domain="[('state', '=', 'draft')]"
+                />
+                <filter
+                    name="generated"
+                    string="Generated"
+                    domain="[('state', '=', 'generated')]"
+                />
+                <filter
+                    name="filed"
+                    string="Filed"
+                    domain="[('state', '=', 'filed')]"
+                />
+                <group expand="0" string="Group By">
+                    <filter
+                        name="group_state"
+                        string="State"
+                        context="{'group_by': 'state_id'}"
+                    />
+                    <filter
+                        name="group_status"
+                        string="Status"
+                        context="{'group_by': 'state'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_us_tax_return" model="ir.actions.act_window">
+        <field name="name">US Sales Tax Returns</field>
+        <field name="res_model">us.tax.return</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first US Sales Tax return
+            </p>
+            <p>
+                A return aggregates the sales tax collected on posted invoices
+                for one state over a filing period, broken down by jurisdiction
+                level (state, county, city, special district) — the figures each
+                state return requires.
+            </p>
+        </field>
+    </record>
+</odoo>
