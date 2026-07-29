@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 Ledo Enterprises
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). -->
+<odoo>
+    <menuitem
+        id="menu_sst_import"
+        name="Import SST Files"
+        parent="l10n_us_sales_tax_engine.menu_us_tax_rates_root"
+        action="action_sst_import_wizard"
+        groups="l10n_us_sales_tax_engine.group_us_tax_manager"
+        sequence="60"
+    />
+
+    <menuitem
+        id="menu_us_tax_boundary"
+        name="SST Boundaries"
+        parent="l10n_us_sales_tax_engine.menu_us_tax_rates_root"
+        action="action_us_tax_boundary"
+        sequence="65"
+    />
+</odoo>

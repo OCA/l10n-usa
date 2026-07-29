@@ -4,7 +4,7 @@
 {
     "name": "Localizations for North American Banking & Financials",
     "summary": "Add fields required for North American Banking & Financials",
-    "version": "18.0.1.0.1",
+    "version": "18.0.1.0.0",
     "license": "AGPL-3",
     "author": "Thinkwell Designs, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/l10n-usa",
@@ -13,11 +13,11 @@
         "account_payment_order",
         "account_banking_mandate",
         "l10n_us_partner_legal_number",
-        "l10n_us_account_routing",
     ],
     "data": [
         "views/account_banking_mandate.xml",
         "views/account_move.xml",
+        "views/res_bank.xml",
         "views/res_company.xml",
     ],
     "external_dependencies": {"python": ["python-stdnum", "ach"]},

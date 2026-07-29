@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_us_tax_boundary_user,us.tax.boundary user,model_us_tax_boundary,l10n_us_sales_tax_engine.group_us_tax_user,1,0,0,0
+access_us_tax_boundary_manager,us.tax.boundary manager,model_us_tax_boundary,l10n_us_sales_tax_engine.group_us_tax_manager,1,1,1,1
+access_sst_import_wizard,sst.import.wizard,model_sst_import_wizard,l10n_us_sales_tax_engine.group_us_tax_manager,1,1,1,1

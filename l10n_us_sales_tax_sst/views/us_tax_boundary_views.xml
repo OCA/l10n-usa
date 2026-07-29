@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 Ledo Enterprises
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). -->
+<odoo>
+    <record id="view_us_tax_boundary_list" model="ir.ui.view">
+        <field name="name">us.tax.boundary.list</field>
+        <field name="model">us.tax.boundary</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="record_type" />
+                <field name="state_id" />
+                <field name="zip" />
+                <field name="zip_low" optional="hide" />
+                <field name="zip_high" optional="hide" />
+                <field name="city" />
+                <field name="fips_state" />
+                <field name="fips_county" />
+                <field name="fips_place" />
+                <field name="begin_date" optional="hide" />
+                <field name="end_date" optional="hide" />
+            </list>
+        </field>
+    </record>
+
+    <record id="view_us_tax_boundary_form" model="ir.ui.view">
+        <field name="name">us.tax.boundary.form</field>
+        <field name="model">us.tax.boundary</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group string="Match">
+                            <field name="record_type" />
+                            <field name="state_id" />
+                            <field name="zip" />
+                            <field name="zip4" />
+                            <field name="zip_low" />
+                            <field name="zip_high" />
+                            <field name="city" />
+                            <field name="begin_date" />
+                            <field name="end_date" />
+                        </group>
+                        <group string="FIPS">
+                            <field name="fips_state" />
+                            <field name="fips_county" />
+                            <field name="fips_place" />
+                        </group>
+                    </group>
+                    <group string="Jurisdictions">
+                        <field name="jurisdiction_ids" nolabel="1">
+                            <list>
+                                <field name="complete_name" />
+                                <field name="type" />
+                                <field name="fips_county" />
+                                <field name="fips_place" />
+                            </list>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_us_tax_boundary_search" model="ir.ui.view">
+        <field name="name">us.tax.boundary.search</field>
+        <field name="model">us.tax.boundary</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="zip" />
+                <field name="city" />
+                <field name="state_id" />
+                <filter
+                    name="addr"
+                    string="Address"
+                    domain="[('record_type', '=', 'A')]"
+                />
+                <filter
+                    name="zip4"
+                    string="ZIP+4"
+                    domain="[('record_type', '=', '4')]"
+                />
+                <filter
+                    name="zip5"
+                    string="ZIP5"
+                    domain="[('record_type', '=', 'Z')]"
+                />
+                <group expand="0" string="Group By">
+                    <filter
+                        name="group_state"
+                        string="State"
+                        context="{'group_by': 'state_id'}"
+                    />
+                    <filter
+                        name="group_type"
+                        string="Record Type"
+                        context="{'group_by': 'record_type'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_us_tax_boundary" model="ir.actions.act_window">
+        <field name="name">SST Boundaries</field>
+        <field name="res_model">us.tax.boundary</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

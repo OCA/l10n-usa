@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 Ledo Enterprises
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). -->
+<odoo>
+    <record id="view_sst_import_wizard_form" model="ir.ui.view">
+        <field name="name">sst.import.wizard.form</field>
+        <field name="model">sst.import.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Import SST Rate &amp; Boundary Files">
+                <p>
+                    Upload a member state's <b>Rate</b> file (and optionally its
+                    <b>Boundary</b> file) from
+                    <code>streamlinedsalestax.org/ratesandboundry</code>. Plain
+                    CSV or the published <code>.zip</code> are both accepted. The
+                    rate file is imported first; boundary rows are then linked to
+                    the jurisdictions it created.
+                </p>
+                <group>
+                    <field name="state_id" />
+                    <field name="rate_file" filename="rate_filename" />
+                    <field name="rate_filename" invisible="1" />
+                    <field name="boundary_file" filename="boundary_filename" />
+                    <field name="boundary_filename" invisible="1" />
+                </group>
+                <footer>
+                    <button
+                        name="action_import"
+                        type="object"
+                        string="Import"
+                        class="btn-primary"
+                    />
+                    <button string="Cancel" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_sst_import_wizard" model="ir.actions.act_window">
+        <field name="name">Import SST Files</field>
+        <field name="res_model">sst.import.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>
