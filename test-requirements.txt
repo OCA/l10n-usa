@@ -1,0 +1,2 @@
+# DO NOT MERGE — temporary pin until l10n_us_partner_legal_number lands.
+odoo-addon-l10n_us_partner_legal_number @ git+https://github.com/OCA/l10n-usa.git@refs/pull/177/head#subdirectory=l10n_us_partner_legal_number
