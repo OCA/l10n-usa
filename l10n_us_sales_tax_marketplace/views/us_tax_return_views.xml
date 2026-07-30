@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 Ledo Enterprises
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). -->
+<odoo>
+    <record id="view_us_tax_return_form_marketplace" model="ir.ui.view">
+        <field name="name">us.tax.return.form.marketplace</field>
+        <field name="model">us.tax.return</field>
+        <field
+            name="inherit_id"
+            ref="l10n_us_sales_tax_report.view_us_tax_return_form"
+        />
+        <field name="arch" type="xml">
+            <field name="exempt_sales" position="after">
+                <field name="marketplace_sales" />
+            </field>
+        </field>
+    </record>
+</odoo>

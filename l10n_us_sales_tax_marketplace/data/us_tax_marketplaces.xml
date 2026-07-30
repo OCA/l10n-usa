@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 Ledo Enterprises
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). -->
+<odoo>
+    <record id="marketplace_amazon" model="us.tax.marketplace">
+        <field name="name">Amazon</field>
+        <field name="code">amazon</field>
+    </record>
+    <record id="marketplace_ebay" model="us.tax.marketplace">
+        <field name="name">eBay</field>
+        <field name="code">ebay</field>
+    </record>
+    <record id="marketplace_etsy" model="us.tax.marketplace">
+        <field name="name">Etsy</field>
+        <field name="code">etsy</field>
+    </record>
+    <record id="marketplace_walmart" model="us.tax.marketplace">
+        <field name="name">Walmart Marketplace</field>
+        <field name="code">walmart</field>
+    </record>
+</odoo>
