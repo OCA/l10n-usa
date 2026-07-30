@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 Ledo Enterprises
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). -->
+<odoo>
+    <record id="res_config_settings_view_us_tax_ser" model="ir.ui.view">
+        <field name="name">res.config.settings.form.us.tax.ser</field>
+        <field name="model">res.config.settings</field>
+        <field
+            name="inherit_id"
+            ref="l10n_us_sales_tax_engine.res_config_settings_view_us_tax"
+        />
+        <field name="arch" type="xml">
+            <block id="us_tax_engine_block" position="after">
+                <block title="SST Electronic Return (SER)" id="us_tax_ser_block">
+                    <setting
+                        id="us_tax_ser_identity"
+                        string="SST Filer Identity"
+                        help="Identity reported on the SST Simplified Electronic Return."
+                    >
+                        <div class="content-group">
+                            <div class="row mt16">
+                                <label for="sst_id" class="col-lg-4 o_light_label" />
+                                <field name="sst_id" />
+                            </div>
+                            <div class="row">
+                                <label for="sst_fein" class="col-lg-4 o_light_label" />
+                                <field name="sst_fein" />
+                            </div>
+                            <div class="row">
+                                <label
+                                    for="sst_transmitter_id"
+                                    class="col-lg-4 o_light_label"
+                                />
+                                <field name="sst_transmitter_id" />
+                            </div>
+                            <div class="row">
+                                <label
+                                    for="sst_transmission_version"
+                                    class="col-lg-4 o_light_label"
+                                />
+                                <field name="sst_transmission_version" />
+                            </div>
+                            <div class="row">
+                                <field name="sst_test_mode" />
+                                <label for="sst_test_mode" />
+                            </div>
+                        </div>
+                    </setting>
+                </block>
+            </block>
+        </field>
+    </record>
+</odoo>

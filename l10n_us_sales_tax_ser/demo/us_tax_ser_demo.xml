@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 Ledo Enterprises
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). -->
+<odoo noupdate="1">
+    <!-- Give the demo company an SST filer identity so the SER export works
+         out of the box (otherwise it correctly refuses without one). -->
+    <record id="base.main_company" model="res.company">
+        <field name="sst_id">S12300000</field>
+        <field name="sst_fein">123456789</field>
+    </record>
+</odoo>
