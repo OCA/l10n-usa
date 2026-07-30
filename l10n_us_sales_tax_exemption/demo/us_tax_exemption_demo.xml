@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 Ledo Enterprises
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). -->
+<odoo>
+    <record id="demo_partner_reseller" model="res.partner">
+        <field name="name">Frontier Resale Co (US tax demo)</field>
+        <field name="city">Cheyenne</field>
+        <field name="zip">82001</field>
+        <field name="state_id" ref="base.state_us_51" />
+        <field name="country_id" ref="base.us" />
+    </record>
+    <record id="demo_exemption_reseller" model="us.tax.exemption">
+        <field name="partner_id" ref="demo_partner_reseller" />
+        <field name="reason_id" ref="reason_resale" />
+        <field name="state_ids" eval="[(6, 0, [ref('base.state_us_51')])]" />
+        <field name="certificate_number">WY-RESALE-DEMO-001</field>
+        <field name="effective_date" eval="'2020-01-01'" />
+        <field name="state">valid</field>
+        <field name="is_blanket" eval="True" />
+    </record>
+    <record id="demo_so_reseller" model="sale.order">
+        <field name="partner_id" ref="demo_partner_reseller" />
+        <field
+            name="order_line"
+            eval="[(0, 0, {'product_id': ref('l10n_us_sales_tax_engine.demo_product_tile'), 'product_uom_qty': 3})]"
+        />
+    </record>
+</odoo>
