@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 Ledo Enterprises
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). -->
+<odoo>
+    <record id="res_config_settings_view_us_tax_remittance" model="ir.ui.view">
+        <field name="name">res.config.settings.form.us.tax.remittance</field>
+        <field name="model">res.config.settings</field>
+        <field
+            name="inherit_id"
+            ref="l10n_us_sales_tax_engine.res_config_settings_view_us_tax"
+        />
+        <field name="arch" type="xml">
+            <block id="us_tax_engine_block" position="after">
+                <block title="Sales Tax Remittance" id="us_tax_remittance_block">
+                    <setting
+                        id="us_tax_remittance_accounts"
+                        string="Remittance Accounts"
+                        help="Where the DOR remittance bill posts and reconciles."
+                    >
+                        <div class="content-group">
+                            <div class="row mt16">
+                                <label
+                                    for="us_tax_allowance_account_id"
+                                    class="col-lg-5 o_light_label"
+                                />
+                                <field name="us_tax_allowance_account_id" />
+                            </div>
+                            <div class="row">
+                                <label
+                                    for="us_tax_remittance_journal_id"
+                                    class="col-lg-5 o_light_label"
+                                />
+                                <field name="us_tax_remittance_journal_id" />
+                            </div>
+                        </div>
+                    </setting>
+                </block>
+            </block>
+        </field>
+    </record>
+</odoo>
