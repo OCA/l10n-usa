@@ -32,6 +32,9 @@
     <record id="1099_type_misc" model="type.1099">
         <field name="name">1099-MISC</field>
     </record>
+    <record id="1099_type_nec" model="type.1099">
+        <field name="name">1099-NEC</field>
+    </record>
     <record id="1099_type_oid" model="type.1099">
         <field name="name">1099-OID</field>
     </record>
