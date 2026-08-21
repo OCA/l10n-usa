@@ -1,0 +1,66 @@
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.documents</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="70" />
+        <field name="inherit_id" ref="base.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//app[@name='dms']" position="inside">
+                <block>
+                    <setting>
+                        <field name="dms_exemption_settings" />
+                        <label for="dms_exemption_settings" />
+
+                        <span
+                            class="fa fa-lg fa-building-o"
+                            title="Values set here are company-specific."
+                            aria-label="Values set here are company-specific."
+                            groups="base.group_multi_company"
+                            role="img"
+                        />
+                        <div class="row">
+                            <div class="text-muted col-md-12">
+                                Centralize files attached to exemptions
+                            </div>
+                        </div>
+                        <div
+                            class="content-group"
+                            invisible="not dms_exemption_settings"
+                        >
+                            <div class="row mt16">
+                                <label
+                                    class="o_form_label col-lg-3"
+                                    for="dms_exemption_folder"
+                                    string="Workspace"
+                                />
+                                <field
+                                    name="dms_exemption_folder"
+                                    required="dms_exemption_settings == True"
+                                />
+                            </div>
+                            <div class="row">
+                                <label
+                                    class="o_form_label col-lg-3"
+                                    for="dms_exemption_tags"
+                                    string="Default Tags"
+                                />
+                                <field
+                                    name="dms_exemption_tags"
+                                    widget="many2many_tags"
+                                />
+                            </div>
+                            <div class="row">
+                                <label
+                                    class="o_form_label col-lg-3"
+                                    for="dms_exemption_category"
+                                    string="Default Category"
+                                />
+                                <field name="dms_exemption_category" />
+                            </div>
+                        </div>
+                    </setting>
+                </block>
+            </xpath>
+        </field>
+    </record>
+</odoo>
