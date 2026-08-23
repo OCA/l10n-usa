@@ -70,7 +70,12 @@ class ProviderTaxJar(ProviderBase):
             raise ProviderError(f"TaxJar HTTP error: {exc}") from exc
 
         self.record.increment_call_counter()
-        raw = resp.json().get("rate", {})
+        try:
+            raw = resp.json().get("rate", {})
+        except ValueError as exc:
+            # A proxy/gateway error page is not JSON; keep it a ProviderError
+            # so the engine falls through to the next provider / fail policy.
+            raise ProviderError(f"TaxJar: invalid JSON response: {exc}") from exc
         result = self.normalize_response(raw)
         result["jurisdictions"] = self._named_jurisdictions(state, result, raw)
         return result
