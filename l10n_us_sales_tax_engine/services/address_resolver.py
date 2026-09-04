@@ -69,6 +69,13 @@ def resolve_invoice_address(record):
 
 
 def is_us_address(address_dict: dict) -> bool:
-    """Return True if address is within the United States."""
-    code = address_dict.get("country_code", "")
-    return code in ("US", "USA") if code else True
+    """Return True when the address is within the United States.
+
+    The country has to be stated: a partner carrying a ZIP and a state
+    but no country is not American. Assuming otherwise would give it a
+    hash and send it through the engine, and _process() writes a
+    us.tax.calculation.log row even on the paths that price nothing, so
+    it would build an audit trail for documents the engine has no
+    business looking at.
+    """
+    return address_dict.get("country_code", "") in ("US", "USA")

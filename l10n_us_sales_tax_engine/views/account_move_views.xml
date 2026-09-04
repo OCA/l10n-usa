@@ -13,12 +13,32 @@
                     type="object"
                     string="Calculate US Tax"
                     class="btn-secondary"
-                    invisible="move_type not in ('out_invoice', 'out_refund')"
+                    invisible="move_type not in ('out_invoice', 'out_refund') or not us_tax_engine_available or state != 'draft'"
                     title="Calculate US Sales Tax based on customer address"
                 />
             </xpath>
+            <!-- Outdated tax warning, in the alert stack above the sheet -->
+            <xpath expr="(//sheet)[1]" position="before">
+                <div
+                    class="alert alert-warning"
+                    role="alert"
+                    invisible="not us_tax_is_stale or not us_tax_engine_available"
+                >
+                    <span
+                    >The US Sales Tax inputs changed after the last calculation. The tax shown on this invoice is outdated.</span>
+                    <button
+                        name="action_calculate_us_tax"
+                        type="object"
+                        string="Recalculate US Tax"
+                        class="btn-link"
+                        invisible="move_type not in ('out_invoice', 'out_refund') or not us_tax_engine_available or state != 'draft'"
+                    />
+                </div>
+            </xpath>
             <!-- Tax source info, injected after first invoice_date field only -->
             <xpath expr="(//field[@name='invoice_date'])[1]" position="after">
+                <field name="us_tax_engine_available" invisible="1" />
+                <field name="us_tax_is_stale" invisible="1" />
                 <field
                     name="us_tax_source"
                     string="Tax Source"
