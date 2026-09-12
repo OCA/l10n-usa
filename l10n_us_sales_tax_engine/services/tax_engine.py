@@ -3,14 +3,12 @@
 import logging
 from datetime import date as date_type
 
-from odoo import api, models
+import psycopg2
+
+from odoo import api, fields, models
 from odoo.fields import Command
 
-from .address_resolver import (
-    is_us_address,
-    resolve_invoice_address,
-    resolve_shipping_address,
-)
+from .address_resolver import is_us_address
 from .cache_manager import CacheManager
 from .provider_base import ProviderError
 
@@ -38,18 +36,19 @@ class UsTaxEngineService(models.AbstractModel):
 
     @api.model
     def calculate_for_sale_order(self, order):
-        """Calculate and apply US Sales Tax for a sale.order record."""
-        doc_date = order.date_order.date() if order.date_order else date_type.today()
-        if order.us_tax_based_on_shipping:
-            address = resolve_shipping_address(order)
-        else:
-            address = resolve_invoice_address(order)
+        """Calculate and apply US Sales Tax for a sale.order record.
+
+        The address, the date and the line set come from the document's
+        own hooks, the same ones the input fingerprint is built from, so
+        overriding a hook downstream moves what the engine taxes and what
+        marks the document outdated together.
+        """
         return self._process(
             res_model="sale.order",
             res_id=order.id,
-            address=address,
-            lines=order.order_line,
-            doc_date=doc_date,
+            address=order._us_tax_get_address(),
+            lines=order._us_tax_get_lines(),
+            doc_date=self._us_tax_doc_date(order),
             company_id=order.company_id.id,
             currency_id=order.currency_id.id,
             apply_fn=lambda result: self._apply_to_sale_order(order, result),
@@ -58,20 +57,32 @@ class UsTaxEngineService(models.AbstractModel):
 
     @api.model
     def calculate_for_invoice(self, move):
-        """Calculate and apply US Sales Tax for an account.move record."""
-        doc_date = move.invoice_date or date_type.today()
-        address = resolve_shipping_address(move)
+        """Calculate and apply US Sales Tax for an account.move record.
+
+        Same hooks as calculate_for_sale_order, for the same reason.
+        """
         return self._process(
             res_model="account.move",
             res_id=move.id,
-            address=address,
-            lines=move.invoice_line_ids,
-            doc_date=doc_date,
+            address=move._us_tax_get_address(),
+            lines=move._us_tax_get_lines(),
+            doc_date=self._us_tax_doc_date(move),
             company_id=move.company_id.id,
             currency_id=move.currency_id.id,
             apply_fn=lambda result: self._apply_to_invoice(move, result),
             partner=move.partner_id,
         )
+
+    @api.model
+    def _us_tax_doc_date(self, document):
+        """Return the date to price on, from the document's own hook.
+
+        _us_tax_get_date() yields the date-only ISO string the input
+        fingerprint holds, so parsing it back here is what keeps the two
+        from drifting. It is empty on a document with no date, which
+        prices on today.
+        """
+        return fields.Date.to_date(document._us_tax_get_date()) or date_type.today()
 
     # ── Core calculation flow ─────────────────────────────────────────────────
 
@@ -96,6 +107,13 @@ class UsTaxEngineService(models.AbstractModel):
         those groups gate manual access to the configuration screens
         (Nexus, Rates, Jurisdictions...), not the engine's own background
         calculation.
+
+        The exemption branches apply their result instead of returning
+        it: a document without nexus, or belonging to an exempt partner,
+        may still carry the tax of a calculation made while it was
+        taxable, and the explicit 0% tax is what replaces it. Only the
+        branches above them, which stand for "this document is none of
+        the engine's business", return without touching a line.
         """
         self = self.sudo()
         ICP = self.env["ir.config_parameter"].sudo()
@@ -125,6 +143,13 @@ class UsTaxEngineService(models.AbstractModel):
             company_id, state.id if state else False
         )
         if not has_nexus:
+            final_result = {
+                "source": "exempt_nexus",
+                "tax_amount": 0.0,
+                "lines": [],
+                "applied": True,
+            }
+            self._apply_result(apply_fn, final_result, res_model, res_id)
             self._log(
                 res_model,
                 res_id,
@@ -134,19 +159,19 @@ class UsTaxEngineService(models.AbstractModel):
                 tax_amount=0,
                 state_id=state.id if state else False,
                 nexus_applied=False,
+                applied=final_result["applied"],
             )
-            final_result = {"source": "exempt_nexus", "tax_amount": 0.0, "lines": []}
-            # Apply too — an order may already carry a tax from an earlier
-            # calculation; losing nexus afterward must clear/replace it
-            # with the explicit exempt tax, not leave it stale.
-            try:
-                apply_fn(final_result)
-            except Exception as exc:
-                _logger.error("Tax apply error on %s %s: %s", res_model, res_id, exc)
             return final_result
 
         # Step 3.5: Partner-level exemption certificate
         if partner and partner.sudo().us_tax_exempt:
+            final_result = {
+                "source": "exempt_partner",
+                "tax_amount": 0.0,
+                "lines": [],
+                "applied": True,
+            }
+            self._apply_result(apply_fn, final_result, res_model, res_id)
             self._log(
                 res_model,
                 res_id,
@@ -157,12 +182,8 @@ class UsTaxEngineService(models.AbstractModel):
                 state_id=state.id if state else False,
                 nexus_applied=has_nexus,
                 partner_id=partner.id,
+                applied=final_result["applied"],
             )
-            final_result = {"source": "exempt_partner", "tax_amount": 0.0, "lines": []}
-            try:
-                apply_fn(final_result)
-            except Exception as exc:
-                _logger.error("Tax apply error on %s %s: %s", res_model, res_id, exc)
             return final_result
 
         # Step 4: Initialize cache manager
@@ -244,14 +265,12 @@ class UsTaxEngineService(models.AbstractModel):
 
         # Step 6: Apply to document
         final_result = {
-            "source": results[0]["source"] if results else "no_lines",
+            "source": self._aggregate_source(results),
             "tax_amount": total_tax,
             "lines": results,
+            "applied": True,
         }
-        try:
-            apply_fn(final_result)
-        except Exception as exc:
-            _logger.error("Tax apply error on %s %s: %s", res_model, res_id, exc)
+        self._apply_result(apply_fn, final_result, res_model, res_id)
 
         # Step 7: Audit log — include state, nexus, rate detail and provider
         best_rate = next(
@@ -273,8 +292,56 @@ class UsTaxEngineService(models.AbstractModel):
             state_rate=best_rate.get("state_rate", 0),
             county_rate=best_rate.get("county_rate", 0),
             provider_id=used_provider_id,
+            applied=final_result["applied"],
         )
         return final_result
+
+    @api.model
+    def _aggregate_source(self, results):
+        """Return the source that stands for the whole document.
+
+        A line whose providers all failed comes back from
+        _handle_all_failed with source "error" and a 0% rate under the
+        warn and manual policies. Reporting the first line's source would
+        hide that behind the source of a line that did resolve: the audit
+        log would read status success and us.tax.auto.mixin would stamp
+        the calculated hash, so the document would look up to date and
+        the cron would never retry the line that is missing its tax.
+        """
+        if not results:
+            return "no_lines"
+        if any(result["source"] == "error" for result in results):
+            return "error"
+        return results[0]["source"]
+
+    @api.model
+    def _apply_result(self, apply_fn, final_result, res_model, res_id):
+        """Write the calculated tax to the document lines.
+
+        The call owns a savepoint. tax_id and tax_ids are Many2many and
+        write_real issues its INSERT synchronously, so a failure halfway
+        through the lines leaves the earlier ones written; rolling back to
+        the savepoint discards them and leaves the document carrying the
+        tax it had before. Being a flushing savepoint it also clears the
+        ORM cache and the pending recomputations, and it flushes before
+        opening, so whatever the caller wrote before calling the engine
+        stays.
+
+        The failure is reported through the "applied" key rather than
+        propagated: the audit log written after this call is what tells
+        the user the calculation did not land.
+
+        A database error is re-raised. It belongs to the core's
+        serialization retry, not to the fail policy.
+        """
+        try:
+            with self.env.cr.savepoint():
+                apply_fn(final_result)
+        except psycopg2.OperationalError:
+            raise
+        except Exception as exc:
+            final_result["applied"] = False
+            _logger.error("Tax apply error on %s %s: %s", res_model, res_id, exc)
 
     @api.model
     def _get_rate(
@@ -442,10 +509,20 @@ class UsTaxEngineService(models.AbstractModel):
         (the lambda is built in calculate_for_sale_order, a different
         method scope), and _get_or_create_state_tax below needs to create
         account.tax records a plain salesperson has no rights to create.
+
+        Sections and notes are excluded: they carry no amount, so the
+        core never turns them into base lines and writing a tax on them
+        would only leave a record the core cannot clear afterwards —
+        _compute_tax_ids skips those display types — and that
+        _prepare_invoice_line would then copy into the invoice.
+        Zero-subtotal product lines stay in, so a line that stopped being
+        taxable still gets its previous tax replaced, which is why the
+        set comes from _get_priced_lines() and not from the subtotal.
         """
         self = self.sudo()
         order_source = result.get("source", "")
         lines_map = {r["line_id"]: r for r in result.get("lines", [])}
+        product_lines = order._get_priced_lines()
         state_code = (
             order.partner_shipping_id.state_id.code
             if order.partner_shipping_id and order.partner_shipping_id.state_id
@@ -456,7 +533,7 @@ class UsTaxEngineService(models.AbstractModel):
         # clear taxes, but do NOT assign the exempt tax (that would falsely
         # claim "evaluated, not taxable" for a case we never assessed).
         if order_source in ("disabled", "skip_non_us", "skip_no_address"):
-            for line in order.order_line:
+            for line in product_lines:
                 line.tax_id = [Command.clear()]
             return
 
@@ -464,13 +541,13 @@ class UsTaxEngineService(models.AbstractModel):
         # explicit 0% exempt tax on every line so "evaluated, no tax" is visible.
         if order_source in ("exempt_nexus", "exempt_partner"):
             exempt_tax = self._get_or_create_exempt_tax(order.company_id)
-            for line in order.order_line:
+            for line in product_lines:
                 line.tax_id = (
                     [Command.set([exempt_tax.id])] if exempt_tax else [Command.clear()]
                 )
             return
 
-        for line in order.order_line:
+        for line in product_lines:
             line_result = lines_map.get(line.id, {})
             source = line_result.get("source", order_source)
             rate = line_result.get("rate", 0.0)
@@ -492,6 +569,11 @@ class UsTaxEngineService(models.AbstractModel):
 
         Sudo: same reason as _apply_to_sale_order — the apply_fn closure
         predates _process()'s sudo, and account.tax creation needs it.
+
+        Only product lines are touched, for the reason given in
+        _apply_to_sale_order: the core builds its base lines out of that
+        display type alone, and it never clears a tax written on a
+        section or a note.
         """
         self = self.sudo()
         lines_map = {r["line_id"]: r for r in result.get("lines", [])}
@@ -504,7 +586,10 @@ class UsTaxEngineService(models.AbstractModel):
             )
             else move.partner_id.state_id.code
         )
-        for line in move.invoice_line_ids:
+        product_lines = move.invoice_line_ids.filtered(
+            lambda line: line.display_type == "product"
+        )
+        for line in product_lines:
             line_result = lines_map.get(line.id, {})
             rate = line_result.get("rate", 0.0)
             source = line_result.get("source", result.get("source", ""))
@@ -526,6 +611,14 @@ class UsTaxEngineService(models.AbstractModel):
 
         We use one tax per state+rate combination so rates are traceable.
         Rate is stored as percentage (e.g., 7.0 for 7%).
+
+        price_include_override is pinned to tax_excluded rather than left
+        to fall back on res.company.account_price_include, a setting this
+        module does not own. US sales tax is always added on top of the
+        price, and a price-included tax would also make line_tax =
+        price_subtotal * rate arithmetically false — the same identity the
+        automation relies on to terminate, since price_subtotal is what
+        feeds the input hash.
         """
         if not state_code:
             return False
@@ -556,6 +649,7 @@ class UsTaxEngineService(models.AbstractModel):
                     "type_tax_use": "sale",
                     "amount_type": "percent",
                     "amount": amount_pct,
+                    "price_include_override": "tax_excluded",
                     "company_id": company.id,
                     "tax_group_id": tax_group.id,
                     "description": f"US Sales Tax — {state_code} @ {amount_pct:.4g}%",
@@ -572,6 +666,9 @@ class UsTaxEngineService(models.AbstractModel):
     @api.model
     def _get_or_create_exempt_tax(self, company):
         """Get or create the shared 0% tax for exempt lines.
+
+        price_include_override is pinned for the same reason as in
+        _get_or_create_state_tax.
 
         One tax for both exempt_rule and exempt_nexus, across all states —
         the specific reason (which category, which state, no nexus) is
@@ -605,6 +702,7 @@ class UsTaxEngineService(models.AbstractModel):
                     "type_tax_use": "sale",
                     "amount_type": "percent",
                     "amount": 0.0,
+                    "price_include_override": "tax_excluded",
                     "company_id": company.id,
                     "tax_group_id": tax_group.id,
                     "description": (
@@ -634,6 +732,7 @@ class UsTaxEngineService(models.AbstractModel):
         state_rate=0,
         county_rate=0,
         partner_id=None,
+        applied=True,
     ):
         # Resolve state_id from address if not provided
         if not state_id and address.get("state"):
@@ -661,6 +760,6 @@ class UsTaxEngineService(models.AbstractModel):
                 "taxable_amount": taxable_amount,
                 "tax_amount": tax_amount,
                 "calculated_by": self.env.user.id,
-                "status": "success" if source not in ("error",) else "error",
+                "status": "success" if applied and source != "error" else "error",
             }
         )
