@@ -41,13 +41,14 @@ class AccountPaymentOrder(models.Model):
         legal_id_number = self.company_id.legal_id_number
         if not legal_id_number:
             raise UserError(
-                self.env._("%s does not have an EIN / SSN / BN assigned!")
-                % self.company_id.name
+                self.env._(
+                    "%s does not have an EIN / SSN / BN assigned!", self.company_id.name
+                )
             )
 
         if not routing_number:
             raise UserError(
-                self.env._("%s does not have a Routing Number assigned!") % bank.name
+                self.env._("%s does not have a Routing Number assigned!", bank.name)
             )
         return {
             "immediate_dest": self.company_partner_bank_id.acc_number,
@@ -60,14 +61,18 @@ class AccountPaymentOrder(models.Model):
     def validate_banking(self, line):
         if not line.partner_bank_id.bank_id:
             raise UserError(
-                self.env._("%s account number has no Bank assigned")
-                % line.partner_bank_id.acc_number
+                self.env._(
+                    "%s account number has no Bank assigned",
+                    line.partner_bank_id.acc_number,
+                )
             )
 
         if not line.partner_bank_id.bank_id.routing_number:
             raise UserError(
-                self.env._("%s has no routing number specified")
-                % line.partner_bank_id.bank_id.name
+                self.env._(
+                    "%s has no routing number specified",
+                    line.partner_bank_id.bank_id.name,
+                )
             )
 
     def validate_mandates(self, line):
@@ -83,26 +88,26 @@ class AccountPaymentOrder(models.Model):
                 )
             )
         if line.mandate_id.state != "valid":
-            raise Warning(
+            raise UserError(
                 self.env._(
                     "The ACH Direct Debit mandate with "
                     "reference %(unique_mandate_reference)s "
-                    "for partner %(name)s has expired."
+                    "for partner %(name)s has expired.",
+                    unique_mandate_reference=line.mandate_id.unique_mandate_reference,
+                    name=line.mandate_id.partner_id.name,
                 ),
-                unique_mandate_reference=line.mandate_id.unique_mandate_reference,
-                name=line.mandate_id.partner_id.name,
             )
         if line.mandate_id.type == "oneoff" and line.mandate_id.last_debit_date:
-            raise Warning(
+            raise UserError(
                 self.env._(
                     "The mandate with reference %(unique_mandate_reference)s "
                     "for partner %(name)s has type set to 'One-Off' and it has a "
                     "last debit date set to %(last_debit_date)s, so we can't use "
-                    "it."
+                    "it.",
+                    unique_mandate_reference=line.mandate_id.unique_mandate_reference,
+                    name=line.mandate_id.partner_id.name,
+                    last_debit_date=line.mandate_id.last_debit_date,
                 ),
-                unique_mandate_reference=line.mandate_id.unique_mandate_reference,
-                name=line.mandate_id.partner_id.name,
-                last_debit_date=line.mandate_id.last_debit_date,
             )
 
     def get_transaction_type(self, amount):

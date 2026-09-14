@@ -19,9 +19,9 @@ class AccountMove(models.Model):
                 raise UserError(
                     self.env._(
                         "To satisfy payment mandate, cannot add "
-                        "invoice %(name)s to Debit Order until %(delay_expired)s!"
-                    ),
-                    name=invoice.name,
-                    delay_expired=delay_expired.strftime("%Y-%m-%d"),
+                        "invoice %(name)s to Debit Order until %(delay_expired)s!",
+                        name=invoice.name,
+                        delay_expired=delay_expired.strftime("%Y-%m-%d"),
+                    )
                 )
         return super().create_account_payment_line()
