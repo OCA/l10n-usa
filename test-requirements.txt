@@ -1,0 +1,3 @@
+odoo-addon-account_payment_term_discount @ git+https://github.com/OCA/account-payment.git@refs/pull/830/head#subdirectory=account_payment_term_discount
+odoo-addon-account_payment_batch_process @ git+https://github.com/OCA/account-payment.git@refs/pull/822/head#subdirectory=account_payment_batch_process
+odoo-addon-account_banking_ach_direct_debit @ git+https://github.com/OCA/l10n-usa.git@refs/pull/150/head#subdirectory=account_banking_ach_direct_debit
