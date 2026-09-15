@@ -19,3 +19,4 @@ access_us_tax_calculation_log_user,us.tax.calculation.log user,model_us_tax_calc
 access_us_tax_import_batch_manager,us.tax.import.batch manager,model_us_tax_import_batch,group_us_tax_manager,1,1,1,0
 access_us_tax_engine_service,us.tax.engine.service,model_us_tax_engine_service,group_us_tax_user,1,0,0,0
 access_us_tax_import_wizard,access_us_tax_import_wizard,l10n_us_sales_tax_engine.model_us_tax_import_wizard,l10n_us_sales_tax_engine.group_us_tax_manager,1,1,1,0
+access_us_tax_rule_import_wizard,access_us_tax_rule_import_wizard,model_us_tax_rule_import_wizard,group_us_tax_manager,1,1,1,0

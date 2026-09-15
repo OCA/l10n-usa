@@ -30,10 +30,18 @@ class ProviderLocal(ProviderBase):
             .get_param("l10n_us_tax.confidence_threshold", "0.7")
         )
 
-        # Step 1: Resolve ZIP → jurisdiction
+        # Step 1: Resolve jurisdiction from the address (a learned rooftop
+        # mapping wins; ZIP is the fallback), so a straddling ZIP resolves
+        # correctly once an authoritative source has taught it.
         ZipMapping = self.env["us.tax.zip.mapping"]
-        jurisdiction = ZipMapping.get_best_jurisdiction(
-            zip_code, state_code=state_code, confidence_min=confidence_min
+        jurisdiction = ZipMapping.resolve_jurisdiction(
+            {
+                "zip": zip_code,
+                "state": state_code,
+                "city": payload.get("city", ""),
+                "address": payload.get("address", ""),
+            },
+            confidence_min=confidence_min,
         )
         if not jurisdiction:
             raise ProviderError(
@@ -59,6 +67,53 @@ class ProviderLocal(ProviderBase):
                 f"date={date}, category={product_category_code}"
             )
 
+        # Break the resolved jurisdiction's rate into per-level components.
+        # Each level gets its OWN label (so equal-rate levels never collapse
+        # into one tax record), its own FIPS only when the resolved record
+        # actually carries that level's code, and the jurisdiction id only on
+        # the level matching the record's type (the state line of a city-type
+        # record is booked level-only, not tagged as the city).
+        fips_by_level = {
+            "state": jurisdiction.fips_state or "",
+            "county": jurisdiction.fips_county or "",
+            "city": jurisdiction.fips_place if jurisdiction.type == "city" else "",
+            # A special district is its own geography; never borrow another
+            # level's FIPS (that would mislabel the district on the return/SER).
+            "district": (
+                jurisdiction.fips_place if jurisdiction.type == "district" else ""
+            ),
+        }
+        label_by_level = {
+            "state": "State",
+            "county": (
+                f"{jurisdiction.county} County" if jurisdiction.county else "County"
+            ),
+            "city": jurisdiction.city or "City",
+            "district": (
+                f"District {jurisdiction.district_code}"
+                if jurisdiction.district_code
+                else "District"
+            ),
+        }
+        jurisdictions = [
+            {
+                "jurisdiction_id": (
+                    jurisdiction.id if level == jurisdiction.type else False
+                ),
+                "fips": fips_by_level[level],
+                "level": level,
+                "rate": value,
+                "label": label_by_level[level],
+            }
+            for level, value in (
+                ("state", rate.state_rate),
+                ("county", rate.county_rate),
+                ("city", rate.city_rate),
+                ("district", rate.district_rate),
+            )
+            if value
+        ]
+
         return self.normalize_response(
             {
                 "state_rate": rate.state_rate,
@@ -69,11 +124,12 @@ class ProviderLocal(ProviderBase):
                 "source_date": str(rate.effective_date),
                 "source": rate.source,
                 "jurisdiction": jurisdiction.complete_name,
+                "jurisdictions": jurisdictions,
             }
         )
 
     def normalize_response(self, raw: dict) -> dict:
-        return {
+        result = {
             "state_rate": raw.get("state_rate", 0.0),
             "county_rate": raw.get("county_rate", 0.0),
             "city_rate": raw.get("city_rate", 0.0),
@@ -82,3 +138,6 @@ class ProviderLocal(ProviderBase):
             "source_date": raw.get("source_date"),
             "raw_response": raw,
         }
+        if raw.get("jurisdictions"):
+            result["jurisdictions"] = raw["jurisdictions"]
+        return result

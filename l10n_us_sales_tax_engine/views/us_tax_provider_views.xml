@@ -132,11 +132,6 @@
                     string="Free (no payment required)"
                     domain="[('is_paid','=',False)]"
                 />
-                <filter
-                    name="over_limit"
-                    string="Over Monthly Limit"
-                    domain="[('monthly_call_limit','&gt;',0),('calls_this_month','&gt;=','monthly_call_limit')]"
-                />
             </search>
         </field>
     </record>

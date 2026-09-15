@@ -90,6 +90,36 @@
         sequence="50"
         groups="l10n_us_sales_tax_engine.group_us_tax_manager"
     />
+    <menuitem
+        id="menu_us_tax_rule_import"
+        name="Import Taxability Matrix"
+        parent="menu_us_tax_config"
+        action="action_us_tax_rule_import_wizard"
+        sequence="60"
+        groups="l10n_us_sales_tax_engine.group_us_tax_manager"
+    />
+
+    <!-- Scheduled / upcoming changes -->
+    <menuitem
+        id="menu_us_tax_scheduled"
+        name="Scheduled Changes"
+        parent="menu_us_tax_root"
+        sequence="35"
+    />
+    <menuitem
+        id="menu_us_tax_rate_upcoming"
+        name="Upcoming Rate Changes"
+        parent="menu_us_tax_scheduled"
+        action="action_us_tax_rate_upcoming"
+        sequence="10"
+    />
+    <menuitem
+        id="menu_us_tax_rule_upcoming"
+        name="Upcoming Taxability Changes"
+        parent="menu_us_tax_scheduled"
+        action="action_us_tax_rule_upcoming"
+        sequence="20"
+    />
 
     <!-- Audit -->
     <menuitem

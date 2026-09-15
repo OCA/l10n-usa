@@ -1,8 +1,9 @@
 # Copyright 2026 Binhex - Carlos R. Rodriguez.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
-from odoo.tests.common import TransactionCase
+from odoo.tests.common import TransactionCase, tagged
 
 
+@tagged("post_install", "-at_install")
 class UsTaxBaseTest(TransactionCase):
     """Base test class with shared fixtures for US Tax Engine tests."""
 

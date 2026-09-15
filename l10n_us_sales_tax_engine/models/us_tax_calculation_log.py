@@ -38,9 +38,16 @@ class UsTaxCalculationLog(models.Model):
             ("exempt_nexus", "Exempt — No Nexus"),
             ("exempt_rule", "Exempt — Tax Rule"),
             ("exempt_partner", "Exempt — Partner Certificate"),
+            ("exempt_customer", "Exempt — Customer Certificate"),
+            ("marketplace", "Marketplace Facilitator Collected"),
+            ("single_local", "Simplified / Single Local Rate"),
             ("error", "Error"),
         ],
         required=True,
+    )
+    exemption_reason = fields.Char(
+        help="Reason code of the customer exemption certificate, when the sale "
+        "was exempted by one (source = Exempt — Customer Certificate).",
     )
     provider_id = fields.Many2one("us.tax.provider", ondelete="set null")
     product_category_id = fields.Many2one(

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 Ledo Enterprises
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
+     Reviewable demo: company has nexus in WY (not CA), a Cheyenne rate, taxable
+     + exempt products, and draft sale orders. Confirm a SO (or "Calculate US
+     Tax") to see WY taxed (6%), CA exempt (no nexus), grocery exempt (category). -->
+<odoo>
+    <!-- Turn the engine on in the demo database. -->
+    <function
+        model="ir.config_parameter"
+        name="set_param"
+        eval="('l10n_us_tax.engine_active', 'True')"
+    />
+
+    <!-- Wyoming nexus for the demo company; none for California. -->
+    <record id="demo_nexus_wy" model="us.tax.nexus">
+        <field name="company_id" ref="base.main_company" />
+        <field name="state_id" ref="base.state_us_51" />
+        <field name="active" eval="True" />
+        <field name="start_date" eval="'2020-01-01'" />
+    </record>
+
+    <!-- Cheyenne / Laramie County rate (4% state + 2% county = 6%). -->
+    <record id="demo_jur_laramie" model="us.tax.jurisdiction">
+        <field name="name">Laramie County</field>
+        <field name="type">county</field>
+        <field name="state_id" ref="base.state_us_51" />
+        <field name="county">LARAMIE</field>
+        <field name="fips_state">56</field>
+        <field name="fips_county">021</field>
+    </record>
+    <record id="demo_rate_laramie" model="us.tax.rate">
+        <field name="jurisdiction_id" ref="demo_jur_laramie" />
+        <field name="product_tax_category_id" ref="cat_tangible" />
+        <field name="state_rate">0.04</field>
+        <field name="county_rate">0.02</field>
+        <field name="effective_date" eval="'2020-01-01'" />
+        <field name="source">demo</field>
+    </record>
+    <record id="demo_zip_82001" model="us.tax.zip.mapping">
+        <field name="zip">82001</field>
+        <field name="state_id" ref="base.state_us_51" />
+        <field name="jurisdiction_id" ref="demo_jur_laramie" />
+        <field name="county">LARAMIE</field>
+        <field name="confidence">1.0</field>
+        <field name="source">demo</field>
+    </record>
+
+    <!-- Demo products: taxable tangible + exempt grocery. -->
+    <record id="demo_product_tile" model="product.product">
+        <field name="name">Ceramic Floor Tile (US tax demo)</field>
+        <field name="type">consu</field>
+        <field name="list_price">100.0</field>
+        <field name="invoice_policy">order</field>
+        <field name="us_tax_category_id" ref="cat_tangible" />
+    </record>
+    <record id="demo_product_grocery" model="product.product">
+        <field name="name">Bagged Flour (US tax demo)</field>
+        <field name="type">consu</field>
+        <field name="list_price">20.0</field>
+        <field name="invoice_policy">order</field>
+        <field name="us_tax_category_id" ref="cat_food" />
+    </record>
+
+    <!-- Customers: WY (taxed) and CA (no nexus → exempt). -->
+    <record id="demo_partner_wy" model="res.partner">
+        <field name="name">Cheyenne Hardware (US tax demo)</field>
+        <field name="street">120 W 17th St</field>
+        <field name="city">Cheyenne</field>
+        <field name="zip">82001</field>
+        <field name="state_id" ref="base.state_us_51" />
+        <field name="country_id" ref="base.us" />
+    </record>
+    <record id="demo_partner_ca" model="res.partner">
+        <field name="name">LA Imports (US tax demo)</field>
+        <field name="city">Los Angeles</field>
+        <field name="zip">90001</field>
+        <field name="state_id" ref="base.state_us_5" />
+        <field name="country_id" ref="base.us" />
+    </record>
+
+    <!-- Draft sale orders to confirm during review. -->
+    <record id="demo_so_wy" model="sale.order">
+        <field name="partner_id" ref="demo_partner_wy" />
+        <field
+            name="order_line"
+            eval="[(0, 0, {'product_id': ref('demo_product_tile'), 'product_uom_qty': 2}),
+                      (0, 0, {'product_id': ref('demo_product_grocery'), 'product_uom_qty': 5})]"
+        />
+    </record>
+    <record id="demo_so_ca" model="sale.order">
+        <field name="partner_id" ref="demo_partner_ca" />
+        <field
+            name="order_line"
+            eval="[(0, 0, {'product_id': ref('demo_product_tile'), 'product_uom_qty': 1})]"
+        />
+    </record>
+</odoo>
