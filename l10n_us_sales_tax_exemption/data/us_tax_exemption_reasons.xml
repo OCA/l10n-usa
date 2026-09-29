@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 Ledo Enterprises
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). -->
+<odoo>
+    <record id="reason_resale" model="us.tax.exemption.reason">
+        <field name="name">Resale</field>
+        <field name="code">resale</field>
+        <field name="ser_breakout">resale</field>
+        <field name="entity_use_code">G</field>
+    </record>
+    <record id="reason_agriculture" model="us.tax.exemption.reason">
+        <field name="name">Agricultural Production</field>
+        <field name="code">agriculture</field>
+        <field name="ser_breakout">agriculture</field>
+        <field name="entity_use_code">H</field>
+    </record>
+    <record id="reason_government" model="us.tax.exemption.reason">
+        <field name="name">Government</field>
+        <field name="code">government</field>
+        <field name="ser_breakout">government</field>
+        <field name="entity_use_code">A</field>
+    </record>
+    <record id="reason_manufacturing" model="us.tax.exemption.reason">
+        <field name="name">Industrial Production / Manufacturing</field>
+        <field name="code">manufacturing</field>
+        <field name="ser_breakout">manufacturing</field>
+        <field name="entity_use_code">I</field>
+    </record>
+    <record id="reason_nonprofit" model="us.tax.exemption.reason">
+        <field name="name">Charitable / Nonprofit / Religious / Educational</field>
+        <field name="code">nonprofit</field>
+        <field name="ser_breakout">government</field>
+        <field name="entity_use_code">E</field>
+    </record>
+    <record id="reason_direct_pay" model="us.tax.exemption.reason">
+        <field name="name">Direct Pay Permit</field>
+        <field name="code">direct_pay</field>
+        <field name="ser_breakout">direct_pay</field>
+        <field name="entity_use_code">B</field>
+    </record>
+    <record id="reason_other" model="us.tax.exemption.reason">
+        <field name="name">Other</field>
+        <field name="code">other</field>
+        <field name="ser_breakout">other</field>
+        <field name="entity_use_code">K</field>
+    </record>
+</odoo>

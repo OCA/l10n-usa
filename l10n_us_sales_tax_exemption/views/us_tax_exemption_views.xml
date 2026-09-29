@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 Ledo Enterprises
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). -->
+<odoo>
+    <record id="view_us_tax_exemption_list" model="ir.ui.view">
+        <field name="name">us.tax.exemption.list</field>
+        <field name="model">us.tax.exemption</field>
+        <field name="arch" type="xml">
+            <list
+                decoration-muted="state in ('expired','revoked')"
+                decoration-success="state == 'valid'"
+            >
+                <field name="partner_id" />
+                <field name="reason_id" />
+                <field name="state_ids" widget="many2many_tags" optional="show" />
+                <field name="certificate_number" optional="show" />
+                <field name="effective_date" />
+                <field name="expiry_date" />
+                <field name="is_blanket" optional="hide" />
+                <field
+                    name="state"
+                    widget="badge"
+                    decoration-success="state == 'valid'"
+                    decoration-warning="state == 'expired'"
+                    decoration-danger="state == 'revoked'"
+                />
+                <field name="company_id" groups="base.group_multi_company" />
+            </list>
+        </field>
+    </record>
+
+    <record id="view_us_tax_exemption_form" model="ir.ui.view">
+        <field name="name">us.tax.exemption.form</field>
+        <field name="model">us.tax.exemption</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button
+                        name="action_validate"
+                        type="object"
+                        string="Approve"
+                        class="oe_highlight"
+                        invisible="state == 'valid'"
+                        help="Accept this certificate for use. Until it is approved the engine will not exempt anything on it."
+                    />
+                    <button
+                        name="action_revoke"
+                        type="object"
+                        string="Revoke"
+                        invisible="state in ('draft','revoked')"
+                    />
+                    <button
+                        name="action_reset_draft"
+                        type="object"
+                        string="Reset to Draft"
+                        invisible="state == 'draft'"
+                    />
+                    <field
+                        name="state"
+                        widget="statusbar"
+                        statusbar_visible="draft,signed,valid,expired,revoked"
+                    />
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="partner_id" />
+                            <!-- Optional in draft so a partially completed
+                                 submission can be saved; required from there
+                                 on, matched by _check_complete_outside_draft. -->
+                            <field name="reason_id" required="state != 'draft'" />
+                            <field name="certificate_number" />
+                            <field name="is_blanket" />
+                            <field
+                                name="company_id"
+                                groups="base.group_multi_company"
+                            />
+                        </group>
+                        <group>
+                            <field name="effective_date" />
+                            <field name="expiry_date" />
+                            <field name="document" filename="document_filename" />
+                            <field name="document_filename" invisible="1" />
+                        </group>
+                    </group>
+                    <group string="Covered States">
+                        <field
+                            name="state_ids"
+                            nolabel="1"
+                            widget="many2many_tags"
+                            required="state != 'draft'"
+                        />
+                    </group>
+                    <group string="Notes">
+                        <field name="notes" nolabel="1" />
+                    </group>
+                </sheet>
+                <chatter />
+            </form>
+        </field>
+    </record>
+
+    <record id="view_us_tax_exemption_search" model="ir.ui.view">
+        <field name="name">us.tax.exemption.search</field>
+        <field name="model">us.tax.exemption</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="partner_id" />
+                <field name="reason_id" />
+                <field name="state_ids" />
+                <filter
+                    name="valid"
+                    string="Valid"
+                    domain="[('state', '=', 'valid')]"
+                />
+                <filter
+                    name="expired"
+                    string="Expired"
+                    domain="[('state', '=', 'expired')]"
+                />
+                <separator />
+                <filter
+                    name="expiring_soon"
+                    string="Expiring (90 days)"
+                    domain="[('state','=','valid'),('expiry_date','!=',False),('expiry_date','&lt;=',(context_today() + datetime.timedelta(days=90)).strftime('%Y-%m-%d'))]"
+                />
+                <group expand="0" string="Group By">
+                    <filter
+                        name="group_partner"
+                        string="Customer"
+                        context="{'group_by': 'partner_id'}"
+                    />
+                    <filter
+                        name="group_reason"
+                        string="Reason"
+                        context="{'group_by': 'reason_id'}"
+                    />
+                    <filter
+                        name="group_state"
+                        string="Status"
+                        context="{'group_by': 'state'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_us_tax_exemption" model="ir.actions.act_window">
+        <field name="name">Exemption Certificates</field>
+        <field name="res_model">us.tax.exemption</field>
+        <field name="view_mode">list,form</field>
+    </record>
+</odoo>

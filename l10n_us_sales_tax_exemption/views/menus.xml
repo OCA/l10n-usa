@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 Ledo Enterprises
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). -->
+<odoo>
+    <menuitem
+        id="menu_us_tax_exemption"
+        name="Exemption Certificates"
+        parent="l10n_us_sales_tax_engine.menu_us_tax_root"
+        action="action_us_tax_exemption"
+        sequence="40"
+    />
+
+    <menuitem
+        id="menu_us_tax_exemption_reason"
+        name="Exemption Reasons"
+        parent="l10n_us_sales_tax_engine.menu_us_tax_config"
+        action="action_us_tax_exemption_reason"
+        sequence="50"
+    />
+</odoo>

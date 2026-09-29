@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_account_position_form_us_tax" model="ir.ui.view">
+        <field name="name">account.fiscal.position.form.us.tax.exemption</field>
+        <field name="model">account.fiscal.position</field>
+        <field name="inherit_id" ref="account.view_account_position_form" />
+        <field name="arch" type="xml">
+            <field name="auto_apply" position="after">
+                <field name="is_us_tax_exempt" />
+                <field
+                    name="us_tax_exemption_reason_id"
+                    invisible="not is_us_tax_exempt"
+                />
+            </field>
+        </field>
+    </record>
+</odoo>
