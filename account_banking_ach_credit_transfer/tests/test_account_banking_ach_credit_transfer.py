@@ -1,21 +1,24 @@
 # Copyright (C) 2024, ForgeFlow S.A.
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html)
-from odoo import fields
-from odoo.tests import Form
+from odoo import Command, fields
+from odoo.tests import Form, tagged
 
-from odoo.addons.base.tests.common import BaseCommon
+from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 
 
-class TestACHCreditTransfer(BaseCommon):
+@tagged("post_install", "-at_install")
+class TestACHCreditTransfer(AccountTestInvoicingCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.partner = cls.env["res.partner"].create({"name": "Partner 1"})
-        cls.company = cls.env.company
-        cls.company.partner_id = cls.partner.id
+        cls.company = cls.company_data["company"]
+        cls.env.user.company_id = cls.company.id
+        cls.env.user.groups_id |= cls.env.ref(
+            "account_payment_order.group_account_payment"
+        )
         cls.company.legal_id_number = "12-3456789"
-        cls.payment_method_model = cls.env["account.payment.method"]
-        cls.ach_out_payment_method = cls.payment_method_model.search(
+        cls.partner = cls.partner_a
+        cls.ach_out_payment_method = cls.env["account.payment.method"].search(
             [("code", "=", "ACH-Out")], limit=1
         )
         cls.acme_bank = cls.env["res.bank"].create(
@@ -27,7 +30,19 @@ class TestACHCreditTransfer(BaseCommon):
                 "country": cls.env.ref("base.be").id,
             }
         )
-        bank_account = cls.env["res.partner.bank"].create(
+        # Originating (company) bank account on the order's bank journal.
+        cls.company_bank = cls.env["res.partner.bank"].create(
+            {
+                "acc_number": "0099999999999999",
+                "partner_id": cls.company.partner_id.id,
+                "bank_id": cls.acme_bank.id,
+                "company_id": cls.company.id,
+            }
+        )
+        cls.bank_journal = cls.company_data["default_journal_bank"]
+        cls.bank_journal.bank_account_id = cls.company_bank.id
+        # Destination (vendor) bank account.
+        cls.env["res.partner.bank"].create(
             {
                 "acc_number": "0023032234211123",
                 "partner_id": cls.partner.id,
@@ -35,19 +50,36 @@ class TestACHCreditTransfer(BaseCommon):
                 "company_id": cls.company.id,
             }
         )
-        cls.bank_journal = cls.env["account.journal"].create(
+        cls.payment_mode = cls.env["account.payment.mode"].create(
             {
-                "name": "Journal 1",
-                "code": "J1",
-                "type": "bank",
+                "name": "ACH Out",
                 "company_id": cls.company.id,
-                "bank_account_id": bank_account.id,
+                "payment_method_id": cls.ach_out_payment_method.id,
+                "bank_account_link": "variable",
+                "variable_journal_ids": [Command.set(cls.bank_journal.ids)],
             }
         )
-        cls.payment_mode = cls.env.ref(
-            "account_banking_ach_credit_transfer.payment_mode_outbound_ach_ct1"
+        # A single posted vendor bill, due today and isolated in the test
+        # company, gives the order exactly one payable line to select -
+        # independent of demo data and the run date (the previous test relied
+        # on ambient demo bills, whose due-as-of-today count drifts with the
+        # calendar).
+        cls.bill = cls.init_invoice(
+            "in_invoice",
+            partner=cls.partner,
+            invoice_date=fields.Date.today(),
+            amounts=[100.0],
+            company=cls.company,
         )
-        cls.payment_mode.variable_journal_ids += cls.bank_journal
+        cls.bill.write(
+            {
+                "invoice_payment_term_id": False,
+                "invoice_date_due": fields.Date.today(),
+                "payment_mode_id": cls.payment_mode.id,
+                "payment_reference": "ACH-TEST-001",
+            }
+        )
+        cls.bill.action_post()
 
     def test_account_payment_order(self):
         self.payment_order = self.env["account.payment.order"].create(
@@ -71,9 +103,6 @@ class TestACHCreditTransfer(BaseCommon):
         line_created_due.populate()
         line_created_due.create_payment_lines()
         self.assertEqual(len(line_created_due.move_line_ids), 1)
-        line_created_due.move_line_ids.partner_id.bank_ids.bank_id.routing_number = (
-            35645
-        )
         self.assertEqual(self.payment_order.state, "draft")
         self.payment_order.draft2open()
         self.assertEqual(self.payment_order.state, "open")
