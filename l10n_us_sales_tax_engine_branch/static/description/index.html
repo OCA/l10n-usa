@@ -1,0 +1,576 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils: https://docutils.sourceforge.io/" />
+<title>US Sales Tax Engine - Branches</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 9511 2024-01-13 09:50:07Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+Despite the name, some widely supported CSS2 features are used.
+
+See https://docutils.sourceforge.io/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+.subscript {
+  vertical-align: sub;
+  font-size: smaller }
+
+.superscript {
+  vertical-align: super;
+  font-size: smaller }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+object[type="image/svg+xml"], object[type="application/x-shockwave-flash"] {
+  overflow: hidden;
+}
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title, .code .error {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left, table.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right, table.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+table.align-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: inherit }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+.align-top    {
+  vertical-align: top }
+
+.align-middle {
+  vertical-align: middle }
+
+.align-bottom {
+  vertical-align: bottom }
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block, pre.math, pre.code {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+pre.code .ln { color: gray; } /* line numbers */
+pre.code, code { background-color: #eeeeee }
+pre.code .comment, code .comment { color: #5C6576 }
+pre.code .keyword, code .keyword { color: #3B0D06; font-weight: bold }
+pre.code .literal.string, code .literal.string { color: #0C5404 }
+pre.code .name.builtin, code .name.builtin { color: #352B84 }
+pre.code .deleted, code .deleted { background-color: #DEB0A1}
+pre.code .inserted, code .inserted { background-color: #A3D289}
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic, pre.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+/* "booktabs" style (no vertical lines) */
+table.docutils.booktabs {
+  border: 0px;
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  border-collapse: collapse;
+}
+table.docutils.booktabs * {
+  border: 0px;
+}
+table.docutils.booktabs th {
+  border-bottom: thin solid;
+  text-align: left;
+}
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="us-sales-tax-engine-branches">
+<h1 class="title">US Sales Tax Engine - Branches</h1>
+
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! This file is generated by oca-gen-addon-readme !!
+!! changes will be overwritten.                   !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! source digest: sha256:de499232349b9fad194d5249239fd92d0ad69aa39f233790dfc0cfb25137048a
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+<p><a class="reference external image-reference" href="https://odoo-community.org/page/development-status"><img alt="Alpha" src="https://img.shields.io/badge/maturity-Alpha-red.png" /></a> <a class="reference external image-reference" href="http://www.gnu.org/licenses/lgpl-3.0-standalone.html"><img alt="License: LGPL-3" src="https://img.shields.io/badge/licence-LGPL--3-blue.png" /></a> <a class="reference external image-reference" href="https://github.com/OCA/l10n-usa/tree/18.0/l10n_us_sales_tax_engine_branch"><img alt="OCA/l10n-usa" src="https://img.shields.io/badge/github-OCA%2Fl10n--usa-lightgray.png?logo=github" /></a> <a class="reference external image-reference" href="https://translation.odoo-community.org/projects/l10n-usa-18-0/l10n-usa-18-0-l10n_us_sales_tax_engine_branch"><img alt="Translate me on Weblate" src="https://img.shields.io/badge/weblate-Translate%20me-F47D42.png" /></a> <a class="reference external image-reference" href="https://runboat.odoo-community.org/builds?repo=OCA/l10n-usa&amp;target_branch=18.0"><img alt="Try me on Runboat" src="https://img.shields.io/badge/runboat-Try%20me-875A7B.png" /></a></p>
+<p>This module extends the US Sales Tax Engine
+(<tt class="docutils literal">l10n_us_sales_tax_engine</tt>) for companies organised in branches, and
+lets sales be rated with the address of the company or branch that sells
+instead of the customer’s address.</p>
+<ul class="simple">
+<li><strong>Nexus inherited from parent companies.</strong> A branch collects tax in a
+state when it, or any of its parent companies at any depth, has an
+active nexus there. A nexus declared on a sibling branch does not
+count.</li>
+<li><strong>Origin-based sourcing.</strong> Each company chooses whether new sales
+orders and customer invoices are rated, by default, with the
+customer’s delivery address (destination) or with the company address
+(origin). Each draft document keeps its own <em>Tax Based on Company
+Address</em> check, so a branch can mix in-store pickups and shipped
+orders. This covers origin-based states and in-store sales in
+destination-based states.</li>
+</ul>
+<p>Every calculation log records whether the customer’s or the company’s
+address was rated.</p>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">This is an alpha version, the data model and design can change at any time without warning.
+Only for development or testing purpose, do not use in production.
+<a class="reference external" href="https://odoo-community.org/page/development-status">More details on development status</a></p>
+</div>
+<p><strong>Table of contents</strong></p>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><a class="reference internal" href="#use-cases-context" id="toc-entry-1">Use Cases / Context</a></li>
+<li><a class="reference internal" href="#configuration" id="toc-entry-2">Configuration</a></li>
+<li><a class="reference internal" href="#usage" id="toc-entry-3">Usage</a></li>
+<li><a class="reference internal" href="#bug-tracker" id="toc-entry-4">Bug Tracker</a></li>
+<li><a class="reference internal" href="#credits" id="toc-entry-5">Credits</a><ul>
+<li><a class="reference internal" href="#authors" id="toc-entry-6">Authors</a></li>
+<li><a class="reference internal" href="#contributors" id="toc-entry-7">Contributors</a></li>
+<li><a class="reference internal" href="#maintainers" id="toc-entry-8">Maintainers</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="use-cases-context">
+<h1><a class="toc-backref" href="#toc-entry-1">Use Cases / Context</a></h1>
+<p>The US Sales Tax Engine (<tt class="docutils literal">l10n_us_sales_tax_engine</tt>) is designed for a
+single company that ships to its customers: it looks for the nexus on
+the exact company of the document and always rates the tax with an
+address of the customer. Companies organised in branches, and companies
+that collect tax at the point of sale, need more than that:</p>
+<ul class="simple">
+<li>A branch should collect tax wherever its parent company has nexus.
+With the engine alone, a nexus declared only on the parent company
+leaves the branches exempt, so the same nexus has to be repeated on
+every branch.</li>
+<li>In origin-based states the rate is the one of the seller’s location,
+and in destination-based states a sale picked up in the store is taxed
+where the store is. Both cases need the address of the selling company
+or branch instead of the customer’s.</li>
+</ul>
+<p>This module keeps the engine’s calculation and only changes which nexus
+and which address it uses. It does not hold a list of origin-based
+states: each company chooses its default sourcing and each document can
+override it. The origin address is the company address, not the one of a
+warehouse.</p>
+<p>It is useful in multi-company setups that use branches (companies with a
+parent company), and also for a single company that sells over the
+counter. A company without a parent that keeps destination sourcing is
+rated exactly as with the engine alone.</p>
+</div>
+<div class="section" id="configuration">
+<h1><a class="toc-backref" href="#toc-entry-2">Configuration</a></h1>
+<p>To configure this module, you need to:</p>
+<ol class="arabic simple">
+<li>Select, in the company switcher, the company or branch to configure:
+the setting is stored per company.</li>
+<li>Go to <em>Settings &gt; Invoicing &gt; US Sales Tax Engine</em>. The <em>Tax
+Sourcing</em> setting is only shown when <em>Enable US Sales Tax Engine</em> is
+checked.</li>
+<li>Choose the <em>Tax Sourcing</em> of the company:<ul>
+<li><em>Destination (customer address)</em>, the default: new documents are
+rated with the customer’s delivery address, as with the engine
+alone.</li>
+<li><em>Origin (company address)</em>: new sales orders and customer invoices
+are rated with the company address. The company needs a 5-digit
+ZIP, a state and United States as country; otherwise the setting
+cannot be saved.</li>
+</ul>
+</li>
+<li>Save.</li>
+</ol>
+<p><img alt="Tax Sourcing setting" src="https://raw.githubusercontent.com/OCA/l10n-usa/18.0/l10n_us_sales_tax_engine_branch/static/description/configure_tax_sourcing.png" /></p>
+<p>Changing the setting only affects documents created afterwards. Existing
+documents keep the check they already have; the ones that exist when the
+module is installed start with the check off, so their rating does not
+change.</p>
+<p>To declare the nexus of a company tree:</p>
+<ol class="arabic simple">
+<li>Go to <em>Invoicing &gt; Configuration &gt; US Sales Tax &gt; Configuration &gt;
+Nexus</em>.</li>
+<li>Create the nexus on the parent company. It applies to the parent and
+to all its branches, so there is no need to repeat it on each branch.</li>
+<li>A branch cannot cancel the nexus of a parent: while the parent’s
+nexus is active, the branch collects tax in that state even if its
+own nexus record is archived. A nexus on a sibling branch does not
+apply.</li>
+</ol>
+<p><img alt="Nexus declared on the parent company" src="https://raw.githubusercontent.com/OCA/l10n-usa/18.0/l10n_us_sales_tax_engine_branch/static/description/configure_nexus.png" /></p>
+<p>With origin sourcing, the nexus that matters is the one in the state of
+the company address, since that is the address being rated.</p>
+</div>
+<div class="section" id="usage">
+<h1><a class="toc-backref" href="#toc-entry-3">Usage</a></h1>
+<p>To use this module, you need to:</p>
+<ol class="arabic simple">
+<li>Create a sales order or a customer invoice. The <em>Tax Based on Company
+Address</em> check comes:<ul>
+<li>checked when the company uses <em>Origin</em> sourcing, unless the
+customer’s delivery country is set and is not the United States;</li>
+<li>unchecked when the company uses <em>Destination</em> sourcing.</li>
+</ul>
+</li>
+<li>Leave the check on to rate the tax with the address of the document’s
+company or branch, for example for an in-store pickup. Uncheck it to
+rate with the customer’s address: on the sales order, <em>Tax Based on
+Shipping Address</em> shows again and chooses between the customer’s
+delivery and invoice addresses; customer invoices always use the
+delivery address.</li>
+<li>Click <em>Calculate US Tax</em>, or confirm the order. With the check on,
+the rate is the one of the company ZIP and the tax is named after the
+company’s state (<tt class="docutils literal">US Sales Tax &lt;state&gt; &lt;rate&gt;%</tt>).</li>
+</ol>
+<p>The check can be changed while the order is a quotation (sent or not)
+and while the invoice is in draft. It is recomputed when the company or
+the delivery address of the document changes. Changing the company
+setting, or the state or country of a customer, does not change existing
+documents.</p>
+<p>When the check is on and the delivery address is in a different state
+from the company’s, the draft order or invoice shows a warning. It does
+not block anything: uncheck <em>Tax Based on Company Address</em> to rate with
+the delivery address instead.</p>
+<p><img alt="Quotation rated with the company address" src="https://raw.githubusercontent.com/OCA/l10n-usa/18.0/l10n_us_sales_tax_engine_branch/static/description/usage_quotation_company_address.png" /></p>
+<p>Invoices:</p>
+<ul class="simple">
+<li>An invoice created from a sales order takes the order’s check. Orders
+with a different value are never grouped in the same invoice.</li>
+<li>A credit note keeps the check of its invoice.</li>
+<li>Posting a customer invoice rates it again with its own check.</li>
+</ul>
+<p><img alt="Draft customer invoice rated with the company address" src="https://raw.githubusercontent.com/OCA/l10n-usa/18.0/l10n_us_sales_tax_engine_branch/static/description/usage_customer_invoice.png" /></p>
+<p>Special cases:</p>
+<ul class="simple">
+<li>Customer outside the United States: no US tax, as with the engine
+alone, even if the check is on.</li>
+<li>Customer without an address (counter sale): rated with the company
+address when the check is on.</li>
+<li>Company without a complete US address (5-digit ZIP, state and United
+States as country) on a document with the check on: the customer’s
+address is used and a warning is written to the server log.</li>
+</ul>
+<p>In <em>Invoicing &gt; Configuration &gt; US Sales Tax &gt; Audit &gt; Calculation
+Logs</em>, the <em>Tax Sourcing</em> column, also shown in the <em>Address</em> group of
+each log, tells whether the rated address was the customer’s
+(<em>Destination</em>) or the company’s (<em>Origin</em>). The address fields of the
+log show the address actually rated.</p>
+<p><img alt="Calculation logs with the Tax Sourcing column" src="https://raw.githubusercontent.com/OCA/l10n-usa/18.0/l10n_us_sales_tax_engine_branch/static/description/usage_calculation_log.png" /></p>
+</div>
+<div class="section" id="bug-tracker">
+<h1><a class="toc-backref" href="#toc-entry-4">Bug Tracker</a></h1>
+<p>Bugs are tracked on <a class="reference external" href="https://github.com/OCA/l10n-usa/issues">GitHub Issues</a>.
+In case of trouble, please check there if your issue has already been reported.
+If you spotted it first, help us to smash it by providing a detailed and welcomed
+<a class="reference external" href="https://github.com/OCA/l10n-usa/issues/new?body=module:%20l10n_us_sales_tax_engine_branch%0Aversion:%2018.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**">feedback</a>.</p>
+<p>Do not contact contributors directly about support or help with technical issues.</p>
+</div>
+<div class="section" id="credits">
+<h1><a class="toc-backref" href="#toc-entry-5">Credits</a></h1>
+<div class="section" id="authors">
+<h2><a class="toc-backref" href="#toc-entry-6">Authors</a></h2>
+<ul class="simple">
+<li>Binhex</li>
+</ul>
+</div>
+<div class="section" id="contributors">
+<h2><a class="toc-backref" href="#toc-entry-7">Contributors</a></h2>
+<ul class="simple">
+<li>Edilio Escalona Almira &lt;<a class="reference external" href="mailto:ediliodevelop1991&#64;gmail.com">ediliodevelop1991&#64;gmail.com</a>&gt;</li>
+</ul>
+</div>
+<div class="section" id="maintainers">
+<h2><a class="toc-backref" href="#toc-entry-8">Maintainers</a></h2>
+<p>This module is maintained by the OCA.</p>
+<a class="reference external image-reference" href="https://odoo-community.org">
+<img alt="Odoo Community Association" src="https://odoo-community.org/logo.png" />
+</a>
+<p>OCA, or the Odoo Community Association, is a nonprofit organization whose
+mission is to support the collaborative development of Odoo features and
+promote its widespread use.</p>
+<p>Current <a class="reference external" href="https://odoo-community.org/page/maintainer-role">maintainers</a>:</p>
+<p><a class="reference external image-reference" href="https://github.com/edescalona"><img alt="edescalona" src="https://github.com/edescalona.png?size=40px" /></a> <a class="reference external image-reference" href="https://github.com/crrodrigueztrujillo"><img alt="crrodrigueztrujillo" src="https://github.com/crrodrigueztrujillo.png?size=40px" /></a></p>
+<p>This module is part of the <a class="reference external" href="https://github.com/OCA/l10n-usa/tree/18.0/l10n_us_sales_tax_engine_branch">OCA/l10n-usa</a> project on GitHub.</p>
+<p>You are welcome to contribute. To learn how please visit <a class="reference external" href="https://odoo-community.org/page/Contribute">https://odoo-community.org/page/Contribute</a>.</p>
+</div>
+</div>
+</div>
+</body>
+</html>

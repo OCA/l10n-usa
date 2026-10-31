@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_us_tax_log_list" model="ir.ui.view">
+        <field name="name">us.tax.calculation.log.branch.list</field>
+        <field name="model">us.tax.calculation.log</field>
+        <field name="inherit_id" ref="l10n_us_sales_tax_engine.view_us_tax_log_list" />
+        <field name="arch" type="xml">
+            <field name="shipping_state_id" position="after">
+                <field name="us_tax_sourcing" />
+            </field>
+        </field>
+    </record>
+    <record id="view_us_tax_log_form" model="ir.ui.view">
+        <field name="name">us.tax.calculation.log.branch.form</field>
+        <field name="model">us.tax.calculation.log</field>
+        <field name="inherit_id" ref="l10n_us_sales_tax_engine.view_us_tax_log_form" />
+        <field name="arch" type="xml">
+            <field name="shipping_city" position="after">
+                <field name="us_tax_sourcing" />
+            </field>
+        </field>
+    </record>
+</odoo>
