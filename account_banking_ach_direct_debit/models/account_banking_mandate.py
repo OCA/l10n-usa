@@ -104,7 +104,7 @@ class AccountBankingMandate(models.Model):
             expired_mandates.write({"state": "expired"})
             logger.info(
                 self.env._(
-                    "The following ACH Mandate IDs have been set to " "expired: %s",
+                    "The following ACH Mandate IDs have been set to expired: %s",
                     expired_mandates.ids,
                 )
             )
