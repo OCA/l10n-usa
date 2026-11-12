@@ -1,8 +1,30 @@
-from stdnum.ca import bn
-from stdnum.us import ein, ssn
+import re
 
-from odoo import _, api, fields, models
+from stdnum.ca import bn
+from stdnum.exceptions import InvalidFormat, ValidationError
+from stdnum.us import ein, ssn
+from stdnum.util import clean
+
+from odoo import api, fields, models
 from odoo.exceptions import UserError
+
+# stdnum.us.ein's own format: two digits, optional separator, seven digits.
+_EIN_RE = re.compile(r"^[0-9]{2}-?[0-9]{7}$")
+
+
+def _validate_ein(number):
+    """Validate a US EIN, falling back to the format check alone.
+
+    ``ein.validate`` ends in a lookup of ``us/ein.dat``, which Odoo 19's
+    monkeypatched stdnum loader cannot read; the campus-prefix check goes
+    with it.
+    """
+    try:
+        return ein.validate(number)
+    except OSError:
+        if not _EIN_RE.match(clean(number, "").strip()):
+            raise InvalidFormat() from None
+        return ein.compact(number)
 
 
 class LegalIDNumber(models.AbstractModel):
@@ -26,18 +48,20 @@ class LegalIDNumber(models.AbstractModel):
 
     @api.constrains("legal_id_number")
     def validate_legal_id_number(self):
-        if not self.legal_id_number:
-            return
-        valid = False
-        for v in (ssn, ein, bn):
-            try:
-                v.validate(self.legal_id_number)
-                valid = True
-                break
-            except Exception:
+        for record in self:
+            number = record.legal_id_number
+            if not number:
                 continue
-        if not valid:
-            raise UserError(
-                _("%s is not a valid EIN / SSN / Canadian Business Number")
-                % self.legal_id_number
-            )
+            for validate in (ssn.validate, _validate_ein, bn.validate):
+                try:
+                    validate(number)
+                    break
+                except ValidationError:
+                    continue
+            else:
+                raise UserError(
+                    self.env._(
+                        "%s is not a valid EIN / SSN / Canadian Business Number",
+                        number,
+                    )
+                )
