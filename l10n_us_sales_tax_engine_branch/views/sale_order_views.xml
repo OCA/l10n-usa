@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_sale_order_us_tax" model="ir.ui.view">
+        <field name="name">sale.order.us.tax.branch.form</field>
+        <field name="model">sale.order</field>
+        <field
+            name="inherit_id"
+            ref="l10n_us_sales_tax_engine.view_sale_order_us_tax"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="after">
+                <div
+                    class="alert alert-warning mb-0"
+                    role="alert"
+                    invisible="not us_tax_origin_out_of_state or state not in ('draft', 'sent')"
+                >
+                    US sales tax is computed with the company address, and the
+                    delivery address is in another state. If you prefer to compute
+                    it with the delivery address, uncheck
+                    <strong>Tax Based on Company Address</strong>.
+                </div>
+            </xpath>
+            <xpath expr="//field[@name='us_tax_based_on_shipping']" position="before">
+                <field
+                    name="us_tax_based_on_company"
+                    readonly="state not in ('draft', 'sent')"
+                />
+            </xpath>
+            <xpath
+                expr="//field[@name='us_tax_based_on_shipping']"
+                position="attributes"
+            >
+                <attribute name="invisible">us_tax_based_on_company</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

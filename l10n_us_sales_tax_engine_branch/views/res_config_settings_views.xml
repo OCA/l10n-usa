@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="res_config_settings_view_us_tax" model="ir.ui.view">
+        <field name="name">res.config.settings.us.tax.branch</field>
+        <field name="model">res.config.settings</field>
+        <field
+            name="inherit_id"
+            ref="l10n_us_sales_tax_engine.res_config_settings_view_us_tax"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//block[@id='us_tax_engine_block']" position="inside">
+                <setting
+                    id="us_tax_sourcing"
+                    company_dependent="1"
+                    invisible="not us_tax_engine_active"
+                    help="Address used by default on new sales orders and customer invoices: the customer's delivery address (destination) or the company's (origin). It can be changed on each draft document."
+                >
+                    <label for="us_tax_sourcing" string="Tax Sourcing" />
+                    <field name="us_tax_sourcing" />
+                </setting>
+            </xpath>
+        </field>
+    </record>
+</odoo>
