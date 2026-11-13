@@ -526,6 +526,8 @@ class UsTaxEngineService(models.AbstractModel):
 
         We use one tax per state+rate combination so rates are traceable.
         Rate is stored as percentage (e.g., 7.0 for 7%).
+        The tax lives on the root of the company tree, so every branch
+        shares it: core requires tax names to be unique across the tree.
         """
         if not state_code:
             return False
@@ -535,37 +537,32 @@ class UsTaxEngineService(models.AbstractModel):
 
         # Use sudo() — tax creation requires accounting permissions
         Tax = self.env["account.tax"].sudo()
-        TaxGroup = self.env["account.tax.group"].sudo()
 
         tax = Tax.search(
             [
                 ("name", "=", name),
                 ("type_tax_use", "=", "sale"),
-                ("company_id", "=", company.id),
+                *Tax._check_company_domain(company),
             ],
             limit=1,
         )
 
         if not tax:
-            tax_group = TaxGroup.search([("name", "=", "US Sales Tax")], limit=1)
-            if not tax_group:
-                tax_group = TaxGroup.create({"name": "US Sales Tax", "sequence": 10})
+            root = company.root_id
             tax = Tax.create(
                 {
                     "name": name,
                     "type_tax_use": "sale",
                     "amount_type": "percent",
                     "amount": amount_pct,
-                    "company_id": company.id,
-                    "tax_group_id": tax_group.id,
+                    "company_id": root.id,
+                    "tax_group_id": self._get_us_tax_group(root).id,
                     "description": f"US Sales Tax — {state_code} @ {amount_pct:.4g}%",
                 }
             )
             _logger.info('Created tax "%s" at %s%%', name, amount_pct)
         elif not tax.tax_group_id or tax.tax_group_id.name != "US Sales Tax":
-            tax_group = TaxGroup.search([("name", "=", "US Sales Tax")], limit=1)
-            if tax_group:
-                tax.tax_group_id = tax_group.id
+            tax.tax_group_id = self._get_us_tax_group(tax.company_id).id
 
         return tax
 
@@ -579,34 +576,32 @@ class UsTaxEngineService(models.AbstractModel):
         needs to show "evaluated, no tax due" on the document/report,
         instead of leaving the line with no tax at all, which is
         indistinguishable from "tax was never calculated".
+        Like the state taxes, it lives on the root of the company tree.
         """
         if not company:
             return False
 
         name = "US Sales Tax - Exempt (0%)"
         Tax = self.env["account.tax"].sudo()
-        TaxGroup = self.env["account.tax.group"].sudo()
 
         tax = Tax.search(
             [
                 ("name", "=", name),
                 ("type_tax_use", "=", "sale"),
-                ("company_id", "=", company.id),
+                *Tax._check_company_domain(company),
             ],
             limit=1,
         )
         if not tax:
-            tax_group = TaxGroup.search([("name", "=", "US Sales Tax")], limit=1)
-            if not tax_group:
-                tax_group = TaxGroup.create({"name": "US Sales Tax", "sequence": 10})
+            root = company.root_id
             tax = Tax.create(
                 {
                     "name": name,
                     "type_tax_use": "sale",
                     "amount_type": "percent",
                     "amount": 0.0,
-                    "company_id": company.id,
-                    "tax_group_id": tax_group.id,
+                    "company_id": root.id,
+                    "tax_group_id": self._get_us_tax_group(root).id,
                     "description": (
                         "US Sales Tax — Exempt (product category or no "
                         "nexus); see Calculation Log for the specific reason."
@@ -615,6 +610,23 @@ class UsTaxEngineService(models.AbstractModel):
             )
             _logger.info('Created tax "%s"', name)
         return tax
+
+    @api.model
+    def _get_us_tax_group(self, company):
+        """Return the US Sales Tax group shared by the whole tree of
+        ``company``, so taxes created on its root can use it.
+        """
+        TaxGroup = self.env["account.tax.group"].sudo()
+        root = company.root_id
+        tax_group = TaxGroup.search(
+            [("name", "=", "US Sales Tax"), *TaxGroup._check_company_domain(root)],
+            limit=1,
+        )
+        if not tax_group:
+            tax_group = TaxGroup.create(
+                {"name": "US Sales Tax", "sequence": 10, "company_id": root.id}
+            )
+        return tax_group
 
     # ── Audit log ─────────────────────────────────────────────────────────────
 
