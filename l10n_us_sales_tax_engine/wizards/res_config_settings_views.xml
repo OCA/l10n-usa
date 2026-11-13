@@ -17,6 +17,16 @@
                         />
                     </setting>
                     <setting
+                        id="us_tax_auto_calculate"
+                        invisible="not us_tax_engine_active"
+                        help="When enabled, US Sales Tax is recalculated automatically as the document changes (lines, partner, address, dates) and on confirmation/posting. A recalculation that is not already cached consumes external API calls."
+                    >
+                        <field
+                            name="us_tax_auto_calculate"
+                            string="Automatic Tax Calculation"
+                        />
+                    </setting>
+                    <setting
                         id="us_tax_engine_mode"
                         invisible="not us_tax_engine_active"
                         help="How the engine selects the tax rate source."

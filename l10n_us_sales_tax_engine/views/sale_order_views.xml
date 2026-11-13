@@ -13,11 +13,32 @@
                     type="object"
                     string="Calculate US Tax"
                     class="btn-secondary"
+                    invisible="not us_tax_engine_available or state not in ('draft', 'sent', 'sale') or locked or invoice_status in ('invoiced', 'upselling')"
                     title="Calculate US Sales Tax based on customer shipping address"
                 />
             </xpath>
+            <!-- Outdated tax warning, in the alert stack above the sheet -->
+            <xpath expr="//sheet" position="before">
+                <div
+                    class="alert alert-warning"
+                    role="alert"
+                    invisible="not us_tax_is_stale or not us_tax_engine_available"
+                >
+                    <span
+                    >The US Sales Tax inputs changed after the last calculation. The tax shown on this order is outdated.</span>
+                    <button
+                        name="action_calculate_us_tax"
+                        type="object"
+                        string="Recalculate US Tax"
+                        class="btn-link"
+                        invisible="not us_tax_engine_available or state not in ('draft', 'sent', 'sale') or locked or invoice_status in ('invoiced', 'upselling')"
+                    />
+                </div>
+            </xpath>
             <!-- Add Tax Source info + shipping toggle below payment terms -->
             <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field name="us_tax_engine_available" invisible="1" />
+                <field name="us_tax_is_stale" invisible="1" />
                 <field
                     name="us_tax_based_on_shipping"
                     string="Tax Based on Shipping Address"

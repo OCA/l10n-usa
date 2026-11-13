@@ -1,1 +1,2 @@
 - Carlos R. Rodriguez \<<c.rodriguez@binhex.cloud>\>
+- Edilio Escalona Almira \<<e.escalona@binhex.cloud\>
