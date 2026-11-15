@@ -27,6 +27,18 @@
                         <field name="threshold_amount" />
                         <field name="threshold_transactions" />
                     </group>
+                    <group string="Single Local Rate (remote seller)">
+                        <field name="single_local_rate_elected" />
+                        <field name="single_local_mandatory" />
+                        <field
+                            name="single_local_rate"
+                            invisible="not single_local_rate_elected and not single_local_mandatory"
+                        />
+                        <field
+                            name="single_local_mode"
+                            invisible="not single_local_rate_elected and not single_local_mandatory"
+                        />
+                    </group>
                     <field name="notes" placeholder="Legal reference or notes..." />
                 </sheet>
             </form>

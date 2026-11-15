@@ -52,8 +52,7 @@ class UsTaxImportWizard(models.TransientModel):
             rows += Markup("<tr>%s</tr>") % cells
         table = (
             Markup(
-                '<table class="table table-sm table-bordered">'
-                "<tbody>%s</tbody></table>"
+                '<table class="table table-sm table-bordered"><tbody>%s</tbody></table>'
             )
             % rows
         )

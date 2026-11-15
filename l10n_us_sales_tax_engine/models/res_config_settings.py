@@ -47,6 +47,9 @@ class ResConfigSettings(models.TransientModel):
         default=0.7,
         help="Minimum ZIP-to-jurisdiction confidence to use local data (0.0–1.0).",
     )
+    us_tax_payable_account_id = fields.Many2one(
+        related="company_id.us_tax_payable_account_id", readonly=False
+    )
 
     def _sync_provider_active(self, code, enabled):
         provider = (

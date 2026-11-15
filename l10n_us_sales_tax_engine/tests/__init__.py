@@ -9,3 +9,8 @@ from . import test_importer_florida_dor  # noqa: F401
 from . import test_controller_us_tax_api  # noqa: F401
 from . import test_account_move  # noqa: F401
 from . import test_partner_exemption  # noqa: F401
+from . import test_rule_import  # noqa: F401
+from . import test_sourcing  # noqa: F401
+from . import test_single_local  # noqa: F401
+from . import test_address_cache  # noqa: F401
+from . import test_jurisdiction_booking  # noqa: F401
