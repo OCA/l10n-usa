@@ -46,9 +46,7 @@ class SaleOrder(models.Model):
         """Auto-calculate tax on confirmation if engine is active."""
         ICP = self.env["ir.config_parameter"].sudo()
         if ICP.get_param("l10n_us_tax.engine_active", "False") == "True":
+            engine = self.env["us.tax.engine.service"]
             for order in self:
-                try:
-                    self.env["us.tax.engine.service"].calculate_for_sale_order(order)
-                except Exception as exc:
-                    _logger.warning("US Tax auto-calc on confirm failed: %s", exc)
+                engine._calculate_on_validation(order, engine.calculate_for_sale_order)
         return super().action_confirm()
