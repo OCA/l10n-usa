@@ -13,8 +13,77 @@ The engine prices a document only when the address it uses has its
 country set to the United States and carries a ZIP and a state. A ZIP
 and a state with no country are not taken for a US address. When the
 engine runs on a document it had priced and that has since lost such
-an address, it takes its own US Sales Tax taxes off the lines and leaves
-any other tax where it is.
+an address, it takes its own US Sales Tax taxes off the lines, leaves
+any other tax where it is, and stops tracking the document: it shows no
+banner. If those taxes cannot be taken off, the run counts as a failed
+calculation, described below.
+
+On a sale order with part of its lines already invoiced, only the lines
+nothing has been invoiced from follow a new rate. The invoiced lines keep
+the tax their invoice was issued with.
+
+### Outdated tax and the warning banner
+
+Editing the *customer's* address does not recalculate every draft
+document that customer has — that would block the transaction on a
+customer with hundreds of quotations. Instead, each document keeps a
+fingerprint of the inputs the engine reads, and those documents show a
+warning banner saying the tax is outdated.
+
+![Outdated tax banner on a quotation](../static/description/usage_outdated_banner_sale_order.png)
+
+How an outdated document is brought up to date depends on **Automatic
+Tax Calculation**:
+
+- in every mode, the **Recalculate US Tax** button on the banner or the
+  **Calculate US Tax** button;
+- in **On Validation**, also confirming the sale order or posting the
+  invoice.
+
+A document the engine was never asked to price is not outdated and shows
+no banner. One whose calculation was attempted and failed is, even when
+that was its first calculation and it carries no tax yet.
+
+"Outdated" means *outdated and still recalculable*. A document the
+engine cannot write a tax onto never shows the banner, and the
+**Calculate US Tax** and **Recalculate US Tax** buttons are hidden on
+it: a posted or cancelled invoice, and a
+cancelled, locked or fully invoiced sale order. Odoo freezes `tax_ids`
+on a posted move and protects `tax_id` on a locked order, so a button
+there would clear the banner without changing a single tax. To
+recalculate a posted invoice, reset it to draft; to recalculate a locked
+order, unlock it. Either becomes outdated again on its own if its inputs
+moved in the meantime.
+
+For the same reason the fingerprint itself is only maintained inside
+those states. A customer address change marks the customer's documents
+that can still be recalculated and leaves the rest exactly as they were,
+`write_date` included — vendor bills of that customer among them.
+
+### Which changes mark a document as outdated
+
+The fingerprint holds what the engine actually reads: the ZIP, the
+state, the city and the country of the address it would use, the
+customer's exemption flag, the document date, the company, and the
+fiscal category and subtotal of each line it prices. On a sale order the
+lines already invoiced are not part of it. A change to anything else
+raises no banner. Two cases come up often:
+
+- **ZIP+4 and other ZIP formatting.** The engine truncates the ZIP to
+  its first five digits, so `33101`, `33101-4521` and `331014521` are
+  the same ZIP to it. Rewriting one as another changes no rate and
+  raises no banner.
+- **Street.** The rate is resolved from ZIP, state, fiscal category and
+  date; the street is not part of the cache key, so editing it returns
+  the very same rate. It raises no banner either.
+
+Which address the fingerprint watches depends on **Tax Based on Shipping
+Address** on the sale order: with it ticked the delivery address counts
+and the invoice address does not, and the other way round. An invoice is
+always taxed on its delivery address. Odoo copies a company's address
+only to its child contacts of type *Contact*, not to its delivery
+addresses, so editing the customer's address leaves a separate delivery
+address, and the documents taxed on it, as they were.
 
 ### Calculation logs
 
@@ -46,15 +115,16 @@ The **Status** is:
 
 ### Where the Block failure policy applies
 
-What follows applies with **Automatic Tax Calculation** set to
-**On Validation**, the mode that runs the engine on order confirmation
-and invoice posting.
+Confirming a sale order or posting an invoice runs the engine only with
+**Automatic Tax Calculation** set to **On Validation**; what this
+section says about confirming and posting applies to that mode.
 
 With *API Failure Policy* set to *Block — prevent document
 confirmation*, a calculation where every provider failed raises an
-error. Confirming the sale order or posting the invoice is refused with
-*US sales tax could not be calculated for …*, and the document stays as
-it was.
+error. The **Calculate US Tax** button shows it to the user, and
+confirming the sale order or posting the invoice is refused with *US
+sales tax could not be calculated for …*; in both cases the document
+stays as it was.
 
 Under the other policies confirming or posting goes through. When no
 provider answered, a note in the document's chatter says that the US
@@ -65,6 +135,102 @@ A tax that cannot be written on the lines never stops the confirmation
 or the posting, whatever the policy. The note in the chatter then says
 that the tax could not be written on the lines, that they kept the tax
 they had, and asks to calculate it again before sending the document.
+
+### How automatic recalculation is triggered
+
+Every `write()` on a sale order or an invoice funnels into a single
+method, `_us_tax_auto_recalculate()`. Confirming a sale order reaches
+it through the confirmation's own `write()`; posting an invoice calls
+it from `_post()`, while the move is still a draft. It reaches the
+engine only when all four of these hold:
+
+1. **`us_tax_skip_auto` is not in the context.** The engine writes the
+   tax back onto the document, and that write goes through the same
+   override; this key is what stops it from calculating a second time
+   on its own output.
+2. **The mode allows it.** `l10n_us_tax.engine_active` and
+   `l10n_us_tax.auto_mode` are read at runtime instead of being trusted
+   from the settings form, because `set_param()` can write either one
+   without going through it. With the engine disabled the mode is
+   **Off** whatever is stored, and with no mode stored it is **On
+   Validation**. **Off** never lets the engine run. **On Validation**
+   lets it run only while a sale order is being confirmed or an invoice
+   posted, which `action_confirm()` and `_post()` mark with the
+   `us_tax_validating` context key.
+3. **The document is in an allowed state.** Quotations and confirmed
+   sale orders that are unlocked and not fully invoiced; draft customer
+   invoices and credit notes. Posted, cancelled and locked documents are
+   out because Odoo will not let a tax be written on them, and fully
+   invoiced orders because no line is left for a new rate to reach.
+4. **The fingerprint changed, or the write validates the document.**
+   `us_tax_input_hash` differs from `us_tax_calculated_hash`. The write
+   that confirms a sale order and `_post()` skip this check: rates,
+   rules and nexus are not in the fingerprint, so a validation always
+   prices the document.
+
+A calculation that fails does not count as one. When no provider
+answers and the *API Failure Policy* is *Warn* or *Manual*, or *Use
+Last Cache* finds no cached rate, the lines that already carried a US
+tax keep it and the others get the 0% tax of their state. When the tax
+cannot be written on the lines, everything the engine had written on
+them is rolled back. In both cases the audit row is recorded as an
+error, `us_tax_calculated_hash` is cleared and the attempt is stamped,
+so the document stays outdated and shows the banner for as long as it
+can still be recalculated; an invoice that went on to be posted does
+not show it. **Tax Source**
+reads `error` and **Tax Calculated** gets the time of the attempt, so it
+is visible on the document.
+
+Nowhere in the module is there a list of "fields that cause a
+recalculation". Any other write made while a document is validated, such
+as the one `sale_stock` makes on the order, reaches the engine only when
+it moved the fingerprint.
+
+**Extending the fingerprint from another module.** It takes two
+overrides: the compute, with your own dependencies, says *when* the
+fingerprint is recomputed, and `_us_tax_build_input_hash()` says *what*
+goes into it. The dependency alone recomputes the same value, because the
+compute only reads what `_us_tax_build_input_hash()` returns.
+
+```python
+import hashlib
+
+
+class SaleOrder(models.Model):
+    _inherit = "sale.order"
+
+    @api.depends("partner_id.my_custom_field")
+    def _compute_us_tax_input_hash(self):
+        super()._compute_us_tax_input_hash()
+
+    def _us_tax_build_input_hash(self):
+        fingerprint = super()._us_tax_build_input_hash()
+        if not fingerprint:
+            return fingerprint
+        extra = f"{fingerprint}|{self.partner_id.my_custom_field}"
+        return hashlib.sha256(extra.encode("utf-8")).hexdigest()
+```
+
+`Field.get_depends()` collects the dependencies of every override of the
+compute in the MRO, so yours are added to the ones this module declares.
+Redefining the field with the `depends=` keyword instead **replaces**
+that list rather than extending it, which silently drops all of them.
+
+The four hooks the dependency list is built from —
+`_us_tax_partner_fields()`, `_us_tax_partner_address_fields()`,
+`_us_tax_extra_depends()` and `_us_tax_state_depends()` — are
+overridable too. All four are evaluated once per registry build, so they
+have to return static lists, and a change only takes effect when the
+module is upgraded.
+
+A module adding a third document type inherits `us.tax.auto.mixin` and
+implements `_us_tax_get_address()`, `_us_tax_get_date()`,
+`_us_tax_get_lines()`, `_us_tax_engine_run()`, `_us_tax_state_domain()`
+and `_us_tax_state_depends()`, and its line model inherits
+`us.tax.line.hash.mixin`, which gives the lines their part of the
+fingerprint. The first three hooks are also
+what `us.tax.engine.service` reads, so overriding one moves the
+fingerprint and what actually gets taxed together.
 
 ### Nexus in a company tree
 
