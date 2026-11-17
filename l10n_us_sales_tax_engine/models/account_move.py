@@ -1,6 +1,6 @@
 # Copyright 2026 Binhex - Carlos R. Rodriguez.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
-from odoo import fields, models
+from odoo import api, fields, models
 
 from ..services.address_resolver import resolve_shipping_address
 
@@ -60,6 +60,22 @@ class AccountMove(models.Model):
             ("state", "=", "draft"),
             ("move_type", "in", self.get_sale_types()),
         ]
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        """Recalculate the moves that were just created.
+
+        Kept on account.move alone rather than shared through the mixin:
+        sale.order has no create-time trigger, and giving it one would
+        run the engine on an empty quotation, which _process() answers
+        with a us.tax.calculation.log row all the same.
+
+        _us_tax_state_domain() keeps this to draft customer invoices and
+        refunds; anything else leaves the engine untouched.
+        """
+        moves = super().create(vals_list)
+        moves._us_tax_auto_recalculate()
+        return moves
 
     def _post(self, soft=True):
         """Auto-calculate tax when a move is actually posted.

@@ -4,8 +4,10 @@ With **Enable US Sales Tax Engine** ticked, **Calculate US Tax** on the
 sale order and on the customer invoice or credit note runs the engine
 on demand. Depending on **Automatic Tax Calculation**, the engine also
 runs on its own when a sale order is confirmed and when a customer
-invoice or credit note is posted. Both settings live under *Settings →
-Invoicing → US Sales Tax Engine* and are described in *Configuration*.
+invoice or credit note is posted, and in the **Live** mode also as
+documents change and from a daily scheduled action. Both settings live
+under *Settings → Invoicing → US Sales Tax Engine* and are described in
+*Configuration*.
 
 ![Calculate US Tax on a draft invoice](../static/description/usage_calculate_button_invoice.png)
 
@@ -15,8 +17,8 @@ and a state with no country are not taken for a US address. When the
 engine runs on a document it had priced and that has since lost such
 an address, it takes its own US Sales Tax taxes off the lines, leaves
 any other tax where it is, and stops tracking the document: it shows no
-banner. If those taxes cannot be taken off, the run counts as a failed
-calculation, described below.
+banner and the cron leaves it alone. If those taxes cannot be taken
+off, the run counts as a failed calculation, described below.
 
 On a sale order with part of its lines already invoiced, only the lines
 nothing has been invoiced from follow a new rate. The invoiced lines keep
@@ -37,17 +39,19 @@ Tax Calculation**:
 
 - in every mode, the **Recalculate US Tax** button on the banner or the
   **Calculate US Tax** button;
-- in **On Validation**, also confirming the sale order or posting the
-  invoice.
+- in **On Validation** and **Live**, also confirming the sale order or
+  posting the invoice;
+- in **Live**, also the next edit to the document itself and the daily
+  cron.
 
 A document the engine was never asked to price is not outdated and shows
 no banner. One whose calculation was attempted and failed is, even when
 that was its first calculation and it carries no tax yet.
 
 "Outdated" means *outdated and still recalculable*. A document the
-engine cannot write a tax onto never shows the banner, and the
-**Calculate US Tax** and **Recalculate US Tax** buttons are hidden on
-it: a posted or cancelled invoice, and a
+engine cannot write a tax onto never shows the banner and never
+reaches the cron, and the **Calculate US Tax** and **Recalculate US
+Tax** buttons are hidden on it: a posted or cancelled invoice, and a
 cancelled, locked or fully invoiced sale order. Odoo freezes `tax_ids`
 on a posted move and protects `tax_id` on a locked order, so a button
 there would clear the banner without changing a single tax. To
@@ -85,6 +89,56 @@ only to its child contacts of type *Contact*, not to its delivery
 addresses, so editing the customer's address leaves a separate delivery
 address, and the documents taxed on it, as they were.
 
+### The recalculation cron
+
+**Settings → Technical → Automation → Scheduled Actions → US Tax:
+Recalculate Outdated Sales Orders** and **US Tax: Recalculate Outdated
+Invoices**, both daily. They only work in the **Live** mode; in **Off**
+and **On Validation** a run ends at once without touching anything.
+There is one per document model, so that a failure while processing
+sale orders does not affect the invoices.
+
+![US Tax scheduled actions](../static/description/usage_recalculation_crons.png)
+
+*Why it exists.* Changing one customer's address can outdate every draft
+quotation and invoice that customer has. Recalculating them on the spot
+would hold the transaction open for as long as it takes to price
+hundreds of documents, and would consume an API call for each one an
+external provider answers — while the user waits on a partner form. So
+the recalculation is deferred, and the cron is the unattended floor
+under the other routes: it catches the documents nobody reopened and
+nobody pressed the button on.
+
+*What it does.* It looks for the documents that were calculated or
+attempted at least once and whose inputs differ from the last
+calculation, in the states the automation is allowed to touch:
+quotations, confirmed sale orders that are unlocked and not fully
+invoiced, and draft customer invoices and credit notes. It recalculates
+them in batches of 10 and reports its progress to Odoo after each batch;
+Odoo commits the batch and calls the job again while documents remain.
+A worker stopped by its time limit loses the batch in progress, not the
+ones before it.
+
+A run only takes the documents not attempted since its scheduled time,
+so each document is tried once per run. One that keeps failing waits
+for the next run instead of keeping the job busy for as long as a
+provider outage lasts.
+
+**Run Manually**, on either scheduled action, processes a single batch
+of 10; the documents still outdated wait for the next scheduled run.
+
+A document whose calculation fails stays outdated, so the next run picks
+it up again, including a document whose very first calculation failed
+and that carries no tax yet. Every attempt the cron makes stamps the
+document with its time, successful or not, and the queue is ordered by
+it: never-attempted documents first, then the least recently attempted.
+
+*Cost.* Every recalculation that an external provider answers, rather
+than the cache or the local rate data, consumes an API call, which is
+why the cron only runs in the **Live** mode.
+You can also lower its frequency or deactivate it from the scheduled
+action itself.
+
 ### Calculation logs
 
 **Invoicing → Configuration → US Sales Tax → Audit → Calculation Logs**
@@ -116,15 +170,21 @@ The **Status** is:
 ### Where the Block failure policy applies
 
 Confirming a sale order or posting an invoice runs the engine only with
-**Automatic Tax Calculation** set to **On Validation**; what this
-section says about confirming and posting applies to that mode.
+**Automatic Tax Calculation** set to **On Validation** or **Live**; what
+this section says about confirming and posting applies to those modes.
 
 With *API Failure Policy* set to *Block — prevent document
 confirmation*, a calculation where every provider failed raises an
 error. The **Calculate US Tax** button shows it to the user, and
 confirming the sale order or posting the invoice is refused with *US
 sales tax could not be calculated for …*; in both cases the document
-stays as it was.
+stays as it was. When the **Live** mode recalculates a document because
+it was created or edited, or the cron runs, the error is logged and
+swallowed instead: a provider outage would otherwise make every draft
+sale order and customer invoice impossible to edit. The document keeps
+its previous tax, the audit row
+is recorded as an error, and the banner and the cron keep asking for
+the calculation until a provider answers.
 
 Under the other policies confirming or posting goes through. When no
 provider answered, a note in the document's chatter says that the US
@@ -138,15 +198,16 @@ they had, and asks to calculate it again before sending the document.
 
 ### How automatic recalculation is triggered
 
-Every `write()` on a sale order or an invoice funnels into a single
-method, `_us_tax_auto_recalculate()`. Confirming a sale order reaches
-it through the confirmation's own `write()`; posting an invoice calls
-it from `_post()`, while the move is still a draft. It reaches the
+Every `write()` on a sale order or an invoice, the `create()` of an
+invoice, and every `create()` and `write()` on their lines funnel into a
+single method, `_us_tax_auto_recalculate()`. Confirming a sale order
+reaches it through the confirmation's own `write()`; posting an invoice
+calls it from `_post()`, while the move is still a draft. It reaches the
 engine only when all four of these hold:
 
 1. **`us_tax_skip_auto` is not in the context.** The engine writes the
-   tax back onto the document, and that write goes through the same
-   override; this key is what stops it from calculating a second time
+   tax back onto the lines, and that write goes through the same
+   overrides; this key is what stops it from calculating a second time
    on its own output.
 2. **The mode allows it.** `l10n_us_tax.engine_active` and
    `l10n_us_tax.auto_mode` are read at runtime instead of being trusted
@@ -156,7 +217,7 @@ engine only when all four of these hold:
    Validation**. **Off** never lets the engine run. **On Validation**
    lets it run only while a sale order is being confirmed or an invoice
    posted, which `action_confirm()` and `_post()` mark with the
-   `us_tax_validating` context key.
+   `us_tax_validating` context key. **Live** always lets it run.
 3. **The document is in an allowed state.** Quotations and confirmed
    sale orders that are unlocked and not fully invoiced; draft customer
    invoices and credit notes. Posted, cancelled and locked documents are
@@ -175,16 +236,25 @@ tax keep it and the others get the 0% tax of their state. When the tax
 cannot be written on the lines, everything the engine had written on
 them is rolled back. In both cases the audit row is recorded as an
 error, `us_tax_calculated_hash` is cleared and the attempt is stamped,
-so the document stays outdated and shows the banner for as long as it
-can still be recalculated; an invoice that went on to be posted does
-not show it. **Tax Source**
-reads `error` and **Tax Calculated** gets the time of the attempt, so it
-is visible on the document.
+so the document stays outdated: it shows the banner for as long as it
+can still be recalculated, and in the **Live** mode the cron picks it
+up again. An invoice that went on to be posted does not show it.
+**Tax Source** reads `error` and **Tax Calculated** gets the time of the
+attempt, so it is visible on the document.
 
 Nowhere in the module is there a list of "fields that cause a
-recalculation". Any other write made while a document is validated, such
-as the one `sale_stock` makes on the order, reaches the engine only when
-it moved the fingerprint.
+recalculation". Any other write, including the one `sale_stock` makes on
+the order while it is confirmed, reaches the engine only when it moved
+the fingerprint.
+
+**Creation is deliberately asymmetric.** In the **Live** mode an invoice
+calculates tax when it is created, with or without lines; a quotation
+calculates when it gets its first line, whether that line comes with
+the creation or is added afterwards. The engine writes a
+`us.tax.calculation.log` row on every run on a US address with a ZIP
+and a state, including the runs that price nothing, and a quotation is
+routinely created empty and filled in afterwards — calculating an empty
+quotation would log a row for each of those.
 
 **Extending the fingerprint from another module.** It takes two
 overrides: the compute, with your own dependencies, says *when* the
@@ -226,11 +296,14 @@ module is upgraded.
 A module adding a third document type inherits `us.tax.auto.mixin` and
 implements `_us_tax_get_address()`, `_us_tax_get_date()`,
 `_us_tax_get_lines()`, `_us_tax_engine_run()`, `_us_tax_state_domain()`
-and `_us_tax_state_depends()`, and its line model inherits
+and `_us_tax_state_depends()`. Its line model inherits
 `us.tax.line.hash.mixin`, which gives the lines their part of the
-fingerprint. The first three hooks are also
-what `us.tax.engine.service` reads, so overriding one moves the
-fingerprint and what actually gets taxed together.
+fingerprint and their `create()`/`write()` triggers, and implements
+`_us_tax_auto_parents()` to return the documents its lines belong to.
+The module also ships its own `ir.cron` record pointing at its model
+and calling `model._us_tax_cron_recalculate_stale()`. The first three
+hooks are also what `us.tax.engine.service` reads, so overriding one
+moves the fingerprint and what actually gets taxed together.
 
 ### Zero-tax lines always carry an explicit tax, never an empty tax field
 

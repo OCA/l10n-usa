@@ -19,11 +19,16 @@ class ResConfigSettings(models.TransientModel):
                 "on_validate",
                 "On Validation — on order confirmation and invoice posting",
             ),
+            ("live", "Live — also as draft documents change, and daily"),
         ],
         string="Automatic Tax Calculation",
         config_parameter="l10n_us_tax.auto_mode",
         default="on_validate",
-        help="When US Sales Tax is calculated without pressing Calculate US Tax.",
+        help=(
+            "When US Sales Tax is calculated without pressing Calculate US Tax. "
+            "Live recalculates every change to a draft document and runs a daily "
+            "job, so it consumes more provider calls."
+        ),
     )
     us_tax_engine_mode = fields.Selection(
         [

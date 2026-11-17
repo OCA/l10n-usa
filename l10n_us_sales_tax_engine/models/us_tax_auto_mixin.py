@@ -3,6 +3,8 @@
 import hashlib
 import logging
 
+import psycopg2
+
 from odoo import api, fields, models
 
 from ..services.address_resolver import is_us_address
@@ -19,12 +21,14 @@ class UsTaxAutoMixin(models.AbstractModel):
     _us_tax_state_depends(). The engine reads the first three too, so an
     override moves the fingerprint and what gets taxed at once.
 
-    An order is priced by the write that confirms it, at its confirmation
-    date; a move by _post(), before the core writes state = 'posted'.
-    us_tax_skip_auto keeps the engine's own writes from starting another
-    calculation. The fingerprint does not move under the engine's output
-    because price_subtotal does not change with a tax-excluded tax, which is
-    why the engine pins price_include_override on the taxes it creates.
+    create() and write() on documents and lines funnel into
+    _us_tax_auto_recalculate(). An order is priced by the write that
+    confirms it, at its confirmation date; a move by _post(), before the
+    core writes state = 'posted'. us_tax_skip_auto keeps the engine's own
+    writes from starting another calculation. The fingerprint does not move
+    under the engine's output because price_subtotal does not change with a
+    tax-excluded tax, which is why the engine pins price_include_override
+    on the taxes it creates.
     """
 
     _name = "us.tax.auto.mixin"
@@ -87,7 +91,7 @@ class UsTaxAutoMixin(models.AbstractModel):
             record.us_tax_engine_available = available
 
     def _us_tax_auto_mode(self):
-        """Return the automation mode in force: off or on_validate.
+        """Return the automation mode in force: off, on_validate or live.
 
         A disabled engine means off whatever mode is stored. A database that
         never chose a mode calculates on validation, as 18.0.1.2.x did.
@@ -96,6 +100,10 @@ class UsTaxAutoMixin(models.AbstractModel):
         if ICP.get_param("l10n_us_tax.engine_active", "False") != "True":
             return "off"
         return ICP.get_param("l10n_us_tax.auto_mode") or "on_validate"
+
+    def _us_tax_auto_enabled(self):
+        """Return True when draft documents follow their changes live."""
+        return self._us_tax_auto_mode() == "live"
 
     def _us_tax_partner_address_fields(self):
         """Return the res.partner fields the address is built from.
@@ -222,35 +230,57 @@ class UsTaxAutoMixin(models.AbstractModel):
         return self.filtered_domain(self._us_tax_state_domain())
 
     def _us_tax_recalculate(self):
-        """Recalculate one document that is being confirmed or posted.
+        """Recalculate one document, shielded from re-entrance and failures.
 
-        The attempt is stamped first, so a failed first calculation leaves the
-        document outdated. _calculate_on_validation() applies the fail policy.
+        The attempt is stamped first, outside the savepoint, so a failed first
+        calculation leaves the document outdated and in the cron's queue.
+
+        While an order is confirmed or a move posted, _calculate_on_validation()
+        applies the fail policy. Otherwise a failure is logged and swallowed, so
+        a provider outage never stops a draft from being edited, and the
+        savepoint discards whatever the failed calculation wrote. Either way the
+        document stays outdated and the cron retries it: a failure the engine
+        reports clears the calculated hash, and an exception rolls it back to
+        its previous value. A database error is re-raised, since the cursor is
+        no longer usable.
         """
         self.ensure_one()
         self.with_context(us_tax_skip_auto=True).write(
             {"us_tax_auto_attempt_at": fields.Datetime.now()}
         )
-        self.env["us.tax.engine.service"]._calculate_on_validation(
-            self, lambda document: document._us_tax_calculate()
-        )
+        if self.env.context.get("us_tax_validating"):
+            self.env["us.tax.engine.service"]._calculate_on_validation(
+                self, lambda document: document._us_tax_calculate()
+            )
+            return
+        try:
+            with self.env.cr.savepoint():
+                self.with_context(us_tax_skip_auto=True)._us_tax_calculate()
+        except psycopg2.OperationalError:
+            raise
+        except Exception as exc:
+            _logger.warning(
+                "US Tax auto-calc failed on %s %s: %s", self._name, self.id, exc
+            )
 
     def _us_tax_auto_recalculate(self, force=False):
-        """Recalculate the documents in self while they are validated.
+        """Recalculate the documents in self whose tax may be out of date.
 
-        Only while an order is confirmed or a move posted, which is when
-        us_tax_validating is set, and never in the off mode. Rates, rules and
-        nexus are not in the fingerprint, so the confirmation write and
-        _post() pass force and always price the document. Any other write made
-        during the validation, such as sale_stock's on procurement_group_id,
-        recalculates only when the fingerprint moved.
+        The live mode recalculates on every change, on_validate only while an
+        order is confirmed or a move posted (us_tax_validating), and off never.
+        Rates, rules and nexus are not in the fingerprint, so the confirmation
+        write and _post() pass force and always price the document. Any other
+        write recalculates only when the fingerprint moved.
         """
         if self.env.context.get("us_tax_skip_auto"):
             return
-        if self._us_tax_auto_mode() == "off":
+        mode = self._us_tax_auto_mode()
+        if mode == "off":
             return
-        if not self.env.context.get("us_tax_validating"):
+        validating = self.env.context.get("us_tax_validating")
+        if mode != "live" and not validating:
             return
+        force = force and validating
         for record in self._us_tax_auto_allowed():
             if force or record.us_tax_input_hash != record.us_tax_calculated_hash:
                 record._us_tax_recalculate()
@@ -319,3 +349,51 @@ class UsTaxAutoMixin(models.AbstractModel):
         res = super().write(vals)
         self._us_tax_auto_recalculate(force="state" in vals)
         return res
+
+    @api.model
+    def _us_tax_cron_recalculate_stale(self, limit=10):
+        """Recalculate one batch of outdated documents.
+
+        Documents never attempted come first, then the least recently
+        attempted, so documents that keep failing do not hold the queue. Inside
+        a cron run only documents not attempted since the run started are
+        taken, and the runner calls again while ir.cron._notify_progress()
+        reports some left, so a time limit costs one batch at most. Run Manually
+        brings no cron_id, so it takes one batch from all outdated documents.
+
+        data/ir_cron.xml ships one record per document model, so a downstream
+        addon adds a document type by shipping its own record.
+        """
+        if not self._us_tax_auto_enabled():
+            return
+        domain = self._us_tax_state_domain() + [("us_tax_is_stale", "=", True)]
+        cron_id = self.env.context.get("cron_id")
+        run_start = cron_id and self.env["ir.cron"].sudo().browse(cron_id).nextcall
+        if run_start:
+            domain += [
+                "|",
+                ("us_tax_auto_attempt_at", "=", False),
+                ("us_tax_auto_attempt_at", "<", run_start),
+            ]
+        records = self.search(
+            domain + [("us_tax_auto_attempt_at", "=", False)], limit=limit
+        )
+        if len(records) < limit:
+            records |= self.search(
+                domain + [("us_tax_auto_attempt_at", "!=", False)],
+                limit=limit - len(records),
+                order="us_tax_auto_attempt_at",
+            )
+        if not records:
+            return
+        _logger.info(
+            "US Tax cron: recalculating %s outdated %s",
+            len(records),
+            self._name,
+        )
+        for record in records:
+            record._us_tax_recalculate()
+        self.env["ir.cron"]._notify_progress(
+            done=len(records),
+            remaining=self.search_count(domain),
+        )
