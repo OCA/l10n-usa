@@ -82,8 +82,10 @@ class UsTaxEngineService(models.AbstractModel):
 
         Under the block policy a provider failure stops the validation.
         Under the others the document goes through, and a note in its
-        chatter says the tax could not be calculated. Any other failure
-        is logged and lets the validation continue.
+        chatter says the tax could not be calculated. A tax that could
+        not be written on the lines, and a US tax taken off a document
+        that is no longer priced as US, get a note of their own. Any
+        other failure is logged and lets the validation continue.
         """
         try:
             result = calculate(document)
@@ -103,7 +105,22 @@ class UsTaxEngineService(models.AbstractModel):
                 "US Tax calculation on %s failed: %s", document.display_name, exc
             )
             return {}
-        if result.get("source") == "error":
+        if not result.get("applied", True):
+            document.message_post(
+                body=self.env._(
+                    "US sales tax could not be written on the lines, so they "
+                    "kept the tax they had. Calculate it again before sending "
+                    "this document."
+                )
+            )
+        elif result.get("tax_removed"):
+            document.message_post(
+                body=self.env._(
+                    "US sales tax was taken off the lines: this document no "
+                    "longer has a US address with a ZIP code and a state."
+                )
+            )
+        elif result.get("source") == "error":
             document.message_post(
                 body=self.env._(
                     "US sales tax could not be calculated: no rate provider "
@@ -146,7 +163,7 @@ class UsTaxEngineService(models.AbstractModel):
 
         # Step 1: Validate address is US
         if not address or not is_us_address(address):
-            return self._skip(apply_fn, "skip_non_us", res_model, res_id)
+            return self._skip(apply_fn, "skip_non_us", res_model, res_id, address)
 
         zip_code = address.get("zip", "")
         state_code = address.get("state", "")
@@ -154,7 +171,7 @@ class UsTaxEngineService(models.AbstractModel):
             _logger.warning(
                 "Tax engine: missing ZIP or state for %s %s", res_model, res_id
             )
-            return self._skip(apply_fn, "skip_no_address", res_model, res_id)
+            return self._skip(apply_fn, "skip_no_address", res_model, res_id, address)
 
         # Step 2: Resolve state record
         state = self.env["res.country.state"].search(
@@ -325,14 +342,27 @@ class UsTaxEngineService(models.AbstractModel):
         return final_result
 
     @api.model
-    def _skip(self, apply_fn, source, res_model, res_id):
+    def _skip(self, apply_fn, source, res_model, res_id, address):
         """Answer a document the engine does not price.
 
         Its lines still go through apply_fn, so a tax the engine wrote
-        while the document was taxable does not stay behind.
+        while the document was taxable does not stay behind. Taking that
+        tax off leaves a skipped audit row, and failing to leaves an error
+        row. A skip that changes nothing leaves none, so documents the
+        engine never priced do not fill the log. The "tax_removed" key
+        tells the caller the lines lost the engine's tax.
         """
         final_result = {"source": source, "tax_amount": 0.0, "lines": []}
-        self._apply_result(apply_fn, final_result, res_model, res_id)
+        changed = self._apply_result(apply_fn, final_result, res_model, res_id)
+        final_result["tax_removed"] = bool(changed) and final_result["applied"]
+        if changed or not final_result["applied"]:
+            self._log(
+                res_model,
+                res_id,
+                address or {},
+                source,
+                applied=final_result["applied"],
+            )
         return final_result
 
     @api.model
@@ -355,17 +385,19 @@ class UsTaxEngineService(models.AbstractModel):
 
         A failure rolls back to a savepoint and is reported through
         final_result["applied"] instead of raising. Database errors are
-        re-raised so the core can retry the transaction.
+        re-raised so the core can retry the transaction. Return what
+        apply_fn returns, or None when the write failed.
         """
         final_result["applied"] = True
         try:
             with self.env.cr.savepoint():
-                apply_fn(final_result)
+                return apply_fn(final_result)
         except psycopg2.OperationalError:
             raise
         except Exception as exc:
             final_result["applied"] = False
             _logger.error("Tax apply error on %s %s: %s", res_model, res_id, exc)
+            return None
 
     @api.model
     def _get_rate(
@@ -536,6 +568,7 @@ class UsTaxEngineService(models.AbstractModel):
 
         Sections and notes carry no amount and are left alone: the core
         never clears a tax written on them, and the invoice would copy it.
+        A skip returns the lines it took the engine's tax off.
         """
         self = self.sudo()
         order_source = result.get("source", "")
@@ -551,11 +584,7 @@ class UsTaxEngineService(models.AbstractModel):
         # its own taxes, but do NOT assign the exempt tax (that would falsely
         # claim "evaluated, not taxable" for a case we never assessed).
         if order_source in ("skip_non_us", "skip_no_address"):
-            for line in product_lines:
-                us_taxes = self._us_engine_taxes(line.tax_id)
-                if us_taxes:
-                    line.tax_id = [Command.unlink(tax.id) for tax in us_taxes]
-            return
+            return self._remove_us_taxes(product_lines, "tax_id")
 
         # Order-wide exemption (no nexus or partner certificate) — assign the
         # explicit 0% exempt tax on every line so "evaluated, no tax" is visible.
@@ -596,7 +625,7 @@ class UsTaxEngineService(models.AbstractModel):
         predates _process()'s sudo, and account.tax creation needs it.
 
         Only product lines are touched, for the same reason as on the
-        sale order.
+        sale order. A skip returns the lines it took the engine's tax off.
         """
         self = self.sudo()
         move_source = result.get("source", "")
@@ -614,11 +643,7 @@ class UsTaxEngineService(models.AbstractModel):
             else move.partner_id.state_id.code
         )
         if move_source in ("skip_non_us", "skip_no_address"):
-            for line in product_lines:
-                us_taxes = self._us_engine_taxes(line.tax_ids)
-                if us_taxes:
-                    line.tax_ids = [Command.unlink(tax.id) for tax in us_taxes]
-            return
+            return self._remove_us_taxes(product_lines, "tax_ids")
 
         for line in product_lines:
             line_result = lines_map.get(line.id, {})
@@ -647,6 +672,31 @@ class UsTaxEngineService(models.AbstractModel):
         again before reusing them.
         """
         return taxes.filtered(lambda tax: tax.name.startswith("US Sales Tax"))
+
+    @api.model
+    def _remove_us_taxes(self, lines, field_name):
+        """Take the engine's own taxes off ``lines`` and keep the rest.
+
+        Return the lines that had one.
+        """
+        changed = lines.browse()
+        for line in lines:
+            us_taxes = self._us_engine_taxes(line[field_name])
+            if us_taxes:
+                line[field_name] = [Command.unlink(tax.id) for tax in us_taxes]
+                changed |= line
+        return changed
+
+    @api.model
+    def _result_source(self, result):
+        """Return the tax source a document records for ``result``.
+
+        A tax that did not land on the lines records "error", as its
+        audit row does, even when the engine found a rate.
+        """
+        if not result.get("applied", True):
+            return "error"
+        return result.get("source", "")
 
     @api.model
     def _repair_us_tax(self, tax):
@@ -824,9 +874,17 @@ class UsTaxEngineService(models.AbstractModel):
                 "taxable_amount": taxable_amount,
                 "tax_amount": tax_amount,
                 "calculated_by": self.env.user.id,
-                "status": "success" if applied and source != "error" else "error",
+                "status": self._log_status(source, applied),
             }
         )
+
+    @api.model
+    def _log_status(self, source, applied):
+        if not applied or source == "error":
+            return "error"
+        if source in ("skip_non_us", "skip_no_address"):
+            return "skipped"
+        return "success"
 
     @api.model
     def _log_on_own_cursor(self, res_model, res_id, *args, **kwargs):

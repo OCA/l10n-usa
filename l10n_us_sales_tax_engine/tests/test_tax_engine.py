@@ -3,6 +3,7 @@
 from unittest.mock import patch
 
 from odoo.fields import Command
+from odoo.tests import new_test_user
 from odoo.tests.common import mute_logger
 
 from ..services.provider_base import ProviderError
@@ -122,6 +123,23 @@ class TestProviderFallback(UsTaxBaseTest):
 
 class TestTaxEngineApply(UsTaxBaseTest):
     """How the engine writes its result on the document lines."""
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.salesman = new_test_user(
+            cls.env,
+            login="us_tax_apply_salesman",
+            groups="sales_team.group_sale_salesman",
+        )
+        cls.invoicer = new_test_user(
+            cls.env,
+            login="us_tax_apply_invoicer",
+            groups="account.group_account_invoice",
+        )
+        cls.partner_fr = cls.env["res.partner"].create(
+            {"name": "Test Customer FR", "country_id": cls.env.ref("base.fr").id}
+        )
 
     def _create_fee_tax(self):
         return self.env["account.tax"].create(
@@ -271,3 +289,105 @@ class TestTaxEngineApply(UsTaxBaseTest):
             move, {"source": "skip_non_us", "lines": []}
         )
         self.assertEqual(line.tax_ids, fee)
+
+    def _log_count(self, document):
+        return (
+            self.env["us.tax.calculation.log"]
+            .sudo()
+            .search_count(
+                [("res_model", "=", document._name), ("res_id", "=", document.id)]
+            )
+        )
+
+    @mute_logger(_TAX_ENGINE_LOGGER)
+    def test_failed_apply_marks_the_order_source_as_error(self):
+        order = self._create_fl_order(user=self.salesman)
+        with self._fail_state_tax_from_call(1):
+            order.with_user(self.salesman).action_calculate_us_tax()
+        self.assertEqual(order.us_tax_source, "error")
+
+    @mute_logger(_TAX_ENGINE_LOGGER)
+    def test_failed_apply_marks_the_invoice_source_as_error(self):
+        move = self._create_fl_invoice(user=self.invoicer)
+        with self._fail_state_tax_from_call(1):
+            move.with_user(self.invoicer).action_calculate_us_tax()
+        self.assertEqual(move.us_tax_source, "error")
+
+    def _apply_failure_notes(self, document):
+        return document.sudo().message_ids.filtered(
+            lambda message: "could not be written" in (message.body or "")
+        )
+
+    @mute_logger(_TAX_ENGINE_LOGGER)
+    def test_failed_apply_on_confirm_leaves_a_note(self):
+        order = self._create_fl_order(user=self.salesman)
+        with self._fail_state_tax_from_call(1):
+            order.with_user(self.salesman).action_confirm()
+        self.assertEqual(order.state, "sale")
+        self.assertTrue(self._apply_failure_notes(order))
+
+    @mute_logger(_TAX_ENGINE_LOGGER)
+    def test_failed_apply_on_post_leaves_a_note(self):
+        move = self._create_fl_invoice(user=self.invoicer)
+        with self._fail_state_tax_from_call(1):
+            move.with_user(self.invoicer).action_post()
+        self.assertEqual(move.state, "posted")
+        self.assertTrue(self._apply_failure_notes(move))
+
+    def test_skip_that_removes_the_us_tax_leaves_a_skipped_row(self):
+        order = self._create_fl_order(user=self.salesman)
+        order.action_calculate_us_tax()
+        rows_before = self._log_count(order)
+        order.partner_shipping_id = self.partner_fr
+        order.action_calculate_us_tax()
+        self.assertEqual(self._log_count(order), rows_before + 1)
+        row = self._last_log(order)
+        self.assertEqual(row.source, "skip_non_us")
+        self.assertEqual(row.status, "skipped")
+
+    def _tax_removed_notes(self, document):
+        return document.sudo().message_ids.filtered(
+            lambda message: "taken off" in (message.body or "")
+        )
+
+    def test_confirm_that_takes_the_us_tax_off_leaves_a_note(self):
+        order = self._create_fl_order(user=self.salesman)
+        order.action_calculate_us_tax()
+        order.partner_shipping_id = self.partner_fr
+        order.with_user(self.salesman).action_confirm()
+        self.assertEqual(order.state, "sale")
+        self.assertFalse(self._us_taxes(order.order_line.tax_id))
+        self.assertTrue(self._tax_removed_notes(order))
+
+    def test_post_that_takes_the_us_tax_off_leaves_a_note(self):
+        move = self._create_fl_invoice(user=self.invoicer)
+        move.action_calculate_us_tax()
+        move.partner_shipping_id = self.partner_fr
+        move.with_user(self.invoicer).action_post()
+        self.assertEqual(move.state, "posted")
+        self.assertFalse(self._us_taxes(move.invoice_line_ids.tax_ids))
+        self.assertTrue(self._tax_removed_notes(move))
+
+    def test_skip_that_changes_nothing_leaves_no_row(self):
+        order = self._create_fl_order(user=self.salesman)
+        order.partner_shipping_id = self.partner_fr
+        order.action_calculate_us_tax()
+        self.assertEqual(order.us_tax_source, "skip_non_us")
+        self.assertEqual(self._log_count(order), 0)
+
+    @mute_logger(_TAX_ENGINE_LOGGER)
+    def test_skip_that_cannot_remove_the_us_tax_leaves_an_error_row(self):
+        order = self._create_fl_order(user=self.salesman)
+        order.action_calculate_us_tax()
+        us_tax = self._us_taxes(order.order_line.tax_id)
+        order.partner_shipping_id = self.partner_fr
+        service = type(self.env["us.tax.engine.service"])
+        with patch.object(
+            service, "_remove_us_taxes", side_effect=ValueError("under test")
+        ):
+            order.action_calculate_us_tax()
+        self.assertEqual(order.us_tax_source, "error")
+        self.assertEqual(self._us_taxes(order.order_line.tax_id), us_tax)
+        row = self._last_log(order)
+        self.assertEqual(row.source, "skip_non_us")
+        self.assertEqual(row.status, "error")

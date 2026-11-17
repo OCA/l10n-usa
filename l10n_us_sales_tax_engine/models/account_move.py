@@ -26,7 +26,7 @@ class AccountMove(models.Model):
             result = engine.calculate_for_invoice(self)
             self.write(
                 {
-                    "us_tax_source": result.get("source", ""),
+                    "us_tax_source": engine._result_source(result),
                     "us_tax_calculated_at": fields.Datetime.now(),
                 }
             )

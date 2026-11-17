@@ -131,6 +131,23 @@ class TestProviderOutage(UsTaxBaseTest):
         self.assertEqual(order.state, "draft")
 
     @mute_logger(_TAX_ENGINE_LOGGER)
+    def test_batch_confirm_with_block_confirms_no_order(self):
+        """The order the block policy stops takes the whole batch with it."""
+        self._set_fail_policy("block")
+        first = self._create_fl_order(user=self.salesman)
+        second = self._create_fl_order(user=self.salesman)
+        first_taxes = first.order_line.tax_id
+        second_fails = [{"total_rate": 0.07}, ProviderError("unavailable")]
+        with (
+            patch.object(ProviderLocal, "get_rate", side_effect=second_fails),
+            self.assertRaises(UserError) as refusal,
+        ):
+            (first | second).with_user(self.salesman).action_confirm()
+        self.assertIn(second.name, str(refusal.exception))
+        self.assertEqual((first | second).mapped("state"), ["draft", "draft"])
+        self.assertEqual(first.order_line.tax_id, first_taxes)
+
+    @mute_logger(_TAX_ENGINE_LOGGER)
     def test_post_during_outage_with_block_is_refused(self):
         self._set_fail_policy("block")
         move = self._create_fl_invoice(user=self.invoicer)
