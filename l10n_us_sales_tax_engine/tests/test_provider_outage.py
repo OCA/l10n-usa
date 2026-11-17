@@ -11,7 +11,7 @@ from ..services.provider_local import ProviderLocal
 from .common import UsTaxBaseTest
 
 _TAX_ENGINE_LOGGER = "odoo.addons.l10n_us_sales_tax_engine.services.tax_engine"
-_SALE_ORDER_LOGGER = "odoo.addons.l10n_us_sales_tax_engine.models.sale_order"
+_AUTO_MIXIN_LOGGER = "odoo.addons.l10n_us_sales_tax_engine.models.us_tax_auto_mixin"
 
 
 class TestProviderOutage(UsTaxBaseTest):
@@ -55,7 +55,7 @@ class TestProviderOutage(UsTaxBaseTest):
             lambda message: "could not be calculated" in (message.body or "")
         )
 
-    @mute_logger(_TAX_ENGINE_LOGGER)
+    @mute_logger(_TAX_ENGINE_LOGGER, _AUTO_MIXIN_LOGGER)
     def test_recalculation_during_outage_keeps_the_order_tax(self):
         order = self._create_fl_order()
         order.action_calculate_us_tax()
@@ -66,7 +66,7 @@ class TestProviderOutage(UsTaxBaseTest):
         self.assertEqual(order.us_tax_source, "error")
         self.assertEqual(order.order_line.tax_id, tax_before)
 
-    @mute_logger(_TAX_ENGINE_LOGGER)
+    @mute_logger(_TAX_ENGINE_LOGGER, _AUTO_MIXIN_LOGGER)
     def test_recalculation_during_outage_keeps_the_invoice_tax(self):
         move = self._create_fl_invoice()
         move.action_calculate_us_tax()
@@ -77,9 +77,9 @@ class TestProviderOutage(UsTaxBaseTest):
         self.assertEqual(move.us_tax_source, "error")
         self.assertEqual(move.invoice_line_ids.tax_ids, tax_before)
 
-    @mute_logger(_TAX_ENGINE_LOGGER, _SALE_ORDER_LOGGER)
+    @mute_logger(_TAX_ENGINE_LOGGER, _AUTO_MIXIN_LOGGER)
     def test_blocked_calculation_leaves_an_error_row(self):
-        """The audit row is written even though the calculation raises.
+        """The button refuses with a UserError, and the audit row stays.
 
         assertRaises would roll back to a savepoint and take the row with
         it, since the engine's own cursor shares the test transaction.
@@ -90,9 +90,10 @@ class TestProviderOutage(UsTaxBaseTest):
         with self._providers_down():
             try:
                 order.action_calculate_us_tax()
-            except ProviderError as exc:
+            except UserError as exc:
                 failure = exc
         self.assertTrue(failure, "the block policy must stop the calculation")
+        self.assertIn("could not be calculated", str(failure))
         self.assertEqual(
             self.env["us.tax.calculation.log"]
             .sudo()
@@ -106,7 +107,14 @@ class TestProviderOutage(UsTaxBaseTest):
             1,
         )
 
-    @mute_logger(_TAX_ENGINE_LOGGER)
+    @mute_logger(_TAX_ENGINE_LOGGER, _AUTO_MIXIN_LOGGER)
+    def test_blocked_invoice_calculation_is_a_user_error(self):
+        self._set_fail_policy("block")
+        move = self._create_fl_invoice(user=self.invoicer)
+        with self._providers_down(), self.assertRaises(UserError):
+            move.with_user(self.invoicer).action_calculate_us_tax()
+
+    @mute_logger(_TAX_ENGINE_LOGGER, _AUTO_MIXIN_LOGGER)
     def test_confirm_during_outage_with_block_is_refused(self):
         self._set_fail_policy("block")
         order = self._create_fl_order(user=self.salesman)
@@ -114,7 +122,7 @@ class TestProviderOutage(UsTaxBaseTest):
             order.with_user(self.salesman).action_confirm()
         self.assertEqual(order.state, "draft")
 
-    @mute_logger(_TAX_ENGINE_LOGGER)
+    @mute_logger(_TAX_ENGINE_LOGGER, _AUTO_MIXIN_LOGGER)
     def test_confirm_with_block_is_refused_when_the_audit_row_fails(self):
         self._set_fail_policy("block")
         order = self._create_fl_order(user=self.salesman)
@@ -130,7 +138,7 @@ class TestProviderOutage(UsTaxBaseTest):
             order.with_user(self.salesman).action_confirm()
         self.assertEqual(order.state, "draft")
 
-    @mute_logger(_TAX_ENGINE_LOGGER)
+    @mute_logger(_TAX_ENGINE_LOGGER, _AUTO_MIXIN_LOGGER)
     def test_batch_confirm_with_block_confirms_no_order(self):
         """The order the block policy stops takes the whole batch with it."""
         self._set_fail_policy("block")
@@ -147,7 +155,7 @@ class TestProviderOutage(UsTaxBaseTest):
         self.assertEqual((first | second).mapped("state"), ["draft", "draft"])
         self.assertEqual(first.order_line.tax_id, first_taxes)
 
-    @mute_logger(_TAX_ENGINE_LOGGER)
+    @mute_logger(_TAX_ENGINE_LOGGER, _AUTO_MIXIN_LOGGER)
     def test_post_during_outage_with_block_is_refused(self):
         self._set_fail_policy("block")
         move = self._create_fl_invoice(user=self.invoicer)
@@ -155,7 +163,7 @@ class TestProviderOutage(UsTaxBaseTest):
             move.with_user(self.invoicer).action_post()
         self.assertEqual(move.state, "draft")
 
-    @mute_logger(_TAX_ENGINE_LOGGER)
+    @mute_logger(_TAX_ENGINE_LOGGER, _AUTO_MIXIN_LOGGER)
     def test_confirm_during_outage_with_warn_leaves_a_note(self):
         order = self._create_fl_order(user=self.salesman)
         with self._providers_down():
@@ -163,7 +171,7 @@ class TestProviderOutage(UsTaxBaseTest):
         self.assertEqual(order.state, "sale")
         self.assertTrue(self._outage_notes(order))
 
-    @mute_logger(_TAX_ENGINE_LOGGER)
+    @mute_logger(_TAX_ENGINE_LOGGER, _AUTO_MIXIN_LOGGER)
     def test_post_during_outage_with_warn_leaves_a_note(self):
         move = self._create_fl_invoice(user=self.invoicer)
         with self._providers_down():

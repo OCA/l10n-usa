@@ -28,9 +28,8 @@ has two modes:
   the mode of a database where no mode has ever been chosen.
 
 Unticking **Enable US Sales Tax Engine** stops every calculation,
-whatever mode is stored: confirming an order or posting an invoice
-calculates nothing, and **Calculate US Tax**, which stays on the
-documents, leaves their taxes as they are.
+whatever mode is stored, and hides the **Calculate US Tax** button and
+the outdated-tax banner with its **Recalculate US Tax** button.
 
 ![Automatic Tax Calculation](../static/description/configure_automatic_tax_calculation.png)
 
