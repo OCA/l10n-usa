@@ -1,6 +1,17 @@
 Changelog
 =========
 
+18.0.1.3.0 (2026-11-17)
+------------------------
+* New setting **Automatic Tax Calculation** (``l10n_us_tax.auto_mode``)
+  with two modes: **Off** (only the **Calculate US Tax** button) and
+  **On Validation** (on sale order confirmation and invoice posting, the
+  default). With the engine disabled nothing is calculated, not even by
+  **Calculate US Tax**
+* **On upgrade** nothing changes: a database where no mode was ever
+  chosen runs **On Validation**, which calculates on confirmation and
+  posting as ``18.0.1.2.x`` did
+
 18.0.1.0.12 (2026-06-26)
 ------------------------
 * Provider-agnostic architecture: providers now self-register via a registry

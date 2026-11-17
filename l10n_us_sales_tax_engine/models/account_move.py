@@ -8,15 +8,8 @@ _logger = logging.getLogger(__name__)
 
 
 class AccountMove(models.Model):
-    _inherit = "account.move"
-
-    us_tax_source = fields.Char(
-        string="Tax Source",
-        help="Source used for the last US tax calculation.",
-    )
-    us_tax_calculated_at = fields.Datetime(
-        string="Tax Calculated At",
-    )
+    _name = "account.move"
+    _inherit = ["us.tax.auto.mixin", "account.move"]
 
     def action_calculate_us_tax(self):
         """Manual trigger — recalculate US tax for this invoice."""
@@ -47,9 +40,10 @@ class AccountMove(models.Model):
         Calculation must run BEFORE calling super(): once the move is
         posted, its lines' tax_ids can no longer be modified ("you should
         reset the journal entry to draft to do so").
+
+        Nothing is calculated when the automation mode is off.
         """
-        ICP = self.env["ir.config_parameter"].sudo()
-        if ICP.get_param("l10n_us_tax.engine_active", "False") == "True":
+        if self._us_tax_auto_mode() != "off":
             engine = self.env["us.tax.engine.service"]
             for move in self.filtered(
                 lambda m: m.move_type in ("out_invoice", "out_refund")

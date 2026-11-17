@@ -24,7 +24,7 @@
         "data/us_tax_product_categories.xml",
         "data/us_tax_providers.xml",
         "data/ir_cron.xml",
-        "views/res_config_settings_views.xml",
+        "wizards/res_config_settings_views.xml",
         "views/us_tax_jurisdiction_views.xml",
         "views/us_tax_zip_mapping_views.xml",
         "views/us_tax_rate_views.xml",
