@@ -1,50 +1,87 @@
-## Loading local rate data
+## Calculating US sales tax
 
-The local provider needs three things before it can resolve a tax rate for a
-ZIP code: a **Jurisdiction** (county/city), a **ZIP Mapping** pointing that
-ZIP to the jurisdiction, and a **Tax Rate** on that jurisdiction. None of
-these ship pre-loaded — only product categories and the provider registry
-are seeded on install.
+With **Enable US Sales Tax Engine** ticked, **Calculate US Tax** on the
+sale order and on the customer invoice or credit note runs the engine
+on demand. Depending on **Automatic Tax Calculation**, the engine also
+runs on its own when a sale order is confirmed and when a customer
+invoice or credit note is posted. Both settings live under *Settings →
+Invoicing → US Sales Tax Engine* and are described in *Configuration*.
 
-### Import Tax Rates wizard
+![Calculate US Tax on a draft invoice](../static/description/usage_calculate_button_invoice.png)
 
-US Sales Tax → Rate Database → Import Rates always requires a file upload —
-there is no "instant, no file" option in the wizard.
+The engine prices a document only when the address it uses has its
+country set to the United States and carries a ZIP and a state. A ZIP
+and a state with no country are not taken for a US address. When the
+engine runs on a document it had priced and that has since lost such
+an address, it takes its own US Sales Tax taxes off the lines and leaves
+any other tax where it is.
 
-- **Florida DOR**: upload the official Master Address List CSV from
-  https://pointmatch.floridarevenue.com/General/AddressFiles.aspx (select a
-  county and effective date, then download). This creates the jurisdiction,
-  the rate, **and** the ZIP mapping for every row — full ZIP-level
-  resolution.
-- **Generic CSV (any state)**: any file with `ZIP`, `COUNTY`/`CITY`, and a
-  rate column works the same way.
+### Calculation logs
 
-### Manual setup (quick test, single ZIP)
+**Invoicing → Configuration → US Sales Tax → Audit → Calculation Logs**
+holds the rows the engine writes, with the document, the address, the
+source of the rate, the rate breakdown, the taxable and tax amounts and
+a **Status**. Which runs leave a row:
 
-For testing a single ZIP without downloading a file, create the three
-records by hand under US Sales Tax → Rate Database:
-1. **Jurisdictions** — name, type (county/city), state.
-2. **ZIP Mappings** — the ZIP code, pointing to that jurisdiction.
-3. **Tax Rates** — the actual rate values on that jurisdiction.
+- every calculation on a US address with a ZIP and a state, whether it
+  finds a rate or an exemption, or no provider answers;
+- a run on a document whose address is not a US one, or has no ZIP or
+  state, only when it takes the engine's own taxes off the lines or
+  fails to. Its source reads *Skipped — Not a US Address* or *Skipped —
+  No ZIP or State*. A run there that finds no tax of the engine on the
+  lines leaves no row;
+- no run at all while **Enable US Sales Tax Engine** is unticked.
 
-### Nexus is independent of rate data
+The **Status** is:
 
-Creating a **Nexus** record (US Sales Tax → Configuration → Nexus) only
-marks that the company has a legal obligation to collect tax in that state —
-it does not create or require any jurisdiction, ZIP mapping, or rate. Both
-are needed independently before a sale order calculates a non-zero local tax.
+- **Success** when the tax was found and written on the lines;
+- **Error** when no provider answered, or the tax could not be written
+  on the lines or taken off them;
+- **Skipped** when the engine took its own taxes off a document whose
+  address is not a US one, or has no ZIP or state.
+
+![Calculation logs](../static/description/screenshot_05_calc_logs_list.png)
+
+![Calculation log](../static/description/screenshot_06_calc_log_detail.png)
+
+### Where the Block failure policy applies
+
+What follows applies with **Automatic Tax Calculation** set to
+**On Validation**, the mode that runs the engine on order confirmation
+and invoice posting.
+
+With *API Failure Policy* set to *Block — prevent document
+confirmation*, a calculation where every provider failed raises an
+error. Confirming the sale order or posting the invoice is refused with
+*US sales tax could not be calculated for …*, and the document stays as
+it was.
+
+Under the other policies confirming or posting goes through. When no
+provider answered, a note in the document's chatter says that the US
+sales tax could not be calculated and asks to check the tax before
+sending the document.
+
+A tax that cannot be written on the lines never stops the confirmation
+or the posting, whatever the policy. The note in the chatter then says
+that the tax could not be written on the lines, that they kept the tax
+they had, and asks to calculate it again before sending the document.
 
 ### Zero-tax lines always carry an explicit tax, never an empty tax field
 
 When a line ends up with 0% tax, the engine always assigns a real
 `account.tax` record rather than leaving the line untaxed:
 
-- **Exempt product category or no nexus in that state** — assigned the
-  shared `US Sales Tax - Exempt (0%)` tax (one tax for both reasons, across
-  all states).
+- **Exempt product category, no nexus in that state, or a customer
+  marked US Tax Exempt** — assigned the shared `US Sales Tax - Exempt
+  (0%)` tax (one tax for all three reasons, across all states).
 - **A state with a genuine 0% combined rate** (e.g. Oregon, Montana — states
   with no sales tax at all) — assigned `US Sales Tax {state} 0%`, the same
   per-state-and-rate tax used for any other rate.
+
+A line left at 0% because no provider answered carries `US Sales Tax
+{state} 0%` as well. The calculation log row recorded as an error, and
+on confirmation or posting the chatter note, are what tell it apart from
+a genuine 0% rate.
 
 This is deliberate: an empty `tax_id` is indistinguishable from "tax was
 never calculated" on an invoice or in a tax report filtered/grouped by
@@ -58,7 +95,6 @@ already lives on `us.tax.calculation.log`, one record per calculation. The
 tax itself only needs to answer "was this evaluated, and is it taxable" at
 a glance.
 
-**Migration note**: if you had ad-hoc reports filtering for lines with no
-`tax_id`/`tax_ids` at all to flag "missing tax" cases, those lines will stop
-matching once they carry the explicit 0% tax — this is the intended effect
-of this change, not a regression.
+**Reports on untaxed lines.** A report that looks for lines with no
+`tax_id`/`tax_ids` at all to find missing tax does not match the lines
+the engine evaluated, because those carry the explicit 0% tax.
