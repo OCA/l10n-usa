@@ -1,6 +1,26 @@
 Changelog
 =========
 
+18.0.1.6.0 (2026-11-17)
+------------------------
+* New **Live** mode in **Automatic Tax Calculation**: US tax is
+  recalculated as a draft sale order or customer invoice changes.
+  Editing a quantity, a price, a product or a line recalculates in the
+  same write, no confirmation needed. An invoice is calculated when it
+  is created; a quotation on its first line
+* New crons **US Tax: Recalculate Outdated Sales Orders** and **US Tax:
+  Recalculate Outdated Invoices** (daily, one per document model) that,
+  in the **Live** mode, recalculate outdated documents in batches of 10,
+  reporting their progress so a worker time limit costs one batch at
+  most. A document that fails is retried on the next run
+* In the **Live** mode a provider outage never stops the edit of a draft
+  document nor the cron, whatever the **API Failure Policy**: the error
+  is logged, the tax the engine could not apply is rolled back to a
+  savepoint, and the document stays outdated so the cron picks it up
+  again
+* **On upgrade** the mode stays as it was: **Live** consumes more
+  provider quota, so it is never turned on by the upgrade
+
 18.0.1.5.0 (2026-11-17)
 ------------------------
 * Outdated-tax detection: documents keep a fingerprint of the engine's

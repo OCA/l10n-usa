@@ -17,7 +17,7 @@ Confidence Threshold**.
 **Settings → Invoicing → US Sales Tax Engine → Automatic Tax Calculation**
 decides when the engine runs without anyone pressing **Calculate US Tax**.
 The option is shown once **Enable US Sales Tax Engine** is ticked, and it
-has two modes:
+has three modes:
 
 - **Off — only the Calculate US Tax button.** Tax is calculated only
   when someone presses **Calculate US Tax** on the sale order or the
@@ -26,6 +26,21 @@ has two modes:
   engine also runs when a sale order is confirmed and when a customer
   invoice or credit note is posted. This is the default, and it is also
   the mode of a database where no mode has ever been chosen.
+- **Live — also as draft documents change, and daily.** On top of
+  confirmation and posting, the engine runs whenever a document it may
+  still change is edited in a way that moves the tax: a quantity, a
+  price, a product, a line added, the customer or the delivery address
+  chosen on the document, or the document date. The daily **US Tax:
+  Recalculate Outdated Sales Orders** and **US Tax: Recalculate Outdated
+  Invoices** scheduled actions recalculate the documents left outdated,
+  such as the ones of a customer whose address or **US Tax Exempt** flag
+  was edited on the contact. In the other two modes these scheduled
+  actions do nothing.
+
+Automatic calculation skips a document whose tax was already calculated
+on the same inputs. A recalculation that an external provider answers,
+rather than the cache or the local rate data, consumes an API call, so
+**Live** is the mode that uses the most provider quota.
 
 Unticking **Enable US Sales Tax Engine** stops every calculation,
 whatever mode is stored, and hides the **Calculate US Tax** button and
@@ -35,9 +50,13 @@ the outdated-tax banner with its **Recalculate US Tax** button.
 
 ## Scheduled actions
 
-The module ships two scheduled actions, both under **Settings →
-Technical → Automation → Scheduled Actions** (developer mode), both
+The module ships four scheduled actions, all under **Settings →
+Technical → Automation → Scheduled Actions** (developer mode), all
 running as OdooBot.
+
+**US Tax: Recalculate Outdated Sales Orders** and **US Tax: Recalculate
+Outdated Invoices** (daily) only work in the **Live** mode. They are
+described under *Usage*.
 
 **US Tax: Purge Expired Cache** (daily) — archives the entries in
 **Invoicing → Configuration → US Sales Tax → Audit → Cache** whose expiry

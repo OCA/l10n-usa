@@ -6,3 +6,7 @@ from odoo import models
 class SaleOrderLine(models.Model):
     _name = "sale.order.line"
     _inherit = ["us.tax.line.hash.mixin", "sale.order.line"]
+
+    def _us_tax_auto_parents(self):
+        """Return the orders the lines in self belong to."""
+        return self.order_id

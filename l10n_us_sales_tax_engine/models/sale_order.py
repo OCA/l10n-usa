@@ -81,7 +81,7 @@ class SaleOrder(models.Model):
         raises, and an order whose quantities are all invoiced has
         nothing left for a new rate to reach. Both extra clauses are
         stored fields, which is what lets the same expression serve the
-        write guard and a search().
+        write guard and the cron's search().
 
         Neither clause blocks the confirmation pass: invoice_status is
         "no" for anything not in state sale, and the auto-lock from

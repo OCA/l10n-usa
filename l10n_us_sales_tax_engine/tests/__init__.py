@@ -14,3 +14,4 @@ from . import test_provider_outage  # noqa: F401
 from . import test_auto_mode  # noqa: F401
 from . import test_nexus_parent  # noqa: F401
 from . import test_auto_calculate  # noqa: F401
+from . import test_live_mode  # noqa: F401
