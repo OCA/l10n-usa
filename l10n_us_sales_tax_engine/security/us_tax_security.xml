@@ -36,15 +36,34 @@
 
     <!-- ── Multi-company Record Rules ────────────────────────────────────── -->
 
-    <!-- Nexus: each company sees only its own nexus records -->
+    <!-- Nexus: each company reads its own nexus and the ones it inherits from
+         its parent companies, but only changes its own -->
     <record id="rule_us_tax_nexus_company" model="ir.rule">
         <field name="name">US Tax Nexus: Multi-Company</field>
+        <field name="model_id" ref="model_us_tax_nexus" />
+        <field name="domain_force">
+            ['|', ('company_id', '=', False),
+                  ('company_id', 'parent_of', company_ids)]
+        </field>
+        <field name="global" eval="True" />
+        <field name="perm_read" eval="True" />
+        <field name="perm_write" eval="False" />
+        <field name="perm_create" eval="False" />
+        <field name="perm_unlink" eval="False" />
+    </record>
+
+    <record id="us_tax_nexus_rule_company_write" model="ir.rule">
+        <field name="name">US Tax Nexus: Multi-Company Write</field>
         <field name="model_id" ref="model_us_tax_nexus" />
         <field name="domain_force">
             ['|', ('company_id', '=', False),
                   ('company_id', 'in', company_ids)]
         </field>
         <field name="global" eval="True" />
+        <field name="perm_read" eval="False" />
+        <field name="perm_write" eval="True" />
+        <field name="perm_create" eval="True" />
+        <field name="perm_unlink" eval="True" />
     </record>
 
     <!-- Calculation Log: users see logs for their allowed companies -->
