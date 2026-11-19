@@ -8,11 +8,23 @@
         <field name="arch" type="xml">
             <xpath expr="//page[@name='sales_purchases']" position="inside">
                 <group string="US Tax Exemption" name="us_tax_exemption">
-                    <field name="us_tax_exempt" />
-                    <field name="us_tax_exemption_code" invisible="not us_tax_exempt" />
+                    <field name="commercial_partner_id" invisible="1" />
+                    <!-- Delegated from the commercial entity: shown on a
+                         contact, but editing it there would be undone by the
+                         next write on the parent. -->
+                    <field
+                        name="us_tax_exempt"
+                        readonly="commercial_partner_id != id"
+                    />
+                    <field
+                        name="us_tax_exemption_code"
+                        invisible="not us_tax_exempt"
+                        readonly="commercial_partner_id != id"
+                    />
                     <field
                         name="us_tax_exemption_number"
                         invisible="not us_tax_exempt"
+                        readonly="commercial_partner_id != id"
                     />
                 </group>
             </xpath>
