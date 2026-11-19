@@ -3,7 +3,10 @@
 import logging
 from datetime import date as date_type
 
+import psycopg2
+
 from odoo import api, models
+from odoo.exceptions import UserError
 from odoo.fields import Command
 
 from .address_resolver import (
@@ -73,6 +76,61 @@ class UsTaxEngineService(models.AbstractModel):
             partner=move.partner_id,
         )
 
+    @api.model
+    def _calculate_on_validation(self, document, calculate):
+        """Calculate the tax of a document that is being confirmed or posted.
+
+        Under the block policy a provider failure stops the validation.
+        Under the others the document goes through, and a note in its
+        chatter says the tax could not be calculated. A tax that could
+        not be written on the lines, and a US tax taken off a document
+        that is no longer priced as US, get a note of their own. Any
+        other failure is logged and lets the validation continue.
+        """
+        try:
+            result = calculate(document)
+        except ProviderError as exc:
+            raise UserError(
+                self.env._(
+                    "US sales tax could not be calculated for %(document)s: "
+                    "%(error)s",
+                    document=document.display_name,
+                    error=exc,
+                )
+            ) from exc
+        except psycopg2.OperationalError:
+            raise
+        except Exception as exc:
+            _logger.warning(
+                "US Tax calculation on %s failed: %s", document.display_name, exc
+            )
+            return {}
+        if not result.get("applied", True):
+            document.message_post(
+                body=self.env._(
+                    "US sales tax could not be written on the lines, so they "
+                    "kept the tax they had. Calculate it again before sending "
+                    "this document."
+                )
+            )
+        elif result.get("tax_removed"):
+            document.message_post(
+                body=self.env._(
+                    "US sales tax was taken off the lines: this document no "
+                    "longer has a US address with a ZIP code and a state."
+                )
+            )
+        elif result.get("source") == "error":
+            document.message_post(
+                body=self.env._(
+                    "US sales tax could not be calculated: no rate provider "
+                    "answered. Lines that already had a US tax kept it and the "
+                    "others were priced at zero. Check the tax before sending "
+                    "this document."
+                )
+            )
+        return result
+
     # ── Core calculation flow ─────────────────────────────────────────────────
 
     @api.model
@@ -105,7 +163,7 @@ class UsTaxEngineService(models.AbstractModel):
 
         # Step 1: Validate address is US
         if not address or not is_us_address(address):
-            return {"source": "skip_non_us"}
+            return self._skip(apply_fn, "skip_non_us", res_model, res_id, address)
 
         zip_code = address.get("zip", "")
         state_code = address.get("state", "")
@@ -113,7 +171,7 @@ class UsTaxEngineService(models.AbstractModel):
             _logger.warning(
                 "Tax engine: missing ZIP or state for %s %s", res_model, res_id
             )
-            return {"source": "skip_no_address"}
+            return self._skip(apply_fn, "skip_no_address", res_model, res_id, address)
 
         # Step 2: Resolve state record
         state = self.env["res.country.state"].search(
@@ -125,6 +183,11 @@ class UsTaxEngineService(models.AbstractModel):
             company_id, state.id if state else False
         )
         if not has_nexus:
+            # Apply too — an order may already carry a tax from an earlier
+            # calculation; losing nexus afterward must clear/replace it
+            # with the explicit exempt tax, not leave it stale.
+            final_result = {"source": "exempt_nexus", "tax_amount": 0.0, "lines": []}
+            self._apply_result(apply_fn, final_result, res_model, res_id)
             self._log(
                 res_model,
                 res_id,
@@ -134,19 +197,14 @@ class UsTaxEngineService(models.AbstractModel):
                 tax_amount=0,
                 state_id=state.id if state else False,
                 nexus_applied=False,
+                applied=final_result["applied"],
             )
-            final_result = {"source": "exempt_nexus", "tax_amount": 0.0, "lines": []}
-            # Apply too — an order may already carry a tax from an earlier
-            # calculation; losing nexus afterward must clear/replace it
-            # with the explicit exempt tax, not leave it stale.
-            try:
-                apply_fn(final_result)
-            except Exception as exc:
-                _logger.error("Tax apply error on %s %s: %s", res_model, res_id, exc)
             return final_result
 
         # Step 3.5: Partner-level exemption certificate
         if partner and partner.sudo().us_tax_exempt:
+            final_result = {"source": "exempt_partner", "tax_amount": 0.0, "lines": []}
+            self._apply_result(apply_fn, final_result, res_model, res_id)
             self._log(
                 res_model,
                 res_id,
@@ -157,12 +215,8 @@ class UsTaxEngineService(models.AbstractModel):
                 state_id=state.id if state else False,
                 nexus_applied=has_nexus,
                 partner_id=partner.id,
+                applied=final_result["applied"],
             )
-            final_result = {"source": "exempt_partner", "tax_amount": 0.0, "lines": []}
-            try:
-                apply_fn(final_result)
-            except Exception as exc:
-                _logger.error("Tax apply error on %s %s: %s", res_model, res_id, exc)
             return final_result
 
         # Step 4: Initialize cache manager
@@ -216,19 +270,32 @@ class UsTaxEngineService(models.AbstractModel):
                 continue
 
             # Calculate rate for this line
-            rate_result = self._get_rate(
-                zip_code=zip_code,
-                state_code=state_code,
-                state_id=state.id if state else False,
-                product_category_code=cat_code,
-                product_category_id=cat_id,
-                doc_date=doc_date,
-                address=address,
-                cache=cache,
-                engine_mode=engine_mode,
-                fail_policy=fail_policy,
-                rate_override=rate_override,
-            )
+            try:
+                rate_result = self._get_rate(
+                    zip_code=zip_code,
+                    state_code=state_code,
+                    state_id=state.id if state else False,
+                    product_category_code=cat_code,
+                    product_category_id=cat_id,
+                    doc_date=doc_date,
+                    address=address,
+                    cache=cache,
+                    engine_mode=engine_mode,
+                    fail_policy=fail_policy,
+                    rate_override=rate_override,
+                )
+            except ProviderError:
+                # The block policy raises here, and the caller's transaction
+                # will be rolled back with everything it wrote.
+                self._log_on_own_cursor(
+                    res_model,
+                    res_id,
+                    address,
+                    "error",
+                    state_id=state.id if state else False,
+                    nexus_applied=has_nexus,
+                )
+                raise
             line_tax = round(line.price_subtotal * rate_result["total_rate"], 4)
             total_tax += line_tax
             results.append(
@@ -244,14 +311,11 @@ class UsTaxEngineService(models.AbstractModel):
 
         # Step 6: Apply to document
         final_result = {
-            "source": results[0]["source"] if results else "no_lines",
+            "source": self._aggregate_source(results),
             "tax_amount": total_tax,
             "lines": results,
         }
-        try:
-            apply_fn(final_result)
-        except Exception as exc:
-            _logger.error("Tax apply error on %s %s: %s", res_model, res_id, exc)
+        self._apply_result(apply_fn, final_result, res_model, res_id)
 
         # Step 7: Audit log — include state, nexus, rate detail and provider
         best_rate = next(
@@ -273,8 +337,67 @@ class UsTaxEngineService(models.AbstractModel):
             state_rate=best_rate.get("state_rate", 0),
             county_rate=best_rate.get("county_rate", 0),
             provider_id=used_provider_id,
+            applied=final_result["applied"],
         )
         return final_result
+
+    @api.model
+    def _skip(self, apply_fn, source, res_model, res_id, address):
+        """Answer a document the engine does not price.
+
+        Its lines still go through apply_fn, so a tax the engine wrote
+        while the document was taxable does not stay behind. Taking that
+        tax off leaves a skipped audit row, and failing to leaves an error
+        row. A skip that changes nothing leaves none, so documents the
+        engine never priced do not fill the log. The "tax_removed" key
+        tells the caller the lines lost the engine's tax.
+        """
+        final_result = {"source": source, "tax_amount": 0.0, "lines": []}
+        changed = self._apply_result(apply_fn, final_result, res_model, res_id)
+        final_result["tax_removed"] = bool(changed) and final_result["applied"]
+        if changed or not final_result["applied"]:
+            self._log(
+                res_model,
+                res_id,
+                address or {},
+                source,
+                applied=final_result["applied"],
+            )
+        return final_result
+
+    @api.model
+    def _aggregate_source(self, results):
+        """Return the source that stands for the whole document.
+
+        A single line whose providers all failed makes it "error", so the
+        audit row and the caller see the calculation as failed even when
+        the other lines did get a rate.
+        """
+        if not results:
+            return "no_lines"
+        if any(result["source"] == "error" for result in results):
+            return "error"
+        return results[0]["source"]
+
+    @api.model
+    def _apply_result(self, apply_fn, final_result, res_model, res_id):
+        """Write the tax on the lines, all of them or none.
+
+        A failure rolls back to a savepoint and is reported through
+        final_result["applied"] instead of raising. Database errors are
+        re-raised so the core can retry the transaction. Return what
+        apply_fn returns, or None when the write failed.
+        """
+        final_result["applied"] = True
+        try:
+            with self.env.cr.savepoint():
+                return apply_fn(final_result)
+        except psycopg2.OperationalError:
+            raise
+        except Exception as exc:
+            final_result["applied"] = False
+            _logger.error("Tax apply error on %s %s: %s", res_model, res_id, exc)
+            return None
 
     @api.model
     def _get_rate(
@@ -442,38 +565,46 @@ class UsTaxEngineService(models.AbstractModel):
         (the lambda is built in calculate_for_sale_order, a different
         method scope), and _get_or_create_state_tax below needs to create
         account.tax records a plain salesperson has no rights to create.
+
+        Sections and notes carry no amount and are left alone: the core
+        never clears a tax written on them, and the invoice would copy it.
+        A skip returns the lines it took the engine's tax off.
         """
         self = self.sudo()
         order_source = result.get("source", "")
         lines_map = {r["line_id"]: r for r in result.get("lines", [])}
+        product_lines = order._get_priced_lines()
         state_code = (
             order.partner_shipping_id.state_id.code
             if order.partner_shipping_id and order.partner_shipping_id.state_id
             else order.partner_id.state_id.code
         )
 
-        # disabled/skip_*: the engine never evaluated taxability at all —
-        # clear taxes, but do NOT assign the exempt tax (that would falsely
+        # skip_*: the engine never evaluated taxability at all — take back
+        # its own taxes, but do NOT assign the exempt tax (that would falsely
         # claim "evaluated, not taxable" for a case we never assessed).
-        if order_source in ("disabled", "skip_non_us", "skip_no_address"):
-            for line in order.order_line:
-                line.tax_id = [Command.clear()]
-            return
+        if order_source in ("skip_non_us", "skip_no_address"):
+            return self._remove_us_taxes(product_lines, "tax_id")
 
         # Order-wide exemption (no nexus or partner certificate) — assign the
         # explicit 0% exempt tax on every line so "evaluated, no tax" is visible.
         if order_source in ("exempt_nexus", "exempt_partner"):
             exempt_tax = self._get_or_create_exempt_tax(order.company_id)
-            for line in order.order_line:
+            for line in product_lines:
                 line.tax_id = (
                     [Command.set([exempt_tax.id])] if exempt_tax else [Command.clear()]
                 )
             return
 
-        for line in order.order_line:
+        for line in product_lines:
             line_result = lines_map.get(line.id, {})
             source = line_result.get("source", order_source)
             rate = line_result.get("rate", 0.0)
+
+            # No provider answered: a line already priced keeps its tax
+            # rather than dropping to the 0% the warn policy hands back.
+            if source == "error" and self._us_engine_taxes(line.tax_id):
+                continue
 
             if source in ("exempt_rule", "exempt_nexus", "exempt_partner"):
                 exempt_tax = self._get_or_create_exempt_tax(order.company_id)
@@ -492,9 +623,16 @@ class UsTaxEngineService(models.AbstractModel):
 
         Sudo: same reason as _apply_to_sale_order — the apply_fn closure
         predates _process()'s sudo, and account.tax creation needs it.
+
+        Only product lines are touched, for the same reason as on the
+        sale order. A skip returns the lines it took the engine's tax off.
         """
         self = self.sudo()
+        move_source = result.get("source", "")
         lines_map = {r["line_id"]: r for r in result.get("lines", [])}
+        product_lines = move.invoice_line_ids.filtered(
+            lambda line: line.display_type == "product"
+        )
         state_code = (
             move.partner_shipping_id.state_id.code
             if (
@@ -504,10 +642,16 @@ class UsTaxEngineService(models.AbstractModel):
             )
             else move.partner_id.state_id.code
         )
-        for line in move.invoice_line_ids:
+        if move_source in ("skip_non_us", "skip_no_address"):
+            return self._remove_us_taxes(product_lines, "tax_ids")
+
+        for line in product_lines:
             line_result = lines_map.get(line.id, {})
             rate = line_result.get("rate", 0.0)
-            source = line_result.get("source", result.get("source", ""))
+            source = line_result.get("source", move_source)
+
+            if source == "error" and self._us_engine_taxes(line.tax_ids):
+                continue
 
             if source in ("exempt_rule", "exempt_nexus", "exempt_partner"):
                 exempt_tax = self._get_or_create_exempt_tax(move.company_id)
@@ -519,6 +663,58 @@ class UsTaxEngineService(models.AbstractModel):
             tax = self._get_or_create_state_tax(state_code, move.company_id, rate)
             if tax:
                 line.tax_ids = [Command.set([tax.id])]
+
+    @api.model
+    def _us_engine_taxes(self, taxes):
+        """Return the taxes in ``taxes`` that the engine itself applies.
+
+        They are told apart by name, the same way the engine finds them
+        again before reusing them.
+        """
+        return taxes.filtered(lambda tax: tax.name.startswith("US Sales Tax"))
+
+    @api.model
+    def _remove_us_taxes(self, lines, field_name):
+        """Take the engine's own taxes off ``lines`` and keep the rest.
+
+        Return the lines that had one.
+        """
+        changed = lines.browse()
+        for line in lines:
+            us_taxes = self._us_engine_taxes(line[field_name])
+            if us_taxes:
+                line[field_name] = [Command.unlink(tax.id) for tax in us_taxes]
+                changed |= line
+        return changed
+
+    @api.model
+    def _result_source(self, result):
+        """Return the tax source a document records for ``result``.
+
+        A tax that did not land on the lines records "error", as its
+        audit row does, even when the engine found a rate.
+        """
+        if not result.get("applied", True):
+            return "error"
+        return result.get("source", "")
+
+    @api.model
+    def _repair_us_tax(self, tax):
+        """Bring a reused tax back to what the engine creates.
+
+        Whatever carries the engine's name gets applied, whether it comes
+        from an earlier version, was created by hand or was edited later,
+        so the fields the amounts depend on are rewritten when they
+        differ. A price-included tax would put the tax inside the price
+        instead of on top of it.
+        """
+        vals = {}
+        if tax.price_include_override != "tax_excluded":
+            vals["price_include_override"] = "tax_excluded"
+        if not tax.tax_group_id or tax.tax_group_id.name != "US Sales Tax":
+            vals["tax_group_id"] = self._get_us_tax_group(tax.company_id).id
+        if vals:
+            tax.write(vals)
 
     @api.model
     def _get_or_create_state_tax(self, state_code, company, rate_pct=0.0):
@@ -555,14 +751,15 @@ class UsTaxEngineService(models.AbstractModel):
                     "type_tax_use": "sale",
                     "amount_type": "percent",
                     "amount": amount_pct,
+                    "price_include_override": "tax_excluded",
                     "company_id": root.id,
                     "tax_group_id": self._get_us_tax_group(root).id,
                     "description": f"US Sales Tax — {state_code} @ {amount_pct:.4g}%",
                 }
             )
             _logger.info('Created tax "%s" at %s%%', name, amount_pct)
-        elif not tax.tax_group_id or tax.tax_group_id.name != "US Sales Tax":
-            tax.tax_group_id = self._get_us_tax_group(tax.company_id).id
+        else:
+            self._repair_us_tax(tax)
 
         return tax
 
@@ -600,6 +797,7 @@ class UsTaxEngineService(models.AbstractModel):
                     "type_tax_use": "sale",
                     "amount_type": "percent",
                     "amount": 0.0,
+                    "price_include_override": "tax_excluded",
                     "company_id": root.id,
                     "tax_group_id": self._get_us_tax_group(root).id,
                     "description": (
@@ -609,6 +807,8 @@ class UsTaxEngineService(models.AbstractModel):
                 }
             )
             _logger.info('Created tax "%s"', name)
+        else:
+            self._repair_us_tax(tax)
         return tax
 
     @api.model
@@ -646,6 +846,7 @@ class UsTaxEngineService(models.AbstractModel):
         state_rate=0,
         county_rate=0,
         partner_id=None,
+        applied=True,
     ):
         # Resolve state_id from address if not provided
         if not state_id and address.get("state"):
@@ -673,6 +874,38 @@ class UsTaxEngineService(models.AbstractModel):
                 "taxable_amount": taxable_amount,
                 "tax_amount": tax_amount,
                 "calculated_by": self.env.user.id,
-                "status": "success" if source not in ("error",) else "error",
+                "status": self._log_status(source, applied),
             }
         )
+
+    @api.model
+    def _log_status(self, source, applied):
+        if not applied or source == "error":
+            return "error"
+        if source in ("skip_non_us", "skip_no_address"):
+            return "skipped"
+        return "success"
+
+    @api.model
+    def _log_on_own_cursor(self, res_model, res_id, *args, **kwargs):
+        """Write an audit row that outlives the rollback of the caller.
+
+        Used right before an exception leaves the engine, when the row is
+        the only trace the failed calculation will leave. The separate
+        cursor commits that single insert and nothing else, so the
+        caller's transaction is not committed.
+
+        A failure to write the row is logged and swallowed, so the
+        caller's own exception is the one that leaves the engine: the
+        block policy relies on its ProviderError to stop the validation.
+        """
+        try:
+            with self.env.registry.cursor() as cr:
+                self.with_env(self.env(cr=cr))._log(res_model, res_id, *args, **kwargs)
+        except Exception as exc:
+            _logger.warning(
+                "US Tax audit row for %s %s could not be written: %s",
+                res_model,
+                res_id,
+                exc,
+            )
