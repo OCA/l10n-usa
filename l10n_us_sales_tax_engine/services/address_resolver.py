@@ -12,10 +12,14 @@ def normalize_zip(zip_code: str) -> str:
 
 
 def _partner_to_address(partner: object) -> dict:
-    """Extract address dict from a res.partner record."""
+    """Extract address dict from a res.partner record.
+
+    A partner with a state and no country takes the country of its state.
+    """
     zip_code = normalize_zip(partner.zip or "")
     state_code = partner.state_id.code if partner.state_id else ""
-    country_code = partner.country_id.code if partner.country_id else ""
+    country = partner.country_id or partner.state_id.country_id
+    country_code = country.code if country else ""
     return {
         "zip": zip_code,
         "state": state_code,
@@ -69,6 +73,8 @@ def resolve_invoice_address(record):
 
 
 def is_us_address(address_dict: dict) -> bool:
-    """Return True if address is within the United States."""
-    code = address_dict.get("country_code", "")
-    return code in ("US", "USA") if code else True
+    """Return True if the address is within the United States.
+
+    An address with no country is not taken for an American one.
+    """
+    return address_dict.get("country_code", "") in ("US", "USA")

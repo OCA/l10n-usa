@@ -1,5 +1,7 @@
 # Copyright 2026 Binhex - Carlos R. Rodriguez.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
+from odoo.fields import Command
+
 from .common import UsTaxBaseTest
 
 
@@ -59,6 +61,37 @@ class TestSaleOrderTax(UsTaxBaseTest):
         self.assertIn(
             result.get("source", ""), ["skip_non_us", "skip_no_address", "disabled"]
         )
+
+    def _order_for_state_without_country(self, state, zip_code):
+        partner = self.env["res.partner"].create(
+            {
+                "name": "Test Customer No Country",
+                "zip": zip_code,
+                "state_id": state.id,
+            }
+        )
+        self.assertFalse(partner.country_id)
+        return self.env["sale.order"].create(
+            {
+                "partner_id": partner.id,
+                "partner_shipping_id": partner.id,
+                "order_line": [Command.create(self._priced_line_vals())],
+            }
+        )
+
+    def test_address_without_country_takes_it_from_its_state(self):
+        order = self._order_for_state_without_country(self.fl, "33101")
+        result = self.env["us.tax.engine.service"].calculate_for_sale_order(order)
+        self.assertEqual(result["source"], "local")
+        self.assertTrue(self._us_taxes(order.order_line.tax_id))
+
+    def test_foreign_state_without_country_is_not_us(self):
+        order = self._order_for_state_without_country(
+            self.env.ref("base.state_ca_qc"), "H2X 1Y4"
+        )
+        result = self.env["us.tax.engine.service"].calculate_for_sale_order(order)
+        self.assertEqual(result["source"], "skip_non_us")
+        self.assertFalse(self._us_taxes(order.order_line.tax_id))
 
     def test_calculate_tax_action_as_user_without_tax_groups(self):
         """A regular salesperson with none of the us_tax_user/manager/

@@ -1,5 +1,6 @@
 # Copyright 2026 Binhex - Carlos R. Rodriguez.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
+from odoo.fields import Command
 from odoo.tests.common import TransactionCase
 
 
@@ -134,6 +135,52 @@ class UsTaxBaseTest(TransactionCase):
             }
         )
         cls.state_fl = cls.fl
+
+    def _us_taxes(self, taxes):
+        return taxes.filtered(lambda tax: tax.name.startswith("US Sales Tax"))
+
+    def _priced_line_vals(self):
+        return {
+            "product_id": self.product.id,
+            "product_uom_qty": 1.0,
+            "price_unit": 100.0,
+        }
+
+    def _create_fl_order(self, *extra_lines, user=None):
+        return (
+            self.env["sale.order"]
+            .with_user(user or self.env.user)
+            .create(
+                {
+                    "partner_id": self.partner_fl.id,
+                    "partner_shipping_id": self.partner_fl.id,
+                    "order_line": [
+                        Command.create(vals)
+                        for vals in (self._priced_line_vals(), *extra_lines)
+                    ],
+                }
+            )
+        )
+
+    def _create_fl_invoice(self, *extra_lines, user=None):
+        product_line = {
+            "product_id": self.product.id,
+            "quantity": 1,
+            "price_unit": 100.0,
+        }
+        return (
+            self.env["account.move"]
+            .with_user(user or self.env.user)
+            .create(
+                {
+                    "move_type": "out_invoice",
+                    "partner_id": self.partner_fl.id,
+                    "invoice_line_ids": [
+                        Command.create(vals) for vals in (product_line, *extra_lines)
+                    ],
+                }
+            )
+        )
 
 
 class UsTaxTestCommon(UsTaxBaseTest):

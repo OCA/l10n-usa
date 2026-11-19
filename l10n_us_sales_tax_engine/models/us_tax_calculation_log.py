@@ -38,6 +38,8 @@ class UsTaxCalculationLog(models.Model):
             ("exempt_nexus", "Exempt — No Nexus"),
             ("exempt_rule", "Exempt — Tax Rule"),
             ("exempt_partner", "Exempt — Partner Certificate"),
+            ("skip_non_us", "Skipped — Not a US Address"),
+            ("skip_no_address", "Skipped — No ZIP or State"),
             ("error", "Error"),
         ],
         required=True,

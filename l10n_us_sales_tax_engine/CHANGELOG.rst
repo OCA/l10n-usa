@@ -1,6 +1,59 @@
 Changelog
 =========
 
+18.0.1.4.0 (2026-11-17)
+------------------------
+* Outdated-tax detection: documents keep a fingerprint of the engine's
+  inputs (``us_tax_input_hash``) and of the last calculation
+  (``us_tax_calculated_hash``). A change to the customer address, the
+  customer's **US Tax Exempt** flag or the document date marks the
+  document as outdated without calling the engine
+* Warning banner on the sale order and customer invoice forms when the
+  tax is outdated, with a button to recalculate on the spot
+* Confirming an order or posting an invoice always recalculates the
+  document, since rates, rules and nexus are not in the fingerprint
+* On a partially invoiced sale order only the lines nothing has been
+  invoiced from follow a new rate; the invoiced ones keep the tax their
+  invoice was issued with
+* The **Calculate US Tax** button is now hidden when the engine is
+  disabled, instead of writing ``us_tax_source = "disabled"`` without
+  calculating anything
+* Under the **Block** API failure policy, a provider outage reaches the
+  **Calculate US Tax** button as the same error message that refuses a
+  confirmation or a posting, instead of a server error
+* **On upgrade** the fingerprint is computed only for the documents that
+  can still take a tax change, not for every journal entry. Documents
+  that already carried a calculation are stamped with their current
+  fingerprint, so outdated detection covers them from the upgrade on
+  instead of reading them as never calculated
+* Documents are only kept up to date while they can still take a tax
+  change: draft, sent and unlocked sale orders that are not fully
+  invoiced, and draft customer invoices and refunds. Outside that,
+  the fingerprint is frozen, the banner and the recalculate buttons are
+  hidden, and the manual button does not touch the document — reset the
+  invoice to draft or unlock the order to recalculate it
+* Fixed: a failed calculation no longer marks the document as
+  calculated. The audit row is recorded as an error and the document
+  stays outdated, even when its first calculation is the one that
+  failed
+* Fixed: a change to a customer address no longer rewrites posted,
+  cancelled, locked or fully invoiced documents, nor vendor bills of the
+  same partner
+* Fixed: calling **Calculate US Tax** while the engine is disabled, or
+  on a document the engine skips as non-US, no longer stamps the
+  document as calculated
+
+18.0.1.3.0 (2026-11-17)
+------------------------
+* New setting **Automatic Tax Calculation** (``l10n_us_tax.auto_mode``)
+  with two modes: **Off** (only the **Calculate US Tax** button) and
+  **On Validation** (on sale order confirmation and invoice posting, the
+  default). With the engine disabled nothing is calculated, not even by
+  **Calculate US Tax**
+* **On upgrade** nothing changes: a database where no mode was ever
+  chosen runs **On Validation**, which calculates on confirmation and
+  posting as ``18.0.1.2.x`` did
+
 18.0.1.0.12 (2026-06-26)
 ------------------------
 * Provider-agnostic architecture: providers now self-register via a registry
