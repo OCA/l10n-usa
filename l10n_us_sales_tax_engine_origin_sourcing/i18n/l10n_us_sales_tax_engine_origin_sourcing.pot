@@ -1,0 +1,174 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_us_sales_tax_engine_origin_sourcing
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 18.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: l10n_us_sales_tax_engine_origin_sourcing
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine_origin_sourcing.view_account_move_us_tax
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine_origin_sourcing.view_sale_order_us_tax
+msgid ""
+"<strong>Tax Based on Company Address</strong> is checked, but\n"
+"                    the company has no 5-digit ZIP, state and United States as\n"
+"                    country: US sales tax is computed with the customer address."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine_origin_sourcing
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine_origin_sourcing.res_config_settings_view_us_tax
+msgid ""
+"Address used by default on new sales orders and customer invoices: the "
+"customer's delivery address (destination) or the company's (origin). It can "
+"be changed on each draft document."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine_origin_sourcing
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine_origin_sourcing.field_res_company__us_tax_sourcing
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine_origin_sourcing.field_res_config_settings__us_tax_sourcing
+msgid ""
+"Address used by default to rate the US sales tax of new sales orders and "
+"customer invoices. Destination: the customer's delivery address. Origin: the"
+" company address, except for customers outside the United States. It can be "
+"changed on each draft document."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine_origin_sourcing
+#: model:ir.model,name:l10n_us_sales_tax_engine_origin_sourcing.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine_origin_sourcing
+#. odoo-python
+#: code:addons/l10n_us_sales_tax_engine_origin_sourcing/models/res_company.py:0
+msgid ""
+"Company %(company)s needs a 5-digit ZIP, a state and United States as "
+"country to use origin-based US tax sourcing."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine_origin_sourcing
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine_origin_sourcing.field_account_bank_statement_line__us_tax_origin_address_missing
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine_origin_sourcing.field_account_move__us_tax_origin_address_missing
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine_origin_sourcing.field_sale_order__us_tax_origin_address_missing
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine_origin_sourcing.field_us_tax_origin_mixin__us_tax_origin_address_missing
+msgid "Company Address Incomplete for US Tax"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine_origin_sourcing
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine_origin_sourcing.field_account_bank_statement_line__us_tax_origin_out_of_state
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine_origin_sourcing.field_account_move__us_tax_origin_out_of_state
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine_origin_sourcing.field_sale_order__us_tax_origin_out_of_state
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine_origin_sourcing.field_us_tax_origin_mixin__us_tax_origin_out_of_state
+msgid "Company Address Used for Out-of-State Customer"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine_origin_sourcing
+#: model:ir.model,name:l10n_us_sales_tax_engine_origin_sourcing.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine_origin_sourcing
+#: model:ir.model,name:l10n_us_sales_tax_engine_origin_sourcing.model_res_partner
+msgid "Contact"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine_origin_sourcing
+#: model:ir.model.fields.selection,name:l10n_us_sales_tax_engine_origin_sourcing.selection__us_tax_calculation_log__us_tax_sourcing__destination
+msgid "Destination"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine_origin_sourcing
+#: model:ir.model.fields.selection,name:l10n_us_sales_tax_engine_origin_sourcing.selection__res_company__us_tax_sourcing__destination
+msgid "Destination (customer address)"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine_origin_sourcing
+#: model:ir.model,name:l10n_us_sales_tax_engine_origin_sourcing.model_account_move
+msgid "Journal Entry"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine_origin_sourcing
+#: model:ir.model.fields.selection,name:l10n_us_sales_tax_engine_origin_sourcing.selection__us_tax_calculation_log__us_tax_sourcing__origin
+msgid "Origin"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine_origin_sourcing
+#: model:ir.model.fields.selection,name:l10n_us_sales_tax_engine_origin_sourcing.selection__res_company__us_tax_sourcing__origin
+msgid "Origin (company address)"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine_origin_sourcing
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine_origin_sourcing.field_account_bank_statement_line__us_tax_based_on_company
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine_origin_sourcing.field_account_move__us_tax_based_on_company
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine_origin_sourcing.field_sale_order__us_tax_based_on_company
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine_origin_sourcing.field_us_tax_origin_mixin__us_tax_based_on_company
+msgid ""
+"Rate US sales tax with the address of the document's company instead of the "
+"customer's delivery address. Checked by default when the company uses origin"
+" sourcing and the delivery address is in the company's state or has no "
+"state."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine_origin_sourcing
+#: model:ir.model,name:l10n_us_sales_tax_engine_origin_sourcing.model_sale_order
+msgid "Sales Order"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine_origin_sourcing
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine_origin_sourcing.field_account_bank_statement_line__us_tax_based_on_company
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine_origin_sourcing.field_account_move__us_tax_based_on_company
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine_origin_sourcing.field_sale_order__us_tax_based_on_company
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine_origin_sourcing.field_us_tax_origin_mixin__us_tax_based_on_company
+msgid "Tax Based on Company Address"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine_origin_sourcing
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine_origin_sourcing.field_us_tax_calculation_log__us_tax_sourcing
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine_origin_sourcing.res_config_settings_view_us_tax
+msgid "Tax Sourcing"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine_origin_sourcing
+#: model:ir.model,name:l10n_us_sales_tax_engine_origin_sourcing.model_us_tax_calculation_log
+msgid "US Tax Calculation Audit Log"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine_origin_sourcing
+#: model:ir.model,name:l10n_us_sales_tax_engine_origin_sourcing.model_us_tax_engine_service
+msgid "US Tax Engine Service"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine_origin_sourcing
+#: model:ir.model,name:l10n_us_sales_tax_engine_origin_sourcing.model_us_tax_origin_mixin
+msgid "US Tax Origin Sourcing Mixin"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine_origin_sourcing
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine_origin_sourcing.field_res_company__us_tax_sourcing
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine_origin_sourcing.field_res_config_settings__us_tax_sourcing
+msgid "US Tax Sourcing"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine_origin_sourcing
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine_origin_sourcing.view_account_move_us_tax
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine_origin_sourcing.view_sale_order_us_tax
+msgid ""
+"US sales tax is computed with the company address, and the\n"
+"                    delivery address is in another state. If you prefer to compute\n"
+"                    it with the delivery address, uncheck\n"
+"                    <strong>Tax Based on Company Address</strong>."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine_origin_sourcing
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine_origin_sourcing.field_us_tax_calculation_log__us_tax_sourcing
+msgid ""
+"Whose address was used: the customer's (destination) or the document "
+"company's (origin)."
+msgstr ""
