@@ -17,6 +17,17 @@
                         />
                     </setting>
                     <setting
+                        id="us_tax_auto_mode"
+                        invisible="not us_tax_engine_active"
+                        help="When US Sales Tax is calculated without pressing Calculate US Tax. Live recalculates every change to a draft document and runs a daily job, so it consumes more provider calls."
+                    >
+                        <label
+                            for="us_tax_auto_mode"
+                            string="Automatic Tax Calculation"
+                        />
+                        <field name="us_tax_auto_mode" widget="radio" />
+                    </setting>
+                    <setting
                         id="us_tax_engine_mode"
                         invisible="not us_tax_engine_active"
                         help="How the engine selects the tax rate source."
