@@ -41,11 +41,12 @@ class UsTaxNexus(models.Model):
 
     @api.model
     def has_nexus(self, company_id, state_id):
-        """Check if a company has active nexus in a given state."""
+        """Check if a company, or any of its parent companies, has active
+        nexus in a given state."""
         return bool(
             self.search(
                 [
-                    ("company_id", "=", company_id),
+                    ("company_id", "parent_of", company_id),
                     ("state_id", "=", state_id),
                 ],
                 limit=1,

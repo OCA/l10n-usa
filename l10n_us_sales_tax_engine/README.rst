@@ -1,7 +1,3 @@
-.. image:: https://odoo-community.org/readme-banner-image
-   :target: https://odoo-community.org/get-involved?utm_source=readme
-   :alt: Odoo Community Association
-
 ===================
 US Sales Tax Engine
 ===================
@@ -17,7 +13,7 @@ US Sales Tax Engine
 .. |badge1| image:: https://img.shields.io/badge/maturity-Alpha-red.png
     :target: https://odoo-community.org/page/development-status
     :alt: Alpha
-.. |badge2| image:: https://img.shields.io/badge/license-LGPL--3-blue.png
+.. |badge2| image:: https://img.shields.io/badge/licence-LGPL--3-blue.png
     :target: http://www.gnu.org/licenses/lgpl-3.0-standalone.html
     :alt: License: LGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fl10n--usa-lightgray.png?logo=github
@@ -96,6 +92,22 @@ marks that the company has a legal obligation to collect tax in that
 state — it does not create or require any jurisdiction, ZIP mapping, or
 rate. Both are needed independently before a sale order calculates a
 non-zero local tax.
+
+Nexus in a company tree
+~~~~~~~~~~~~~~~~~~~~~~~
+
+A nexus also covers the branches of its company, at any depth: a
+document of a branch or sub-branch is taxed in every state where that
+branch or one of its parent companies has an active nexus. A nexus on a
+branch covers the branch and its own branches, never its parent company
+or its sibling branches.
+
+The Nexus menu lists, for each company a user can access, its own nexus
+and the ones of its parent companies, so a user who only accesses a
+branch sees every nexus that taxes the branch documents. The nexus of
+sibling branches stays hidden. A parent company nexus is read-only from
+the branch: only a user with access to the company that owns it can edit
+or delete it.
 
 Zero-tax lines always carry an explicit tax, never an empty tax field
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
