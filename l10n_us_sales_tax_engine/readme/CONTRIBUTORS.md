@@ -1,2 +1,3 @@
 - Carlos R. Rodriguez \<<c.rodriguez@binhex.cloud>\>
 - Don Kendall \<<dkendall@ledoweb.com>\>
+- Edilio Escalona Almira \<<e.escalona@binhex.cloud>\>
