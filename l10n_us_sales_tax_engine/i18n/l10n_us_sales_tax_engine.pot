@@ -1343,6 +1343,16 @@ msgid "Skipped"
 msgstr ""
 
 #. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields.selection,name:l10n_us_sales_tax_engine.selection__us_tax_calculation_log__source__skip_no_address
+msgid "Skipped — No ZIP or State"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields.selection,name:l10n_us_sales_tax_engine.selection__us_tax_calculation_log__source__skip_non_us
+msgid "Skipped — Not a US Address"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
 #: model:us.tax.product.category,description:l10n_us_sales_tax_engine.cat_digital
 msgid "Software, digital downloads, SaaS (taxability varies)."
 msgstr ""
@@ -1697,6 +1707,37 @@ msgstr ""
 #. module: l10n_us_sales_tax_engine
 #: model:ir.actions.server,name:l10n_us_sales_tax_engine.cron_reset_provider_counters_ir_actions_server
 msgid "US Tax: Reset Monthly API Call Counters"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#. odoo-python
+#: code:addons/l10n_us_sales_tax_engine/services/tax_engine.py:0
+msgid "US sales tax could not be calculated for %(document)s: %(error)s"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#. odoo-python
+#: code:addons/l10n_us_sales_tax_engine/services/tax_engine.py:0
+msgid ""
+"US sales tax could not be calculated: no rate provider answered. Lines that "
+"already had a US tax kept it and the others were priced at zero. Check the "
+"tax before sending this document."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#. odoo-python
+#: code:addons/l10n_us_sales_tax_engine/services/tax_engine.py:0
+msgid ""
+"US sales tax could not be written on the lines, so they kept the tax they "
+"had. Calculate it again before sending this document."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#. odoo-python
+#: code:addons/l10n_us_sales_tax_engine/services/tax_engine.py:0
+msgid ""
+"US sales tax was taken off the lines: this document no longer has a US "
+"address with a ZIP code and a state."
 msgstr ""
 
 #. module: l10n_us_sales_tax_engine
