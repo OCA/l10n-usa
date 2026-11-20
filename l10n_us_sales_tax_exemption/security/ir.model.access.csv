@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_us_tax_exemption_reason_user,us.tax.exemption.reason user,model_us_tax_exemption_reason,l10n_us_sales_tax_engine.group_us_tax_user,1,0,0,0
+access_us_tax_exemption_reason_manager,us.tax.exemption.reason manager,model_us_tax_exemption_reason,l10n_us_sales_tax_engine.group_us_tax_manager,1,1,1,1
+access_us_tax_exemption_user,us.tax.exemption user,model_us_tax_exemption,l10n_us_sales_tax_engine.group_us_tax_user,1,0,0,0
+access_us_tax_exemption_manager,us.tax.exemption manager,model_us_tax_exemption,l10n_us_sales_tax_engine.group_us_tax_manager,1,1,1,1
