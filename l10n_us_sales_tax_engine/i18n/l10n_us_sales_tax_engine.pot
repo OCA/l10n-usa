@@ -157,6 +157,12 @@ msgid "Audit"
 msgstr ""
 
 #. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_res_config_settings__us_tax_auto_mode
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.res_config_settings_view_us_tax
+msgid "Automatic Tax Calculation"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
 #: model:ir.model.fields.selection,name:l10n_us_sales_tax_engine.selection__res_config_settings__us_tax_fail_policy__block
 msgid "Block — prevent document confirmation"
 msgstr ""
@@ -1029,9 +1035,19 @@ msgid "OK"
 msgstr ""
 
 #. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields.selection,name:l10n_us_sales_tax_engine.selection__res_config_settings__us_tax_auto_mode__off
+msgid "Off — only the Calculate US Tax button"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
 #: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_res_partner__us_tax_exemption_number
 #: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_res_users__us_tax_exemption_number
 msgid "Official exemption certificate number issued by the state authority."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields.selection,name:l10n_us_sales_tax_engine.selection__res_config_settings__us_tax_auto_mode__on_validate
+msgid "On Validation — on order confirmation and invoice posting"
 msgstr ""
 
 #. module: l10n_us_sales_tax_engine
@@ -1382,6 +1398,7 @@ msgstr ""
 #: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_account_bank_statement_line__us_tax_source
 #: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_account_move__us_tax_source
 #: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_sale_order__us_tax_source
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_us_tax_auto_mixin__us_tax_source
 msgid "Source used for the last US tax calculation."
 msgstr ""
 
@@ -1489,6 +1506,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_account_bank_statement_line__us_tax_calculated_at
 #: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_account_move__us_tax_calculated_at
 #: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_sale_order__us_tax_calculated_at
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_auto_mixin__us_tax_calculated_at
 msgid "Tax Calculated At"
 msgstr ""
 
@@ -1510,6 +1528,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_account_bank_statement_line__us_tax_source
 #: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_account_move__us_tax_source
 #: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_sale_order__us_tax_source
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_auto_mixin__us_tax_source
 #: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_account_move_us_tax
 #: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_sale_order_us_tax
 #: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_sale_order_us_tax_list
@@ -1609,6 +1628,11 @@ msgstr ""
 #. module: l10n_us_sales_tax_engine
 #: model:ir.model,name:l10n_us_sales_tax_engine.model_us_tax_api_cache
 msgid "US Tax API Response Cache"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model,name:l10n_us_sales_tax_engine.model_us_tax_auto_mixin
+msgid "US Tax Automatic Recalculation"
 msgstr ""
 
 #. module: l10n_us_sales_tax_engine
@@ -1802,6 +1826,12 @@ msgstr ""
 #. module: l10n_us_sales_tax_engine
 #: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.res_config_settings_view_us_tax
 msgid "What happens when all providers fail."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_res_config_settings__us_tax_auto_mode
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.res_config_settings_view_us_tax
+msgid "When US Sales Tax is calculated without pressing Calculate US Tax."
 msgstr ""
 
 #. module: l10n_us_sales_tax_engine
