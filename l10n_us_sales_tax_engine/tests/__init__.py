@@ -11,3 +11,4 @@ from . import test_account_move  # noqa: F401
 from . import test_partner_exemption  # noqa: F401
 from . import test_branch_company  # noqa: F401
 from . import test_provider_outage  # noqa: F401
+from . import test_nexus_parent  # noqa: F401
