@@ -5,15 +5,11 @@ from datetime import date as date_type
 
 import psycopg2
 
-from odoo import api, models
+from odoo import api, fields, models
 from odoo.exceptions import UserError
 from odoo.fields import Command
 
-from .address_resolver import (
-    is_us_address,
-    resolve_invoice_address,
-    resolve_shipping_address,
-)
+from .address_resolver import is_us_address
 from .cache_manager import CacheManager
 from .provider_base import ProviderError
 
@@ -41,18 +37,19 @@ class UsTaxEngineService(models.AbstractModel):
 
     @api.model
     def calculate_for_sale_order(self, order):
-        """Calculate and apply US Sales Tax for a sale.order record."""
-        doc_date = order.date_order.date() if order.date_order else date_type.today()
-        if order.us_tax_based_on_shipping:
-            address = resolve_shipping_address(order)
-        else:
-            address = resolve_invoice_address(order)
+        """Calculate and apply US Sales Tax for a sale.order record.
+
+        The address, the date and the line set come from the document's
+        own hooks, the same ones the input fingerprint is built from, so
+        overriding a hook downstream moves what the engine taxes and what
+        marks the document outdated together.
+        """
         return self._process(
             res_model="sale.order",
             res_id=order.id,
-            address=address,
-            lines=order.order_line,
-            doc_date=doc_date,
+            address=order._us_tax_get_address(),
+            lines=order._us_tax_get_lines(),
+            doc_date=self._us_tax_doc_date(order),
             company_id=order.company_id.id,
             currency_id=order.currency_id.id,
             apply_fn=lambda result: self._apply_to_sale_order(order, result),
@@ -61,19 +58,42 @@ class UsTaxEngineService(models.AbstractModel):
 
     @api.model
     def calculate_for_invoice(self, move):
-        """Calculate and apply US Sales Tax for an account.move record."""
-        doc_date = move.invoice_date or date_type.today()
-        address = resolve_shipping_address(move)
+        """Calculate and apply US Sales Tax for an account.move record.
+
+        Same hooks as calculate_for_sale_order, for the same reason.
+        """
         return self._process(
             res_model="account.move",
             res_id=move.id,
-            address=address,
-            lines=move.invoice_line_ids,
-            doc_date=doc_date,
+            address=move._us_tax_get_address(),
+            lines=move._us_tax_get_lines(),
+            doc_date=self._us_tax_doc_date(move),
             company_id=move.company_id.id,
             currency_id=move.currency_id.id,
             apply_fn=lambda result: self._apply_to_invoice(move, result),
             partner=move.partner_id,
+        )
+
+    @api.model
+    def _us_tax_doc_date(self, document):
+        """Return the date to price on, from the document's own hook.
+
+        _us_tax_get_date() yields the date-only ISO string the input
+        fingerprint holds, so parsing it back here is what keeps the two
+        from drifting. It is empty on a document with no date, which
+        prices on today.
+        """
+        return fields.Date.to_date(document._us_tax_get_date()) or date_type.today()
+
+    @api.model
+    def _provider_failure_error(self, document, error):
+        """Return the UserError shown when no provider could price document."""
+        return UserError(
+            self.env._(
+                "US sales tax could not be calculated for %(document)s: %(error)s",
+                document=document.display_name,
+                error=error,
+            )
         )
 
     @api.model
@@ -90,14 +110,7 @@ class UsTaxEngineService(models.AbstractModel):
         try:
             result = calculate(document)
         except ProviderError as exc:
-            raise UserError(
-                self.env._(
-                    "US sales tax could not be calculated for %(document)s: "
-                    "%(error)s",
-                    document=document.display_name,
-                    error=exc,
-                )
-            ) from exc
+            raise self._provider_failure_error(document, exc) from exc
         except psycopg2.OperationalError:
             raise
         except Exception as exc:
@@ -568,12 +581,16 @@ class UsTaxEngineService(models.AbstractModel):
 
         Sections and notes carry no amount and are left alone: the core
         never clears a tax written on them, and the invoice would copy it.
-        A skip returns the lines it took the engine's tax off.
+        So are the lines the order's _us_tax_get_lines() hook leaves out,
+        the ones already invoiced, whose invoice keeps the tax it was
+        issued with. A skip returns the lines it took the engine's tax off.
         """
         self = self.sudo()
         order_source = result.get("source", "")
         lines_map = {r["line_id"]: r for r in result.get("lines", [])}
-        product_lines = order._get_priced_lines()
+        product_lines = order._us_tax_get_lines().filtered(
+            lambda line: not line.display_type
+        )
         state_code = (
             order.partner_shipping_id.state_id.code
             if order.partner_shipping_id and order.partner_shipping_id.state_id

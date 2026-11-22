@@ -19,7 +19,7 @@
                     <setting
                         id="us_tax_auto_mode"
                         invisible="not us_tax_engine_active"
-                        help="When US Sales Tax is calculated without pressing Calculate US Tax."
+                        help="When US Sales Tax is calculated without pressing Calculate US Tax. Live recalculates every change to a draft document and runs a daily job, so it consumes more provider calls."
                     >
                         <label
                             for="us_tax_auto_mode"

@@ -1,31 +1,81 @@
 # Copyright 2026 Binhex - Carlos R. Rodriguez.
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl).
-import logging
+from odoo import api, fields, models
 
-from odoo import fields, models
-
-_logger = logging.getLogger(__name__)
+from ..services.address_resolver import resolve_shipping_address
 
 
 class AccountMove(models.Model):
     _name = "account.move"
     _inherit = ["us.tax.auto.mixin", "account.move"]
 
-    def action_calculate_us_tax(self):
-        """Manual trigger — recalculate US tax for this invoice."""
-        self.ensure_one()
-        engine = self.env["us.tax.engine.service"]
-        try:
-            result = engine.calculate_for_invoice(self)
-            self.write(
-                {
-                    "us_tax_source": engine._result_source(result),
-                    "us_tax_calculated_at": fields.Datetime.now(),
-                }
-            )
-        except Exception as exc:
-            _logger.error("US Tax calculation error on invoice %s: %s", self.name, exc)
-            raise
+    def _us_tax_extra_depends(self):
+        """Add what the move contributes to the hash beyond the address.
+
+        move_type is not listed here: _us_tax_state_depends() already
+        carries it, since the state domain is expressed on it.
+        """
+        return [
+            "invoice_date",
+            "company_id",
+            "invoice_line_ids.price_subtotal",
+            "invoice_line_ids.product_id.us_tax_category_id",
+        ]
+
+    def _us_tax_state_depends(self):
+        """Return the fields _us_tax_state_domain() is expressed on."""
+        return ["state", "move_type"]
+
+    def _us_tax_get_address(self):
+        """Resolve the shipping address, the only one a move can be taxed on."""
+        return resolve_shipping_address(self)
+
+    def _us_tax_get_date(self):
+        """Return the date the engine prices on, as an ISO string.
+
+        A move with no invoice_date is priced on today, so the
+        fingerprint holds today too. Holding the raw field instead
+        would give two different fingerprints to two moves the engine
+        treats alike, and would move the fingerprint when the core
+        fills invoice_date in during _post() without a single engine
+        input having changed.
+
+        Today is the server's date, the one the engine prices on, and not
+        the user's: two users in different timezones must get the same
+        fingerprint for the same move.
+        """
+        return (self.invoice_date or fields.Date.today()).isoformat()
+
+    def _us_tax_get_lines(self):
+        """Return the invoice lines."""
+        return self.invoice_line_ids
+
+    def _us_tax_engine_run(self):
+        """Run the engine for this move."""
+        return self.env["us.tax.engine.service"].calculate_for_invoice(self)
+
+    def _us_tax_state_domain(self):
+        """Only customer invoices and refunds that are still editable."""
+        return [
+            ("state", "=", "draft"),
+            ("move_type", "in", self.get_sale_types()),
+        ]
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        """Recalculate the moves that were just created.
+
+        Kept on account.move alone rather than shared through the mixin:
+        sale.order has no create-time trigger, and giving it one would
+        run the engine on an empty quotation, which _process() answers
+        with a us.tax.calculation.log row all the same.
+
+        _us_tax_state_domain() keeps this to draft customer invoices and
+        refunds; anything else leaves the engine untouched.
+        """
+        moves = super().create(vals_list)
+        moves._us_tax_auto_recalculate()
+        return moves
 
     def _post(self, soft=True):
         """Auto-calculate tax when a move is actually posted.
@@ -39,14 +89,12 @@ class AccountMove(models.Model):
 
         Calculation must run BEFORE calling super(): once the move is
         posted, its lines' tax_ids can no longer be modified ("you should
-        reset the journal entry to draft to do so").
+        reset the journal entry to draft to do so"). The move is still
+        draft here, which is what the state domain requires.
 
-        Nothing is calculated when the automation mode is off.
+        Posting always prices the move, since rates, rules and nexus are
+        not in the fingerprint. No move-type filter is needed here:
+        _us_tax_state_domain() already carries that restriction.
         """
-        if self._us_tax_auto_mode() != "off":
-            engine = self.env["us.tax.engine.service"]
-            for move in self.filtered(
-                lambda m: m.move_type in ("out_invoice", "out_refund")
-            ):
-                engine._calculate_on_validation(move, engine.calculate_for_invoice)
+        self.with_context(us_tax_validating=True)._us_tax_auto_recalculate(force=True)
         return super()._post(soft=soft)
