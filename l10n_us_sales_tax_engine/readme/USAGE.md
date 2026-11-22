@@ -66,6 +66,19 @@ or the posting, whatever the policy. The note in the chatter then says
 that the tax could not be written on the lines, that they kept the tax
 they had, and asks to calculate it again before sending the document.
 
+### Nexus in a company tree
+
+A nexus also covers the branches of its company, at any depth: a document of
+a branch or sub-branch is taxed in every state where that branch or one of its
+parent companies has an active nexus. A nexus on a branch covers the branch
+and its own branches, never its parent company or its sibling branches.
+
+The Nexus menu lists, for each company a user can access, its own nexus and
+the ones of its parent companies, so a user who only accesses a branch sees
+every nexus that taxes the branch documents. The nexus of sibling branches
+stays hidden. A parent company nexus is read-only from the branch: only a user
+with access to the company that owns it can edit or delete it.
+
 ### Zero-tax lines always carry an explicit tax, never an empty tax field
 
 When a line ends up with 0% tax, the engine always assigns a real
