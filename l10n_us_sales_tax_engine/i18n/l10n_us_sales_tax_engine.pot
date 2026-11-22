@@ -35,6 +35,20 @@ msgid "0 = unlimited. Set to your plan's monthly limit."
 msgstr ""
 
 #. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_account_move_us_tax
+msgid ""
+"<span>The US Sales Tax inputs changed after the last calculation. The tax "
+"shown on this invoice is outdated.</span>"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_sale_order_us_tax
+msgid ""
+"<span>The US Sales Tax inputs changed after the last calculation. The tax "
+"shown on this order is outdated.</span>"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
 #: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_provider_form
 msgid ""
 "<strong>Approaching Monthly Limit</strong> —\n"
@@ -659,6 +673,14 @@ msgid "File Preview (first 5 rows)"
 msgstr ""
 
 #. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_account_bank_statement_line__us_tax_input_hash
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_account_move__us_tax_input_hash
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_sale_order__us_tax_input_hash
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_us_tax_auto_mixin__us_tax_input_hash
+msgid "Fingerprint of the inputs the tax engine reads for this document."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
 #: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_import_batch__finished_at
 msgid "Finished At"
 msgstr ""
@@ -823,6 +845,11 @@ msgid "Journal Entry"
 msgstr ""
 
 #. module: l10n_us_sales_tax_engine
+#: model:ir.model,name:l10n_us_sales_tax_engine.model_account_move_line
+msgid "Journal Item"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
 #: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_rate__jurisdiction_id
 #: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_zip_mapping__jurisdiction_id
 #: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_rate_form
@@ -914,6 +941,11 @@ msgstr ""
 #. module: l10n_us_sales_tax_engine
 #: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_provider__limit_usage_pct
 msgid "Limit Usage Pct"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields.selection,name:l10n_us_sales_tax_engine.selection__res_config_settings__us_tax_auto_mode__live
+msgid "Live — also as draft documents change, and daily"
 msgstr ""
 
 #. module: l10n_us_sales_tax_engine
@@ -1237,6 +1269,12 @@ msgid "Rates effective date from the imported source."
 msgstr ""
 
 #. module: l10n_us_sales_tax_engine
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_account_move_us_tax
+#: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_sale_order_us_tax
+msgid "Recalculate US Tax"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
 #: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_import_batch__records_created
 msgid "Records Created"
 msgstr ""
@@ -1301,6 +1339,11 @@ msgstr ""
 #. module: l10n_us_sales_tax_engine
 #: model:ir.model,name:l10n_us_sales_tax_engine.model_sale_order
 msgid "Sales Order"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model,name:l10n_us_sales_tax_engine.model_sale_order_line
+msgid "Sales Order Line"
 msgstr ""
 
 #. module: l10n_us_sales_tax_engine
@@ -1557,6 +1600,14 @@ msgid ""
 msgstr ""
 
 #. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_account_bank_statement_line__us_tax_engine_available
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_account_move__us_tax_engine_available
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_sale_order__us_tax_engine_available
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_us_tax_auto_mixin__us_tax_engine_available
+msgid "Technical field: exposes l10n_us_tax.engine_active to the views."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
 #: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_us_tax_provider_form
 msgid "Test Credentials"
 msgstr ""
@@ -1564,6 +1615,16 @@ msgstr ""
 #. module: l10n_us_sales_tax_engine
 #: model:ir.model.fields.selection,name:l10n_us_sales_tax_engine.selection__us_tax_import_wizard__source__texas_open_data
 msgid "Texas Open Data"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_account_bank_statement_line__us_tax_is_stale
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_account_move__us_tax_is_stale
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_sale_order__us_tax_is_stale
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_us_tax_auto_mixin__us_tax_is_stale
+msgid ""
+"The tax inputs changed after the last US tax calculation and the document "
+"can still be recalculated."
 msgstr ""
 
 #. module: l10n_us_sales_tax_engine
@@ -1636,6 +1697,14 @@ msgid "US Tax Automatic Recalculation"
 msgstr ""
 
 #. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_account_bank_statement_line__us_tax_calculated_hash
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_account_move__us_tax_calculated_hash
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_sale_order__us_tax_calculated_hash
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_auto_mixin__us_tax_calculated_hash
+msgid "US Tax Calculated Hash"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
 #: model:ir.model,name:l10n_us_sales_tax_engine.model_us_tax_calculation_log
 msgid "US Tax Calculation Audit Log"
 msgstr ""
@@ -1645,6 +1714,14 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_product_template__us_tax_category_id
 #: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.view_product_template_us_tax
 msgid "US Tax Category"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_account_bank_statement_line__us_tax_engine_available
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_account_move__us_tax_engine_available
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_sale_order__us_tax_engine_available
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_auto_mixin__us_tax_engine_available
+msgid "US Tax Engine Available"
 msgstr ""
 
 #. module: l10n_us_sales_tax_engine
@@ -1669,8 +1746,29 @@ msgid "US Tax External Provider"
 msgstr ""
 
 #. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_account_bank_statement_line__us_tax_input_hash
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_account_move__us_tax_input_hash
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_sale_order__us_tax_input_hash
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_auto_mixin__us_tax_input_hash
+msgid "US Tax Input Hash"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
 #: model:ir.model,name:l10n_us_sales_tax_engine.model_us_tax_jurisdiction
 msgid "US Tax Jurisdiction"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_account_bank_statement_line__us_tax_auto_attempt_at
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_account_move__us_tax_auto_attempt_at
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_sale_order__us_tax_auto_attempt_at
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_auto_mixin__us_tax_auto_attempt_at
+msgid "US Tax Last Attempt"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model,name:l10n_us_sales_tax_engine.model_us_tax_line_hash_mixin
+msgid "US Tax Line Input Fingerprint"
 msgstr ""
 
 #. module: l10n_us_sales_tax_engine
@@ -1681,6 +1779,14 @@ msgstr ""
 #. module: l10n_us_sales_tax_engine
 #: model:ir.model,name:l10n_us_sales_tax_engine.model_us_tax_nexus
 msgid "US Tax Nexus Configuration"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_account_bank_statement_line__us_tax_is_stale
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_account_move__us_tax_is_stale
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_sale_order__us_tax_is_stale
+#: model:ir.model.fields,field_description:l10n_us_sales_tax_engine.field_us_tax_auto_mixin__us_tax_is_stale
+msgid "US Tax Outdated"
 msgstr ""
 
 #. module: l10n_us_sales_tax_engine
@@ -1726,6 +1832,16 @@ msgstr ""
 #. module: l10n_us_sales_tax_engine
 #: model:ir.actions.server,name:l10n_us_sales_tax_engine.cron_purge_tax_cache_ir_actions_server
 msgid "US Tax: Purge Expired Cache"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.actions.server,name:l10n_us_sales_tax_engine.ir_cron_recalculate_outdated_us_tax_account_move_ir_actions_server
+msgid "US Tax: Recalculate Outdated Invoices"
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.actions.server,name:l10n_us_sales_tax_engine.ir_cron_recalculate_outdated_us_tax_sale_order_ir_actions_server
+msgid "US Tax: Recalculate Outdated Sales Orders"
 msgstr ""
 
 #. module: l10n_us_sales_tax_engine
@@ -1809,6 +1925,14 @@ msgid "Validity"
 msgstr ""
 
 #. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_account_bank_statement_line__us_tax_calculated_hash
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_account_move__us_tax_calculated_hash
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_sale_order__us_tax_calculated_hash
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_us_tax_auto_mixin__us_tax_calculated_hash
+msgid "Value of the input hash at the time of the last calculation."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
 #: model:ir.model.fields.selection,name:l10n_us_sales_tax_engine.selection__res_config_settings__us_tax_fail_policy__warn
 msgid "Warn — proceed with $0 tax + warning"
 msgstr ""
@@ -1831,7 +1955,10 @@ msgstr ""
 #. module: l10n_us_sales_tax_engine
 #: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_res_config_settings__us_tax_auto_mode
 #: model_terms:ir.ui.view,arch_db:l10n_us_sales_tax_engine.res_config_settings_view_us_tax
-msgid "When US Sales Tax is calculated without pressing Calculate US Tax."
+msgid ""
+"When US Sales Tax is calculated without pressing Calculate US Tax. Live "
+"recalculates every change to a draft document and runs a daily job, so it "
+"consumes more provider calls."
 msgstr ""
 
 #. module: l10n_us_sales_tax_engine
@@ -1847,6 +1974,16 @@ msgstr ""
 msgid ""
 "When checked, this partner is exempt from US Sales Tax on all orders. Attach"
 " the exemption certificate document to this record."
+msgstr ""
+
+#. module: l10n_us_sales_tax_engine
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_account_bank_statement_line__us_tax_auto_attempt_at
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_account_move__us_tax_auto_attempt_at
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_sale_order__us_tax_auto_attempt_at
+#: model:ir.model.fields,help:l10n_us_sales_tax_engine.field_us_tax_auto_mixin__us_tax_auto_attempt_at
+msgid ""
+"When the automation last tried to recalculate this document, whether or not "
+"the calculation succeeded."
 msgstr ""
 
 #. module: l10n_us_sales_tax_engine
