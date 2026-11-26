@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 Ledo Enterprises
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). -->
+<odoo>
+    <record id="view_us_tax_authority_list" model="ir.ui.view">
+        <field name="name">us.tax.authority.list</field>
+        <field name="model">us.tax.authority</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="state_id" />
+                <field name="partner_id" />
+                <field name="state_registration_id" optional="show" />
+                <field name="allowance_rate" optional="show" />
+                <field name="allowance_cap" optional="hide" />
+                <field name="journal_id" optional="hide" />
+                <field name="company_id" groups="base.group_multi_company" />
+            </list>
+        </field>
+    </record>
+
+    <record id="view_us_tax_authority_form" model="ir.ui.view">
+        <field name="name">us.tax.authority.form</field>
+        <field name="model">us.tax.authority</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group string="Authority">
+                            <field name="state_id" />
+                            <field name="partner_id" />
+                            <field name="state_registration_id" />
+                            <field
+                                name="company_id"
+                                groups="base.group_multi_company"
+                            />
+                            <field name="active" invisible="1" />
+                        </group>
+                        <group string="Filing">
+                            <field name="allowance_rate" />
+                            <field name="allowance_cap" />
+                            <field name="journal_id" />
+                            <field name="currency_id" invisible="1" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_us_tax_authority" model="ir.actions.act_window">
+        <field name="name">Tax Authorities</field>
+        <field name="res_model">us.tax.authority</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Add a state's Department of Revenue
+            </p>
+            <p>
+                Configure the vendor each state's sales-tax return is remitted
+                to, its registration number, and the state's collection
+                allowance. Returns resolve their authority by state.
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+        id="menu_us_tax_authority"
+        name="Tax Authorities"
+        parent="l10n_us_sales_tax_engine.menu_us_tax_config"
+        action="action_us_tax_authority"
+        sequence="60"
+    />
+</odoo>
